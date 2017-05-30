@@ -17,21 +17,21 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// eslint: {
-			// options: {
-				// quiet: true
-			// },
-			// target: ['src/**/*.js']
-		// },
+		eslint: {
+			options: {
+				quiet: true
+			},
+			target: ['src/*.js']
+		},
 
-		// mocha: {
-			// all: {
-				// src: ['test/*.html'],
-			// },
-			// options: {
-				// run: true
-			// }
-		// },
+		mocha: {
+			all: {
+				src: ['test/*.html'],
+			},
+			options: {
+				run: true
+			}
+		},
 
 		// Minifies JS files
 		uglify: {
