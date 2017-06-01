@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-githooks');
 
 	// Default task.
-	grunt.registerTask('lint', [ 'eslint' ]);
+	
 	grunt.registerTask('test', [ 'lint', 'mocha' ]);
 	grunt.registerTask('pre-commit', [ 'test' ]);
 	grunt.registerTask('default', [ 'test', 'uglify' ]);
