@@ -15,14 +15,7 @@ module.exports = function(grunt) {
 			all: {
 				'pre-commit': 'pre-commit'
 			}
-		},
-
-		eslint: {
-			options: {
-				quiet: true
-			},
-			target: ['src/*.js']
-		},
+		},	
 
 		mocha: {
 			all: {
@@ -55,8 +48,7 @@ module.exports = function(grunt) {
 
 	// Load tasks
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-mocha');
-	grunt.loadNpmTasks('grunt-eslint');
+	grunt.loadNpmTasks('grunt-mocha');	
 	grunt.loadNpmTasks('grunt-githooks');
 
 	// Default task.
