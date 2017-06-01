@@ -1,12 +1,12 @@
 lang: node_js
 node_js:
-- node
+ - node
 before_install:
-- npm install grunt-cli -g
+ - npm install grunt-cli -g
 script:
-- grunt test
+ - grunt test
 after_success:
-- ".travis/push.sh"
+ - ".travis/push.sh"
 env:
   global:  
   - secure: kg10VlVf5YJtmi+WcGd3Je01bBATADMzCmZuBBHBCJQn/iMtyLrPN6N0fcuYW0mUWWTZ6JKW7SyrPiwT5ftgJUXglMGeTC/HU36r6NEvKq8J1Iho6abto9EWrdUzP1ErsRY0c4AqlLvfgIUZhZCNEjHaZtYxOQvHxbVFfIQ2blRejLxj6zc6kQcTX8sFoYRwx898piB04v1egMiN4p0Nw0esVewDra6mEoCC/gij7dppab5RckHtwPlwUkwakiwkDFUitgfe/7n0cRaNfXUg7YHaVb/TuGF67ds9FYvisDtrlY6pmwz/723hqVYIkvx+KNOhvPKylaZQBsbqb18cMU0hLUQPE/yg+5aX+28Ckx5dQb6tMXsPWBGS3ylkjIANUDa01PsdBHW7QPHcsahS5jDEyGoMh6gzdK27aurgSuTP2zHN55TpcL7BwcpiYiy0rardXhMLyz57nawa4IJ1l5NjqIUiML3Osd7uNKTFXytJBmMNlapeqbfpS0Ovy1IsHqZ7Wu9E9YgUpape2cNAwsbrby2b2mJTFATGIc/i8asCdQz2+52Xs/sqJ8qiOXsKuqGWi3izwug+qMRxNST4+iaZsH4zkOLdbEOABqmhRqB3IjwhDMLQRgMNn4h4FVi0+Cpg1+MGNyThcPfMZYNb8bH+FPjSU3lNlnRKSwcLr9M=
