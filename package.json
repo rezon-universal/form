@@ -20,7 +20,8 @@
   "devDependencies": {
     "grunt": "~1",
     "grunt-contrib-uglify": "~2",
-    "grunt-mocha": "*",    
+    "grunt-mocha": "*",
+    "grunt-eslint": "*",
     "grunt-githooks": "*"
   }
 }
