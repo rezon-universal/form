@@ -2,7 +2,7 @@
 
 setup_git() {
   git config --global user.email "tickets_mail@mail.ua"
-  git config --global user.name "trevisbotik"
+  git config --global user.name "travisbotik"
 }
 
 commit_website_files() {
