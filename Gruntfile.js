@@ -94,8 +94,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('lint', [ 'eslint' ]);
 	//grunt.registerTask('test', [ 'lint', 'mocha' ]);
 	grunt.registerTask('pre-commit', [ 'test' ]);
-	grunt.registerTask('git', ['gitadd','gitcommit','gitpush']);
-	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify','git' ]);
+	//grunt.registerTask('git', ['gitadd','gitcommit','gitpush']);
+	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify' ]);
 	
 
 };
