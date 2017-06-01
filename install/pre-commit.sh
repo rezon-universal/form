@@ -6,4 +6,4 @@
 PATH=$PATH:/usr/local/bin:/usr/local/sbin
 
 # Lint and test before committing
-grunt test
+grunt default
