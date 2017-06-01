@@ -15,38 +15,7 @@ module.exports = function(grunt) {
 			all: {
 				'pre-commit': 'pre-commit'
 			}
-		},
-
-		gitadd: {
-			task: {
-				options: {
-					force: true,
-					all: true,
-					cwd: 'MytProjectRepo/'
-                }
-            }
-        },
-
-        gitcommit: {
-        	task: {
-        		options: {
-        			message: 'Repository updated on ' + grunt.template.today(),
-        			allowEmpty: true,
-        			cwd: 'MyGitProjectRepo/'
-        		}
-        	}
-        },
-
-        gitpush: {
-        	task: {
-        		options: {
-        			remote: 'origin',
-        			branch: 'master',
-        			cwd: 'MyGitProjectRepo/'
-        		}
-        	}
-        },
-
+		},		
 
 		eslint: {
 			options: {
