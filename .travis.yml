@@ -4,7 +4,7 @@ node_js:
 before_install:
  - npm install grunt-cli -g
 script:
- - grunt test
+ - grunt default
 after_success:
  - "./push.sh"
 env:
