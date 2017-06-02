@@ -50,13 +50,13 @@ module.exports = function(grunt) {
 					extDot:	'last'
 				}]
 			}
-		}
+		},
 		concat: {
 			basic: {
 				src: ['src/*.min.js'],
 				dest: 'dist/concat.js',
 			}
-		},
+		}
 	});
 
 	// Load tasks
