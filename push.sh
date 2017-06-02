@@ -8,18 +8,17 @@ setup_git() {
   git config --global user.name "travisbotik"
 }
 
-# commit_website_files() {
+commit_website_files() {
+  git checkout -b minify
+  git add . *.js
+  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+}
 
-  # # git checkout -b gh-pages
-  # # git add . *.js
-  # # git commit --message "travis build: $travis_build_number"
-# }
-
-# upload_files() {
-  # git remote add origin-pages https://${gh_token}@github.com/rezon-universal/form.git > /dev/null 2>&1
-  # git push --quiet --set-upstream origin-pages gh-pages 
-# }
+ upload_files() {
+   git remote add origin-pages https://${gh_token}@github.com/rezon-universal/form.git > /dev/null 2>&1
+   git push --quiet --set-upstream origin-pages gh-minify 
+ }
 
 setup_git
-#commit_website_files
-#upload_files
+commit_website_files
+upload_files
