@@ -1,6 +1,7 @@
 #!/bin/sh
 
 setup_git() {
+  cd dist
   ls -la
   echo "$rezon.form.js"	
   git config --global user.email "tickets_mail@mail.ua"
