@@ -8,6 +8,7 @@ setup_git() {
 
 commit_website_files() {
   git checkout -b minify
+  git pull
   git add dest/\*.min.js dest/\*min.css
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
