@@ -32,7 +32,22 @@ module.exports = function(grunt) {
 				run: true
 			}
 		},
-
+		concat: {			
+			js: {
+				src: 'src/js/*.js',
+				dest: 'dest/js/concat.js'
+			},
+			css: {
+				src: 'src/css/*.css',
+				dest: 'dest/css/concat.css'
+			}
+		},
+		cssmin: {
+			css:{
+				src: 'dest/css/concat.css',
+				dest: 'dest/css/concat.min.css'
+			}
+		},
 		// Minifies JS files
 		uglify: {
 			options: {
@@ -44,32 +59,28 @@ module.exports = function(grunt) {
 				files: [{
 					expand:	true,
 					cwd:	'src',
-					src:	['*.js','!*.min.js'],
-					dest:	'dist',
+					src:	'dest/js/concat.js',
+					dest:	'dest/js',
 					ext:	'.min.js',
 					extDot:	'last'
 				}]
 			}
-		},
-		concat: {
-			basic: {
-				src: ['src/*.min.js'],
-				dest: 'dist/concat.js',
-			}
 		}
+		
 	});
 
 	// Load tasks
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-css');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-githooks');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-
+	
 	// Default task.
 	grunt.registerTask('lint', [ 'eslint' ]);	
 	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify','concat']);
+	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','min','cssmin']);
 	
 
 };
