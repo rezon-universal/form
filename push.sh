@@ -15,7 +15,7 @@ commit_website_files() {
 }
 
  upload_files() {
-   git remote add origin-pages https://${gh_token}@github.com/rezon-universal/form.git > /dev/null 2>&1
+   git remote add origin-pages https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1
    git push --quiet --set-upstream origin-pages gh-minify 
  }
 
