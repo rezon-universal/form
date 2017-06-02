@@ -58,8 +58,8 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand:	true,
-					cwd:	'src',
-					src:	'dest/js/concat.js',
+					cwd:	'dest/js',
+					src:	'concat.js',
 					dest:	'dest/js',
 					ext:	'.min.js',
 					extDot:	'last'
