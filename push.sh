@@ -10,7 +10,7 @@ commit_website_files() {
   git checkout -b minify   
   git add dest/\*.min.js dest/\*min.css
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-}
+  git checkout minify dest/\*.min.js dest/\*min.css
 
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1   
