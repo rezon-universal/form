@@ -51,6 +51,12 @@ module.exports = function(grunt) {
 				}]
 			}
 		}
+		concat: {
+			basic: {
+				src: ['src/*.min.js'],
+				dest: 'dist/concat.js',
+			}
+		},
 	});
 
 	// Load tasks
@@ -58,11 +64,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-githooks');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// Default task.
 	grunt.registerTask('lint', [ 'eslint' ]);	
 	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify' ]);
+	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify','concat']);
 	
 
 };
