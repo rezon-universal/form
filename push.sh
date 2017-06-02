@@ -15,7 +15,7 @@ commit_website_files() {
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1   
    git fetch rezon     
-   git push  -f --quiet --set-upstream rezon master 
+   git push  -f --quiet --set-upstream rezon minify:master 
  }
 
 setup_git
