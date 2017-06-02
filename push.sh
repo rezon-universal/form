@@ -1,6 +1,7 @@
 #!/bin/sh
 
 setup_git() {  
+  echo ${USER}	
   git config --global user.email "tickets_mail@mail.ua"
   git config --global user.name "travisbotik"
 }
@@ -13,7 +14,7 @@ commit_website_files() {
 
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1   
-   git push --quiet --set-upstream rezon minify 
+   git push --quiet --set-upstream rezon master 
  }
 
 setup_git
