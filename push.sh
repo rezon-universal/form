@@ -17,6 +17,7 @@ commit_website_files() {
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1
    git pull rezon minify
+   git commit -a -m "minify/concat"
    git push --quiet --set-upstream rezon minify 
  }
 
