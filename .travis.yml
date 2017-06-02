@@ -1,6 +1,9 @@
 language: node_js
 node_js:
 - node
+branches:
+  only:
+    - work
 before_install:
 - npm install grunt-cli -g
 - chmod +x push.sh
