@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 	// Default task.
 	grunt.registerTask('lint', [ 'eslint' ]);	
 	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','min','cssmin']);
+	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','cssmin']);
 	
 
 };
