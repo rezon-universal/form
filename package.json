@@ -22,7 +22,7 @@
     "grunt-contrib-uglify": "~2",
     "grunt-mocha": "*",
     "grunt-eslint": "*",
-    "grunt-githooks": "*"
+    "grunt-githooks": "*",
     "grunt-git": "rubenv/grunt-git"
   }
 }
