@@ -1,16 +1,13 @@
 #!/bin/sh
 
-setup_git() {
-  cd dist
-  ls -la
-  cat rezon.form.min.js	
+setup_git() {  
   git config --global user.email "tickets_mail@mail.ua"
   git config --global user.name "travisbotik"
 }
 
 commit_website_files() {
   git checkout -b minify
-  git add . *.js
+  git add dest/\*.js dest/\*.css
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
