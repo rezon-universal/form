@@ -16,6 +16,35 @@ module.exports = function(grunt) {
 				'pre-commit': 'pre-commit'
 			}
 		},		
+		gitadd: {
+			task: {
+				options: {
+					force: true,
+					all: true,
+					cwd: 'MytProjectRepo/'
+                }
+            }
+        },
+
+        gitcommit: {
+        	task: {
+        		options: {
+        			message: 'Repository updated on ' + grunt.template.today(),
+        			allowEmpty: true,
+        			cwd: 'MyGitProjectRepo/'
+        		}
+        	}
+        },
+
+        gitpush: {
+        	task: {
+        		options: {
+        			remote: 'origin',
+        			branch: 'master',
+        			cwd: 'MyGitProjectRepo/'
+        		}
+        	}
+        },
 
 		eslint: {
 			options: {
@@ -61,8 +90,9 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask('lint', [ 'eslint' ]);
+	grunt.registerTask('git', ['gitadd','gitcommit','gitpush']);
 	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify' ]);
+	grunt.registerTask('default', [ 'lint', 'mocha', 'uglify','git' ]);
 	
 
 };

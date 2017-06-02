@@ -23,5 +23,6 @@
     "grunt-mocha": "*",
     "grunt-eslint": "*",
     "grunt-githooks": "*"
+    "grunt-git": "rubenv/grunt-git"
   }
 }
