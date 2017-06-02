@@ -23,6 +23,7 @@
     "grunt-contrib-concat": "~1",
     "grunt-mocha": "*",
     "grunt-eslint": "*",
-    "grunt-githooks": "*"   
+    "grunt-githooks": "*",
+    "grunt-css": "*"     
   }
 }
