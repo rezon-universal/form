@@ -22,15 +22,18 @@ commit_website_files() {
    echo "----list of branhces----"
    git branch
    echo "--------"
-   git checkout -b master rezon/master  
-   git merge minify --commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"   
+   git checkout -b master rezon/master
+    echo "first master files"
+   git ls-tree -r master
+   echo "--------" 
+   git merge minify --commit -m "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs
     echo "----second list of branhces----"
    git branch
    echo "--------"
     echo "master status"
    git status 
    echo "--------"
-    echo "master files"
+    echo "second master files"
    git ls-tree -r master
    echo "--------"
    echo "check user"
