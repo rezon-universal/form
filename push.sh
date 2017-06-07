@@ -10,7 +10,7 @@ commit_website_files() {
   git checkout --orphan minify
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css 
-  git add src/\*.js src/\*.css 
+  git add src/*
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
   echo "----minify files----"
   git ls-tree -r minify
