@@ -10,7 +10,7 @@ commit_website_files() {
   git checkout --orphan minify
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css
-  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"
   
 }
  upload_files() {
@@ -18,6 +18,7 @@ commit_website_files() {
    git checkout master
    git pull
    git merge minify
+   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
    git push   --quiet --set-upstream rezon master
  }
 
