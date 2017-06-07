@@ -9,9 +9,9 @@ setup_git() {
 commit_website_files() {
   git checkout --orphan minify
   git rm -rf . 
-  git add dest/\*.min.js dest/\*min.css
-  git ls-tree -r minify
+  git add dest/\*.min.js dest/\*min.css  
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
+  git ls-tree -r minify
 }
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1      
