@@ -11,17 +11,13 @@ commit_website_files() {
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
-  git ls-tree -r minify
-  git status -b minify
+  
 }
  upload_files() {
-   git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1    
-   git remote -v  
+   git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1         
+   git status
    git fetch rezon
-   git checkout master     
-   git ls-tree -r master
-   git status -b master
-   git merge minify our --no-commit
+   git rebase rezon/master   
    git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
    git push   --quiet --set-upstream rezon master
  }
