@@ -9,9 +9,11 @@ setup_git() {
 commit_website_files() { 
   git checkout --orphan minify
   git rm -rf . 
-  git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
+  git add dest/\*.min.js dest/\*min.css 
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
+  echo "----minify files----"
   git ls-tree -r minify
+  echo "--------"
   
 }
  upload_files() {
@@ -19,12 +21,15 @@ commit_website_files() {
    git fetch rezon
    echo "list of branhces"
    git branch
+   echo "--------"
    git checkout -b rezon/master   
    git merge minify
    echo "master status"
    git status 
+   echo "--------"
    echo "check user"
    git show-branch minify
+   echo "--------"
    git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
    git push --quiet --set-upstream rezon master
  }
