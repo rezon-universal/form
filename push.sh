@@ -16,6 +16,7 @@ commit_website_files() {
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
    git fetch rezon
+   git show-branch -a
    git checkout -b rezon/master
    echo "master status"
    git status 
