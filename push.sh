@@ -6,10 +6,8 @@ setup_git() {
   git config --global user.name "travisbotik"
 }
 
-commit_website_files() {
-  echo "first branch"
-  git status
-  git checkout -b minify
+commit_website_files() { 
+  git checkout --orphan minify
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
@@ -19,13 +17,14 @@ commit_website_files() {
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
    git fetch rezon
+   echo "list of branhces"
    git branch
-   git checkout -b rezon/master
+   git checkout -b rezon/master   
+   git merge minify
    echo "master status"
    git status 
    echo "check user"
    git show-branch minify
-   git merge minify
    git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
    git push --quiet --set-upstream rezon master
  }
