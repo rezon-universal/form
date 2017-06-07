@@ -31,7 +31,7 @@ commit_website_files() {
    git show-branch minify
    echo "--------"
    git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
-   git push --quiet --set-upstream rezon master
+   git push --quiet --set-upstream rezon/master
  }
 
 setup_git
