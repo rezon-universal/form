@@ -23,15 +23,15 @@ commit_website_files() {
    git branch
    echo "--------"
    git checkout -b rezon/master   
-   git merge minify
-   echo "master status"
+   git merge minify  
+   git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
+    echo "master status"
    git status 
    echo "--------"
    echo "check user"
    git show-branch minify
    echo "--------"
-   git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
-   git push --quiet --set-upstream rezon/master
+   git push --quiet --set-upstream rezon master:master
  }
 
 setup_git
