@@ -67,8 +67,7 @@ module.exports = function(grunt) {
 			}
 		}
 		
-	});
-	
+	});	
 
 	// Load tasks
 	grunt.loadNpmTasks('grunt-contrib-concat');
