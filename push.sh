@@ -7,6 +7,8 @@ setup_git() {
 }
 
 commit_website_files() {
+  echo "first branch"
+  git status
   git checkout --orphan minify
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
