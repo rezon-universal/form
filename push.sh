@@ -9,16 +9,17 @@ setup_git() {
 commit_website_files() {
   echo "first branch"
   git status
-  git checkout --orphan minify
+  git checkout -b minify
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
+  git ls-tree -r ninify
   
 }
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
    git fetch rezon
-   git show-branch -a
+   git branch
    git checkout -b rezon/master
    echo "master status"
    git status 
