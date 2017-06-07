@@ -23,8 +23,7 @@ commit_website_files() {
    git branch
    echo "--------"
    git checkout -b master rezon/master  
-   git merge minify  
-   git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
+   git merge minify --commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"   
     echo "----second list of branhces----"
    git branch
    echo "--------"
