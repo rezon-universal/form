@@ -18,7 +18,7 @@ commit_website_files() {
    git fetch rezon
    git checkout master     
    git ls-tree -r master
-   git merge minify their --no-commit
+   git merge minify our --no-commit
    git commit -a -m "Travis build: $TRAVIS_BUILD_NUMBER"
    git push   --quiet --set-upstream rezon master
  }
