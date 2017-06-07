@@ -13,7 +13,7 @@ commit_website_files() {
   git rm -rf . 
   git add dest/\*.min.js dest/\*min.css  src/\*.css src/\*.js
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
-  git ls-tree -r ninify
+  git ls-tree -r minify
   
 }
  upload_files() {
