@@ -5,10 +5,10 @@ branches:
   only:
     - work
 before_install: 
-- npm install --prefix grunt-cli -g
+- npm install grunt-cli -g
 - chmod +x TravisCI/push.sh
 script:
-- grunt --gruntfile TravisCI/Gruntfile.js default
+- grunt default
 after_success:
 - "TravisCI/push.sh"
 env:
