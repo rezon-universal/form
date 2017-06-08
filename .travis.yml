@@ -9,7 +9,7 @@ before_install:
 - chmod +x TravisCI/push.sh
 - ls -LR
 script:
-- TravisCI/bin/grunt default
+- grunt default
 after_success:
 - "TravisCI/push.sh"
 env:
