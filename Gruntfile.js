@@ -79,16 +79,11 @@ module.exports = function(grunt) {
 	// Load tasks
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-css');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-mocha');
-	grunt.loadNpmTasks('grunt-eslint');
+	grunt.loadNpmTasks('grunt-contrib-uglify');	
 	grunt.loadNpmTasks('grunt-githooks');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-copy');		
 	
-	// Default task.
-	grunt.registerTask('lint', [ 'eslint' ]);	
-	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','cssmin','copy']);
+	grunt.registerTask('default', ['concat','uglify','cssmin','copy']);
 	
 
 };
