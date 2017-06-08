@@ -6,11 +6,11 @@ branches:
     - work
 before_install:
 - npm install grunt-cli -g
-- chmod +x push.sh
+- chmod +x TravisCI/push.sh
 script:
 - grunt default
 after_success:
-- "./push.sh"
+- "TravisCI/push.sh"
 env:
   global:
     secure: IwDwI4+v+vqnveaHPRWxuUGYa3eKruaJXN3KxpcsUJ0oxLRxNUTpiVVPscRD5Xio1UEs3ln2brMHT3uUWUK/qXeZiEnP0KVA3NCA4w5uxGBfM9Vg9gMNfKVLG6NGDbiKaSGjXpVJyLZhftxCF/Cr03k3GC9tvXSGu6YI8yzEuhRYm3a02UGx1Le2B4JyCKM+W0rlRyQcXnCuAVFSdxb8FgjRCiA1kj+0KpiijP3ZjP2sd/KtveWsQ9xh4hKF7eoMoSjM7HvutWQ1h6cLrP0DTCB9wzHYu5EjKxyzik4JuV0DP2Npeyx2oP96VbijAOlXCuuYOtw1edMfXTJ0gsyXE+GVxImt34V8ekE0W8Pj6Zsjk9SEuoE5BQvXS1NtJ8s4lrlZUThn3Unkx8FJehf1gc0wegX8A8N0vhT/1Qv89l9TGXpw2Nt2m6McDrh5zjF7Pl8ZdvE/N/1WVrygXoEL0KGMMjRB0zq6iUSiXUJdekc3vBRRx2WAzrDCa2MAz+RaW6cv/s7gadoq2Hz6A2YPPK612jr7t0Jz5qpHwgb8IbSZDw2DY/hRjTTq4rPjU2M1s+rWbyd6u4nH7pWcR35UNOL1I/p40f35nH+vKuLoq24Eymt2VUFaRyPIg77b/zuggJ1MYMtXkPM69f4iD9CzP5SyZ5cB2+LlFrDj9rXRe3k=
