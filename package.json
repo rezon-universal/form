@@ -24,6 +24,7 @@
     "grunt-mocha": "*",
     "grunt-eslint": "*",
     "grunt-githooks": "*",
-    "grunt-css": "*"     
+    "grunt-css": "*",
+    "grunt-contrib-copy": "*"
   }
 }

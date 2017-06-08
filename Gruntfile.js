@@ -65,8 +65,15 @@ module.exports = function(grunt) {
 					extDot:	'last'
 				}]
 			}
-		}
-		
+		},
+
+		copy: {
+			main: {
+    			files: [      
+      			{expand: true, src: ['src/**'], dest: 'dest/origin/'},
+      			],
+      		},
+      	}
 	});	
 
 	// Load tasks
@@ -76,11 +83,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-githooks');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	
 	// Default task.
 	grunt.registerTask('lint', [ 'eslint' ]);	
 	grunt.registerTask('pre-commit', [ 'test' ]);	
-	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','cssmin']);
+	grunt.registerTask('default', [ 'lint', 'mocha','concat','uglify','cssmin','copy']);
 	
 
 };
