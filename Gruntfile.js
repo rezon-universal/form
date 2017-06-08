@@ -70,9 +70,9 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
     			files: [      
-      			{expand: true, src: ['src/css/**'], dest: 'origin/css'},
-      			{expand: true, src: ['src/js/**'], dest: 'origin/js'},
-      			{expand: true, src: ['src/html/**'], dest: 'html'},
+      			{expand: true, cwd:'src/css',src: ['**'], dest: 'origin/css'},
+      			{expand: true, cwd:'src/js',src: ['**'], dest: 'origin/js'},
+      			{expand: true, cwd:'src/html', ['**'], dest: 'html'},
       			],
       		},
       	}
