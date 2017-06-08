@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand:	true,
-					cwd:	'rezon-form/js',
+					cwd:	'js',
 					src:	'concat.js',
 					dest:	'minified/js',
 					ext:	'.min.js',
