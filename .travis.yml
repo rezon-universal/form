@@ -8,7 +8,7 @@ before_install:
 - npm install grunt-cli -g
 - chmod +x TravisCI/push.sh
 script:
-- grunt default
+- grunt --gruntfile TravisCI/Gruntfile.js default
 after_success:
 - "TravisCI/push.sh"
 env:
