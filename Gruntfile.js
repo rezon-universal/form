@@ -35,17 +35,17 @@ module.exports = function(grunt) {
 		concat: {			
 			js: {
 				src: 'src/js/*.js',
-				dest: 'rezon-form/js/concat.js'
+				dest: 'js/concat.js'
 			},
 			css: {
 				src: 'src/css/*.css',
-				dest: 'rezon-form/css/concat.css'
+				dest: 'css/concat.css'
 			}
 		},
 		cssmin: {
 			css:{
-				src: 'rezon-form/css/concat.css',
-				dest: 'rezon-form/minified/css/concat.min.css'
+				src: 'css/concat.css',
+				dest: 'minified/css/concat.min.css'
 			}
 		},
 		// Minifies JS files
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 					expand:	true,
 					cwd:	'rezon-form/js',
 					src:	'concat.js',
-					dest:	'rezon-form/minified/js',
+					dest:	'minified/js',
 					ext:	'.min.js',
 					extDot:	'last'
 				}]
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
     			files: [      
-      			{expand: true, src: ['src/**'], dest: 'rezon-form'},
+      			{expand: true, src: ['src/**'], dest: ''},
       			],
       		},
       	}

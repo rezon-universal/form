@@ -12,7 +12,7 @@ commit_website_files() {
   git rev-parse --show-prefix
   echo "-----------"
   git rm -rf .
-  git add rezon-form/\*.min.js rezon-form/\*min.css  rezon-form/src/*
+  git add minified/\*.min.js minified/\*min.css minified/\*.map src/*
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"  
   echo "----minify files----"
   git ls-tree -r minify
