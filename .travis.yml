@@ -7,8 +7,9 @@ branches:
 before_install: 
 - npm install --prefix ./TravisCI grunt-cli -g
 - chmod +x TravisCI/push.sh
+- ls -LR
 script:
-- TravisCI/grunt default
+- TravisCI/bin/grunt default
 after_success:
 - "TravisCI/push.sh"
 env:
