@@ -174,8 +174,7 @@
         <div class="add transp">
             <a><span>+</span> <span data-local="true" data-localtext="CONTINUE_ROUTE">{{locale("CONTINUE_ROUTE")}}</span></a>
         </div>
-    </div>
-        @*Multy route*@
+    </div>      
         <div class="multy-route" v-if="avia.formType.value=='route'" v-bind:class="{last : index==avia.multyRoutes.length-1}" v-for="(route,index) in avia.multyRoutes">
             <div class="field airport">
                 <label class="menu-title">
