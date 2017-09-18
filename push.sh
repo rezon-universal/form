@@ -16,7 +16,7 @@ commit_website_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
    git fetch --quiet rezon    
    git checkout -b master rezon/master  
-   git merge minify --quiet --commit -m --allow-unrelated-histories "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs   
+   git merge minify --quiet --commit -m  "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs   
    git push rezon master  --set-upstream --quiet
  }
 
