@@ -281,11 +281,11 @@
     border-top: 1px solid #798799;
     margin-top: -1px;
 }
-#rezon-forms .book-date:active,
+/*#rezon-forms .book-date:active,
 #rezon-forms .book-date:focus 
 {
     cursor : url("../img/text.cur"), auto;
-}
+}*/
 #rezon-forms .datepicker-button 
 {
     background: #798799;
