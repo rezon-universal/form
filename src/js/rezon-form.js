@@ -1076,52 +1076,61 @@ var rezOnForm = function (form, o) {
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             })
-                .click(function () {
-                    $(this).select();
-                }).blur(function () {
-                    //$(this).closest('.field.focused').removeClass('focused opened');
-                    if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-                })
-                .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
-                    if (datum != undefined) {
-                        var item = $(this).closest(".control-field");
+            .click(function () {
+                $(this).select();
+            }).blur(function () {
+                //$(this).closest('.field.focused').removeClass('focused opened');
+                if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            })
+            .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
+                if (datum != undefined) {
+                    var item = $(this).closest(".control-field");
 
-                        var name = item.find(".inside input[type='hidden']").attr('name');
-                        vue.updateAirportTypeAhead(name, datum);
+                    var name = item.find(".inside input[type='hidden']").attr('name');
+                    vue.updateAirportTypeAhead(name, datum);
 
-                        $(this).closest('.field.airport').removeClass('opened');
-                        $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
 
-                        //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
-                        if (it._initialized) {
-                            console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
-                            //Меняем фокус
-                            if ($(this).is(".book-from")) {
-                                $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
-                            } else if ($(this).is(".book-to")) {
-                                $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
-                            }
+                    $(this).closest('.field.airport').removeClass('opened');
+                    $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
+
+                    //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
+                    if (it._initialized) {
+                        //console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
+                        //Меняем фокус
+                        if ($(this).is(".book-from")) {
+                            $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
+                        } else if ($(this).is(".book-to")) {
+                            $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
                         }
                     }
-                }).on("typeahead:dropdown", function (it) {
-                    var item = $(this).closest('.field');
-                    item.addClass('opened');
-                }).on("typeahead:dropup", function (it) {
-                 //   $(this).closest('.field.opened').removeClass('opened');
-                    var item = $(this).closest(".field");
-                    if (item.find(".inside input[type='hidden']").val() === "" && $(this).data("lastHist")) {
-                        $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                    }
-                }).on("typeahead:queryChanged", function (it, query) {
-                    //var item = $(this).closest('.field');
-                    //item.find(".inside .iata").addClass("no-visiblity");
-                    //item.find(".inside input[type='hidden']").val("");
-                    //item.find(".inside .country").addClass("no-visiblity");
-                    //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
-                }).on("typeahead:updateHint", function (a, b) {
-                    if (b) $(this).data("lastHist", b);
-                    else $(this).removeData("lastHist");
-                });
+                }
+            }).on("typeahead:autocompleted", function (e, datum, e2) {
+                if ($(this).is(".book-from")) {
+                    $(document).trigger("StartPtChange.MapBridge", [datum])
+                } else {
+                    $(document).trigger("EndPtChange.MapBridge", [datum])
+                }
+            }).on("typeahead:dropdown", function (it) {
+                var item = $(this).closest('.field');
+                item.addClass('opened');
+            }).on("typeahead:dropup", function (it) {
+                //   $(this).closest('.field.opened').removeClass('opened');
+                var item = $(this).closest(".field");
+                
+                if ($(it.currentTarget).val() !== "" && $(this).data("lastHist"))
+                {
+                    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                }
+            }).on("typeahead:queryChanged", function (it, query) {
+                //var item = $(this).closest('.field');
+                //item.find(".inside .iata").addClass("no-visiblity");
+                //item.find(".inside input[type='hidden']").val("");
+                //item.find(".inside .country").addClass("no-visiblity");
+                //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
+            }).on("typeahead:updateHint", function (a, b) {
+                if (b) $(this).data("lastHist", b);
+                else $(this).removeData("lastHist");
+            });
         };
         it._aviaForm.bindAirportTypeahead();
 
@@ -1323,6 +1332,17 @@ var rezOnForm = function (form, o) {
                 $(this).html("").closest(".has-error").removeClass("has-error");
             });
             return false;
+        });
+
+
+        //Интеграция с картой
+        $(document).on("RezOn.Avia.Map.StartPtChange", function (e, data) {
+            //Oles, TODO
+            console.log("||Change on map", data);
+        });
+        $(document).on("RezOn.Avia.Map.EndPtChange", function (e, data) {
+            //Oles, TODO
+            console.log("||Change on map 2", data);
         });
     }
 
@@ -1729,6 +1749,13 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.item = newValue;
                 this.$emit('input', this.item);
             },
+            bridgeClearMapPoint: function() {
+                if (this.inputClass == "book-from") {
+                    $(document).trigger("StartPtChange.MapBridge", [undefined])
+                } else {
+                    $(document).trigger("EndPtChange.MapBridge", [undefined])
+                }
+            },
             clearItem: function () {
                 this.item = new AirportItem();
                 this.$emit('input', this.item);
@@ -1738,6 +1765,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     var el = comp.$el;
                     var selector = comp.inputClass;
                     $(el).find('.' + selector).typeahead('val', '');
+                    comp.bridgeClearMapPoint();
                 });
             },
             checkItem: function (event) {
@@ -1746,6 +1774,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.item.CountryName = '';
                     this.item.IataCode = '';
                     this.$emit('input', this.item);
+                    this.bridgeClearMapPoint();
                 }
             }
         },
