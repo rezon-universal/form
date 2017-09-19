@@ -794,9 +794,11 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype.validation.airForm = function () {
         //temp TODO
         var ret = it.validation.departure_arrival();
+        
         ret = rezOnForm.prototype.validation.dateRange(it._aviaForm) && ret;
+        console.log(ret);
         //ret = rezOnForm.static.pass_selectPicker.validate(undefined, it.extra.locale) && ret;
-
+        
         if (ret && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(it._aviaForm);
         return ret;
     }
