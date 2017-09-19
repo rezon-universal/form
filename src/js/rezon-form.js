@@ -73,6 +73,17 @@ var prepareAviaSearchParams = function(params)
 	}
 	return params;
 }
+var prepareRailSearchParams = function(params) {
+    if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
+        var dateThere = new Date(params.dateThere);
+        params.dateThere = dateThere;
+    }
+    if (params.dateBack !== undefined && params.dateBack !== null && params.dateBack.trim() !== '') {
+        var dateBack = new Date(params.dateBack);
+        params.dateBack = dateBack;
+    }
+    return params;
+}
 
 var rezOnForm = function (form, o) {
     rezOnForm.prototype._form = undefined;
@@ -135,15 +146,16 @@ var rezOnForm = function (form, o) {
             recStationsFrom: [],
             recStationsTo: [],
             historyGuid: '',
-            dateThere: new Date(2017, 8, 26),
-            dateBack: new Date(2017, 8, 26),
+            dateThere: new Date(),
+            dateBack: new Date(),
             stationFrom: new StationItem(),
             stationTo: new StationItem(),
             timeThere: 0,
             timeBack: 0,
             dateRange: 0,
             formTypes: [types[0], types[1]],
-            formType: types[0]
+            formType: types[0],
+            formExtended: false
         }
 
     }
@@ -592,6 +604,17 @@ var rezOnForm = function (form, o) {
         this._o.dates.trainsMaxDate = new Date(this._o.dates.today.getTime());
         this._o.dates.trainsMaxDate.setDate(this._o.dates.trainsMaxDate.getDate() + 44); //+ 29
 
+        this._o.avia.defaultDateThere = new Date();
+        this._o.avia.defaultDateThere.setDate(this._o.avia.defaultDateThere.getDate() + 7);
+
+        this._o.avia.defaultDateBack = new Date();
+        this._o.avia.defaultDateBack.setDate(this._o.avia.defaultDateBack.getDate() + 14);
+
+        this._o.railway.dateThere = new Date();
+
+        this._o.railway.dateBack = new Date();
+        this._o.railway.dateBack.setDate(this._o.railway.dateBack.getDate() + 2);
+
         return this;
     }
     var it = this.constructor(form, o);
@@ -821,6 +844,7 @@ var rezOnForm = function (form, o) {
 
     //Валидация формы поиска ЖД билетов
     rezOnForm.prototype.validation.railForm = function () {
+    
         var ret = it.validation.stations();
         ret = rezOnForm.prototype.validation.dateRange(it._railwayForm) && ret;
         if (ret && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(it._railwayForm);
@@ -2134,7 +2158,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var loc = this.localeDict[this.defaultLang][str];
                 return loc || str;
             },
-            changeFormExtended: function () {
+            changeAviaFormExtended: function () {
                 this.avia.formExtended = !this.avia.formExtended;
             },
             removePassenger: function (type) {
@@ -2255,6 +2279,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $(document).trigger("EndPtChange.MapBridge", [to])
             },
             //Railway methods
+            changeRailFormExtended: function () {
+                this.railway.formExtended = !this.railway.formExtended;
+            },
             updateStationTypeAhead: function (name, data) {
                 var stationItem = new StationItem(data.ExpressCode, data.Name, data.CountryCode, data.CountryName);
                 vue.$emit('stationUpdate', name, stationItem);

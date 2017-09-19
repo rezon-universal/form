@@ -57,7 +57,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" v-if="avia.formType.value==='roundtrip'"></datepicker>
                      <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>
@@ -359,10 +359,10 @@
         <div class="field hide_s">
             <div class="transp">
                 <div class="hide_settings dashed">
-                    <div class="simple_search" v-on:click="changeFormExtended()">
+                    <div class="simple_search" v-on:click="changeAviaFormExtended()">
                         <span>{{locale("SIMPLE_SEARCH")}}</span>
                     </div>
-                    <div class="advanced_search" v-on:click="changeFormExtended()">
+                    <div class="advanced_search" v-on:click="changeAviaFormExtended()">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
                     </div>
                     <div class="arrow">
