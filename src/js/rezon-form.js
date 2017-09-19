@@ -34,6 +34,45 @@ function StationItem(code, name, countryCode, countryName) {
     this.CountryName = countryName;
 }
 var types = [new DirectionType('oneway', 'ONE_WAY'), new DirectionType('roundtrip', 'ROUND_TRIP'), new DirectionType('route', 'MULTY_ROUTE')];
+var passTypes = [
+                    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
+                    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
+                    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
+                    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
+                    new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
+                    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
+                ];
+var prepareAviaSearchParams = function(params)
+{	
+	if(params.defaultDateThere!=undefined && params.defaultDateThere!=null && params.defaultDateThere.trim()!='')
+	{
+		var dateThere = new Date(params.defaultDateThere);
+		params.defaultDateThere = dateThere;
+	}
+	if(params.defaultDateBack!=undefined && params.defaultDateBack!=null && params.defaultDateBack.trim()!='')
+	{
+		var dateBack = new Date(params.defaultDateBack);
+		params.defaultDateBack = dateBack;
+	}	
+	if(params.multyRoutes!==undefined && params.multyRoutes!==null && params.multyRoutes.length >0)
+	{		
+		for(var i=0;i<params.multyRoutes.length;i++)
+		{
+			if(params.multyRoutes[i].defaultDateThere!==undefined && params.multyRoutes[i].defaultDateThere!==null && params.multyRoutes[i].defaultDateThere.trim()!='')
+			{
+				var dateThere = new Date(params.multyRoutes[i].defaultDateThere);
+				params.multyRoutes[i].defaultDateThere = dateThere;
+			}
+			if(params.multyRoutes[i].minDate!==undefined && params.multyRoutes[i].minDate!==null && params.multyRoutes[i].minDate.trim()!='')
+			{
+				var minDate =  new Date(params.multyRoutes[i].minDate);
+				params.multyRoutes[i].minDate = minDate;
+			}
+			
+		}
+	}
+	return params;
+}
 
 var rezOnForm = function (form, o) {
     rezOnForm.prototype._form = undefined;
@@ -75,16 +114,9 @@ var rezOnForm = function (form, o) {
             aviTo: new AirportItem(),
             aviToTime: 0,
             passengers: {
-                types: [
-                    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
-                    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
-                    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
-                    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
-                    new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
-                    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
-                ],
-                hasError: false,
-                messages: []
+            	types:passTypes,
+            	hasError: false,
+            	messages: []
             },
             formExtended: false,
             maxPassangersCount: 6,
@@ -258,7 +290,8 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Простой поиск",
                 "ADVANCED_SEARCH": "Расширенный поиск",
                 "DEPARTURE_TIME": "Время отправления",
-                "ARRIVAL_TIME": "Время прибытия"
+                "ARRIVAL_TIME": "Время прибытия",
+                "SELECT_DATE":"Выберите дату"
             },
             en: {
                 "ONE_WAY": "One way",
@@ -396,7 +429,8 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Simple search",
                 "ADVANCED_SEARCH": "Advanced search",
                 "DEPARTURE_TIME": "Departure time",
-                "ARRIVAL_TIME": "Arrival time"
+                "ARRIVAL_TIME": "Arrival time",
+                "SELECT_DATE":"Select date"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -534,7 +568,8 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Простий пошук",
                 "ADVANCED_SEARCH": "Розширений пошук",
                 "DEPARTURE_TIME": "Час відправлення",
-                "ARRIVAL_TIME": "Час прибуття"
+                "ARRIVAL_TIME": "Час прибуття",
+                "SELECT_DATE":"Оберіть дату"
             }
         };
 
@@ -963,16 +998,6 @@ var rezOnForm = function (form, o) {
 
                 $(this).addClass("active");
                 it._form.find($(this).attr("href")).removeClass("g-hide");
-            }
-            return false;
-        });
-
-        $(it._form).on("click", ".hide_settings > div", function () {
-            var fieldsCon = it._form.find('.fields-container');
-            if ($(this).hasClass('simple_search')) {
-                fieldsCon.removeClass('extended');
-            } else {
-                fieldsCon.addClass('extended');
             }
             return false;
         });

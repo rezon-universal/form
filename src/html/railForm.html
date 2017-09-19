@@ -43,7 +43,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker placeholder="Select Date" language="ru" v-model="railway.dateThere" name="book_from_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="railway.dateThere" name="book_from_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker placeholder="Select Date" language="ru" v-model="railway.dateBack" name="book_to_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="railway.dateBack" name="book_to_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
                     <span class="roundtrip_click" v-on:click="railTypeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>

@@ -10,7 +10,7 @@
 
         </div>
     </div>
-    <div class="fields-container" v-bind:class="avia.formType.value">
+    <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
         <div class="field airport">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="visible-xs-inline-block link-left hidden">&larr;</span>
@@ -45,7 +45,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                     <datepicker placeholder="Select Date" language="ru"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
+                     <datepicker :placeholder="locale('SELECT_DATE')" language="ru"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker placeholder="Select Date" language="ru" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
                      <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>
@@ -206,7 +206,7 @@
                 </label>
                 <div class="control-field">
                     <div class="date-wrapper">
-                        <datepicker placeholder="Select Date" language="ru" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere"></datepicker>
+                        <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere"></datepicker>
                     </div>
                 </div>
             </div>
@@ -215,27 +215,27 @@
                 <div class="control-field">
                     <div class="selectpicker book-time">
                         <div class="options">
-                            <div class="option" v-on:click="route.aviToTime=0">
+                            <div class="option" v-on:click="route.aviFromTime=0">
                                 <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="0" v-bind:checked="route.aviToTime == 0"/>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="0" v-bind:checked="route.aviFromTime == 0"/>
                             </div>
-                            <div class="option" v-on:click="route.aviToTime=1">
+                            <div class="option" v-on:click="route.aviFromTime=1">
                                 <span>
                                 <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
                             </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="1" v-bind:checked="route.aviToTime == 1"/>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="1" v-bind:checked="route.aviFromTime == 1"/>
                             </div>
-                            <div class="option" v-on:click="route.aviToTime=2">
+                            <div class="option" v-on:click="route.aviFromTime=2">
                                 <span>
                                 <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
                             </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="2" v-bind:checked="route.aviToTime == 2"/>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="2" v-bind:checked="route.aviFromTime == 2"/>
                             </div>
-                            <div class="option" v-on:click="route.aviToTime=3">
+                            <div class="option" v-on:click="route.aviFromTime=3">
                                 <span>
                                 <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
                             </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="3" v-bind:checked="route.aviToTime == 3"/>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="3" v-bind:checked="route.aviFromTime == 3"/>
                             </div>
                         </div>
                     </div>
@@ -359,10 +359,10 @@
         <div class="field hide_s">
             <div class="transp">
                 <div class="hide_settings dashed">
-                    <div class="simple_search">
+                    <div class="simple_search" v-on:click="changeFormExtended()">
                         <span>{{locale("SIMPLE_SEARCH")}}</span>
                     </div>
-                    <div class="advanced_search">
+                    <div class="advanced_search" v-on:click="changeFormExtended()">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
                     </div>
                     <div class="arrow">
