@@ -52,7 +52,7 @@ var rezOnForm = function (form, o) {
             trainsMaxDate: null
         },
 
-        projectUrl: "http://localhost:1437/",
+        projectUrl: "/",
         defaultLang: "ru",
         formType: "all", //avia|railway|all
         formTarget: "_blank",
@@ -724,41 +724,7 @@ var rezOnForm = function (form, o) {
             it._initialized = true;
         }
         setInitializedProperty();
-        //if (o.avia)
-        //{
-        //    o.avia.defaultRouteType && it._aviaForm.find("[name='book_type'][value='" + o.avia.defaultRouteType + "']").closest("label").trigger("click");
 
-        //    //Вынесено в отдельную функцию т.к. нельзя одновременно отправлять 2 запроса, они перекрывают друг друга. Поэтому вынесли подгрущку втророго аэропорта
-        //    var setAirportTo = function() {
-        //        if (o.avia.defaultAirportTo) {
-        //            var twitterTypeahead2 = it._aviaForm.find("[name='to_iata']").siblings(".twitter-typeahead").find(".tt-input").eq(0).val(o.avia.defaultAirportTo).trigger("input").trigger("paste.tt").trigger("keyup");
-        //            var updatefunc2 = function () {
-        //                twitterTypeahead2.off("typeahead:dropdown", updatefunc2);
-        //                var data = twitterTypeahead2.data().ttTypeahead.dropdown;
-        //                data.datasets[data.datasets.length - 1].$el.find(".tt-suggestion").eq(0).trigger("click");
-
-        //                setInitializedProperty();
-        //            };
-        //            twitterTypeahead2.on("typeahead:dropdown", updatefunc2);
-        //        } else setInitializedProperty();
-        //    }
-
-        //    if (o.avia.defaultAirportFrom) {
-        //        var twitterTypeahead = it._aviaForm.find("[name='from_iata']").siblings(".twitter-typeahead").find(".tt-input").eq(0).val(o.avia.defaultAirportFrom).trigger("input").trigger("paste.tt").trigger("keyup");
-        //        var updatefunc = function() {
-        //            twitterTypeahead.off("typeahead:dropdown", updatefunc);
-        //            var data = twitterTypeahead.data().ttTypeahead.dropdown;
-        //            data.datasets[data.datasets.length - 1].$el.find(".tt-suggestion").eq(0).trigger("click");
-
-        //            setAirportTo();
-        //        };
-        //        twitterTypeahead.on("typeahead:dropdown", updatefunc);
-        //    } else setAirportTo();
-
-        //    if (o.avia.defaultDateThere) it._aviaForm.find("[name='book_from_date']").trigger("keyup");
-        //    if (o.avia.defaultDateBack) it._aviaForm.find("[name='book_to_date']").trigger("keyup");
-
-        //}else 
     }
 
     //-----------------------------------------
@@ -1103,12 +1069,12 @@ var rezOnForm = function (form, o) {
                             $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
                         }
                     }
-                }
-            }).on("typeahead:autocompleted", function (e, datum, e2) {
-                if ($(this).is(".book-from")) {
-                    $(document).trigger("StartPtChange.MapBridge", [datum])
-                } else {
-                    $(document).trigger("EndPtChange.MapBridge", [datum])
+
+                    if ($(this).is(".book-from")) {
+                        $(document).trigger("StartPtChange.MapBridge", [datum])
+                    } else {
+                        $(document).trigger("EndPtChange.MapBridge", [datum])
+                    }
                 }
             }).on("typeahead:dropdown", function (it) {
                 var item = $(this).closest('.field');
@@ -1119,7 +1085,8 @@ var rezOnForm = function (form, o) {
                 
                 if ($(it.currentTarget).val() !== "" && $(this).data("lastHist"))
                 {
-                    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                    //TODO
+                    //$(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
                 }
             }).on("typeahead:queryChanged", function (it, query) {
                 //var item = $(this).closest('.field');
@@ -1336,13 +1303,20 @@ var rezOnForm = function (form, o) {
 
 
         //Интеграция с картой
-        $(document).on("RezOn.Avia.Map.StartPtChange", function (e, data) {
-            //Oles, TODO
-            console.log("||Change on map", data);
-        });
-        $(document).on("RezOn.Avia.Map.EndPtChange", function (e, data) {
-            //Oles, TODO
-            console.log("||Change on map 2", data);
+        $(document).on("StartPtChange.Map EndPtChange.Map", function(e, data) {
+            
+            var itemName = e.type == "StartPtChange"
+                ? "from_iata"
+                : "to_iata";
+
+            if (!data) return vue.updateAirportTypeAhead(itemName);
+            vue.updateAirportTypeAhead(itemName,
+            {
+                IataCode: data.iata,
+                CountryCode: data.countryCode,
+                CountryName: '',
+                Name: data.name
+            })
         });
     }
 
@@ -1786,6 +1760,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     comp.updateAviItem(airport);
                 }
             });
+            vue.$on('clearItem', function (name) {
+                if (comp.name === name) {
+                    comp.clearItem();
+                }
+            });
         }
     });
 
@@ -2075,7 +2054,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             typeChanged: function (index) {
                 //0-oneway,1-roundtrip,2-route
                 this.avia.formType = types[index];
-
                 if (this.avia.formType.value === 'roundtrip') {
                     this.avia.segmentsCount = 2;
                 } else {
@@ -2084,6 +2062,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (this.avia.multyRoutes.length > 0) {
                     this.avia.multyRoutes = [];
                 }
+                $(document).trigger("RouteTypeChange.MapBridge", [this.avia.formType]);
             },
             updateHtmlElements: function () {
                 //Update displayed value for selectpickers
@@ -2185,6 +2164,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
             },
             updateAirportTypeAhead: function (name, data) {
+                if (data == null) return vue.$emit('clearItem', name);
                 var airportItem = new AirportItem(data.IataCode, data.CountryCode, data.CountryName, data.Name);
                 vue.$emit('airportUpdate', name, airportItem);
             },
@@ -2245,6 +2225,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var from = this.avia.aviTo;
                 this.avia.aviFrom = from;
                 this.avia.aviTo = to;
+                
+                $(document).trigger("StartPtChange.MapBridge", [from])
+                $(document).trigger("EndPtChange.MapBridge", [to])
             },
             //Railway methods
             updateStationTypeAhead: function (name, data) {
