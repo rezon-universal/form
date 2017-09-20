@@ -1118,7 +1118,6 @@ var rezOnForm = function (form, o) {
 
                     //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
                     if (it._initialized) {
-                        //console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
@@ -1529,7 +1528,7 @@ var rezOnForm = function (form, o) {
                 this._o[optionKey] = o[optionKey];
             } else {
                 for (var objKey in o[optionKey]) {
-                    if (this._o[optionKey].hasOwnProperty(objKey)) {
+                    if (this._o[optionKey].hasOwnProperty(objKey) && o[optionKey][objKey]!==null) {
                         this._o[optionKey][objKey] = o[optionKey][objKey];
                     }
                 }
@@ -1733,7 +1732,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     Vue.component('airportInput', {
         template:
             '<div class="inside">' +
-                '<input type="text" :placeholder="placeholder" :class="inputClass" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
+                '<input type="text" :placeholder="placeholder" :class="inputClasses" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
                 '<div class="iata" v-bind:class="{\'no-visiblity\': item.IataCode==null}">{{item.IataCode}}</div>' +
                 '<div class="country hidden">{{item.CountryName}} {{item.CountryCode}}</div>'+
                 '<span href="#" class="delete" v-bind:class="{\'no-visiblity\': item.Airport==null}" v-on:click="clearItem()"></span>' +
@@ -1756,12 +1755,27 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             }
         },
         computed:{
-            inputClasses:function() {
-                var classes = this.inputClass;
-                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
-                    classes += " " + 'isEmpty';
+            inputClasses: function () {
+                var input = $(this.$el).find('input:not(.tt-hint).' + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(' ');  
                 }
-                return classes;
+               
+                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
+                    if (!classes.includes('isEmpty')) {
+                        classes.push('isEmpty');
+                    }
+                } else {
+                    var index = classes.indexOf('isEmpty');
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+               
+                return classes.join(' ');
             }
         },
         watch: {
@@ -2018,6 +2032,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             Vue.nextTick(function () {
                 // DOM updated
+              
                 $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
                     //Tab press
                     if (e.keyCode == 9)  comp.close();
@@ -2236,13 +2251,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.passengers.types.forEach(function (value) {
                     value.disabled = availablePassCount < 1;
 
-                    if (infantsCat.includes(value.name) && adultCnt < infantCnt + 1) {
+                    if (infantsCat.includes(value.name) && (adultCnt===0 || adultCnt < infantCnt + 1)) {
                         value.disabled = true;
                     }
                 });
-                if (currCount === 0) {
-                    this.avia.passengers.hasError = true;
-                    this.avia.passengers.messages.push("VALIDATE_FORM_SEARCH_MESSAGE_2");
+                if (adultCnt === 0) {
+                    this.addPassenger('psgAdultsCnt');
+                    //this.avia.passengers.hasError = true;
+                    //this.avia.passengers.messages.push("VALIDATE_FORM_SEARCH_MESSAGE_2");
                 }
                 if (adultCnt < infantCnt) {
                     this.avia.passengers.hasError = true;
@@ -2397,6 +2413,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         created: function () {
             //Global variable
             window.vue = this;
+            this.passUpdate();
         },
         mounted: function () {
             var el = this.$el;

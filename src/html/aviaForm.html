@@ -1,6 +1,6 @@
 <form class="rezon-form avia-form" role="form" id="avia-form-shoot" autocomplete="off">
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
-    <input type="hidden" name="HistoryGuid" v-if="avia.historyGuid.trim().length>0" v-model="avia.historyGuid" />
+    <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <div class="row">
         <div class="direct radio-group">
             <label v-for="(type,index) in avia.formTypes" v-bind:class="{active: avia.formType.value === type.value}" v-on:click="typeChanged(index)">
