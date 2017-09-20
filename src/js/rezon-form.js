@@ -1971,6 +1971,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 el.closest('.field').removeClass('opened');
                 el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
             });
+
         },
         mounted: function () {
             var el = this.$el;
@@ -1997,6 +1998,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 else if (comp.showYearView) {
                     comp.nextDecade();
                 }
+            });
+
+            Vue.nextTick(function () {
+                // DOM updated
+                $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
+                    //Tab press
+                    if (e.keyCode == 9)  comp.close();
+                    //
+                    //comp.setInitialView();
+                    //Vue.nextTick(function () {
+                    //    console.log(comp.isOpen, comp.showDayView)
+                    //});
+                    
+                    //setTimeout(function () {
+                    //    console.log(comp.isOpen)
+                    //    if (!comp.isOpen) comp.showCalendar();
+                    //}, 500);
+                });
             });
         }
     });
