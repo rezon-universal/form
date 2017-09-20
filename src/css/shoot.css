@@ -2526,8 +2526,9 @@ body > div.datepicker
         justify-content: center;
         align-items: center;
     }
-    .no-scroll {
-        overflow: hidden;
+    .m-no-scroll {
+        position: fixed;
+        width: 100%;
     }
     #rezon-forms .fields-container .field .menu-title {
         display: none;
