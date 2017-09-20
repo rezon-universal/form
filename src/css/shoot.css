@@ -950,8 +950,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
 {
     display: none;
     background: #e94b34;
-    color: white;    
-    padding: 0 10px 4px 10px;
+    color: white;   
     font-size: 13px;
     min-height: 17px;
 }
