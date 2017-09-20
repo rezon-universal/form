@@ -880,7 +880,7 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype.bind = function () {
         //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
         if (window.main == undefined) {
-            it._form.on("click", ".selectpicker .option, .selected-value", function () {
+            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
                 var selectpicker = $(this).closest(".selectpicker");
                 var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 if (selectpicker.is(".opened")) {
@@ -893,6 +893,9 @@ var rezOnForm = function (form, o) {
                     }
                     if (isMobile) {
                         selectpicker.find(".options").fadeOut(300, function () {
+                            $('body').css({
+                                'position': 'relative'
+                            });
                             selectpicker.removeClass("opened");
                         });
                     } else {
@@ -905,6 +908,9 @@ var rezOnForm = function (form, o) {
                     var options = selectpicker.find(".options").addClass("z-100");
                     selectpicker.addClass("opened");
                     if (isMobile) {
+                        $('body').css({
+                            'position': 'fixed'
+                        });
                         options.fadeIn(300).css({
                             'display': 'flex'
                         });
@@ -1722,13 +1728,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         computed: datepickerSetting.computed,
         methods: datepickerSetting.methods
     }
-
+    
     //Airport typeahead input component
     Vue.component('airportInput', {
         template:
             '<div class="inside">' +
-                '<input type="text" :placeholder="placeholder"  v-bind:class="[inputClass,{isEmpty: item.IataCode===null || item.IataCode===undefined || item.IataCode.trim()===\'\'}]" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
+                '<input type="text" :placeholder="placeholder" :class="inputClass" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
                 '<div class="iata" v-bind:class="{\'no-visiblity\': item.IataCode==null}">{{item.IataCode}}</div>' +
+                '<div class="country hidden">{{item.CountryName}} {{item.CountryCode}}</div>'+
                 '<span href="#" class="delete" v-bind:class="{\'no-visiblity\': item.Airport==null}" v-on:click="clearItem()"></span>' +
                 '<input type="hidden" :name="name" v-model="item.IataCode"/>' +
                 '</div>',
@@ -1746,6 +1753,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             placeholder: {
                 type: String,
                 default: "PLACEHOLDER_AIRPORT2"
+            }
+        },
+        computed:{
+            inputClasses:function() {
+                var classes = this.inputClass;
+                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
+                    classes += " " + 'isEmpty';
+                }
+                return classes;
             }
         },
         watch: {
@@ -2317,20 +2333,45 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value > this.avia.defaultDateBack) {
                     this.avia.defaultDateBack = value;
                 }
+                if (value > this.dates.airMaxDate) {
+                    this.avia.defaultDateThere = this.dates.airMaxDate;
+                }
+                if(value < this.dates.airMinDate)
+                {
+                    this.avia.defaultDateThere = this.dates.airMinDate;
+                }
             },
             'avia.defaultDateBack': function (value) {
                 if (value < this.avia.defaultDateThere) {
                     this.avia.defaultDateThere = value;
+                }
+                if (value > this.dates.airMaxDate) {
+                    this.avia.defaultDateBack = this.dates.airMaxDate;
+                }
+                if (value < this.dates.airMinDate) {
+                    this.avia.defaultDateBack = this.dates.airMinDate;
                 }
             },
             'railway.dateThere': function (value) {
                 if (value > this.railway.dateBack) {
                     this.railway.dateBack = value;
                 }
+                if (value > this.dates.trainsMaxDate) {
+                    this.railway.dateThere = this.dates.trainsMaxDate;
+                }
+                if (value < this.dates.trainsMinDate) {
+                    this.railway.dateThere = this.dates.trainsMinDate;
+                }
             },
             'railway.dateBack': function (value) {
                 if (value < this.railway.dateThere) {
                     this.railway.dateThere = value;
+                }
+                if (value > this.dates.trainsMaxDate) {
+                    this.railway.dateBack = this.dates.trainsMaxDate;
+                }
+                if (value < this.dates.trainsMinDate) {
+                    this.railway.dateBack = this.dates.trainsMinDate;
                 }
             }
         },
