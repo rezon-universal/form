@@ -34,6 +34,56 @@ function StationItem(code, name, countryCode, countryName) {
     this.CountryName = countryName;
 }
 var types = [new DirectionType('oneway', 'ONE_WAY'), new DirectionType('roundtrip', 'ROUND_TRIP'), new DirectionType('route', 'MULTY_ROUTE')];
+var passTypes = [
+                    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
+                    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
+                    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
+                    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
+                    new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
+                    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
+                ];
+var prepareAviaSearchParams = function(params)
+{	
+	if(params.defaultDateThere!=undefined && params.defaultDateThere!=null && params.defaultDateThere.trim()!='')
+	{
+		var dateThere = new Date(params.defaultDateThere);
+		params.defaultDateThere = dateThere;
+	}
+	if(params.defaultDateBack!=undefined && params.defaultDateBack!=null && params.defaultDateBack.trim()!='')
+	{
+		var dateBack = new Date(params.defaultDateBack);
+		params.defaultDateBack = dateBack;
+	}	
+	if(params.multyRoutes!==undefined && params.multyRoutes!==null && params.multyRoutes.length >0)
+	{		
+		for(var i=0;i<params.multyRoutes.length;i++)
+		{
+			if(params.multyRoutes[i].defaultDateThere!==undefined && params.multyRoutes[i].defaultDateThere!==null && params.multyRoutes[i].defaultDateThere.trim()!='')
+			{
+				var dateThere = new Date(params.multyRoutes[i].defaultDateThere);
+				params.multyRoutes[i].defaultDateThere = dateThere;
+			}
+			if(params.multyRoutes[i].minDate!==undefined && params.multyRoutes[i].minDate!==null && params.multyRoutes[i].minDate.trim()!='')
+			{
+				var minDate =  new Date(params.multyRoutes[i].minDate);
+				params.multyRoutes[i].minDate = minDate;
+			}
+			
+		}
+	}
+	return params;
+}
+var prepareRailSearchParams = function(params) {
+    if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
+        var dateThere = new Date(params.dateThere);
+        params.dateThere = dateThere;
+    }
+    if (params.dateBack !== undefined && params.dateBack !== null && params.dateBack.trim() !== '') {
+        var dateBack = new Date(params.dateBack);
+        params.dateBack = dateBack;
+    }
+    return params;
+}
 
 var rezOnForm = function (form, o) {
     rezOnForm.prototype._form = undefined;
@@ -52,7 +102,7 @@ var rezOnForm = function (form, o) {
             trainsMaxDate: null
         },
 
-        projectUrl: "http://localhost:1437/",
+        projectUrl: "/",
         defaultLang: "ru",
         formType: "all", //avia|railway|all
         formTarget: "_blank",
@@ -75,16 +125,9 @@ var rezOnForm = function (form, o) {
             aviTo: new AirportItem(),
             aviToTime: 0,
             passengers: {
-                types: [
-                    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
-                    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
-                    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
-                    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
-                    new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
-                    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
-                ],
-                hasError: false,
-                messages: []
+            	types:passTypes,
+            	hasError: false,
+            	messages: []
             },
             formExtended: false,
             maxPassangersCount: 6,
@@ -103,15 +146,16 @@ var rezOnForm = function (form, o) {
             recStationsFrom: [],
             recStationsTo: [],
             historyGuid: '',
-            dateThere: new Date(2017, 8, 26),
-            dateBack: new Date(2017, 8, 26),
+            dateThere: new Date(),
+            dateBack: new Date(),
             stationFrom: new StationItem(),
             stationTo: new StationItem(),
             timeThere: 0,
             timeBack: 0,
             dateRange: 0,
             formTypes: [types[0], types[1]],
-            formType: types[0]
+            formType: types[0],
+            formExtended: false
         }
 
     }
@@ -258,7 +302,9 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Простой поиск",
                 "ADVANCED_SEARCH": "Расширенный поиск",
                 "DEPARTURE_TIME": "Время отправления",
-                "ARRIVAL_TIME": "Время прибытия"
+                "ARRIVAL_TIME": "Время прибытия",
+                "SELECT_DATE":"Выберите дату",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму"
             },
             en: {
                 "ONE_WAY": "One way",
@@ -396,7 +442,9 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Simple search",
                 "ADVANCED_SEARCH": "Advanced search",
                 "DEPARTURE_TIME": "Departure time",
-                "ARRIVAL_TIME": "Arrival time"
+                "ARRIVAL_TIME": "Arrival time",
+                "SELECT_DATE":"Select date",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -534,7 +582,9 @@ var rezOnForm = function (form, o) {
                 "SIMPLE_SEARCH": "Простий пошук",
                 "ADVANCED_SEARCH": "Розширений пошук",
                 "DEPARTURE_TIME": "Час відправлення",
-                "ARRIVAL_TIME": "Час прибуття"
+                "ARRIVAL_TIME": "Час прибуття",
+                "SELECT_DATE":"Оберіть дату",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму"
             }
         };
 
@@ -556,6 +606,17 @@ var rezOnForm = function (form, o) {
         this._o.dates.trainsMinDate = new Date(this._o.dates.today.getTime());
         this._o.dates.trainsMaxDate = new Date(this._o.dates.today.getTime());
         this._o.dates.trainsMaxDate.setDate(this._o.dates.trainsMaxDate.getDate() + 44); //+ 29
+
+        this._o.avia.defaultDateThere = new Date();
+        this._o.avia.defaultDateThere.setDate(this._o.avia.defaultDateThere.getDate() + 7);
+
+        this._o.avia.defaultDateBack = new Date();
+        this._o.avia.defaultDateBack.setDate(this._o.avia.defaultDateBack.getDate() + 14);
+
+        this._o.railway.dateThere = new Date();
+
+        this._o.railway.dateBack = new Date();
+        this._o.railway.dateBack.setDate(this._o.railway.dateBack.getDate() + 2);
 
         return this;
     }
@@ -724,41 +785,7 @@ var rezOnForm = function (form, o) {
             it._initialized = true;
         }
         setInitializedProperty();
-        //if (o.avia)
-        //{
-        //    o.avia.defaultRouteType && it._aviaForm.find("[name='book_type'][value='" + o.avia.defaultRouteType + "']").closest("label").trigger("click");
 
-        //    //Вынесено в отдельную функцию т.к. нельзя одновременно отправлять 2 запроса, они перекрывают друг друга. Поэтому вынесли подгрущку втророго аэропорта
-        //    var setAirportTo = function() {
-        //        if (o.avia.defaultAirportTo) {
-        //            var twitterTypeahead2 = it._aviaForm.find("[name='to_iata']").siblings(".twitter-typeahead").find(".tt-input").eq(0).val(o.avia.defaultAirportTo).trigger("input").trigger("paste.tt").trigger("keyup");
-        //            var updatefunc2 = function () {
-        //                twitterTypeahead2.off("typeahead:dropdown", updatefunc2);
-        //                var data = twitterTypeahead2.data().ttTypeahead.dropdown;
-        //                data.datasets[data.datasets.length - 1].$el.find(".tt-suggestion").eq(0).trigger("click");
-
-        //                setInitializedProperty();
-        //            };
-        //            twitterTypeahead2.on("typeahead:dropdown", updatefunc2);
-        //        } else setInitializedProperty();
-        //    }
-
-        //    if (o.avia.defaultAirportFrom) {
-        //        var twitterTypeahead = it._aviaForm.find("[name='from_iata']").siblings(".twitter-typeahead").find(".tt-input").eq(0).val(o.avia.defaultAirportFrom).trigger("input").trigger("paste.tt").trigger("keyup");
-        //        var updatefunc = function() {
-        //            twitterTypeahead.off("typeahead:dropdown", updatefunc);
-        //            var data = twitterTypeahead.data().ttTypeahead.dropdown;
-        //            data.datasets[data.datasets.length - 1].$el.find(".tt-suggestion").eq(0).trigger("click");
-
-        //            setAirportTo();
-        //        };
-        //        twitterTypeahead.on("typeahead:dropdown", updatefunc);
-        //    } else setAirportTo();
-
-        //    if (o.avia.defaultDateThere) it._aviaForm.find("[name='book_from_date']").trigger("keyup");
-        //    if (o.avia.defaultDateBack) it._aviaForm.find("[name='book_to_date']").trigger("keyup");
-
-        //}else 
     }
 
     //-----------------------------------------
@@ -770,9 +797,10 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype.validation.airForm = function () {
         //temp TODO
         var ret = it.validation.departure_arrival();
+        
         ret = rezOnForm.prototype.validation.dateRange(it._aviaForm) && ret;
         //ret = rezOnForm.static.pass_selectPicker.validate(undefined, it.extra.locale) && ret;
-
+        
         if (ret && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(it._aviaForm);
         return ret;
     }
@@ -820,6 +848,7 @@ var rezOnForm = function (form, o) {
 
     //Валидация формы поиска ЖД билетов
     rezOnForm.prototype.validation.railForm = function () {
+    
         var ret = it.validation.stations();
         ret = rezOnForm.prototype.validation.dateRange(it._railwayForm) && ret;
         if (ret && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(it._railwayForm);
@@ -853,7 +882,7 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype.bind = function () {
         //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
         if (window.main == undefined) {
-            it._form.on("click", ".selectpicker .option, .selected-value", function () {
+            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
                 var selectpicker = $(this).closest(".selectpicker");
                 var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 if (selectpicker.is(".opened")) {
@@ -866,6 +895,9 @@ var rezOnForm = function (form, o) {
                     }
                     if (isMobile) {
                         selectpicker.find(".options").fadeOut(300, function () {
+                            $('body').css({
+                                'position': 'relative'
+                            });
                             selectpicker.removeClass("opened");
                         });
                     } else {
@@ -878,6 +910,9 @@ var rezOnForm = function (form, o) {
                     var options = selectpicker.find(".options").addClass("z-100");
                     selectpicker.addClass("opened");
                     if (isMobile) {
+                        $('body').css({
+                            'position': 'fixed'
+                        });
                         options.fadeIn(300).css({
                             'display': 'flex'
                         });
@@ -963,16 +998,6 @@ var rezOnForm = function (form, o) {
 
                 $(this).addClass("active");
                 it._form.find($(this).attr("href")).removeClass("g-hide");
-            }
-            return false;
-        });
-
-        $(it._form).on("click", ".hide_settings > div", function () {
-            var fieldsCon = it._form.find('.fields-container');
-            if ($(this).hasClass('simple_search')) {
-                fieldsCon.removeClass('extended');
-            } else {
-                fieldsCon.addClass('extended');
             }
             return false;
         });
@@ -1076,52 +1101,62 @@ var rezOnForm = function (form, o) {
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             })
-                .click(function () {
-                    $(this).select();
-                }).blur(function () {
-                    //$(this).closest('.field.focused').removeClass('focused opened');
-                    if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-                })
-                .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
-                    if (datum != undefined) {
-                        var item = $(this).closest(".control-field");
+            .click(function () {
+                $(this).select();
+            }).blur(function () {
+                //$(this).closest('.field.focused').removeClass('focused opened');
+                if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            })
+            .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
+                if (datum != undefined) {
+                    var item = $(this).closest(".control-field");
 
-                        var name = item.find(".inside input[type='hidden']").attr('name');
-                        vue.updateAirportTypeAhead(name, datum);
+                    var name = item.find(".inside input[type='hidden']").attr('name');
+                    vue.updateAirportTypeAhead(name, datum);
 
-                        $(this).closest('.field.airport').removeClass('opened');
-                        $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
 
-                        //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
-                        if (it._initialized) {
-                            console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
-                            //Меняем фокус
-                            if ($(this).is(".book-from")) {
-                                $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
-                            } else if ($(this).is(".book-to")) {
-                                $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
-                            }
+                    $(this).closest('.field.airport').removeClass('opened');
+                    $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
+
+                    //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
+                    if (it._initialized) {
+                        //console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
+                        //Меняем фокус
+                        if ($(this).is(".book-from")) {
+                            $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
+                        } else if ($(this).is(".book-to")) {
+                            $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
                         }
                     }
-                }).on("typeahead:dropdown", function (it) {
-                    var item = $(this).closest('.field');
-                    item.addClass('opened');
-                }).on("typeahead:dropup", function (it) {
-                 //   $(this).closest('.field.opened').removeClass('opened');
-                    var item = $(this).closest(".field");
-                    if (item.find(".inside input[type='hidden']").val() === "" && $(this).data("lastHist")) {
-                        $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+
+                    if ($(this).is(".book-from")) {
+                        $(document).trigger("StartPtChange.MapBridge", [datum])
+                    } else {
+                        $(document).trigger("EndPtChange.MapBridge", [datum])
                     }
-                }).on("typeahead:queryChanged", function (it, query) {
-                    //var item = $(this).closest('.field');
-                    //item.find(".inside .iata").addClass("no-visiblity");
-                    //item.find(".inside input[type='hidden']").val("");
-                    //item.find(".inside .country").addClass("no-visiblity");
-                    //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
-                }).on("typeahead:updateHint", function (a, b) {
-                    if (b) $(this).data("lastHist", b);
-                    else $(this).removeData("lastHist");
-                });
+                }
+            }).on("typeahead:dropdown", function (it) {
+                var item = $(this).closest('.field');
+                item.addClass('opened');
+            }).on("typeahead:dropup", function (it) {
+                //   $(this).closest('.field.opened').removeClass('opened');
+                var item = $(this).closest(".field");
+                
+                if ($(it.currentTarget).val() !== "" && $(this).data("lastHist"))
+                {
+                    //TODO
+                    //$(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                }
+            }).on("typeahead:queryChanged", function (it, query) {
+                //var item = $(this).closest('.field');
+                //item.find(".inside .iata").addClass("no-visiblity");
+                //item.find(".inside input[type='hidden']").val("");
+                //item.find(".inside .country").addClass("no-visiblity");
+                //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
+            }).on("typeahead:updateHint", function (a, b) {
+                if (b) $(this).data("lastHist", b);
+                else $(this).removeData("lastHist");
+            });
         };
         it._aviaForm.bindAirportTypeahead();
 
@@ -1323,6 +1358,24 @@ var rezOnForm = function (form, o) {
                 $(this).html("").closest(".has-error").removeClass("has-error");
             });
             return false;
+        });
+
+
+        //Интеграция с картой
+        $(document).on("StartPtChange.Map EndPtChange.Map", function(e, data) {
+            
+            var itemName = e.type == "StartPtChange"
+                ? "from_iata"
+                : "to_iata";
+
+            if (!data) return vue.updateAirportTypeAhead(itemName);
+            vue.updateAirportTypeAhead(itemName,
+            {
+                IataCode: data.iata,
+                CountryCode: data.countryCode,
+                CountryName: '',
+                Name: data.name
+            })
         });
     }
 
@@ -1677,13 +1730,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         computed: datepickerSetting.computed,
         methods: datepickerSetting.methods
     }
-
+    
     //Airport typeahead input component
     Vue.component('airportInput', {
         template:
             '<div class="inside">' +
-                '<input type="text" :placeholder="placeholder"  v-bind:class="[inputClass,{isEmpty: item.IataCode===null || item.IataCode===undefined || item.IataCode.trim()===\'\'}]" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
+                '<input type="text" :placeholder="placeholder" :class="inputClass" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
                 '<div class="iata" v-bind:class="{\'no-visiblity\': item.IataCode==null}">{{item.IataCode}}</div>' +
+                '<div class="country hidden">{{item.CountryName}} {{item.CountryCode}}</div>'+
                 '<span href="#" class="delete" v-bind:class="{\'no-visiblity\': item.Airport==null}" v-on:click="clearItem()"></span>' +
                 '<input type="hidden" :name="name" v-model="item.IataCode"/>' +
                 '</div>',
@@ -1701,6 +1755,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             placeholder: {
                 type: String,
                 default: "PLACEHOLDER_AIRPORT2"
+            }
+        },
+        computed:{
+            inputClasses:function() {
+                var classes = this.inputClass;
+                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
+                    classes += " " + 'isEmpty';
+                }
+                return classes;
             }
         },
         watch: {
@@ -1729,6 +1792,13 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.item = newValue;
                 this.$emit('input', this.item);
             },
+            bridgeClearMapPoint: function() {
+                if (this.inputClass == "book-from") {
+                    $(document).trigger("StartPtChange.MapBridge", [undefined])
+                } else {
+                    $(document).trigger("EndPtChange.MapBridge", [undefined])
+                }
+            },
             clearItem: function () {
                 this.item = new AirportItem();
                 this.$emit('input', this.item);
@@ -1738,6 +1808,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     var el = comp.$el;
                     var selector = comp.inputClass;
                     $(el).find('.' + selector).typeahead('val', '');
+                    comp.bridgeClearMapPoint();
                 });
             },
             checkItem: function (event) {
@@ -1746,6 +1817,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.item.CountryName = '';
                     this.item.IataCode = '';
                     this.$emit('input', this.item);
+                    this.bridgeClearMapPoint();
                 }
             }
         },
@@ -1755,6 +1827,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             vue.$on('airportUpdate', function (name, airport) {
                 if (comp.name === name) {
                     comp.updateAviItem(airport);
+                }
+            });
+            vue.$on('clearItem', function (name) {
+                if (comp.name === name) {
+                    comp.clearItem();
                 }
             });
         }
@@ -1912,6 +1989,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 el.closest('.field').removeClass('opened');
                 el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
             });
+
         },
         mounted: function () {
             var el = this.$el;
@@ -1938,6 +2016,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 else if (comp.showYearView) {
                     comp.nextDecade();
                 }
+            });
+
+            Vue.nextTick(function () {
+                // DOM updated
+                $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
+                    //Tab press
+                    if (e.keyCode == 9)  comp.close();
+                    //
+                    //comp.setInitialView();
+                    //Vue.nextTick(function () {
+                    //    console.log(comp.isOpen, comp.showDayView)
+                    //});
+                    
+                    //setTimeout(function () {
+                    //    console.log(comp.isOpen)
+                    //    if (!comp.isOpen) comp.showCalendar();
+                    //}, 500);
+                });
             });
         }
     });
@@ -2046,7 +2142,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             typeChanged: function (index) {
                 //0-oneway,1-roundtrip,2-route
                 this.avia.formType = types[index];
-
                 if (this.avia.formType.value === 'roundtrip') {
                     this.avia.segmentsCount = 2;
                 } else {
@@ -2055,6 +2150,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (this.avia.multyRoutes.length > 0) {
                     this.avia.multyRoutes = [];
                 }
+                $(document).trigger("RouteTypeChange.MapBridge", [this.avia.formType]);
             },
             updateHtmlElements: function () {
                 //Update displayed value for selectpickers
@@ -2101,7 +2197,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var loc = this.localeDict[this.defaultLang][str];
                 return loc || str;
             },
-            changeFormExtended: function () {
+            changeAviaFormExtended: function () {
                 this.avia.formExtended = !this.avia.formExtended;
             },
             removePassenger: function (type) {
@@ -2156,6 +2252,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
             },
             updateAirportTypeAhead: function (name, data) {
+                if (data == null) return vue.$emit('clearItem', name);
                 var airportItem = new AirportItem(data.IataCode, data.CountryCode, data.CountryName, data.Name);
                 vue.$emit('airportUpdate', name, airportItem);
             },
@@ -2216,8 +2313,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var from = this.avia.aviTo;
                 this.avia.aviFrom = from;
                 this.avia.aviTo = to;
+                
+                $(document).trigger("StartPtChange.MapBridge", [from])
+                $(document).trigger("EndPtChange.MapBridge", [to])
             },
             //Railway methods
+            changeRailFormExtended: function () {
+                this.railway.formExtended = !this.railway.formExtended;
+            },
             updateStationTypeAhead: function (name, data) {
                 var stationItem = new StationItem(data.ExpressCode, data.Name, data.CountryCode, data.CountryName);
                 vue.$emit('stationUpdate', name, stationItem);
@@ -2251,20 +2354,45 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value > this.avia.defaultDateBack) {
                     this.avia.defaultDateBack = value;
                 }
+                if (value > this.dates.airMaxDate) {
+                    this.avia.defaultDateThere = this.dates.airMaxDate;
+                }
+                if(value < this.dates.airMinDate)
+                {
+                    this.avia.defaultDateThere = this.dates.airMinDate;
+                }
             },
             'avia.defaultDateBack': function (value) {
                 if (value < this.avia.defaultDateThere) {
                     this.avia.defaultDateThere = value;
+                }
+                if (value > this.dates.airMaxDate) {
+                    this.avia.defaultDateBack = this.dates.airMaxDate;
+                }
+                if (value < this.dates.airMinDate) {
+                    this.avia.defaultDateBack = this.dates.airMinDate;
                 }
             },
             'railway.dateThere': function (value) {
                 if (value > this.railway.dateBack) {
                     this.railway.dateBack = value;
                 }
+                if (value > this.dates.trainsMaxDate) {
+                    this.railway.dateThere = this.dates.trainsMaxDate;
+                }
+                if (value < this.dates.trainsMinDate) {
+                    this.railway.dateThere = this.dates.trainsMinDate;
+                }
             },
             'railway.dateBack': function (value) {
                 if (value < this.railway.dateThere) {
                     this.railway.dateThere = value;
+                }
+                if (value > this.dates.trainsMaxDate) {
+                    this.railway.dateBack = this.dates.trainsMaxDate;
+                }
+                if (value < this.dates.trainsMinDate) {
+                    this.railway.dateBack = this.dates.trainsMinDate;
                 }
             }
         },

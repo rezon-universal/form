@@ -521,6 +521,12 @@
 #rezon-forms .default-form-link,
 html[data-btb="True"] #rezon-forms .extended-form-link {
     display: inline-block;
+    line-height: 21px;
+    margin-left: 10px;
+    opacity: .5;
+}
+html[data-btb="True"] #rezon-forms .extended-form-link:hover {
+    opacity: 1;
 }
 
 #rezon-forms .yellow 
@@ -753,6 +759,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link {
 {
     position: relative;
     clear: both;
+    cursor: pointer;
 }
 #rezon-forms .select-age 
 {
@@ -1633,14 +1640,14 @@ body > div.datepicker
     height: 19px;
     opacity: .3;
     cursor: pointer;
-    background: url(../img/icon-arrow-down.gif) no-repeat center center;
+    /*background: url(../img/icon-arrow-down.gif) no-repeat center center;*/
     top: 50%;
     margin-top: -9px;
     z-index: 1;
 }
 #rezon-forms .typeahead-selectpicker-control.opened 
 {
-    background: url(../img/icon-arrow-up.gif) no-repeat center center;
+    /*background: url(../img/icon-arrow-up.gif) no-repeat center center;*/
     opacity: 1;
 }
 #rezon-forms .typeahead-selectpicker-control.empty 
@@ -1741,7 +1748,6 @@ body > div.datepicker
     border-radius: 4px;
     color: white;
     text-align: center;
-    cursor: pointer;
 }
 #rezon-forms .transp:hover 
 {
@@ -1752,6 +1758,11 @@ body > div.datepicker
 #rezon-forms .transp a:visited span 
 {
     color: #fff;
+}
+
+#rezon-forms .transp div span,
+#rezon-forms .transp .arrow {
+    cursor: pointer;
 }
 #rezon-forms .transp a span 
 {
@@ -2075,6 +2086,14 @@ body > div.datepicker
     margin-top: 10px;
     font-size: 24px;
     cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 #rezon-forms .field.pass .pass_counter a 
 {
@@ -2251,16 +2270,11 @@ body > div.datepicker
 	border: 1px solid #4bd;
 }
 
-.vdp-datepicker__calendar .cell.selected {
-	background: #4bd;
-}
-
-.vdp-datepicker__calendar .cell.selected:hover {
-	background: #4bd;
-}
-
+ .vdp-datepicker__calendar .cell.selected,
+.vdp-datepicker__calendar .cell.selected:hover,
 .vdp-datepicker__calendar .cell.selected.highlighted {
 	background: #4bd;
+    color:white;
 }
 
 .vdp-datepicker__calendar .cell.highlighted {
