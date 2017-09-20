@@ -303,7 +303,8 @@ var rezOnForm = function (form, o) {
                 "ADVANCED_SEARCH": "Расширенный поиск",
                 "DEPARTURE_TIME": "Время отправления",
                 "ARRIVAL_TIME": "Время прибытия",
-                "SELECT_DATE":"Выберите дату"
+                "SELECT_DATE":"Выберите дату",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму"
             },
             en: {
                 "ONE_WAY": "One way",
@@ -442,7 +443,8 @@ var rezOnForm = function (form, o) {
                 "ADVANCED_SEARCH": "Advanced search",
                 "DEPARTURE_TIME": "Departure time",
                 "ARRIVAL_TIME": "Arrival time",
-                "SELECT_DATE":"Select date"
+                "SELECT_DATE":"Select date",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -581,7 +583,8 @@ var rezOnForm = function (form, o) {
                 "ADVANCED_SEARCH": "Розширений пошук",
                 "DEPARTURE_TIME": "Час відправлення",
                 "ARRIVAL_TIME": "Час прибуття",
-                "SELECT_DATE":"Оберіть дату"
+                "SELECT_DATE":"Оберіть дату",
+                "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму"
             }
         };
 
@@ -796,7 +799,6 @@ var rezOnForm = function (form, o) {
         var ret = it.validation.departure_arrival();
         
         ret = rezOnForm.prototype.validation.dateRange(it._aviaForm) && ret;
-        console.log(ret);
         //ret = rezOnForm.static.pass_selectPicker.validate(undefined, it.extra.locale) && ret;
         
         if (ret && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(it._aviaForm);
@@ -813,15 +815,15 @@ var rezOnForm = function (form, o) {
             var inpTo = $(this).find(".book-to").parent().siblings("input[type='hidden']").first();
 
             if ($.trim(inpFrom.val()) == "" || inpFrom.val() == "&nbsp;") {
-                inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_AIRPORT_FROM_LIST")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+                inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_AIRPORT_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
                 ret = false;
             }
 
             if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
-                inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_AIRPORT_FROM_LIST")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+                inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_AIRPORT_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
                 ret = false;
             } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val())) {
-                inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_AIRPORTS")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+                inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_AIRPORTS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
                 ret = false;
             }
 
@@ -862,15 +864,15 @@ var rezOnForm = function (form, o) {
         var inpTo = it._railwayForm.find("input[name='tshi_station_to']").first();
 
         if ($.trim(inpFrom.val()) == "" || inpFrom.val() == "&nbsp;") {
-            inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+            inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
 
         if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
-            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val())) {
-            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<span/>").addClass("close")).slideDown(it._o.animationDelay);
+            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
 

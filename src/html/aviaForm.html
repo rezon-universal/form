@@ -22,10 +22,7 @@
                 <div class="error-box"></div>
             </div>
         </div>
-        <div v-on:click="swapAviaDest()" class="swap">
-            &uarr;
-            &darr;
-        </div>
+        <div v-on:click="swapAviaDest()" class="swap">&uarr;&darr;</div>
         <div class="field airport">
             <label class="menu-title">
                 <span class="visible-xs-inline-block link-left hidden">&larr;</span>
@@ -365,8 +362,11 @@
                     <div class="advanced_search" v-on:click="changeAviaFormExtended()">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
                     </div>
-                    <div class="arrow">
+                    <div class="arrow" v-on:click="changeAviaFormExtended()">
                     </div>
+                    <a href="/DEFAULT_LANGUAGE/AirTickets/ExtendedHistory" class="extended-form-link">
+                        <span>{{locale("OPEN_AVIA_ADDITIONAL_FORM")}}</span>
+                    </a>
                 </div>
             </div>
         </div>
