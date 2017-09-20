@@ -521,6 +521,12 @@
 #rezon-forms .default-form-link,
 html[data-btb="True"] #rezon-forms .extended-form-link {
     display: inline-block;
+    line-height: 21px;
+    margin-left: 10px;
+    opacity: .5;
+}
+html[data-btb="True"] #rezon-forms .extended-form-link:hover {
+    opacity: 1;
 }
 
 #rezon-forms .yellow 
