@@ -41,49 +41,7 @@ var passTypes = [
                     new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
                     new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
                     new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
-                ];
-var prepareAviaSearchParams = function(params)
-{	
-	if(params.defaultDateThere!=undefined && params.defaultDateThere!=null && params.defaultDateThere.trim()!='')
-	{
-		var dateThere = new Date(params.defaultDateThere);
-		params.defaultDateThere = dateThere;
-	}
-	if(params.defaultDateBack!=undefined && params.defaultDateBack!=null && params.defaultDateBack.trim()!='')
-	{
-		var dateBack = new Date(params.defaultDateBack);
-		params.defaultDateBack = dateBack;
-	}	
-	if(params.multyRoutes!==undefined && params.multyRoutes!==null && params.multyRoutes.length >0)
-	{		
-		for(var i=0;i<params.multyRoutes.length;i++)
-		{
-			if(params.multyRoutes[i].defaultDateThere!==undefined && params.multyRoutes[i].defaultDateThere!==null && params.multyRoutes[i].defaultDateThere.trim()!='')
-			{
-				var dateThere = new Date(params.multyRoutes[i].defaultDateThere);
-				params.multyRoutes[i].defaultDateThere = dateThere;
-			}
-			if(params.multyRoutes[i].minDate!==undefined && params.multyRoutes[i].minDate!==null && params.multyRoutes[i].minDate.trim()!='')
-			{
-				var minDate =  new Date(params.multyRoutes[i].minDate);
-				params.multyRoutes[i].minDate = minDate;
-			}
-			
-		}
-	}
-	return params;
-}
-var prepareRailSearchParams = function(params) {
-    if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
-        var dateThere = new Date(params.dateThere);
-        params.dateThere = dateThere;
-    }
-    if (params.dateBack !== undefined && params.dateBack !== null && params.dateBack.trim() !== '') {
-        var dateBack = new Date(params.dateBack);
-        params.dateBack = dateBack;
-    }
-    return params;
-}
+];
 
 var rezOnForm = function (form, o) {
     rezOnForm.prototype._form = undefined;
@@ -710,6 +668,36 @@ var rezOnForm = function (form, o) {
         }
     }
 
+    rezOnForm.prototype.extra.openField = function (el) {
+        if (el === undefined || el === null) return false;
+        var field = el.closest('.field');
+        if (field.length > 0) {
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+
+            $('body').addClass('m-no-scroll');
+            field.addClass('opened');
+            field.find('.link-left, .link-right').removeClass('hidden');
+            if (isMobile) {
+                
+            }
+        }
+        return false;
+    }
+    rezOnForm.prototype.extra.closeField = function (el) {
+        if (el === undefined || el === null) return false;
+        var field = el.closest('.field');
+        if (field.length > 0) {
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+
+            $('body').removeClass('m-no-scroll');
+            field.removeClass('opened');
+            field.find('.link-left, .link-right').addClass('hidden');
+            if (isMobile) {
+
+            }
+        }
+        return false;
+    }
     //-----------------------------------------
     // Работа с данными
     //-----------------------------------------
@@ -882,9 +870,9 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype.bind = function () {
         //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
         if (window.main == undefined) {
-            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
+           it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
                 var selectpicker = $(this).closest(".selectpicker");
-                var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 if (selectpicker.is(".opened")) {
                     if ($(this).is(".option")) {
                         selectpicker.find(".selected-value:first").find("span:first").html(
@@ -895,9 +883,10 @@ var rezOnForm = function (form, o) {
                     }
                     if (isMobile) {
                         selectpicker.find(".options").fadeOut(300, function () {
-                            $('body').addClass('m-no-scroll');
+                            $('body').removeClass('m-no-scroll');
                             selectpicker.removeClass("opened");
                         });
+
                     } else {
                         selectpicker.find(".options").slideUp(300, function () {
                             selectpicker.removeClass("opened");
@@ -908,7 +897,7 @@ var rezOnForm = function (form, o) {
                     var options = selectpicker.find(".options").addClass("z-100");
                     selectpicker.addClass("opened");
                     if (isMobile) {
-                        $('body').removeClass('m-no-scroll');
+                        $('body').addClass('m-no-scroll');
                         options.fadeIn(300).css({
                             'display': 'flex'
                         });
@@ -929,12 +918,14 @@ var rezOnForm = function (form, o) {
                             }
                         });
                     }
+
+
                 }
                 return false;
             });
-
+           
             it._form.on("blur, click, focusout", ".selectpicker.opened", function () {
-                var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 var selectpicker = $(this);
                 if (isMobile) {
                     selectpicker.find(".options").hide(300, function () {
@@ -948,7 +939,7 @@ var rezOnForm = function (form, o) {
                 return false;
             });
 
-            it._form.find(".selectpicker").each(function () {
+            $(".selectpicker").each(function () {
                 if ($(this).attr("tabindex") != "-1") {
                     $(this).attr("tabindex", "-1");
                     var radio = $(this).find("input:radio:checked");
@@ -999,11 +990,11 @@ var rezOnForm = function (form, o) {
         });
 
         //Кнопки над меню при просмотре на мобильном
-        it._form.off("click", ".fields-container .field:not(.pass, .carrier) .menu-title .link-left, .fields-container .field:not(.pass, .carrier) .menu-title .link-right");
-        it._form.on("click", ".fields-container .field:not(.pass, .carrier) .menu-title .link-left, .fields-container .field:not(.pass, .carrier) .menu-title .link-right", function () {
-            $(this).closest('.field.opened').removeClass('opened');
-            $('body').removeClass('m-no-scroll');
-            $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
+        it._form.off("click", ".fields-container .field:not(.pass, .carrier, .date) .menu-title .link-left, .fields-container .field:not(.pass, .carrier, .date) .menu-title .link-right");
+        it._form.on("click", ".fields-container .field:not(.pass, .carrier, .date) .menu-title .link-left, .fields-container .field:not(.pass, .carrier, .date) .menu-title .link-right", function () {
+            var field = $(this).closest('.field');
+            it.extra.closeField(field);
+            return false;
         });
 
         //Клик по затухающему градиенту должен вести на инпут (просто градиент выше по наложению)
@@ -1093,9 +1084,7 @@ var rezOnForm = function (form, o) {
                 //}
             }).focus(function () {
                 var item = $(this).closest('.field');
-                $('body').addClass('m-no-scroll');
-                item.addClass('opened');
-                item.find('.link-left, .link-right').removeClass('hidden');
+                it.extra.openField(item);
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             })
@@ -1104,6 +1093,8 @@ var rezOnForm = function (form, o) {
             }).blur(function () {
                 $(this).closest('.field.focused').removeClass('focused opened');
                 if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+                var item = $(this).closest('.field');
+                it.extra.closeField(item);
                 return false;
                 })
             .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
@@ -1112,10 +1103,7 @@ var rezOnForm = function (form, o) {
 
                     var name = item.find(".inside input[type='hidden']").attr('name');
                     vue.updateAirportTypeAhead(name, datum);
-
-                    $(this).closest('.field.airport').removeClass('opened');
-                    $('body').removeClass('m-no-scroll');
-                    $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
+                    it.extra.closeField(item);
                     
                     //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
                     if (it._initialized && !it.extra.mobileAndTabletcheck()) {
@@ -1136,15 +1124,14 @@ var rezOnForm = function (form, o) {
                     //Hide mobile keyboard
                     $(this).blur();
                 }
-                }).on("typeahead:dropdown", function (it) {
+                }).on("typeahead:dropdown", function (its) {
                 var item = $(this).closest('.field');
-                item.addClass('opened');
-                $('body').addClass('m-no-scroll');
-            }).on("typeahead:dropup", function (it) {
+                it.extra.openField(item);
+            }).on("typeahead:dropup", function (its) {
                 //   $(this).closest('.field.opened').removeClass('opened');
                 var item = $(this).closest(".field");
                 
-                if ($(it.currentTarget).val() !== "" && $(this).data("lastHist"))
+                if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
                 {
                     //TODO
                     //$(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
@@ -1240,12 +1227,13 @@ var rezOnForm = function (form, o) {
         //Passengers menu
         it._aviaForm.find(".passengers > .switch-box .switch").click(function () {
             var selectAge = it._aviaForm.find(".select-age");
-            var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var field = $(this).closest('.field');
+
             if ($(this).is(".opened")) {
                 $(this).removeClass("opened");
-                $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
-                $(this).closest('.field.opened').removeClass('opened');
-                $('body').removeClass('m-no-scroll');
+                it.extra.closeField(field);
+
                 if (isMobile) {
                     selectAge.fadeOut(it._o.animationDelay, function () {
                         $(this).addClass("g-hide");
@@ -1256,10 +1244,9 @@ var rezOnForm = function (form, o) {
                     });
                 }
             } else {
+                it.extra.openField(field);
                 $(this).addClass("opened");
-                $(this).closest('.field').addClass('opened');
-                $('body').addClass('m-no-scroll');
-                $(this).closest('.field').find('.link-left, .link-right').removeClass('hidden');
+
                 if (isMobile) {
                     selectAge.fadeIn(it._o.animationDelay, function () {
                         $(this).removeClass("g-hide");
@@ -1271,7 +1258,6 @@ var rezOnForm = function (form, o) {
                         $(this).focus();
                     });
                 }
-
             }
             return false;
         });
@@ -1282,19 +1268,21 @@ var rezOnForm = function (form, o) {
             if ($(this).data('focusTimer')) clearTimeout($(this).data('focusTimer'));
         }).focusout(function () {
             var selectAge = $(this);
-            var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
-
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var field = $(this).closest('.field');
+            
             if (isMobile) {
                 $(this).fadeOut(300, function () {
-                    $('body').removeClass('m-no-scroll');
-                    $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened").closest('.field.opened').removeClass('opened');
+                    $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
+                    debugger
+                    it.extra.closeField(field);
                 });
             }
             else {
                 $(this).data('focusTimer', setTimeout(function () {
                     selectAge.slideUp(it._o.animationDelay, function () {
-                        $('body').removeClass('m-no-scroll');
-                        $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened").closest('.field.opened').removeClass('opened');;
+                        $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
+                        it.extra.closeField(field);
                     });
                 }, 100));
             }
@@ -1309,42 +1297,38 @@ var rezOnForm = function (form, o) {
             var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
             if (carriersItem.data('focusTimer')) clearTimeout(carriersItem.data('focusTimer'));
 
-
             if (carriersItem.find(".carriers-finder.g-hide").length > 0) {
-                var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var field = $(this).closest('.field');
 
                 if (isMobile) {
                     $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
-                    $(this).closest('.field').addClass('opened');
-                    $('body').addClass('m-no-scroll');
-                    $(this).closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").show();
 
                 } else {
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").slideDown(it._o.animationDelay, function () {
-                        $(this).closest('.field').addClass('opened');
-                        $(this).closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
                         $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                     });
                 }
+                it.extra.openField(field);
             }
         }).focusout(function () {
             var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
-            var isMobile = main.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var field = $(this).closest('.field');
 
             if (isMobile) {
                 carriersItem.data('focusTimer', setTimeout(function () {
                     carriersItem.find(".carriers-finder").fadeOut(300, function () {
-                        $(this).addClass("g-hide").closest(".field").removeClass("opened");
-                        $('body').removeClass('m-no-scroll');
-                        $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
+                        $(this).addClass("g-hide");
+                        it.extra.closeField(field);
                     });
                 }, 100));
             } else {
                 carriersItem.data('focusTimer', setTimeout(function () {
                     carriersItem.find(".carriers-finder").slideUp(it._o.animationDelay, function () {
-                        $(this).addClass("g-hide").closest(".field").removeClass("opened");
-                        $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
+                        $(this).addClass("g-hide");
+                        it.extra.closeField(field);
                     });
                 }, 100));
             }
@@ -1454,10 +1438,8 @@ var rezOnForm = function (form, o) {
             //}
         }).focus(function () {
             var item = $(this).closest('.field');
-            item.addClass('opened');
-            $('body').addClass('m-no-scroll');
-            item.find('.link-left, .link-right').removeClass('hidden');
 
+            it.extra.openField(item);
             item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             if ($(this).is(".book-to") && $(this).val() === "") {
@@ -1469,43 +1451,41 @@ var rezOnForm = function (form, o) {
         }).blur(function () {
             $(this).closest('.field.focused').removeClass('focused');
             if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            var item = $(this).closest('.field');
+            it.extra.closeField(item);
             return false;
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
-                var item = $(this).closest(".control-field");
-                var name = item.find(".inside input[type='hidden']").attr('name');
-            
-                $(this).closest('.field.station').removeClass('opened');
-                $('body').removeClass('m-no-scroll');
-                $(this).closest('.field.staion').find('.link-left, .link-right').addClass('hidden');
+                var field = $(this).closest('.field.station');
+                var name = field.find(".inside input[type='hidden']").attr('name');
+               
+                it.extra.closeField(field);
                 vue.updateStationTypeAhead(name, datum);
-
                 if (!it.extra.mobileAndTabletcheck()) {
                     switch (name) {
                         case "tshi_station_from":
-                            var sib = item.closest("form").find("input[name='tshi_station_to']");
+                            var sib = field.closest("form").find("input[name='tshi_station_to']");
                             if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                             break;
                         case "tshi_station_to":
                             //Focus TODO
-                            item.closest("form").find("input[name='book_from_date']").focus().click();
+                            field.closest("form").find("input[name='book_from_date']").focus().click();
                     }
                 }
                 //Hide mobile keyboard
                 $(this).blur();
             }
-        }).on("typeahead:dropdown", function (it) {
+        }).on("typeahead:dropdown", function (its) {
             var item = $(this).closest('.field');
-            item.addClass('opened');
-            $('body').addClass('m-no-scroll');
-        }).on("typeahead:dropup", function (it) {
-            $(this).closest('.field.opened').removeClass('opened');
-            $('body').removeClass('m-no-scroll');
-            var item = $(this).closest(".field");
-            if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
-                // $(this).val($(this).data("lastHist").Name);
-                $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-            }
+            it.extra.openField(item);
+        }).on("typeahead:dropup", function (its) {
+            //TODO First selected
+            //var item = $(this).closest(".field");
+            //it.extra.closeField(item);
+            //if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+            //    // $(this).val($(this).data("lastHist").Name);
+            //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+            //}
         }).on("typeahead:queryChanged", function (it, query) {
             //var item = $(this).closest('.field');
             //item.find(".inside .express").addClass("no-visiblity");
@@ -1657,6 +1637,43 @@ var rezOnForm = function (form, o) {
 // Статические свойства / методы
 //----------------------------------------
 rezOnForm.static = {};
+
+rezOnForm.static.prepareAviaSearchParams = function (params) {
+    if (params.defaultDateThere != undefined && params.defaultDateThere != null && params.defaultDateThere.trim() != '') {
+        var dateThere = new Date(params.defaultDateThere);
+        params.defaultDateThere = dateThere;
+    }
+    if (params.defaultDateBack != undefined && params.defaultDateBack != null && params.defaultDateBack.trim() != '') {
+        var dateBack = new Date(params.defaultDateBack);
+        params.defaultDateBack = dateBack;
+    }
+    if (params.multyRoutes !== undefined && params.multyRoutes !== null && params.multyRoutes.length > 0) {
+        for (var i = 0; i < params.multyRoutes.length; i++) {
+            if (params.multyRoutes[i].defaultDateThere !== undefined && params.multyRoutes[i].defaultDateThere !== null && params.multyRoutes[i].defaultDateThere.trim() != '') {
+                var dateThere = new Date(params.multyRoutes[i].defaultDateThere);
+                params.multyRoutes[i].defaultDateThere = dateThere;
+            }
+            if (params.multyRoutes[i].minDate !== undefined && params.multyRoutes[i].minDate !== null && params.multyRoutes[i].minDate.trim() != '') {
+                var minDate = new Date(params.multyRoutes[i].minDate);
+                params.multyRoutes[i].minDate = minDate;
+            }
+
+        }
+    }
+    return params;
+}
+
+rezOnForm.static.prepareRailSearchParams = function (params) {
+    if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
+        var dateThere = new Date(params.dateThere);
+        params.dateThere = dateThere;
+    }
+    if (params.dateBack !== undefined && params.dateBack !== null && params.dateBack.trim() !== '') {
+        var dateBack = new Date(params.dateBack);
+        params.dateBack = dateBack;
+    }
+    return params;
+}
 
 rezOnForm.staticCountriesData = function (remoteUrl) {
     return new Bloodhound({
@@ -2007,29 +2024,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Date
             }
         },
-        //watch:{
-        //    isOpen: function (value) {
-        //        console.log('open',this.name,value)
-               
-        //        if (!value) {
-        //            debugger;
-        //        }
-        //            if (this.name === 'book_from_date' && this.highlighted.to !== undefined && this.highlighted.to !== null) {
-        //                this.$on('selected', function () {
-                          
-                            
-        //                });
-        //                //var comp = this;
-        //                //Vue.nextTick(function () {
-        //                //    console.log('wath open');
-        //                //    var el = $(comp.$el);
-        //                //    el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']").focus();
-        //                //});
-        //            //}
-        //        }
-                
-        //    }
-        //},
         created: function () {
             var comp = this;
             this.$on('opened', function () {
