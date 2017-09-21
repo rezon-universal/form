@@ -135,15 +135,15 @@
                                 <input type="radio" name="dateRange" value="0" v-bind:checked="railway.dateRange == 0"/>
                             </div>
                             <div class="option" v-on:click="railway.dateRange = 1">
-                                <span>±1 <span data-local="true" data-localtext="DAY">{{locale("DAY")}}</span></span>
+                                <span>&plusmn;1 <span data-local="true" data-localtext="DAY">{{locale("DAY")}}</span></span>
                                 <input type="radio" name="dateRange" value="1" v-bind:checked="railway.dateRange == 1"/>
                             </div>
                             <div class="option" v-on:click="railway.dateRange = 2">
-                                <span>±2 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
+                                <span>&plusmn;2 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="2" v-bind:checked="railway.dateRange == 2"/>
                             </div>
                             <div class="option" v-on:click="railway.dateRange = 3">
-                                <span>±3 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
+                                <span>&plusmn;3 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="3" v-bind:checked="railway.dateRange == 3"/>
                             </div>
                         </div>

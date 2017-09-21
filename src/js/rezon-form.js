@@ -1102,9 +1102,10 @@ var rezOnForm = function (form, o) {
             .click(function () {
                 $(this).select();
             }).blur(function () {
-                //$(this).closest('.field.focused').removeClass('focused opened');
+                $(this).closest('.field.focused').removeClass('focused opened');
                 if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-            })
+                return false;
+                })
             .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
@@ -1112,13 +1113,12 @@ var rezOnForm = function (form, o) {
                     var name = item.find(".inside input[type='hidden']").attr('name');
                     vue.updateAirportTypeAhead(name, datum);
 
-
                     $(this).closest('.field.airport').removeClass('opened');
                     $('body').removeClass('m-no-scroll');
                     $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
-
+                    
                     //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
-                    if (it._initialized) {
+                    if (it._initialized && !it.extra.mobileAndTabletcheck()) {
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
@@ -1132,8 +1132,11 @@ var rezOnForm = function (form, o) {
                     } else {
                         $(document).trigger("EndPtChange.MapBridge", [datum])
                     }
+
+                    //Hide mobile keyboard
+                    $(this).blur();
                 }
-            }).on("typeahead:dropdown", function (it) {
+                }).on("typeahead:dropdown", function (it) {
                 var item = $(this).closest('.field');
                 item.addClass('opened');
                 $('body').addClass('m-no-scroll');
@@ -1345,6 +1348,7 @@ var rezOnForm = function (form, o) {
                     });
                 }, 100));
             }
+            return false;
         }).find(".inside").click(function () {
             var carriersItem = $(this).closest(".carriers");
             if (!carriersItem.find(".carriers-finder").is(".g-hide")) {
@@ -1465,11 +1469,12 @@ var rezOnForm = function (form, o) {
         }).blur(function () {
             $(this).closest('.field.focused').removeClass('focused');
             if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            return false;
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 var item = $(this).closest(".control-field");
                 var name = item.find(".inside input[type='hidden']").attr('name');
-
+            
                 $(this).closest('.field.station').removeClass('opened');
                 $('body').removeClass('m-no-scroll');
                 $(this).closest('.field.staion').find('.link-left, .link-right').addClass('hidden');
@@ -1479,13 +1484,15 @@ var rezOnForm = function (form, o) {
                     switch (name) {
                         case "tshi_station_from":
                             var sib = item.closest("form").find("input[name='tshi_station_to']");
-                            if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").focus();
+                            if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                             break;
                         case "tshi_station_to":
                             //Focus TODO
                             item.closest("form").find("input[name='book_from_date']").focus().click();
                     }
                 }
+                //Hide mobile keyboard
+                $(this).blur();
             }
         }).on("typeahead:dropdown", function (it) {
             var item = $(this).closest('.field');
@@ -2000,6 +2007,29 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Date
             }
         },
+        //watch:{
+        //    isOpen: function (value) {
+        //        console.log('open',this.name,value)
+               
+        //        if (!value) {
+        //            debugger;
+        //        }
+        //            if (this.name === 'book_from_date' && this.highlighted.to !== undefined && this.highlighted.to !== null) {
+        //                this.$on('selected', function () {
+                          
+                            
+        //                });
+        //                //var comp = this;
+        //                //Vue.nextTick(function () {
+        //                //    console.log('wath open');
+        //                //    var el = $(comp.$el);
+        //                //    el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']").focus();
+        //                //});
+        //            //}
+        //        }
+                
+        //    }
+        //},
         created: function () {
             var comp = this;
             this.$on('opened', function () {
@@ -2013,17 +2043,16 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 el.closest('.field').removeClass('opened');
                 $('body').removeClass('m-no-scroll');
                 el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
-            });
-           
-            if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null) {
-                this.$on('selected', function () {
-                    Vue.nextTick(function () {
-                        var el = $(comp.$el);
-                        el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']").focus();
-                    });
-                });
-            }
 
+                //Vue.nextTick(function () {
+                //    if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null) {
+
+                //        var el = $(comp.$el);
+                //        var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+                //        nextDatePick.focus();
+                //    }
+                //});
+            });
         },
         mounted: function () {
             var el = this.$el;
