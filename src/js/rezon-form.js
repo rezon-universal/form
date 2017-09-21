@@ -895,9 +895,7 @@ var rezOnForm = function (form, o) {
                     }
                     if (isMobile) {
                         selectpicker.find(".options").fadeOut(300, function () {
-                            $('body').css({
-                                'position': 'relative'
-                            });
+                            $('body').addClass('m-no-scroll');
                             selectpicker.removeClass("opened");
                         });
                     } else {
@@ -910,9 +908,7 @@ var rezOnForm = function (form, o) {
                     var options = selectpicker.find(".options").addClass("z-100");
                     selectpicker.addClass("opened");
                     if (isMobile) {
-                        $('body').css({
-                            'position': 'fixed'
-                        });
+                        $('body').removeClass('m-no-scroll');
                         options.fadeIn(300).css({
                             'display': 'flex'
                         });
@@ -1006,6 +1002,7 @@ var rezOnForm = function (form, o) {
         it._form.off("click", ".fields-container .field:not(.pass, .carrier) .menu-title .link-left, .fields-container .field:not(.pass, .carrier) .menu-title .link-right");
         it._form.on("click", ".fields-container .field:not(.pass, .carrier) .menu-title .link-left, .fields-container .field:not(.pass, .carrier) .menu-title .link-right", function () {
             $(this).closest('.field.opened').removeClass('opened');
+            $('body').removeClass('m-no-scroll');
             $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
         });
 
@@ -1096,6 +1093,7 @@ var rezOnForm = function (form, o) {
                 //}
             }).focus(function () {
                 var item = $(this).closest('.field');
+                $('body').addClass('m-no-scroll');
                 item.addClass('opened');
                 item.find('.link-left, .link-right').removeClass('hidden');
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
@@ -1116,14 +1114,14 @@ var rezOnForm = function (form, o) {
 
 
                     $(this).closest('.field.airport').removeClass('opened');
+                    $('body').removeClass('m-no-scroll');
                     $(this).closest('.field.airport').find('.link-left, .link-right').addClass('hidden');
 
                     //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
                     if (it._initialized) {
-                        //console.log('this', $(this).closest(".fields-container").find(".book-to.tt-hint"));
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
-                            $(this).closest(".fields-container").find(".book-to.tt-hint").trigger("click");
+                            $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
                             $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
                         }
@@ -1138,6 +1136,7 @@ var rezOnForm = function (form, o) {
             }).on("typeahead:dropdown", function (it) {
                 var item = $(this).closest('.field');
                 item.addClass('opened');
+                $('body').addClass('m-no-scroll');
             }).on("typeahead:dropup", function (it) {
                 //   $(this).closest('.field.opened').removeClass('opened');
                 var item = $(this).closest(".field");
@@ -1243,6 +1242,7 @@ var rezOnForm = function (form, o) {
                 $(this).removeClass("opened");
                 $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
                 $(this).closest('.field.opened').removeClass('opened');
+                $('body').removeClass('m-no-scroll');
                 if (isMobile) {
                     selectAge.fadeOut(it._o.animationDelay, function () {
                         $(this).addClass("g-hide");
@@ -1255,6 +1255,7 @@ var rezOnForm = function (form, o) {
             } else {
                 $(this).addClass("opened");
                 $(this).closest('.field').addClass('opened');
+                $('body').addClass('m-no-scroll');
                 $(this).closest('.field').find('.link-left, .link-right').removeClass('hidden');
                 if (isMobile) {
                     selectAge.fadeIn(it._o.animationDelay, function () {
@@ -1282,12 +1283,14 @@ var rezOnForm = function (form, o) {
 
             if (isMobile) {
                 $(this).fadeOut(300, function () {
+                    $('body').removeClass('m-no-scroll');
                     $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened").closest('.field.opened').removeClass('opened');
                 });
             }
             else {
                 $(this).data('focusTimer', setTimeout(function () {
                     selectAge.slideUp(it._o.animationDelay, function () {
+                        $('body').removeClass('m-no-scroll');
                         $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened").closest('.field.opened').removeClass('opened');;
                     });
                 }, 100));
@@ -1310,6 +1313,7 @@ var rezOnForm = function (form, o) {
                 if (isMobile) {
                     $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                     $(this).closest('.field').addClass('opened');
+                    $('body').addClass('m-no-scroll');
                     $(this).closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").show();
 
@@ -1329,6 +1333,7 @@ var rezOnForm = function (form, o) {
                 carriersItem.data('focusTimer', setTimeout(function () {
                     carriersItem.find(".carriers-finder").fadeOut(300, function () {
                         $(this).addClass("g-hide").closest(".field").removeClass("opened");
+                        $('body').removeClass('m-no-scroll');
                         $(this).closest('.field').find('.link-left, .link-right').addClass('hidden');
                     });
                 }, 100));
@@ -1446,6 +1451,7 @@ var rezOnForm = function (form, o) {
         }).focus(function () {
             var item = $(this).closest('.field');
             item.addClass('opened');
+            $('body').addClass('m-no-scroll');
             item.find('.link-left, .link-right').removeClass('hidden');
 
             item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
@@ -1465,6 +1471,7 @@ var rezOnForm = function (form, o) {
                 var name = item.find(".inside input[type='hidden']").attr('name');
 
                 $(this).closest('.field.station').removeClass('opened');
+                $('body').removeClass('m-no-scroll');
                 $(this).closest('.field.staion').find('.link-left, .link-right').addClass('hidden');
                 vue.updateStationTypeAhead(name, datum);
 
@@ -1483,9 +1490,10 @@ var rezOnForm = function (form, o) {
         }).on("typeahead:dropdown", function (it) {
             var item = $(this).closest('.field');
             item.addClass('opened');
+            $('body').addClass('m-no-scroll');
         }).on("typeahead:dropup", function (it) {
             $(this).closest('.field.opened').removeClass('opened');
-
+            $('body').removeClass('m-no-scroll');
             var item = $(this).closest(".field");
             if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
                 // $(this).val($(this).data("lastHist").Name);
@@ -1531,7 +1539,7 @@ var rezOnForm = function (form, o) {
                 this._o[optionKey] = o[optionKey];
             } else {
                 for (var objKey in o[optionKey]) {
-                    if (this._o[optionKey].hasOwnProperty(objKey)) {
+                    if (this._o[optionKey].hasOwnProperty(objKey) && o[optionKey][objKey]!==null) {
                         this._o[optionKey][objKey] = o[optionKey][objKey];
                     }
                 }
@@ -1702,7 +1710,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     if (iataToDecode.length > 0) {
         var dataToSend = iataToDecode.join();
         var params = { iata_codes: dataToSend };
-        $.getJSON(options.projectUrl + 'ru/HelperAsync/GetAirport?' + $.param(params), function (data) {
+        $.getJSON(options.projectUrl + options.defaultLang + '/HelperAsync/GetAirport?' + $.param(params), function (data) {
             var result = JSON.parse(data);
             $.each(result, function (index, value) {
                 if (value !== undefined && value !== null) {
@@ -1735,7 +1743,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     Vue.component('airportInput', {
         template:
             '<div class="inside">' +
-                '<input type="text" :placeholder="placeholder" :class="inputClass" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
+                '<input type="text" :placeholder="placeholder" :class="inputClasses" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
                 '<div class="iata" v-bind:class="{\'no-visiblity\': item.IataCode==null}">{{item.IataCode}}</div>' +
                 '<div class="country hidden">{{item.CountryName}} {{item.CountryCode}}</div>'+
                 '<span href="#" class="delete" v-bind:class="{\'no-visiblity\': item.Airport==null}" v-on:click="clearItem()"></span>' +
@@ -1758,12 +1766,27 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             }
         },
         computed:{
-            inputClasses:function() {
-                var classes = this.inputClass;
-                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
-                    classes += " " + 'isEmpty';
+            inputClasses: function () {
+                var input = $(this.$el).find('input:not(.tt-hint).' + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(' ');  
                 }
-                return classes;
+               
+                if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
+                    if (!classes.includes('isEmpty')) {
+                        classes.push('isEmpty');
+                    }
+                } else {
+                    var index = classes.indexOf('isEmpty');
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+               
+                return classes.join(' ');
             }
         },
         watch: {
@@ -1982,13 +2005,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             this.$on('opened', function () {
                 var el = $(comp.$el);
                 el.closest('.field').addClass('opened');
+                $('body').addClass('m-no-scroll');
                 el.closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
                 el.closest('.field').removeClass('opened');
+                $('body').removeClass('m-no-scroll');
                 el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
             });
+           
+            if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null) {
+                this.$on('selected', function () {
+                    Vue.nextTick(function () {
+                        var el = $(comp.$el);
+                        el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']").focus();
+                    });
+                });
+            }
 
         },
         mounted: function () {
@@ -2020,6 +2054,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             Vue.nextTick(function () {
                 // DOM updated
+              
                 $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
                     //Tab press
                     if (e.keyCode == 9)  comp.close();
@@ -2238,13 +2273,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.passengers.types.forEach(function (value) {
                     value.disabled = availablePassCount < 1;
 
-                    if (infantsCat.includes(value.name) && adultCnt < infantCnt + 1) {
+                    if (infantsCat.includes(value.name) && (adultCnt===0 || adultCnt < infantCnt + 1)) {
                         value.disabled = true;
                     }
                 });
-                if (currCount === 0) {
-                    this.avia.passengers.hasError = true;
-                    this.avia.passengers.messages.push("VALIDATE_FORM_SEARCH_MESSAGE_2");
+                if (adultCnt === 0) {
+                    this.addPassenger('psgAdultsCnt');
+                    //this.avia.passengers.hasError = true;
+                    //this.avia.passengers.messages.push("VALIDATE_FORM_SEARCH_MESSAGE_2");
                 }
                 if (adultCnt < infantCnt) {
                     this.avia.passengers.hasError = true;
@@ -2399,6 +2435,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         created: function () {
             //Global variable
             window.vue = this;
+            this.passUpdate();
         },
         mounted: function () {
             var el = this.$el;
