@@ -74,7 +74,7 @@
                     </div>
                     <div class="select-age g-hide" tabindex="-1">
                         <div class="pass_types">
-                            <div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden">
+                            <div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden" :class="{'has-error':type.hasError}">
                                 <div class="pass_counter pull-right">
                                     <div class="remove_pass" v-on:click="removePassenger(type.name)">
                                         <span href="#">&minus;</span>
@@ -91,8 +91,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="error-box">
-                            <label v-for="msg in avia.passengers.messages">{{msg}}</label>
+                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}"> 
+                            <label v-for="msg in avia.passengers.messages">{{locale(msg)}}</label>
                         </div>
                         <span href="#" class="button-hide hidden-xs">
                             <span class="hide-inner" data-local="true" data-localtext="HIDE">{{locale("HIDE")}}</span>
@@ -354,23 +354,27 @@
             </div>
         </div>
         <div class="field hide_s">
-            <div class="transp">
+            <div class="transp"  v-on:click="changeAviaFormExtended()">
                 <div class="hide_settings dashed">
-                    <div class="simple_search" v-on:click="changeAviaFormExtended()">
+                    <div class="simple_search">
                         <span>{{locale("SIMPLE_SEARCH")}}</span>
                     </div>
-                    <div class="advanced_search" v-on:click="changeAviaFormExtended()">
+                    <div class="advanced_search">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
                     </div>
-                    <div class="arrow" v-on:click="changeAviaFormExtended()">
-                    </div>
-                    <a href="/DEFAULT_LANGUAGE/AirTickets/ExtendedHistory" class="extended-form-link">
-                        <span>{{locale("OPEN_AVIA_ADDITIONAL_FORM")}}</span>
-                    </a>
+                    <div class="arrow">
+                    </div>                  
                 </div>
             </div>
         </div>
-        <div class="field clear ">
+        <div class="field extended-form" v-if="avia.formExtended">
+        	<div class="transp">
+        		<a href="/DEFAULT_LANGUAGE/AirTickets/ExtendedHistory" class="extended-form-link">
+                	<span>{{locale("OPEN_AVIA_ADDITIONAL_FORM")}}</span>
+                </a>
+        	</div>
+         </div>       
+        <div class="field clear">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearForm()">
                     <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>

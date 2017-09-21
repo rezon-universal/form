@@ -783,11 +783,10 @@ var rezOnForm = function (form, o) {
 
     //Валидация формы поиска авиабилетов
     rezOnForm.prototype.validation.airForm = function () {
-        //temp TODO
-        var ret = it.validation.departure_arrival();
-        
+       
+        var ret = rezOnForm.prototype.validation.departure_arrival();
         ret = rezOnForm.prototype.validation.dateRange(it._aviaForm) && ret;
-        //ret = rezOnForm.static.pass_selectPicker.validate(undefined, it.extra.locale) && ret;
+        ret = rezOnForm.prototype.validation.passengers(it._aviaForm) && ret;
         
         if (ret && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(it._aviaForm);
         return ret;
@@ -833,7 +832,12 @@ var rezOnForm = function (form, o) {
         });
         return ret;
     }
-
+    //Валидация пассажиров
+    rezOnForm.prototype.validation.passengers = function (form) {
+        var errorsCount = form.find('.passengers .error-box label').length;
+        var ret = errorsCount === 0;
+        return ret;
+    }
     //Валидация формы поиска ЖД билетов
     rezOnForm.prototype.validation.railForm = function () {
     
@@ -1091,7 +1095,7 @@ var rezOnForm = function (form, o) {
             .click(function () {
                 $(this).select();
             }).blur(function () {
-                $(this).closest('.field.focused').removeClass('focused opened');
+                $(this).closest('.field.focused').removeClass('focused');
                 if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
                 var item = $(this).closest('.field');
                 it.extra.closeField(item);
@@ -1274,7 +1278,6 @@ var rezOnForm = function (form, o) {
             if (isMobile) {
                 $(this).fadeOut(300, function () {
                     $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
-                    debugger
                     it.extra.closeField(field);
                 });
             }
@@ -1520,7 +1523,6 @@ var rezOnForm = function (form, o) {
     // Инициализация
     //-----------------------------------------
     rezOnForm.prototype.extendOptions = function (o) {
-        //TODO deep extend
         for (var optionKey in (o || {})) {
             if (this._o.hasOwnProperty(optionKey) && typeof (o[optionKey]) !== 'object') {
                 this._o[optionKey] = o[optionKey];
@@ -1621,10 +1623,10 @@ var rezOnForm = function (form, o) {
         var object = form.data('rezOnForm');
         if (!object) {
             object = new rezOnForm();
+
             object.extendOptions(o);
             form.data('rezOnForm', object);
         }
-
         rezOnForm.ModelInitialize(this, object, function (bindedForm) {
             form = $(bindedForm);
             form.data('rezOnForm', object);
@@ -1712,8 +1714,6 @@ rezOnForm.staticGalSubstringMatcher = function (strs) {
 
 
 //-----------------------------------------
-
-//TODO passangers error box show
 
 rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
@@ -2077,20 +2077,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             Vue.nextTick(function () {
                 // DOM updated
-              
                 $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
                     //Tab press
                     if (e.keyCode == 9)  comp.close();
-                    //
-                    //comp.setInitialView();
-                    //Vue.nextTick(function () {
-                    //    console.log(comp.isOpen, comp.showDayView)
-                    //});
-                    
-                    //setTimeout(function () {
-                    //    console.log(comp.isOpen)
-                    //    if (!comp.isOpen) comp.showCalendar();
-                    //}, 500);
                 });
             });
         }

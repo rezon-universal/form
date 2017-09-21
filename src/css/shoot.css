@@ -207,7 +207,7 @@
     font-weight: bold;
 	position: absolute;
     right: 40px;
-	z-index: 1;
+	z-index: 3;
 }
 #rezon-forms .express 
 {
@@ -513,7 +513,6 @@
 {
     color: #5e6278;
 }
-#rezon-forms .extended-form-link,
 #rezon-forms .default-form-link {
     display: none;
     margin-left: 0;
@@ -1516,7 +1515,7 @@ body > div.datepicker
 #rezon-forms .avia-airport-finder .twitter-typeahead {
     margin-bottom: 10px;
 }
-#rezon-forms .twitter-typeahead.loading 
+#rezon-forms .focused .twitter-typeahead.loading 
 {
     background: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///56enufn58/Pz56engAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADGwi6MjRiSenIm9hqPOvljAOBZGmeaKqubOu6CQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAIfkECQoAAAAsAAAAABAAEAAAAxwIutz+UIlBhoiKkorB/p3GYVN1dWiqrmzrvmkCACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKycQgQ8xL8OzgBg6ThWlUqq5s604JACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKSautYpAhpibbBI7eOEzZ1l1s6yoJACH5BAkKAAAALAAAAAAQABAAAAMaCLrc/jDKSau9OOspBhnC5BHfRJ7iOXAe2CQAIfkECQoAAAAsAAAAABAAEAAAAxoIutz+MMpJ6xSDDDEz0dMnduJwZZulrmzbJAAh+QQJCgAAACwAAAAAEAAQAAADGwi63P4wRjHIEBJUYjP/2dZJlIVlaKqubOuyCQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAOwAAAAAAAAAAAA==) no-repeat -3px top;
 }
@@ -1830,8 +1829,14 @@ body > div.datepicker
     min-width: 240px;
     position: relative;
 }
-#rezon-forms .field.hide_s {
+#rezon-forms .field.hide_s{
     flex-basis: 50%;
+}
+#rezon-forms .field.extended-form {
+    flex-basis: 25%;
+}
+#rezon-forms .field.hide_s .transp{
+    display: inline-block;
 }
 #rezon-forms .field.date {
     flex-basis: 10%;
@@ -1880,10 +1885,21 @@ body > div.datepicker
     background: #fff;
     border-radius: 2px;
     height: 45px;
+    position: relative;
 }
 #rezon-forms .field .control-field .inside 
 {
     height: 45px;
+}
+#rezon-forms .field.airport .inside:before {
+    content: '';
+    right: 60px;
+    position: absolute;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset -20px 0 10px -10px #fff;
+    z-index: 2;
 }
 #rezon-forms .field.time{
     flex-basis: 25%;
@@ -2019,7 +2035,7 @@ body > div.datepicker
     flex-basis: 25%;
 }
 
-#rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s {
+#rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s,  #rezon-forms .fields-container.extended .field.extended-form{
     order: 4;
     flex-grow: 1;
 }
@@ -2058,7 +2074,7 @@ body > div.datepicker
     flex-grow: 0;
     flex-basis: 25%;
 }
-#rezon-forms .fields-container.route .hide_s{
+#rezon-forms .fields-container.route .hide_s,#rezon-forms .fields-container.route .extended-form{
     order: 5;
 }
 #rezon-forms .fields-container.route .time + .time, #rezon-forms .fields-container.route .date + .date ,#rezon-forms .fields-container .multy-route{
@@ -2411,7 +2427,7 @@ body > div.datepicker
         margin: 0;
         float: none;
     }
-    #rezon-forms .transp a 
+    #rezon-forms .transp,#rezon-forms .field.hide_s .transp
     {
         display: block;
         text-align: center;
@@ -2582,7 +2598,7 @@ body > div.datepicker
     #rezon-forms .fields-container .field.class {
         display: block;
     }
-    #rezon-forms .field.hide_s {
+    #rezon-forms .field.hide_s, #rezon-forms .field.extended-form {
         order: 2;
         flex-grow: 1;
     }
@@ -2601,7 +2617,7 @@ body > div.datepicker
         order: 5;
         flex-grow: 1;
     }
-    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear {
+    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear, #rezon-forms .fields-container.extended .field.extended-form {
         order: 5;
         flex-basis: 50%;
         flex-grow: 1;
