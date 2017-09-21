@@ -214,12 +214,9 @@
     color: #d28d16;
     font-size: 9px;
     position: absolute;
-    bottom: 0px;
+    top: 30px;
     left: 12px;
     z-index: 1;
-}
-#rezon-forms .fields-container .field.station.to .express {
-    left: 22px;
 }
 #rezon-forms .delete 
 {
@@ -770,7 +767,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     top: 45px;
 	left: 0;
     width: 350px;
-    z-index: 10;
+    z-index: 200;
 }
 #rezon-forms .select-age .error-box 
 {
@@ -1751,6 +1748,7 @@ body > div.datepicker
     border-radius: 4px;
     color: white;
     text-align: center;
+    cursor: pointer;
 }
 #rezon-forms .transp:hover 
 {
@@ -1891,7 +1889,7 @@ body > div.datepicker
 {
     height: 45px;
 }
-#rezon-forms .field.airport .inside:before {
+#rezon-forms .field.airport .inside:before,#rezon-forms .field.station .inside:before {
     content: '';
     right: 60px;
     position: absolute;
@@ -2406,6 +2404,9 @@ body > div.datepicker
     {
         position: absolute;
     }
+    #rezon-forms .fields-container .field.station.to .express {
+        left: 22px;
+    }
 }
 @media (max-width: 599px) 
 {
@@ -2490,6 +2491,9 @@ body > div.datepicker
     #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete {
         top: 65px;
         bottom: auto;
+    }
+    #rezon-forms .tt-dropdown-menu , #rezon-forms .carriers-finder{
+        box-shadow: none;
     }
     #rezon-forms .field.airport.opened span.tt-dropdown-menu, #rezon-forms .field.station.opened span.tt-dropdown-menu 
     {
