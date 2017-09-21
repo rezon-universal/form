@@ -953,11 +953,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     color: white;
     display: none;
     font-size: 13px;
-    min-height: 17px;
     padding: 5px 10px;
-    position: absolute;
     right: 1px;
     left: 1px;
+    z-index: 1;
 }
 #rezon-forms .error-box .close
 {
@@ -1521,22 +1520,26 @@ body > div.datepicker
 {
     background: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///56enufn58/Pz56engAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADGwi6MjRiSenIm9hqPOvljAOBZGmeaKqubOu6CQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAIfkECQoAAAAsAAAAABAAEAAAAxwIutz+UIlBhoiKkorB/p3GYVN1dWiqrmzrvmkCACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKycQgQ8xL8OzgBg6ThWlUqq5s604JACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKSautYpAhpibbBI7eOEzZ1l1s6yoJACH5BAkKAAAALAAAAAAQABAAAAMaCLrc/jDKSau9OOspBhnC5BHfRJ7iOXAe2CQAIfkECQoAAAAsAAAAABAAEAAAAxoIutz+MMpJ6xSDDDEz0dMnduJwZZulrmzbJAAh+QQJCgAAACwAAAAAEAAQAAADGwi63P4wRjHIEBJUYjP/2dZJlIVlaKqubOuyCQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAOwAAAAAAAAAAAA==) no-repeat -3px top;
 }
-#rezon-forms .twitter-typeahead .item-child-first 
-{    
-    margin-top: -5px !important;
-    height: 14px !important;
-}
-#rezon-forms .twitter-typeahead .item-child, 
-#rezon-forms .twitter-typeahead .item-child-first 
+#rezon-forms .twitter-typeahead .item-child
 {
-    float: left;
-    /*margin-right: 8px;*/
-    margin-left: 2px;
-    margin-top: -17px;
-    width: 10px;
-    height: 28px;
+    height: 100% !important;
+}
+#rezon-forms .twitter-typeahead .item-child-first
+{
+    height: 50% !important;
+    margin-top: -5px !important;
+}
+#rezon-forms .twitter-typeahead .item-child,
+#rezon-forms .twitter-typeahead .item-child-first
+{
     border-left: 1px solid #a5a5a5;
     border-bottom: 1px solid #a5a5a5;
+    bottom: 50%;
+    float: left;
+    height: 28px;
+    margin-left: 2px;
+    position: absolute;
+    width: 10px;
 }
 #rezon-forms .twitter-typeahead .item-text 
 {
@@ -1572,11 +1575,12 @@ body > div.datepicker
     content: '';
     z-index: -1;
 }
-#rezon-forms .tt-suggestion 
+#rezon-forms .tt-suggestion
 {
-    font-size: 14px;
-    padding: 3px 38px 3px 15px;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 25px;
+    padding: 3px 38px 3px 15px;
     position: relative;
 }
 #rezon-forms .tt-suggestion > p 
@@ -1811,12 +1815,12 @@ body > div.datepicker
     height: 100%;
 }
 #rezon-forms .book-from,
-#rezon-forms .book-to 
+#rezon-forms .book-to
 {
     background: transparent;
     box-sizing: border-box;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     height: 100%;
     padding: 0 60px 0 10px;
     width: 100%;
@@ -1879,7 +1883,7 @@ body > div.datepicker
 }
 #rezon-forms .field .control-field .inside 
 {
-    height: 100%;
+    height: 45px;
 }
 #rezon-forms .field.time{
     flex-basis: 25%;
@@ -1969,11 +1973,12 @@ body > div.datepicker
 {
     display: none;
 }
-#rezon-forms .direct label 
+#rezon-forms .direct label
 {
     font-size: 13px;
     font-weight: 600;
     color: #fff;
+    display: inline-block;
     margin: 0;
     opacity: 1;
     padding: 8px 20px;
@@ -2028,12 +2033,13 @@ body > div.datepicker
 /*!---------!*/
 
 /*Multy-route*/
-#rezon-forms .fields-container.route .multy-route {
+#rezon-forms .fields-container.route .multy-route 
+{
     display: inline-flex;
     align-items: flex-end;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 #rezon-forms .route .add_segment 
 {
@@ -2344,33 +2350,48 @@ body > div.datepicker
         max-width: 50%;
     }
 }
-@media (min-width: 600px) {
+@media (min-width: 600px) 
+{
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
-    #rezon-forms .book-date:focus {
+    #rezon-forms .book-date:focus 
+    {
         box-shadow: 0 0 8px 2px #00b0ff;
         outline: none;
         z-index: 1;
     }
-    #rezon-forms .fields-container .field.hide_s .transp {
+    #rezon-forms .fields-container .field.hide_s .transp 
+    {
         text-align: left;
         background: none;
     }
-    #rezon-forms .fields-container:not(.route) .field.airport:first-child .iata {
+    #rezon-forms .fields-container:not(.route) .field.airport:first-child .iata 
+    {
         right: 50px;
     }
-
-    #rezon-forms .fields-container:not(.route) .field.airport:first-child .delete, #rezon-forms .fields-container .field.station:first-child .delete {
+    #rezon-forms .fields-container:not(.route) .field.airport:first-child .delete, #rezon-forms .fields-container .field.station:first-child .delete 
+    {
         right: 25px;
     }
-    #rezon-forms .book-to {
+    #rezon-forms .book-to 
+    {
         padding-left: 20px;
     }
-    #rezon-forms .link-right,  #rezon-forms .link-left {
+    #rezon-forms .link-right,
+    #rezon-forms .link-left 
+    {
         display: none;
     }
+    #rezon-forms .fields-container.route .multy-route
+    {
+        margin-top: 30px;
+    }
+    #rezon-forms .error-box
+    {
+        position: absolute;
+    }
 }
-@media screen and (max-width: 600px) 
+@media (max-width: 599px) 
 {
     #rezon-forms 
     {
@@ -2395,10 +2416,9 @@ body > div.datepicker
         display: block;
         text-align: center;
     }
-    
-    #rezon-forms .tt-suggestion 
+    #rezon-forms .tt-suggestion
     {
-        padding: 10px 38px 10px 15px;
+        line-height: 40px;
     }
     #rezon-forms .column.from.calendar-dropdown + .column.to,
     #rezon-forms .column.from.calendar-dropdown + .swap + .column.to
@@ -2444,11 +2464,6 @@ body > div.datepicker
     #rezon-forms .fields-container .field.airport.opened, #rezon-forms .fields-container .field.station.opened {
         background: white;
     }
-    #rezon-forms .fields-container .field.opened .control-field {
-        border: none;
-        height: 100%;
-        padding: 0;
-    }
     #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead {
         height: 100%;
     }
@@ -2463,8 +2478,6 @@ body > div.datepicker
     #rezon-forms .field.airport.opened span.tt-dropdown-menu, #rezon-forms .field.station.opened span.tt-dropdown-menu 
     {
         top: 50px!important;
-        max-height: 100%;
-        height: 100%;
         width: 100%;
         border: none;
     }
@@ -2536,10 +2549,10 @@ body > div.datepicker
     #rezon-forms .fields-container .field.opened .menu-title {
         display: block;
     }
-     #rezon-forms .book-from,
-    #rezon-forms .book-to 
+    #rezon-forms .opened .book-from,
+    #rezon-forms .opened .book-to
     {
-        height: 50px;
+        height: 45px;
     }
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
