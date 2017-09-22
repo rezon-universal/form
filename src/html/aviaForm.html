@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
-        <div class="field airport">
+        <div class="field airport from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="visible-xs-inline-block link-left hidden">&larr;</span>
                 {{locale("FROM")}}
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div v-on:click="swapAviaDest()" class="swap">&uarr;&darr;</div>
-        <div class="field airport">
+        <div class="field airport to">
             <label class="menu-title">
                 <span class="visible-xs-inline-block link-left hidden">&larr;</span>
                 {{locale("TO")}}

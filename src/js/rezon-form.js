@@ -1104,8 +1104,8 @@ var rezOnForm = function (form, o) {
             .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
-
                     var name = item.find(".inside input[type='hidden']").attr('name');
+
                     vue.updateAirportTypeAhead(name, datum);
                     it.extra.closeField(item);
                     
@@ -1115,16 +1115,17 @@ var rezOnForm = function (form, o) {
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
-                            $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                             dp.focus();
+                            }, 100);
                         }
                     }
-
                     if ($(this).is(".book-from")) {
                         $(document).trigger("StartPtChange.MapBridge", [datum])
                     } else {
                         $(document).trigger("EndPtChange.MapBridge", [datum])
                     }
-
                     //Hide mobile keyboard
                     $(this).blur();
                 }
@@ -1472,7 +1473,10 @@ var rezOnForm = function (form, o) {
                             break;
                         case "tshi_station_to":
                             //Focus TODO
-                            field.closest("form").find("input[name='book_from_date']").focus().click();
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                                dp.focus();
+                            }, 100);
                     }
                 }
                 //Hide mobile keyboard
@@ -1886,7 +1890,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component('railwayInput', {
         template: ' <div class="inside">' +
-            '<input type="text" :class="[inputClass,{isEmpty:item.Name==null}]" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div class="express">' +
             '{{item.Code}}' +
             '</div>' +
@@ -1907,6 +1911,30 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             placeholder: {
                 type: String,
                 default: "RAILWAY_PLACEHOLDER"
+            }
+        },
+        computed: {
+            inputClasses: function () {
+                var input = $(this.$el).find('input:not(.tt-hint).' + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(' ');
+                }
+
+                if (this.item.Name === null || this.item.Name === undefined || this.item.Name.trim() === '') {
+                    if (!classes.includes('isEmpty')) {
+                        classes.push('isEmpty');
+                    }
+                } else {
+                    var index = classes.indexOf('isEmpty');
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+
+                return classes.join(' ');
             }
         },
         watch: {
@@ -2028,25 +2056,27 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             var comp = this;
             this.$on('opened', function () {
                 var el = $(comp.$el);
-                el.closest('.field').addClass('opened');
-                $('body').addClass('m-no-scroll');
-                el.closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
+                formObject.extra.openField(el);
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
-                el.closest('.field').removeClass('opened');
-                $('body').removeClass('m-no-scroll');
-                el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
-
-                //Vue.nextTick(function () {
-                //    if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null) {
-
-                //        var el = $(comp.$el);
-                //        var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
-                //        nextDatePick.focus();
-                //    }
-                //});
+                formObject.extra.closeField(el);
             });
+
+            this.$on('selected', function () {
+                Vue.nextTick(function () {
+                    var isMobile = formObject.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                    if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null && !isMobile) {
+                            var el = $(comp.$el);
+                            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+
+                            setTimeout(function () {
+                                nextDatePick.focus();
+                            }, 100);
+                        }
+                    });
+            });
+            
         },
         mounted: function () {
             var el = this.$el;

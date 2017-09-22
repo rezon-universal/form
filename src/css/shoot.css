@@ -2033,9 +2033,13 @@ body > div.datepicker
     flex-basis: 25%;
 }
 
-#rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s,  #rezon-forms .fields-container.extended .field.extended-form{
+#rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s {
     order: 4;
     flex-grow: 1;
+}
+#rezon-forms .fields-container.extended .field.extended-form {
+    order: 4;
+    flex-grow:0;
 }
 #rezon-forms .fields-container.extended .field.clear {
     order: 4;
@@ -2686,10 +2690,10 @@ body > div.datepicker
         background: white;
     }
     #rezon-forms .fields-container .swap {
-        margin-bottom: -13px;
-        margin-left: -43px;
-        margin-right: -18px;
+        margin-bottom: -15px;
+        margin-left: -85px;
         transform: rotate(0deg);
+        z-index: 3;
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         flex-basis: 50%;
