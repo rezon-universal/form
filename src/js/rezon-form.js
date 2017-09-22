@@ -1229,7 +1229,6 @@ var rezOnForm = function (form, o) {
                     });
                 }
             }
-            return false;
         });
 
         it._aviaForm.find(".select-age").focusin(function () {
