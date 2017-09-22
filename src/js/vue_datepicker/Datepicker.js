@@ -276,7 +276,7 @@ var DateLanguages = {
 
             'days': ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt']
         },
-        'uk': {
+        'ua': {
             'language': 'Ukraine',
             'months': {
                 'original': ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
@@ -604,7 +604,7 @@ var defaultDatepickerSettings = {
                 : DateUtils.formatDate(new Date(this.selectedDate), this.format, this.translation);
         },
         translation: function () {
-            return DateLanguages.translations[this.language];
+            return DateLanguages.translations[this.language] !== undefined && DateLanguages.translations[this.language] !== null ? DateLanguages.translations[this.language] : DateLanguages.translations['en'];
         },
         currMonthName: function () {
             var d = new Date(this.pageDate);

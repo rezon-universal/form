@@ -42,7 +42,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                     <datepicker :placeholder="locale('SELECT_DATE')" language="ru"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
+                     <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" v-if="avia.formType.value==='roundtrip'"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" v-if="avia.formType.value==='roundtrip'"></datepicker>
                      <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                 </label>
                 <div class="control-field">
                     <div class="date-wrapper">
-                        <datepicker :placeholder="locale('SELECT_DATE')" language="ru" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere"></datepicker>
+                        <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere"></datepicker>
                     </div>
                 </div>
             </div>

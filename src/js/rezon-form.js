@@ -2201,7 +2201,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.defaultDateBack = new Date();
                 this.avia.aviToTime = 0;
                 this.avia.formExtended = false;
-                this.avia.multyRoutes = [];
+                //this.avia.multyRoutes = [];
                 this.avia.segmentsCount = 0; //??  = 2
                 this.avia.bookClass = 0;
                 this.avia.airCompanies = [];
@@ -2216,7 +2216,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 });
                 this.avia.passengers.hasError = false;
                 this.avia.passengers.messages = [];
-
+             
                 var model = this;
                 Vue.nextTick(function () {
                     // DOM updated
@@ -2224,7 +2224,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 });
             },
             locale: function (str) {
-                var loc = this.localeDict[this.defaultLang][str];
+                var loc = this.localeDict[this.defaultLang] !== undefined && this.localeDict[this.defaultLang] !== null ? this.localeDict[this.defaultLang][str] : this.localeDict['en'][str];
                 return loc || str;
             },
             changeAviaFormExtended: function () {
