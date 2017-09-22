@@ -813,7 +813,6 @@ var rezOnForm = function (form, o) {
                 inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_AIRPORTS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
                 ret = false;
             }
-
         });
         return ret;
     };
@@ -848,10 +847,8 @@ var rezOnForm = function (form, o) {
     }
 
     //Проверка станций отправления / прибытия
-    //TODO check all non active clases to delete and remove with a new one (.item,.column ...)
     rezOnForm.prototype.validation.stations = function () {
         var ret = true;
-
         var inpFrom = it._railwayForm.find("input[name='tshi_station_from']").first();
         var inpTo = it._railwayForm.find("input[name='tshi_station_to']").first();
 
@@ -859,7 +856,6 @@ var rezOnForm = function (form, o) {
             inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
-
         if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
@@ -867,7 +863,6 @@ var rezOnForm = function (form, o) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
-
         return ret;
     }    
 
@@ -957,15 +952,6 @@ var rezOnForm = function (form, o) {
             });
         }
 
-        //$(document).off("click", ".radio-group > label, .radio-group > label > input[type='radio']");
-        //it._form.find(".radio-group > label").click(function () {
-        //    if ($(this).is("active")) return false;
-
-        //    $(this).addClass("active").find("input:radio").prop("checked", true).trigger("change");
-        //    $(this).siblings(".active").removeClass("active").find("input:checked").removeAttr("checked");
-        //    return false;
-        //}).filter(".active").first().trigger("click");
-
         it._form.find(".checkbox-item").click(function () {
             //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
             if (window.main == undefined) {
@@ -1000,13 +986,7 @@ var rezOnForm = function (form, o) {
             it.extra.closeField(field);
             return false;
         });
-
-        //Клик по затухающему градиенту должен вести на инпут (просто градиент выше по наложению)
-        //TODO add text fade
-        it._form.find(".field .text-fade").click(function () {
-            $(this).closest(".field").find(".tt-input").select();
-        });
-
+        
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
 
         $(document).ajaxStart(function () {
@@ -1079,13 +1059,7 @@ var rezOnForm = function (form, o) {
                     }
                 }
             }).keyup(function (e) {
-                //if ($.trim($(this).val()) == "") {
-                //    $(this).addClass("isEmpty");
-                //    $(this).closest('.item').find(".delete").addClass("no-visiblity");
-                //} else {
-                //    $(this).removeClass("isEmpty");
-                //    $(this).closest('.item').find(".delete.no-visiblity").removeClass("no-visiblity");
-                //}
+                
             }).focus(function () {
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
@@ -1133,20 +1107,15 @@ var rezOnForm = function (form, o) {
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
             }).on("typeahead:dropup", function (its) {
-                //   $(this).closest('.field.opened').removeClass('opened');
-                var item = $(this).closest(".field");
-                
-                if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
-                {
-                    //TODO
-                    //$(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                }
+                //var item = $(this).closest(".field");
+                //it.extra.closeField(item);
+                //if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
+                //{
+                //    TODO
+                //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                //}
             }).on("typeahead:queryChanged", function (it, query) {
-                //var item = $(this).closest('.field');
-                //item.find(".inside .iata").addClass("no-visiblity");
-                //item.find(".inside input[type='hidden']").val("");
-                //item.find(".inside .country").addClass("no-visiblity");
-                //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
+
             }).on("typeahead:updateHint", function (a, b) {
                 if (b) $(this).data("lastHist", b);
                 else $(this).removeData("lastHist");
@@ -1183,51 +1152,47 @@ var rezOnForm = function (form, o) {
             source: it.dataWork.carriersData.ttAdapter(),
             valueKey: 'label',
             templates: {
-                suggestion: function (data) {
+                suggestion: function(data) {
                     return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
                 }
             }
-        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+        }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
             //Выбор элемента - подставляем иата код
             if (datum != undefined) {
                 vue.addCarrier(datum.label, datum.code);
                 $(this).closest(".twitter-typeahead").next().val(datum.code);
             }
             $(this).trigger("change");
-        }).on("typeahead:opened", function (e, datum) {
+        }).on("typeahead:opened", function(e, datum) {
             //Открыли
             $(this).trigger("typeahead:queryChanged");
-        }).on("typeahead:queryCleared", function (e, datum) {
+        }).on("typeahead:queryCleared", function(e, datum) {
             //Очистили поле - кнопка Х.
             var item = $(this);
             item.closest(".twitter-typeahead").next().val('');
             item.trigger("typeahead:filterIt");
-            setTimeout(function () {
+            setTimeout(function() {
                 //После очистки, находим первый пестой элемент и устанавливаем на него фокус. 
                 //Ищем т.к. все значения съезжают к верхнему
-                item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
+                item.closest(".carriers-finder").find("input[type='hidden']").filter(function() { return this.value == ""; }).first().prev().find(".tt-input").focus();
             }, 100);
-        }).on("typeahead:selected typeahead:queryChanged", function (e, datum) {
+        }).on("typeahead:selected typeahead:queryChanged", function(e, datum) {
             //Изменили строку запроса
             $(this).trigger("typeahead:filterIt");
-        }).on("typeahead:filterIt", function () {
+        }).on("typeahead:filterIt", function() {
             //Фильтрация выпадающего меню. Не отображаем выбранные в других меню значения
             var dropDown = $(this).siblings(".tt-dropdown-menu");
             dropDown.find(".tt-suggestion.g-hide").removeClass("g-hide");
 
-            setTimeout(function () {
-                var values = $.map(it._aviaForm.find(".carriers .carriers-finder input[type='hidden']"), function (val, i) {
+            setTimeout(function() {
+                var values = $.map(it._aviaForm.find(".carriers .carriers-finder input[type='hidden']"), function(val, i) {
                     return ".iata-code[data-iata='" + $(val).val() + "']";
                 });
-                dropDown.find(values.join(", ")).each(function () {
+                dropDown.find(values.join(", ")).each(function() {
                     $(this).closest(".tt-suggestion").addClass("g-hide");
                 });
             }, 100);
-        }).change(function () {
-            setTimeout(function () {
-                //it.redraw.refreshAircompanies();
-            }, 50);
-        }).first().trigger("change");
+        });
 
         //Passengers menu
         it._aviaForm.find(".passengers > .switch-box .switch").click(function () {
@@ -1430,14 +1395,7 @@ var rezOnForm = function (form, o) {
                 }
             }
         }).keyup(function (e) {
-            //if ($.trim($(this).val()) == "") {
-            //    $(this).addClass("isEmpty");
-            //    $(this).closest('.item').find(".delete").addClass("no-visiblity");
-            //}
-            //else {
-            //    $(this).removeClass("isEmpty");
-            //    $(this).closest('.item').find(".delete.no-visiblity").removeClass("no-visiblity");
-            //}
+          
         }).focus(function () {
             var item = $(this).closest('.field');
 
@@ -1492,9 +1450,7 @@ var rezOnForm = function (form, o) {
             //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
             //}
         }).on("typeahead:queryChanged", function (it, query) {
-            //var item = $(this).closest('.field');
-            //item.find(".inside .express").addClass("no-visiblity");
-            //item.find(".inside input[type='hidden']").val("");
+
         }).on("typeahead:updateHint", function (a, b) {
             if (b) $(this).data("lastHist", b);
             else $(this).removeData("lastHist");
