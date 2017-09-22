@@ -515,11 +515,8 @@
     margin-left: 0;
 }
 #rezon-forms .default-form-link,
-html[data-btb="True"] #rezon-forms .extended-form-link {
+html[data-btb="True"] #rezon-forms .extended-form {
     display: inline-block;
-    line-height: 21px;
-    margin-left: 10px;
-    opacity: .5;
 }
 html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     opacity: 1;
@@ -1768,6 +1765,7 @@ body > div.datepicker
 #rezon-forms .transp a span 
 {
     border: none;
+    display: block;
 }
 #rezon-forms .search 
 {
@@ -1832,6 +1830,7 @@ body > div.datepicker
 }
 #rezon-forms .field.extended-form {
     flex-basis: 25%;
+    display: none;
 }
 #rezon-forms .field.hide_s .transp{
     display: inline-block;
@@ -2539,6 +2538,7 @@ body > div.datepicker
 
     #rezon-forms .fields-container .field.opened.date .date-wrapper {
         position: fixed;
+        height: 100%;
     }
     #rezon-forms .fields-container .field.opened.date .dates-item-row {
             padding: 0;

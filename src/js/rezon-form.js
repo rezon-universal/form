@@ -2202,7 +2202,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.aviToTime = 0;
                 this.avia.formExtended = false;
                 //this.avia.multyRoutes = [];
-                this.avia.segmentsCount = 0; //??  = 2
+                //this.avia.segmentsCount = 0; //??  = 2
                 this.avia.bookClass = 0;
                 this.avia.airCompanies = [];
                 this.avia.intervalCount = 0;
