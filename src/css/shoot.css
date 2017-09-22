@@ -2488,14 +2488,6 @@ body > div.datepicker
     #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead {
         height: 100%;
     }
-    #rezon-forms .fields-container .field.airport.opened .iata {
-        top: 70px;
-        bottom: auto;
-    }
-    #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete {
-        top: 65px;
-        bottom: auto;
-    }
     #rezon-forms .tt-dropdown-menu , #rezon-forms .carriers-finder{
         box-shadow: none;
     }

@@ -1267,8 +1267,6 @@ var rezOnForm = function (form, o) {
             return false;
         });
 
-        //it._aviaForm.off('click', '.field.pass .link-left, field.pass .link-right ');
-
         it._aviaForm.find(".select-age").focusin(function () {
             if ($(this).data('focusTimer')) clearTimeout($(this).data('focusTimer'));
         }).focusout(function () {
