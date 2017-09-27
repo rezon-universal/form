@@ -1330,7 +1330,7 @@ var rezOnForm = function (form, o) {
             if (!data) return vue.updateAirportTypeAhead(itemName);
             vue.updateAirportTypeAhead(itemName,
             {
-                IataCode: data.iata,
+                IataCode: data.iata + "·",
                 CountryCode: data.countryCode,
                 CountryName: '',
                 Name: data.name
