@@ -2174,6 +2174,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.formType = types[index];
                 if (this.avia.formType.value === 'roundtrip') {
                     this.avia.segmentsCount = 2;
+                    this.avia.defaultDateBack = new Date(this.avia.defaultDateBack);
                 } else {
                     this.avia.segmentsCount = 1;
                 }
