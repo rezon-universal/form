@@ -1,5 +1,10 @@
 ﻿@charset "utf-8";
 
+#rezon-forms .rez-forms {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 #rezon-forms a,
 #rezon-forms a:visited 
 {
@@ -53,7 +58,11 @@
 #rezon-forms 
 {
     font-size: 100%;
-    background: #4a148c;
+	background-image: url(../img/shell.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+    background-color: #4a148c;
     padding: 60px 20px 50px;
 }
 .rez-forms-links 
@@ -2630,7 +2639,7 @@ body > div.datepicker
         flex-grow: 1;
     }
     #rezon-forms .fields-container .field.find {
-    order: 6;
+        order: 6;
     }
     /*Extended serach mobile*/
     #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.route .field.pass {
@@ -2708,6 +2717,10 @@ body > div.datepicker
     #rezon-forms #railway-form-shoot .fields-container .field.range {
         flex-basis: 50%;
     }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
+    }
+
 }
 @media screen and (min-width: 600px ) and (max-width: 768px) 
 {
@@ -2719,5 +2732,8 @@ body > div.datepicker
     }
     #rezon-forms .radio-group-label .gal-btn-group.radio-supplement label {
         padding: 5px 8px;
+    }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
     }
 }
