@@ -783,11 +783,10 @@ var rezOnForm = function (form, o) {
 
     //Валидация формы поиска авиабилетов
     rezOnForm.prototype.validation.airForm = function () {
-        //temp TODO
-        var ret = it.validation.departure_arrival();
-        
+       
+        var ret = rezOnForm.prototype.validation.departure_arrival();
         ret = rezOnForm.prototype.validation.dateRange(it._aviaForm) && ret;
-        //ret = rezOnForm.static.pass_selectPicker.validate(undefined, it.extra.locale) && ret;
+        ret = rezOnForm.prototype.validation.passengers(it._aviaForm) && ret;
         
         if (ret && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(it._aviaForm);
         return ret;
@@ -814,7 +813,6 @@ var rezOnForm = function (form, o) {
                 inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_AIRPORTS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
                 ret = false;
             }
-
         });
         return ret;
     };
@@ -833,7 +831,12 @@ var rezOnForm = function (form, o) {
         });
         return ret;
     }
-
+    //Валидация пассажиров
+    rezOnForm.prototype.validation.passengers = function (form) {
+        var errorsCount = form.find('.passengers .error-box label').length;
+        var ret = errorsCount === 0;
+        return ret;
+    }
     //Валидация формы поиска ЖД билетов
     rezOnForm.prototype.validation.railForm = function () {
     
@@ -844,10 +847,8 @@ var rezOnForm = function (form, o) {
     }
 
     //Проверка станций отправления / прибытия
-    //TODO check all non active clases to delete and remove with a new one (.item,.column ...)
     rezOnForm.prototype.validation.stations = function () {
         var ret = true;
-
         var inpFrom = it._railwayForm.find("input[name='tshi_station_from']").first();
         var inpTo = it._railwayForm.find("input[name='tshi_station_to']").first();
 
@@ -855,7 +856,6 @@ var rezOnForm = function (form, o) {
             inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
-
         if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
@@ -863,7 +863,6 @@ var rezOnForm = function (form, o) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
-
         return ret;
     }    
 
@@ -953,15 +952,6 @@ var rezOnForm = function (form, o) {
             });
         }
 
-        //$(document).off("click", ".radio-group > label, .radio-group > label > input[type='radio']");
-        //it._form.find(".radio-group > label").click(function () {
-        //    if ($(this).is("active")) return false;
-
-        //    $(this).addClass("active").find("input:radio").prop("checked", true).trigger("change");
-        //    $(this).siblings(".active").removeClass("active").find("input:checked").removeAttr("checked");
-        //    return false;
-        //}).filter(".active").first().trigger("click");
-
         it._form.find(".checkbox-item").click(function () {
             //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
             if (window.main == undefined) {
@@ -996,13 +986,7 @@ var rezOnForm = function (form, o) {
             it.extra.closeField(field);
             return false;
         });
-
-        //Клик по затухающему градиенту должен вести на инпут (просто градиент выше по наложению)
-        //TODO add text fade
-        it._form.find(".field .text-fade").click(function () {
-            $(this).closest(".field").find(".tt-input").select();
-        });
-
+        
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
 
         $(document).ajaxStart(function () {
@@ -1075,13 +1059,7 @@ var rezOnForm = function (form, o) {
                     }
                 }
             }).keyup(function (e) {
-                //if ($.trim($(this).val()) == "") {
-                //    $(this).addClass("isEmpty");
-                //    $(this).closest('.item').find(".delete").addClass("no-visiblity");
-                //} else {
-                //    $(this).removeClass("isEmpty");
-                //    $(this).closest('.item').find(".delete.no-visiblity").removeClass("no-visiblity");
-                //}
+                
             }).focus(function () {
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
@@ -1091,7 +1069,7 @@ var rezOnForm = function (form, o) {
             .click(function () {
                 $(this).select();
             }).blur(function () {
-                $(this).closest('.field.focused').removeClass('focused opened');
+                $(this).closest('.field.focused').removeClass('focused');
                 if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
                 var item = $(this).closest('.field');
                 it.extra.closeField(item);
@@ -1100,8 +1078,8 @@ var rezOnForm = function (form, o) {
             .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
-
                     var name = item.find(".inside input[type='hidden']").attr('name');
+
                     vue.updateAirportTypeAhead(name, datum);
                     it.extra.closeField(item);
                     
@@ -1111,16 +1089,17 @@ var rezOnForm = function (form, o) {
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
-                            $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").focus();
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                             dp.focus();
+                            }, 100);
                         }
                     }
-
                     if ($(this).is(".book-from")) {
                         $(document).trigger("StartPtChange.MapBridge", [datum])
                     } else {
                         $(document).trigger("EndPtChange.MapBridge", [datum])
                     }
-
                     //Hide mobile keyboard
                     $(this).blur();
                 }
@@ -1128,20 +1107,15 @@ var rezOnForm = function (form, o) {
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
             }).on("typeahead:dropup", function (its) {
-                //   $(this).closest('.field.opened').removeClass('opened');
-                var item = $(this).closest(".field");
-                
-                if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
-                {
-                    //TODO
-                    //$(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                }
+                //var item = $(this).closest(".field");
+                //it.extra.closeField(item);
+                //if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
+                //{
+                //    TODO
+                //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                //}
             }).on("typeahead:queryChanged", function (it, query) {
-                //var item = $(this).closest('.field');
-                //item.find(".inside .iata").addClass("no-visiblity");
-                //item.find(".inside input[type='hidden']").val("");
-                //item.find(".inside .country").addClass("no-visiblity");
-                //item.find(".inside .airport-finder-link.no-visiblity").removeClass("no-visiblity");
+
             }).on("typeahead:updateHint", function (a, b) {
                 if (b) $(this).data("lastHist", b);
                 else $(this).removeData("lastHist");
@@ -1178,51 +1152,47 @@ var rezOnForm = function (form, o) {
             source: it.dataWork.carriersData.ttAdapter(),
             valueKey: 'label',
             templates: {
-                suggestion: function (data) {
+                suggestion: function(data) {
                     return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
                 }
             }
-        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+        }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
             //Выбор элемента - подставляем иата код
             if (datum != undefined) {
                 vue.addCarrier(datum.label, datum.code);
                 $(this).closest(".twitter-typeahead").next().val(datum.code);
             }
             $(this).trigger("change");
-        }).on("typeahead:opened", function (e, datum) {
+        }).on("typeahead:opened", function(e, datum) {
             //Открыли
             $(this).trigger("typeahead:queryChanged");
-        }).on("typeahead:queryCleared", function (e, datum) {
+        }).on("typeahead:queryCleared", function(e, datum) {
             //Очистили поле - кнопка Х.
             var item = $(this);
             item.closest(".twitter-typeahead").next().val('');
             item.trigger("typeahead:filterIt");
-            setTimeout(function () {
+            setTimeout(function() {
                 //После очистки, находим первый пестой элемент и устанавливаем на него фокус. 
                 //Ищем т.к. все значения съезжают к верхнему
-                item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
+                item.closest(".carriers-finder").find("input[type='hidden']").filter(function() { return this.value == ""; }).first().prev().find(".tt-input").focus();
             }, 100);
-        }).on("typeahead:selected typeahead:queryChanged", function (e, datum) {
+        }).on("typeahead:selected typeahead:queryChanged", function(e, datum) {
             //Изменили строку запроса
             $(this).trigger("typeahead:filterIt");
-        }).on("typeahead:filterIt", function () {
+        }).on("typeahead:filterIt", function() {
             //Фильтрация выпадающего меню. Не отображаем выбранные в других меню значения
             var dropDown = $(this).siblings(".tt-dropdown-menu");
             dropDown.find(".tt-suggestion.g-hide").removeClass("g-hide");
 
-            setTimeout(function () {
-                var values = $.map(it._aviaForm.find(".carriers .carriers-finder input[type='hidden']"), function (val, i) {
+            setTimeout(function() {
+                var values = $.map(it._aviaForm.find(".carriers .carriers-finder input[type='hidden']"), function(val, i) {
                     return ".iata-code[data-iata='" + $(val).val() + "']";
                 });
-                dropDown.find(values.join(", ")).each(function () {
+                dropDown.find(values.join(", ")).each(function() {
                     $(this).closest(".tt-suggestion").addClass("g-hide");
                 });
             }, 100);
-        }).change(function () {
-            setTimeout(function () {
-                //it.redraw.refreshAircompanies();
-            }, 50);
-        }).first().trigger("change");
+        });
 
         //Passengers menu
         it._aviaForm.find(".passengers > .switch-box .switch").click(function () {
@@ -1259,10 +1229,7 @@ var rezOnForm = function (form, o) {
                     });
                 }
             }
-            return false;
         });
-
-        //it._aviaForm.off('click', '.field.pass .link-left, field.pass .link-right ');
 
         it._aviaForm.find(".select-age").focusin(function () {
             if ($(this).data('focusTimer')) clearTimeout($(this).data('focusTimer'));
@@ -1274,7 +1241,6 @@ var rezOnForm = function (form, o) {
             if (isMobile) {
                 $(this).fadeOut(300, function () {
                     $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
-                    debugger
                     it.extra.closeField(field);
                 });
             }
@@ -1364,7 +1330,7 @@ var rezOnForm = function (form, o) {
             if (!data) return vue.updateAirportTypeAhead(itemName);
             vue.updateAirportTypeAhead(itemName,
             {
-                IataCode: data.iata,
+                IataCode: data.iata + "·",
                 CountryCode: data.countryCode,
                 CountryName: '',
                 Name: data.name
@@ -1428,14 +1394,7 @@ var rezOnForm = function (form, o) {
                 }
             }
         }).keyup(function (e) {
-            //if ($.trim($(this).val()) == "") {
-            //    $(this).addClass("isEmpty");
-            //    $(this).closest('.item').find(".delete").addClass("no-visiblity");
-            //}
-            //else {
-            //    $(this).removeClass("isEmpty");
-            //    $(this).closest('.item').find(".delete.no-visiblity").removeClass("no-visiblity");
-            //}
+          
         }).focus(function () {
             var item = $(this).closest('.field');
 
@@ -1469,7 +1428,10 @@ var rezOnForm = function (form, o) {
                             break;
                         case "tshi_station_to":
                             //Focus TODO
-                            field.closest("form").find("input[name='book_from_date']").focus().click();
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                                dp.focus();
+                            }, 100);
                     }
                 }
                 //Hide mobile keyboard
@@ -1487,9 +1449,7 @@ var rezOnForm = function (form, o) {
             //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
             //}
         }).on("typeahead:queryChanged", function (it, query) {
-            //var item = $(this).closest('.field');
-            //item.find(".inside .express").addClass("no-visiblity");
-            //item.find(".inside input[type='hidden']").val("");
+
         }).on("typeahead:updateHint", function (a, b) {
             if (b) $(this).data("lastHist", b);
             else $(this).removeData("lastHist");
@@ -1520,7 +1480,6 @@ var rezOnForm = function (form, o) {
     // Инициализация
     //-----------------------------------------
     rezOnForm.prototype.extendOptions = function (o) {
-        //TODO deep extend
         for (var optionKey in (o || {})) {
             if (this._o.hasOwnProperty(optionKey) && typeof (o[optionKey]) !== 'object') {
                 this._o[optionKey] = o[optionKey];
@@ -1621,10 +1580,10 @@ var rezOnForm = function (form, o) {
         var object = form.data('rezOnForm');
         if (!object) {
             object = new rezOnForm();
+
             object.extendOptions(o);
             form.data('rezOnForm', object);
         }
-
         rezOnForm.ModelInitialize(this, object, function (bindedForm) {
             form = $(bindedForm);
             form.data('rezOnForm', object);
@@ -1712,8 +1671,6 @@ rezOnForm.staticGalSubstringMatcher = function (strs) {
 
 
 //-----------------------------------------
-
-//TODO passangers error box show
 
 rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
@@ -1886,7 +1843,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component('railwayInput', {
         template: ' <div class="inside">' +
-            '<input type="text" :class="[inputClass,{isEmpty:item.Name==null}]" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div class="express">' +
             '{{item.Code}}' +
             '</div>' +
@@ -1907,6 +1864,30 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             placeholder: {
                 type: String,
                 default: "RAILWAY_PLACEHOLDER"
+            }
+        },
+        computed: {
+            inputClasses: function () {
+                var input = $(this.$el).find('input:not(.tt-hint).' + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(' ');
+                }
+
+                if (this.item.Name === null || this.item.Name === undefined || this.item.Name.trim() === '') {
+                    if (!classes.includes('isEmpty')) {
+                        classes.push('isEmpty');
+                    }
+                } else {
+                    var index = classes.indexOf('isEmpty');
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+
+                return classes.join(' ');
             }
         },
         watch: {
@@ -2028,25 +2009,27 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             var comp = this;
             this.$on('opened', function () {
                 var el = $(comp.$el);
-                el.closest('.field').addClass('opened');
-                $('body').addClass('m-no-scroll');
-                el.closest('.field.opened').find('.link-left, .link-right').removeClass('hidden');
+                formObject.extra.openField(el);
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
-                el.closest('.field').removeClass('opened');
-                $('body').removeClass('m-no-scroll');
-                el.closest('.field.opened').find('.link-left, .link-right').addClass('hidden');
-
-                //Vue.nextTick(function () {
-                //    if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null) {
-
-                //        var el = $(comp.$el);
-                //        var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
-                //        nextDatePick.focus();
-                //    }
-                //});
+                formObject.extra.closeField(el);
             });
+
+            this.$on('selected', function () {
+                Vue.nextTick(function () {
+                    var isMobile = formObject.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                    if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null && !isMobile) {
+                            var el = $(comp.$el);
+                            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+
+                            setTimeout(function () {
+                                nextDatePick.focus();
+                            }, 100);
+                        }
+                    });
+            });
+            
         },
         mounted: function () {
             var el = this.$el;
@@ -2077,20 +2060,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             Vue.nextTick(function () {
                 // DOM updated
-              
                 $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
                     //Tab press
                     if (e.keyCode == 9)  comp.close();
-                    //
-                    //comp.setInitialView();
-                    //Vue.nextTick(function () {
-                    //    console.log(comp.isOpen, comp.showDayView)
-                    //});
-                    
-                    //setTimeout(function () {
-                    //    console.log(comp.isOpen)
-                    //    if (!comp.isOpen) comp.showCalendar();
-                    //}, 500);
                 });
             });
         }
@@ -2202,6 +2174,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.formType = types[index];
                 if (this.avia.formType.value === 'roundtrip') {
                     this.avia.segmentsCount = 2;
+                    this.avia.defaultDateBack = new Date(this.avia.defaultDateBack);
                 } else {
                     this.avia.segmentsCount = 1;
                 }
@@ -2229,8 +2202,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.defaultDateBack = new Date();
                 this.avia.aviToTime = 0;
                 this.avia.formExtended = false;
-                this.avia.multyRoutes = [];
-                this.avia.segmentsCount = 0; //??  = 2
+                //this.avia.multyRoutes = [];
+                //this.avia.segmentsCount = 0; //??  = 2
                 this.avia.bookClass = 0;
                 this.avia.airCompanies = [];
                 this.avia.intervalCount = 0;
@@ -2244,7 +2217,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 });
                 this.avia.passengers.hasError = false;
                 this.avia.passengers.messages = [];
-
+             
                 var model = this;
                 Vue.nextTick(function () {
                     // DOM updated
@@ -2252,7 +2225,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 });
             },
             locale: function (str) {
-                var loc = this.localeDict[this.defaultLang][str];
+                var loc = this.localeDict[this.defaultLang] !== undefined && this.localeDict[this.defaultLang] !== null ? this.localeDict[this.defaultLang][str] : this.localeDict['en'][str];
                 return loc || str;
             },
             changeAviaFormExtended: function () {

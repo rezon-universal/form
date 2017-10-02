@@ -1,5 +1,10 @@
 ﻿@charset "utf-8";
 
+#rezon-forms .rez-forms {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 #rezon-forms a,
 #rezon-forms a:visited 
 {
@@ -53,7 +58,11 @@
 #rezon-forms 
 {
     font-size: 100%;
-    background: #4a148c;
+	background-image: url(../img/shell.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+    background-color: #4a148c;
     padding: 60px 20px 50px;
 }
 .rez-forms-links 
@@ -207,19 +216,16 @@
     font-weight: bold;
 	position: absolute;
     right: 40px;
-	z-index: 1;
+	z-index: 3;
 }
 #rezon-forms .express 
 {
     color: #d28d16;
     font-size: 9px;
     position: absolute;
-    bottom: 0px;
+    top: 30px;
     left: 12px;
     z-index: 1;
-}
-#rezon-forms .fields-container .field.station.to .express {
-    left: 22px;
 }
 #rezon-forms .delete 
 {
@@ -513,17 +519,13 @@
 {
     color: #5e6278;
 }
-#rezon-forms .extended-form-link,
 #rezon-forms .default-form-link {
     display: none;
     margin-left: 0;
 }
 #rezon-forms .default-form-link,
-html[data-btb="True"] #rezon-forms .extended-form-link {
+html[data-btb="True"] #rezon-forms .extended-form {
     display: inline-block;
-    line-height: 21px;
-    margin-left: 10px;
-    opacity: .5;
 }
 html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     opacity: 1;
@@ -771,7 +773,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     top: 45px;
 	left: 0;
     width: 350px;
-    z-index: 10;
+    z-index: 200;
 }
 #rezon-forms .select-age .error-box 
 {
@@ -1516,7 +1518,7 @@ body > div.datepicker
 #rezon-forms .avia-airport-finder .twitter-typeahead {
     margin-bottom: 10px;
 }
-#rezon-forms .twitter-typeahead.loading 
+#rezon-forms .focused .twitter-typeahead.loading 
 {
     background: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///56enufn58/Pz56engAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADGwi6MjRiSenIm9hqPOvljAOBZGmeaKqubOu6CQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAIfkECQoAAAAsAAAAABAAEAAAAxwIutz+UIlBhoiKkorB/p3GYVN1dWiqrmzrvmkCACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKycQgQ8xL8OzgBg6ThWlUqq5s604JACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKSautYpAhpibbBI7eOEzZ1l1s6yoJACH5BAkKAAAALAAAAAAQABAAAAMaCLrc/jDKSau9OOspBhnC5BHfRJ7iOXAe2CQAIfkECQoAAAAsAAAAABAAEAAAAxoIutz+MMpJ6xSDDDEz0dMnduJwZZulrmzbJAAh+QQJCgAAACwAAAAAEAAQAAADGwi63P4wRjHIEBJUYjP/2dZJlIVlaKqubOuyCQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAOwAAAAAAAAAAAA==) no-repeat -3px top;
 }
@@ -1737,6 +1739,13 @@ body > div.datepicker
     white-space: nowrap;
     transform: rotate(90deg);
     z-index: 2;
+     -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 #rezon-forms .fields-container.route .swap {
     display: none;
@@ -1752,6 +1761,7 @@ body > div.datepicker
     border-radius: 4px;
     color: white;
     text-align: center;
+    cursor: pointer;
 }
 #rezon-forms .transp:hover 
 {
@@ -1771,6 +1781,7 @@ body > div.datepicker
 #rezon-forms .transp a span 
 {
     border: none;
+    display: block;
 }
 #rezon-forms .search 
 {
@@ -1830,8 +1841,15 @@ body > div.datepicker
     min-width: 240px;
     position: relative;
 }
-#rezon-forms .field.hide_s {
+#rezon-forms .field.hide_s{
     flex-basis: 50%;
+}
+#rezon-forms .field.extended-form {
+    flex-basis: 25%;
+    display: none;
+}
+#rezon-forms .field.hide_s .transp{
+    display: inline-block;
 }
 #rezon-forms .field.date {
     flex-basis: 10%;
@@ -1880,10 +1898,21 @@ body > div.datepicker
     background: #fff;
     border-radius: 2px;
     height: 45px;
+    position: relative;
 }
 #rezon-forms .field .control-field .inside 
 {
     height: 45px;
+}
+#rezon-forms .field.airport .inside:before,#rezon-forms .field.station .inside:before {
+    content: '';
+    right: 60px;
+    position: absolute;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset -20px 0 10px -10px #fff;
+    z-index: 2;
 }
 #rezon-forms .field.time{
     flex-basis: 25%;
@@ -2023,6 +2052,10 @@ body > div.datepicker
     order: 4;
     flex-grow: 1;
 }
+#rezon-forms .fields-container.extended .field.extended-form {
+    order: 4;
+    flex-grow:0;
+}
 #rezon-forms .fields-container.extended .field.clear {
     order: 4;
     flex-basis: 15%;
@@ -2058,7 +2091,7 @@ body > div.datepicker
     flex-grow: 0;
     flex-basis: 25%;
 }
-#rezon-forms .fields-container.route .hide_s{
+#rezon-forms .fields-container.route .hide_s,#rezon-forms .fields-container.route .extended-form{
     order: 5;
 }
 #rezon-forms .fields-container.route .time + .time, #rezon-forms .fields-container.route .date + .date ,#rezon-forms .fields-container .multy-route{
@@ -2398,6 +2431,9 @@ body > div.datepicker
     {
         position: absolute;
     }
+    #rezon-forms .fields-container .field.station.to .express {
+        left: 22px;
+    }
 }
 @media (max-width: 599px) 
 {
@@ -2419,7 +2455,7 @@ body > div.datepicker
         margin: 0;
         float: none;
     }
-    #rezon-forms .transp a 
+    #rezon-forms .transp,#rezon-forms .field.hide_s .transp
     {
         display: block;
         text-align: center;
@@ -2475,13 +2511,8 @@ body > div.datepicker
     #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead {
         height: 100%;
     }
-    #rezon-forms .fields-container .field.airport.opened .iata {
-        top: 70px;
-        bottom: auto;
-    }
-    #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete {
-        top: 65px;
-        bottom: auto;
+    #rezon-forms .tt-dropdown-menu , #rezon-forms .carriers-finder{
+        box-shadow: none;
     }
     #rezon-forms .field.airport.opened span.tt-dropdown-menu, #rezon-forms .field.station.opened span.tt-dropdown-menu 
     {
@@ -2531,6 +2562,7 @@ body > div.datepicker
 
     #rezon-forms .fields-container .field.opened.date .date-wrapper {
         position: fixed;
+        height: 100%;
     }
     #rezon-forms .fields-container .field.opened.date .dates-item-row {
             padding: 0;
@@ -2590,7 +2622,7 @@ body > div.datepicker
     #rezon-forms .fields-container .field.class {
         display: block;
     }
-    #rezon-forms .field.hide_s {
+    #rezon-forms .field.hide_s, #rezon-forms .field.extended-form {
         order: 2;
         flex-grow: 1;
     }
@@ -2609,13 +2641,13 @@ body > div.datepicker
         order: 5;
         flex-grow: 1;
     }
-    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear {
+    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear, #rezon-forms .fields-container.extended .field.extended-form {
         order: 5;
         flex-basis: 50%;
         flex-grow: 1;
     }
     #rezon-forms .fields-container .field.find {
-    order: 6;
+        order: 6;
     }
     /*Extended serach mobile*/
     #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.route .field.pass {
@@ -2674,10 +2706,10 @@ body > div.datepicker
         background: white;
     }
     #rezon-forms .fields-container .swap {
-        margin-bottom: -13px;
-        margin-left: -43px;
-        margin-right: -18px;
+        margin-bottom: -15px;
+        margin-left: -85px;
         transform: rotate(0deg);
+        z-index: 3;
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         flex-basis: 50%;
@@ -2693,6 +2725,10 @@ body > div.datepicker
     #rezon-forms #railway-form-shoot .fields-container .field.range {
         flex-basis: 50%;
     }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
+    }
+
 }
 @media screen and (min-width: 600px ) and (max-width: 768px) 
 {
@@ -2704,5 +2740,8 @@ body > div.datepicker
     }
     #rezon-forms .radio-group-label .gal-btn-group.radio-supplement label {
         padding: 5px 8px;
+    }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
     }
 }
