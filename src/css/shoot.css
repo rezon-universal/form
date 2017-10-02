@@ -2187,23 +2187,30 @@ body > div.datepicker
 	line-height: 40px;
 }
 
-.vdp-datepicker__calendar header span {
-	display: inline-block;
+.vdp-datepicker__calendar header .up 
+{
+	display: block;
 	text-align: center;
-	width: 71.42857142857143%;
-	float: left;
+    margin: 0 40px;
 }
-
 .vdp-datepicker__calendar header .prev,
-.vdp-datepicker__calendar header .next {
-	width: 14.285714285714286%;
-	float: left;
-	text-indent: -10000px;
-	position: relative;
+.vdp-datepicker__calendar header .next
+{
+    position: relative;
+    text-indent: -10000px;
+    width: 40px;
 }
-
+.vdp-datepicker__calendar header .prev
+{
+    float: left;
+}
+.vdp-datepicker__calendar header .next
+{
+    float: right;
+}
 .vdp-datepicker__calendar header .prev:after,
-.vdp-datepicker__calendar header .next:after {
+.vdp-datepicker__calendar header .next:after 
+{
 	content: '';
 	position: absolute;
 	left: 50%;
@@ -2253,15 +2260,17 @@ body > div.datepicker
 	flex-wrap: wrap;
 }
 
-.vdp-datepicker__calendar .cell {
-	display: inline-block;
-	padding: 0 5px;
-	width: 14.285714285714286%;
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
-	vertical-align: middle;
-	border: 1px solid transparent;
+.vdp-datepicker__calendar .cell
+{
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 0 5px;
+    width: 14.285714285714286%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 1px 0;
 }
 
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
@@ -2269,24 +2278,23 @@ body > div.datepicker
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year {
 	cursor: pointer;
 }
-
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
-	border: 1px solid #4bd;
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover
+{
+    border: 1px solid #26b6ff;
 }
-
- .vdp-datepicker__calendar .cell.selected,
+.vdp-datepicker__calendar .cell.selected,
 .vdp-datepicker__calendar .cell.selected:hover,
-.vdp-datepicker__calendar .cell.selected.highlighted {
-	background: #4bd;
-    color:white;
+.vdp-datepicker__calendar .cell.selected.highlighted
+{
+    background: #26b6ff;
+    color: white;
 }
-
-.vdp-datepicker__calendar .cell.highlighted {
-	background: #cae5ed;
+.vdp-datepicker__calendar .cell.highlighted 
+{
+    background: #e9ebf2;
 }
-
 .vdp-datepicker__calendar .cell.grey {
 	color: #888;
 }

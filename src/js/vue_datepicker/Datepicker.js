@@ -473,9 +473,9 @@ var defaultDatepickerSettings = {
         "<template v-if=\"!dayViewOnly\">"+
             "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showMonthView\" v-bind:style=\"calendarStyle\">"+
                 "<header>" +
+                    "<span @click=\"nextYear\" class=\"next\" v-bind:class=\"{ 'disabled' : nextYearDisabled(pageDate) }\">&gt;</span>" +
                     "<span @click=\"previousYear\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousYearDisabled(pageDate) }\">&lt;</span>" +
                     "<span @click=\"showYearCalendar\" class=\"up\">{{ getPageYear() }}</span>" +
-                    "<span @click=\"nextYear\" class=\"next\" v-bind:class=\"{ 'disabled' : nextYearDisabled(pageDate) }\">&gt;</span>" +
                 "</header>" +
                 "<span class=\"cell month\" v-for=\"month in months\" track-by=\"timestamp\" v-bind:class=\"{ 'selected': month.isSelected, 'disabled': month.isDisabled }\" @click.stop=\"selectMonth(month)\">{{ month.month }}</span>" +
             "</div>"+
