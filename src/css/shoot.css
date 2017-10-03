@@ -374,9 +374,15 @@
 	font-size: 18px;
 	vertical-align: -5px;
 }
+#rezon-forms .passengers
+{
+    position: relative;
+    clear: both;
+}
 #rezon-forms .passengers .switch 
 {
     border-radius: 2px;
+    cursor: pointer;
     min-width: 120px;
     line-height: 45px;
     position: relative;
@@ -758,17 +764,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
 {
     position: relative;
 }
-#rezon-forms .passengers 
-{
-    position: relative;
-    clear: both;
-    cursor: pointer;
-}
 #rezon-forms .select-age 
 {
     background: #fff;
     border-radius: 2px;
     box-shadow: 0 5px 15px rgb(121, 135, 153);
+    line-height: 14px;
     outline: 0;
     position: absolute;
     top: 45px;
@@ -780,10 +781,19 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
 {
     padding: 10px 20px 10px;
 }
-#rezon-forms .passengers .select-age .radio-group-label 
+#rezon-forms .select-age .category
 {
-	position: relative;
+    font-size: 13px;
 }
+#rezon-forms .select-age .age
+{
+    color: rgb(138, 144, 163);
+    display: inline-block;
+    font-size: 11px;
+}
+
+
+
 #rezon-forms .radio-group-label .gal-btn-group 
 {
 	border: 1px solid rgb(189, 198, 215);
@@ -2365,6 +2375,13 @@ body > div.datepicker
 	font-style: normal;
 }
 /*!---------!*/
+
+
+#rezon-forms .hidden
+{
+    display: none !important;
+}
+
 
 @media (min-width: 600px) and (max-width: 1200px) 
 {
