@@ -17,7 +17,7 @@ commit_website_files() {
    git fetch --quiet rezon    
    git checkout -b master rezon/master  
    git merge minify --quiet --commit -m "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs   
-   git push  rezon master  --set-upstream --quiet
+   git push rezon master --set-upstream --quiet
  }
 
 setup_git
