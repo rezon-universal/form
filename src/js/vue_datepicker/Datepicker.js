@@ -276,7 +276,7 @@ var DateLanguages = {
 
             'days': ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt']
         },
-        'uk': {
+        'ua': {
             'language': 'Ukraine',
             'months': {
                 'original': ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
@@ -443,12 +443,12 @@ var DateUtils = {
 var defaultDatepickerSettings = {
     template:
 "<div>" +
-    "<div class=\"vdp-datepicker\" :class=\"[wrapperClass,isRtl ? 'rtl' :'']\">" +
+    "<div class=\"vdp-datepicker\" :class=\"[wrapperClass,isRtl ? 'rtl' :'']\" >" +
         "<div :class=\"{'input-group' : bootstrapStyling}\">"+
             "<span class=\"vdp-datepicker__calendar-button\" :class=\"{'input-group-addon' : bootstrapStyling}\" v-if=\"calendarButton\" @click=\"showCalendar\"><i :class=\"calendarButtonIcon\">" +
                 "<span v-if=\"calendarButtonIcon.length === 0\">&hellip;</span></i>" +
             "</span>"+
-            "<input :type=\"inline ? 'hidden' : 'text'\" :class=\"[ inputClass, { 'form-control' : bootstrapStyling } ]\" :name=\"name\" :id=\"id\" @click=\"showCalendar\" :value=\"formattedValue\" :placeholder=\"placeholder\" :clear-button=\"clearButton\" :disabled=\"disabledPicker\" :required=\"required\" readonly>"+
+            "<input :type=\"inline ? 'hidden' : 'text'\" :class=\"[ inputClass, { 'form-control' : bootstrapStyling } ]\" :name=\"name\" :id=\"id\" @focus=\"showCalendar\" :value=\"formattedValue\" :placeholder=\"placeholder\" :clear-button=\"clearButton\" :disabled=\"disabledPicker\" :required=\"required\" readonly>"+
             "<span class=\"vdp-datepicker__clear-button\" :class=\"{'input-group-addon' : bootstrapStyling}\" v-if=\"clearButton && selectedDate\" @click=\"clearDate()\">" +
                 "<i :class=\"clearButtonIcon\">" +
                     "<span v-if=\"calendarButtonIcon.length === 0\">&times;</span>" +
@@ -458,9 +458,9 @@ var defaultDatepickerSettings = {
         //<!-- Day View -->
         "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showDayView\" v-bind:style=\"calendarStyle\">" +
             "<header>" +
-                "<span @click=\"isRtl ? nextMonth() : previousMonth()\" class=\"prev\" v-bind:class=\"{ 'disabled' : isRtl ? nextMonthDisabled(pageDate) : previousMonthDisabled(pageDate) }\">&lt;</span>" +
-                "<span @click=\"showMonthCalendar\" :class=\"!dayViewOnly ? 'up' : ''\">{{ currMonthName }} {{ currYear }}</span>" +
                 "<span @click=\"isRtl ? previousMonth() : nextMonth()\" class=\"next\" v-bind:class=\"{ 'disabled' : isRtl ? previousMonthDisabled(pageDate) : nextMonthDisabled(pageDate) }\">&gt;</span>" +
+                "<span @click=\"isRtl ? nextMonth() : previousMonth()\" class=\"prev\" v-bind:class=\"{ 'disabled' : isRtl ? nextMonthDisabled(pageDate) : previousMonthDisabled(pageDate) }\">&lt;</span>" +
+                "<div @click=\"showMonthCalendar\" :class=\"!dayViewOnly ? 'up' : ''\">{{ currMonthName }} {{ currYear }}</div>" +
             "</header>"+
             "<div :class=\"isRtl ? 'flex-rtl' : ''\">" +
                 "<span class=\"cell day-header\" v-for=\"d in daysOfWeek\">{{ d }}</span>" +
@@ -473,9 +473,9 @@ var defaultDatepickerSettings = {
         "<template v-if=\"!dayViewOnly\">"+
             "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showMonthView\" v-bind:style=\"calendarStyle\">"+
                 "<header>" +
-                    "<span @click=\"previousYear\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousYearDisabled(pageDate) }\">&lt;</span>" +
-                    "<span @click=\"showYearCalendar\" class=\"up\">{{ getPageYear() }}</span>" +
                     "<span @click=\"nextYear\" class=\"next\" v-bind:class=\"{ 'disabled' : nextYearDisabled(pageDate) }\">&gt;</span>" +
+                    "<span @click=\"previousYear\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousYearDisabled(pageDate) }\">&lt;</span>" +
+                    "<div @click=\"showYearCalendar\" class=\"up\">{{ getPageYear() }}</div>" +
                 "</header>" +
                 "<span class=\"cell month\" v-for=\"month in months\" track-by=\"timestamp\" v-bind:class=\"{ 'selected': month.isSelected, 'disabled': month.isDisabled }\" @click.stop=\"selectMonth(month)\">{{ month.month }}</span>" +
             "</div>"+
@@ -484,9 +484,9 @@ var defaultDatepickerSettings = {
         "<template v-if=\"!dayViewOnly\">" +
             "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showYearView\" v-bind:style=\"calendarStyle\">" +
                 "<header>" +
-                    "<span @click=\"previousDecade\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousDecadeDisabled(pageDate) }\">&lt;</span>" +
-                    "<span>{{ getPageDecade() }}</span>" +
                     "<span @click=\"nextDecade\" class=\"next\" v-bind:class=\"{ 'disabled' : nextMonthDisabled(pageDate) }\">&gt;</span>" +
+                    "<span @click=\"previousDecade\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousDecadeDisabled(pageDate) }\">&lt;</span>" +
+                    "<div class=\"current\">{{ getPageDecade() }}</div>" +
                 "</header>" +
                 "<span class=\"cell year\" v-for=\"year in years\" track-by=\"timestamp\" v-bind:class=\"{ 'selected': year.isSelected, 'disabled': year.isDisabled }\" @click.stop=\"selectYear(year)\">{{ year.year }}</span>" +
             "</div>" +
@@ -604,7 +604,7 @@ var defaultDatepickerSettings = {
                 : DateUtils.formatDate(new Date(this.selectedDate), this.format, this.translation);
         },
         translation: function () {
-            return DateLanguages.translations[this.language];
+            return DateLanguages.translations[this.language] !== undefined && DateLanguages.translations[this.language] !== null ? DateLanguages.translations[this.language] : DateLanguages.translations['en'];
         },
         currMonthName: function () {
             var d = new Date(this.pageDate);

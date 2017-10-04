@@ -1,5 +1,21 @@
 ﻿@charset "utf-8";
 
+#rezon-forms
+{
+    background-image: url(../img/shell.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: #4a148c;
+    background-blend-mode: overlay;
+    font-size: 100%;
+    padding: 60px 20px 50px;
+}
+#rezon-forms .rez-forms 
+{
+    max-width: 1200px;
+    margin: 0 auto;
+}
 #rezon-forms a,
 #rezon-forms a:visited 
 {
@@ -49,12 +65,6 @@
 #rezon-forms button 
 {
 	font-family: 'Open Sans', sans-serif;
-}
-#rezon-forms 
-{
-    font-size: 100%;
-    background: #4a148c;
-    padding: 60px 20px 50px;
 }
 .rez-forms-links 
 {
@@ -207,19 +217,16 @@
     font-weight: bold;
 	position: absolute;
     right: 40px;
-	z-index: 1;
+	z-index: 3;
 }
 #rezon-forms .express 
 {
     color: #d28d16;
     font-size: 9px;
     position: absolute;
-    bottom: 0px;
+    top: 30px;
     left: 12px;
     z-index: 1;
-}
-#rezon-forms .fields-container .field.station.to .express {
-    left: 22px;
 }
 #rezon-forms .delete 
 {
@@ -281,11 +288,11 @@
     border-top: 1px solid #798799;
     margin-top: -1px;
 }
-#rezon-forms .book-date:active,
+/*#rezon-forms .book-date:active,
 #rezon-forms .book-date:focus 
 {
     cursor : url("../img/text.cur"), auto;
-}
+}*/
 #rezon-forms .datepicker-button 
 {
     background: #798799;
@@ -367,9 +374,15 @@
 	font-size: 18px;
 	vertical-align: -5px;
 }
+#rezon-forms .passengers
+{
+    position: relative;
+    clear: both;
+}
 #rezon-forms .passengers .switch 
 {
     border-radius: 2px;
+    cursor: pointer;
     min-width: 120px;
     line-height: 45px;
     position: relative;
@@ -513,14 +526,16 @@
 {
     color: #5e6278;
 }
-#rezon-forms .extended-form-link,
 #rezon-forms .default-form-link {
     display: none;
     margin-left: 0;
 }
 #rezon-forms .default-form-link,
-html[data-btb="True"] #rezon-forms .extended-form-link {
+html[data-btb="True"] #rezon-forms .extended-form {
     display: inline-block;
+}
+html[data-btb="True"] #rezon-forms .extended-form-link:hover {
+    opacity: 1;
 }
 
 #rezon-forms .yellow 
@@ -749,31 +764,36 @@ html[data-btb="True"] #rezon-forms .extended-form-link {
 {
     position: relative;
 }
-#rezon-forms .passengers 
-{
-    position: relative;
-    clear: both;
-}
 #rezon-forms .select-age 
 {
     background: #fff;
     border-radius: 2px;
     box-shadow: 0 5px 15px rgb(121, 135, 153);
+    line-height: 14px;
     outline: 0;
     position: absolute;
     top: 45px;
 	left: 0;
     width: 350px;
-    z-index: 10;
+    z-index: 200;
 }
 #rezon-forms .select-age .error-box 
 {
     padding: 10px 20px 10px;
 }
-#rezon-forms .passengers .select-age .radio-group-label 
+#rezon-forms .select-age .category
 {
-	position: relative;
+    font-size: 13px;
 }
+#rezon-forms .select-age .age
+{
+    color: rgb(138, 144, 163);
+    display: inline-block;
+    font-size: 11px;
+}
+
+
+
 #rezon-forms .radio-group-label .gal-btn-group 
 {
 	border: 1px solid rgb(189, 198, 215);
@@ -939,30 +959,52 @@ html[data-btb="True"] #rezon-forms .extended-form-link {
     top: 0;
     width: 50px;
 }
-#rezon-forms .error-box 
+#rezon-forms .error-box
 {
-    display: none;
     background: #e94b34;
-    color: white;    
-    padding: 0 10px 4px 10px;
+    border-radius: 2px;
+    color: white;
+    display: none;
     font-size: 13px;
-    min-height: 17px;
+    padding: 5px 10px;
+    right: 1px;
+    left: 1px;
+    z-index: 1;
 }
-#rezon-forms .error-box label 
+#rezon-forms .error-box .close
 {
-    color:white;
-}
-#rezon-forms .error-box .close 
-{
-    width: 20px;
-    height: 20px;
-    margin-right: -5px;
-    margin-top: 1px;
+    background: none;
     float: right;
-    background-image: url(../img/delit.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 150% auto;
+    height: 20px;
+    margin: 0 -5px 0 0;
+    opacity: 0.5;
+    position: relative;
+    width: 20px;
+}
+#rezon-forms .error-box .close:before,
+#rezon-forms .error-box .close:after
+{
+    background: #fff;
+    content: "";
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+}
+#rezon-forms .error-box .close:before
+{
+    height: 1px;
+    width: 20px;
+    top: 45%;
+}
+#rezon-forms .error-box .close:after
+{
+    height: 20px;
+    width: 1px;
+    left: 45%;
+}
+#rezon-forms .error-box .close:hover
+{
+    opacity: 0.8;
 }
 
 #rezon-forms .selectpicker-before 
@@ -1487,26 +1529,30 @@ body > div.datepicker
 #rezon-forms .avia-airport-finder .twitter-typeahead {
     margin-bottom: 10px;
 }
-#rezon-forms .twitter-typeahead.loading 
+#rezon-forms .focused .twitter-typeahead.loading 
 {
-    background: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///56enufn58/Pz56engAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADGwi6MjRiSenIm9hqPOvljAOBZGmeaKqubOu6CQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAIfkECQoAAAAsAAAAABAAEAAAAxwIutz+UIlBhoiKkorB/p3GYVN1dWiqrmzrvmkCACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKycQgQ8xL8OzgBg6ThWlUqq5s604JACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKSautYpAhpibbBI7eOEzZ1l1s6yoJACH5BAkKAAAALAAAAAAQABAAAAMaCLrc/jDKSau9OOspBhnC5BHfRJ7iOXAe2CQAIfkECQoAAAAsAAAAABAAEAAAAxoIutz+MMpJ6xSDDDEz0dMnduJwZZulrmzbJAAh+QQJCgAAACwAAAAAEAAQAAADGwi63P4wRjHIEBJUYjP/2dZJlIVlaKqubOuyCQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAOwAAAAAAAAAAAA==) no-repeat right top;
+    background: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///56enufn58/Pz56engAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADGwi6MjRiSenIm9hqPOvljAOBZGmeaKqubOu6CQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAIfkECQoAAAAsAAAAABAAEAAAAxwIutz+UIlBhoiKkorB/p3GYVN1dWiqrmzrvmkCACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKycQgQ8xL8OzgBg6ThWlUqq5s604JACH5BAkKAAAALAAAAAAQABAAAAMbCLrc/jDKSautYpAhpibbBI7eOEzZ1l1s6yoJACH5BAkKAAAALAAAAAAQABAAAAMaCLrc/jDKSau9OOspBhnC5BHfRJ7iOXAe2CQAIfkECQoAAAAsAAAAABAAEAAAAxoIutz+MMpJ6xSDDDEz0dMnduJwZZulrmzbJAAh+QQJCgAAACwAAAAAEAAQAAADGwi63P4wRjHIEBJUYjP/2dZJlIVlaKqubOuyCQAh+QQJCgAAACwAAAAAEAAQAAADHAi63A5ikCEek2TalftWmPZFU/WdaKqubOu+bwIAOwAAAAAAAAAAAA==) no-repeat -3px top;
 }
-#rezon-forms .twitter-typeahead .item-child-first 
-{    
+#rezon-forms .twitter-typeahead .item-child
+{
+    height: 100% !important;
+}
+#rezon-forms .twitter-typeahead .item-child-first
+{
+    height: 50% !important;
     margin-top: -5px !important;
-    height: 14px !important;
 }
-#rezon-forms .twitter-typeahead .item-child, 
-#rezon-forms .twitter-typeahead .item-child-first 
+#rezon-forms .twitter-typeahead .item-child,
+#rezon-forms .twitter-typeahead .item-child-first
 {
-    float: left;
-    /*margin-right: 8px;*/
-    margin-left: 2px;
-    margin-top: -17px;
-    width: 10px;
-    height: 28px;
     border-left: 1px solid #a5a5a5;
     border-bottom: 1px solid #a5a5a5;
+    bottom: 50%;
+    float: left;
+    height: 28px;
+    margin-left: 2px;
+    position: absolute;
+    width: 10px;
 }
 #rezon-forms .twitter-typeahead .item-text 
 {
@@ -1523,9 +1569,9 @@ body > div.datepicker
     padding: 8px 0;
     right: 0;
     width: 100%;
-
     max-height: 255px;
-    overflow-y: auto;
+    overflow-y: auto;   
+    box-shadow: 0 20px 25px rgba(0,0,0,.6);
 }
 #railway-form-shoot .tt-dropdown-menu 
 {
@@ -1542,11 +1588,12 @@ body > div.datepicker
     content: '';
     z-index: -1;
 }
-#rezon-forms .tt-suggestion 
+#rezon-forms .tt-suggestion
 {
-    font-size: 14px;
-    padding: 3px 38px 3px 15px;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 25px;
+    padding: 3px 38px 3px 15px;
     position: relative;
 }
 #rezon-forms .tt-suggestion > p 
@@ -1610,14 +1657,14 @@ body > div.datepicker
     height: 19px;
     opacity: .3;
     cursor: pointer;
-    background: url(../img/icon-arrow-down.gif) no-repeat center center;
+    /*background: url(../img/icon-arrow-down.gif) no-repeat center center;*/
     top: 50%;
     margin-top: -9px;
     z-index: 1;
 }
 #rezon-forms .typeahead-selectpicker-control.opened 
 {
-    background: url(../img/icon-arrow-up.gif) no-repeat center center;
+    /*background: url(../img/icon-arrow-up.gif) no-repeat center center;*/
     opacity: 1;
 }
 #rezon-forms .typeahead-selectpicker-control.empty 
@@ -1682,28 +1729,34 @@ body > div.datepicker
     line-height: 16px;
     font-size: 14px;
 }
-#rezon-forms .fields-container .swap {
+#rezon-forms .fields-container .swap
+{
+    border-radius: 20px;
+    border: 4px solid #7fd7ff;
+    background: #26b6ff;
     color: #fff;
-    position: relative;
+    cursor: pointer;
     box-sizing: content-box;
     float: left;
-    margin-bottom: 15px;
-    margin-left: -18px;
-    margin-right: -18px;
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
-    border: 3px solid #7fd7ff;
-    background: #26b6ff;
-    z-index: 2;
-    line-height: 25px;
-    transform: rotate(90deg);
-    letter-spacing: -1px;
+    margin-bottom: 13px;
+    margin-left: -21px;
+    margin-right: -20px;
+    width: 33px;
+    height: 33px;
+    line-height: 28px;
     font-size: 19px;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    cursor: pointer;
+    transform: rotate(90deg);
+    z-index: 2;
+     -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 #rezon-forms .fields-container.route .swap {
     display: none;
@@ -1731,9 +1784,15 @@ body > div.datepicker
 {
     color: #fff;
 }
+
+#rezon-forms .transp div span,
+#rezon-forms .transp .arrow {
+    cursor: pointer;
+}
 #rezon-forms .transp a span 
 {
     border: none;
+    display: block;
 }
 #rezon-forms .search 
 {
@@ -1778,12 +1837,12 @@ body > div.datepicker
     height: 100%;
 }
 #rezon-forms .book-from,
-#rezon-forms .book-to 
+#rezon-forms .book-to
 {
     background: transparent;
     box-sizing: border-box;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     height: 100%;
     padding: 0 60px 0 10px;
     width: 100%;
@@ -1793,8 +1852,15 @@ body > div.datepicker
     min-width: 240px;
     position: relative;
 }
-#rezon-forms .field.hide_s {
+#rezon-forms .field.hide_s{
     flex-basis: 50%;
+}
+#rezon-forms .field.extended-form {
+    flex-basis: 25%;
+    display: none;
+}
+#rezon-forms .field.hide_s .transp{
+    display: inline-block;
 }
 #rezon-forms .field.date {
     flex-basis: 10%;
@@ -1843,9 +1909,21 @@ body > div.datepicker
     background: #fff;
     border-radius: 2px;
     height: 45px;
+    position: relative;
 }
-#rezon-forms .field .control-field > div {
-    height: 100%;
+#rezon-forms .field .control-field .inside 
+{
+    height: 45px;
+}
+#rezon-forms .field.airport .inside:before,#rezon-forms .field.station .inside:before {
+    content: '';
+    right: 60px;
+    position: absolute;
+    width: 20px;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset -20px 0 10px -10px #fff;
+    z-index: 2;
 }
 #rezon-forms .field.time{
     flex-basis: 25%;
@@ -1935,11 +2013,12 @@ body > div.datepicker
 {
     display: none;
 }
-#rezon-forms .direct label 
+#rezon-forms .direct label
 {
     font-size: 13px;
     font-weight: 600;
     color: #fff;
+    display: inline-block;
     margin: 0;
     opacity: 1;
     padding: 8px 20px;
@@ -1984,6 +2063,10 @@ body > div.datepicker
     order: 4;
     flex-grow: 1;
 }
+#rezon-forms .fields-container.extended .field.extended-form {
+    order: 4;
+    flex-grow:0;
+}
 #rezon-forms .fields-container.extended .field.clear {
     order: 4;
     flex-basis: 15%;
@@ -1994,12 +2077,13 @@ body > div.datepicker
 /*!---------!*/
 
 /*Multy-route*/
-#rezon-forms .fields-container.route .multy-route {
+#rezon-forms .fields-container.route .multy-route 
+{
     display: inline-flex;
     align-items: flex-end;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 #rezon-forms .route .add_segment 
 {
@@ -2018,7 +2102,7 @@ body > div.datepicker
     flex-grow: 0;
     flex-basis: 25%;
 }
-#rezon-forms .fields-container.route .hide_s{
+#rezon-forms .fields-container.route .hide_s,#rezon-forms .fields-container.route .extended-form{
     order: 5;
 }
 #rezon-forms .fields-container.route .time + .time, #rezon-forms .fields-container.route .date + .date ,#rezon-forms .fields-container .multy-route{
@@ -2052,6 +2136,14 @@ body > div.datepicker
     margin-top: 10px;
     font-size: 24px;
     cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 #rezon-forms .field.pass .pass_counter a 
 {
@@ -2129,6 +2221,7 @@ body > div.datepicker
 {
 	background: #fff;
 	box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    border-radius: 2px;
 	position: absolute;
 	width: 300px;
 	z-index: 100;
@@ -2139,47 +2232,59 @@ body > div.datepicker
 	line-height: 40px;
 }
 
-.vdp-datepicker__calendar header span {
-	display: inline-block;
-	text-align: center;
-	width: 71.42857142857143%;
-	float: left;
+.vdp-datepicker__calendar header .up,
+.vdp-datepicker__calendar header .current
+{
+    margin: 0 40px;
+    text-align: center;
 }
-
 .vdp-datepicker__calendar header .prev,
-.vdp-datepicker__calendar header .next {
-	width: 14.285714285714286%;
-	float: left;
-	text-indent: -10000px;
-	position: relative;
+.vdp-datepicker__calendar header .next
+{
+    position: relative;
+    text-indent: -10000px;
+    width: 40px;
 }
-
+.vdp-datepicker__calendar header .prev
+{
+    float: left;
+}
+.vdp-datepicker__calendar header .next
+{
+    float: right;
+}
 .vdp-datepicker__calendar header .prev:after,
-.vdp-datepicker__calendar header .next:after {
-	content: '';
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	border: 6px solid transparent;
+.vdp-datepicker__calendar header .next:after
+{
+    content: '';
+    height: 15px;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: rotate(45deg);
+    width: 15px;
 }
-
-.vdp-datepicker__calendar header .prev:after {
-	border-right: 10px solid #000;
-	margin-left: -5px;
+.vdp-datepicker__calendar header .prev:after
+{
+    border-left: 1px solid #26b6ff;
+    border-bottom: 1px solid #26b6ff;
+    margin-left: -5px;
 }
-
-.vdp-datepicker__calendar header .prev.disabled:after {
-	border-right: 10px solid #ddd;
+.vdp-datepicker__calendar header .prev.disabled:after
+{
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
-
-.vdp-datepicker__calendar header .next:after {
-	border-left: 10px solid #000;
-	margin-left: 5px;
+.vdp-datepicker__calendar header .next:after
+{
+    border-top: 1px solid #26b6ff;
+    border-right: 1px solid #26b6ff;
+    margin-left: -10px;
 }
-
-.vdp-datepicker__calendar header .next.disabled:after {
-	border-left: 10px solid #ddd;
+.vdp-datepicker__calendar header .next.disabled:after
+{
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
 .vdp-datepicker__calendar header .prev:not(.disabled),
@@ -2205,15 +2310,17 @@ body > div.datepicker
 	flex-wrap: wrap;
 }
 
-.vdp-datepicker__calendar .cell {
-	display: inline-block;
-	padding: 0 5px;
-	width: 14.285714285714286%;
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
-	vertical-align: middle;
-	border: 1px solid transparent;
+.vdp-datepicker__calendar .cell
+{
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 0 5px;
+    width: 14.285714285714286%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 1px 0;
 }
 
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
@@ -2221,29 +2328,23 @@ body > div.datepicker
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year {
 	cursor: pointer;
 }
-
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
 .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
-	border: 1px solid #4bd;
+.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover
+{
+    border: 1px solid #26b6ff;
 }
-
-.vdp-datepicker__calendar .cell.selected {
-	background: #4bd;
+.vdp-datepicker__calendar .cell.selected,
+.vdp-datepicker__calendar .cell.selected:hover,
+.vdp-datepicker__calendar .cell.selected.highlighted
+{
+    background: #26b6ff;
+    color: white;
 }
-
-.vdp-datepicker__calendar .cell.selected:hover {
-	background: #4bd;
+.vdp-datepicker__calendar .cell.highlighted 
+{
+    background: #e9ebf2;
 }
-
-.vdp-datepicker__calendar .cell.selected.highlighted {
-	background: #4bd;
-}
-
-.vdp-datepicker__calendar .cell.highlighted {
-	background: #cae5ed;
-}
-
 .vdp-datepicker__calendar .cell.grey {
 	color: #888;
 }
@@ -2251,11 +2352,12 @@ body > div.datepicker
 .vdp-datepicker__calendar .cell.grey:hover {
 	background: inherit;
 }
-
-.vdp-datepicker__calendar .cell.day-header {
-	font-size: 75%;
-	white-space: no-wrap;
-	cursor: inherit;
+.vdp-datepicker__calendar .cell.day-header
+{
+    color: #9e9e9e;
+    cursor: inherit;
+    font-size: 75%;
+    white-space: no-wrap;
 }
 
 .vdp-datepicker__calendar .cell.day-header:hover {
@@ -2273,6 +2375,13 @@ body > div.datepicker
 	font-style: normal;
 }
 /*!---------!*/
+
+
+#rezon-forms .hidden
+{
+    display: none !important;
+}
+
 
 @media (min-width: 600px) and (max-width: 1200px) 
 {
@@ -2307,33 +2416,51 @@ body > div.datepicker
         max-width: 50%;
     }
 }
-@media (min-width: 600px) {
+@media (min-width: 600px) 
+{
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
-    #rezon-forms .book-date:focus {
+    #rezon-forms .book-date:focus 
+    {
         box-shadow: 0 0 8px 2px #00b0ff;
         outline: none;
         z-index: 1;
     }
-    #rezon-forms .fields-container .field.hide_s .transp {
+    #rezon-forms .fields-container .field.hide_s .transp 
+    {
         text-align: left;
         background: none;
     }
-    #rezon-forms .fields-container:not(.route) .field.airport:first-child .iata {
+    #rezon-forms .fields-container:not(.route) .field.airport:first-child .iata 
+    {
         right: 50px;
     }
-
-    #rezon-forms .fields-container:not(.route) .field.airport:first-child .delete, #rezon-forms .fields-container .field.station:first-child .delete {
+    #rezon-forms .fields-container:not(.route) .field.airport:first-child .delete, #rezon-forms .fields-container .field.station:first-child .delete 
+    {
         right: 25px;
     }
-    #rezon-forms .book-to {
+    #rezon-forms .book-to 
+    {
         padding-left: 20px;
     }
-    #rezon-forms .link-right,  #rezon-forms .link-left {
+    #rezon-forms .link-right,
+    #rezon-forms .link-left 
+    {
         display: none;
     }
+    #rezon-forms .fields-container.route .multy-route
+    {
+        margin-top: 30px;
+    }
+    #rezon-forms .error-box
+    {
+        position: absolute;
+    }
+    #rezon-forms .fields-container .field.station.to .express {
+        left: 22px;
+    }
 }
-@media screen and (max-width: 600px) 
+@media (max-width: 599px) 
 {
     #rezon-forms 
     {
@@ -2353,13 +2480,15 @@ body > div.datepicker
         margin: 0;
         float: none;
     }
-    #rezon-forms .transp a 
+    #rezon-forms .transp,#rezon-forms .field.hide_s .transp
     {
         display: block;
         text-align: center;
     }
-    
-
+    #rezon-forms .tt-suggestion
+    {
+        line-height: 40px;
+    }
     #rezon-forms .column.from.calendar-dropdown + .column.to,
     #rezon-forms .column.from.calendar-dropdown + .swap + .column.to
     {
@@ -2404,27 +2533,15 @@ body > div.datepicker
     #rezon-forms .fields-container .field.airport.opened, #rezon-forms .fields-container .field.station.opened {
         background: white;
     }
-    #rezon-forms .fields-container .field.opened .control-field {
-        border: none;
-        height: 100%;
-        padding: 0;
-    }
     #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead {
         height: 100%;
     }
-    #rezon-forms .fields-container .field.airport.opened .iata {
-        top: 70px;
-        bottom: auto;
-    }
-    #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete {
-        top: 65px;
-        bottom: auto;
+    #rezon-forms .tt-dropdown-menu , #rezon-forms .carriers-finder{
+        box-shadow: none;
     }
     #rezon-forms .field.airport.opened span.tt-dropdown-menu, #rezon-forms .field.station.opened span.tt-dropdown-menu 
     {
         top: 50px!important;
-        max-height: 100%;
-        height: 100%;
         width: 100%;
         border: none;
     }
@@ -2470,6 +2587,7 @@ body > div.datepicker
 
     #rezon-forms .fields-container .field.opened.date .date-wrapper {
         position: fixed;
+        height: 100%;
     }
     #rezon-forms .fields-container .field.opened.date .dates-item-row {
             padding: 0;
@@ -2486,8 +2604,9 @@ body > div.datepicker
         justify-content: center;
         align-items: center;
     }
-    .no-scroll {
-        overflow: hidden;
+    .m-no-scroll {
+        position: fixed;
+        width: 100%;
     }
     #rezon-forms .fields-container .field .menu-title {
         display: none;
@@ -2495,10 +2614,10 @@ body > div.datepicker
     #rezon-forms .fields-container .field.opened .menu-title {
         display: block;
     }
-     #rezon-forms .book-from,
-    #rezon-forms .book-to 
+    #rezon-forms .opened .book-from,
+    #rezon-forms .opened .book-to
     {
-        height: 50px;
+        height: 45px;
     }
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
@@ -2528,7 +2647,7 @@ body > div.datepicker
     #rezon-forms .fields-container .field.class {
         display: block;
     }
-    #rezon-forms .field.hide_s {
+    #rezon-forms .field.hide_s, #rezon-forms .field.extended-form {
         order: 2;
         flex-grow: 1;
     }
@@ -2547,13 +2666,13 @@ body > div.datepicker
         order: 5;
         flex-grow: 1;
     }
-    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear {
+    #rezon-forms .fields-container.extended .field.class,  #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear, #rezon-forms .fields-container.extended .field.extended-form {
         order: 5;
         flex-basis: 50%;
         flex-grow: 1;
     }
     #rezon-forms .fields-container .field.find {
-    order: 6;
+        order: 6;
     }
     /*Extended serach mobile*/
     #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.route .field.pass {
@@ -2612,10 +2731,10 @@ body > div.datepicker
         background: white;
     }
     #rezon-forms .fields-container .swap {
-        margin-bottom: -13px;
-        margin-left: -43px;
-        margin-right: -18px;
+        margin-bottom: -15px;
+        margin-left: -85px;
         transform: rotate(0deg);
+        z-index: 3;
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         flex-basis: 50%;
@@ -2631,6 +2750,10 @@ body > div.datepicker
     #rezon-forms #railway-form-shoot .fields-container .field.range {
         flex-basis: 50%;
     }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
+    }
+
 }
 @media screen and (min-width: 600px ) and (max-width: 768px) 
 {
@@ -2642,5 +2765,8 @@ body > div.datepicker
     }
     #rezon-forms .radio-group-label .gal-btn-group.radio-supplement label {
         padding: 5px 8px;
+    }
+    #rezon-forms .rez-forms {
+        padding: 0 10px;
     }
 }
