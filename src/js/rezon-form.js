@@ -4,10 +4,10 @@ function DirectionType(value, text) {
     this.text = text;
 };
 function AirportItem(iataCode, countryCode, countryName, airport) {
-    this.Airport = airport;
-    this.CountryCode = countryCode;
-    this.CountryName = countryName;
-    this.IataCode = iataCode;
+	    this.Airport = airport;
+	    this.CountryCode = countryCode;
+	    this.CountryName = countryName;
+	    this.IataCode = iataCode;
 };
 function CarrierItem(label, code) {
     this.label = label;
@@ -2078,7 +2078,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     str = this.locale('ANY_AVIACOMPANY');
                 } else {
                     str = $.map(this.avia.airCompanies, function (n) {
-                        return n.label;
+                    	if(n!==undefined  && n!==null && n.label!=undefined && n.label!=null)
+                    	{
+                    		return n.label;
+                    	}                        
                     }).join();
                 }
                 return str;
