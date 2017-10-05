@@ -33,10 +33,10 @@
 				}
 			},
 			concat: {			
-				js: {
-					src: 'src/js/*.js',
-					dest: 'js/concat.js'
-				},
+				// js: {
+				// 	src: 'src/js/*.js',
+				// 	dest: 'js/concat.js'
+				// },
 				css: {
 					src: 'src/css/*.css',
 					dest: 'css/concat.css'
@@ -59,9 +59,9 @@
 					files: [{
 						expand:	true,
 						cwd:	'js',
-						src:	'concat.js',
+						src:	['src/js/typeahead.bundle.js','src/js/vue_datepicker/Datepicker.js','src/js/rezon-form.js'],
 						dest:	'minified/js',
-							ext:	'.min.js',
+						ext:	'.min.js',
 						extDot:	'last'
 					}]
 				}
@@ -71,6 +71,12 @@
 	    		options: {
 	    			replace:true,
 	    			beautify:true,
+	    			scripts: {
+	    				bundle: [
+	    				'src/js/*.min.js',
+	    				'minified/js/*.js',	    				
+	    				],	    			
+	    			},
 	    			styles: {
 	    				bundle: 'minified/css/*.css'
 	    			},
