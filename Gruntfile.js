@@ -96,7 +96,7 @@
 		grunt.loadNpmTasks('grunt-html-build');		
 		
 		
-		grunt.registerTask('default', ['concat','uglify','cssmin','copy','insert']);
+		grunt.registerTask('default', ['concat','uglify','cssmin','htmlbuild','copy']);
 		
 
 	};
