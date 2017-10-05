@@ -25,6 +25,7 @@
     "grunt-eslint": "*",
     "grunt-githooks": "*",
     "grunt-css": "*",
-    "grunt-contrib-copy": "*"
+    "grunt-contrib-copy": "*",
+    "grunt-insert":"*"
   }
 }
