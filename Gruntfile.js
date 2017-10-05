@@ -68,18 +68,19 @@
 			},
 			insert: {
 	    		options: {},
-	     		avia:
+	     		main:
 	     		{
 	        		src: "src/html/aviaForm.html",
 	        		dest: "src/html/Index.html",
 	        		match: "//aviaform"
-	    		},
-	    		rail:
-	    		{
-	    			src: "src/html/railForm.html",
-	        		dest: "src/html/Index.html",
-	        		match: "//railform"
-	    		}	    		
+	    		}
+	    		// ,
+	    		// rail:
+	    		// {
+	    		// 	src: "src/html/railForm.html",
+	      //   		dest: "src/html/Index.html",
+	      //   		match: "//railform"
+	    		// }	    		
 	    	}, 
 			copy: {
 				main: {
