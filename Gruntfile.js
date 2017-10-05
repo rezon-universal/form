@@ -71,7 +71,7 @@
 	     		main:
 	     		{
 	        		src: "src/html/aviaForm.html",
-	        		dest: "src/html/Index",
+	        		dest: "src/html/Index.html",
 	        		match: "<!--avia-form-->"
 	    		}	    		
 	    	}, 
