@@ -5,7 +5,6 @@ setup_git() {
   git config --global user.email ${GH_EMAIL}
   git config --global user.name ${GH_USER}
 }
-
 commit_website_files() { 
   git checkout --orphan minify 
   git rm -rf --quiet .

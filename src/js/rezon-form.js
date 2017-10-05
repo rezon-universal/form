@@ -1,5 +1,4 @@
-﻿//Temprora
-function DirectionType(value, text) {
+﻿function DirectionType(value, text) {
     this.value = value;
     this.text = text;
 };
@@ -698,6 +697,60 @@ var rezOnForm = function (form, o) {
         }
         return false;
     }
+    rezOnForm.prototype.extra.swipeDetect = function(el, callback) {
+        var touchsurface = el,
+            swipedir,
+            startX,
+            startY,
+            distX,
+            distY,
+            threshold = 150, //min distance
+            restraint = 100, // max distance 
+            allowedTime = 300, // max time 
+            elapsedTime,
+            startTime,
+            handleswipe = callback || function (swipedir) { }
+
+        touchsurface.addEventListener('touchstart',
+            function(e) {
+                var touchobj = e.changedTouches[0];
+                swipedir = 'none';
+                dist = 0;
+                startX = touchobj.pageX;
+                startY = touchobj.pageY;
+                startTime = new Date().getTime();
+               // e.preventDefault();
+            },
+            false);
+
+        touchsurface.addEventListener('touchmove',
+            function(e) {
+                e.preventDefault(); // prevent scrolling when inside DIV
+            },
+            false);
+
+        touchsurface.addEventListener('touchend',
+            function(e) {
+                var touchobj = e.changedTouches[0];
+                distX = touchobj.pageX - startX; 
+                distY = touchobj.pageY - startY; 
+                elapsedTime = new Date().getTime() - startTime; 
+                if (elapsedTime <= allowedTime) { 
+                    if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint
+                    ) { 
+                        swipedir =
+                            (distX < 0) ? 'left' : 'right'; 
+                    } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint
+                    ) { 
+                        swipedir = (distY < 0) ? 'up' : 'down'; 
+                    }
+                }
+                handleswipe(swipedir);
+               // e.preventDefault();
+            },
+            false);
+    };
+
     //-----------------------------------------
     // Работа с данными
     //-----------------------------------------
@@ -1756,7 +1809,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
                
                 if (this.item.IataCode === null || this.item.IataCode === undefined || this.item.IataCode.trim() === '') {
-                    if (!classes.includes('isEmpty')) {
+                    if (classes.indexOf('isEmpty')<0) {
                         classes.push('isEmpty');
                     }
                 } else {
@@ -1876,7 +1929,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
 
                 if (this.item.Name === null || this.item.Name === undefined || this.item.Name.trim() === '') {
-                    if (!classes.includes('isEmpty')) {
+                    if (classes.indexOf('isEmpty')<=0) {
                         classes.push('isEmpty');
                     }
                 } else {
@@ -2034,30 +2087,33 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         mounted: function () {
             var el = this.$el;
             var comp = this;
-
-            $(el).closest('.control-field').on('swiperight', function () {
-                if (comp.showDayView) {
-                    comp.previousMonth();
-                }
-                else if (comp.showMonthView) {
-                    comp.previousYear();
-                }
-                else if (comp.showYearView) {
-                    comp.previousDecade();
-                }
-            });
-            $(el).closest('.control-field').on('swipeleft', function () {
-                if (comp.showDayView) {
-                    comp.nextMonth();
-                }
-                else if (comp.showMonthView) {
-                    comp.nextYear();
-                }
-                else if (comp.showYearView) {
-                    comp.nextDecade();
-                }
-            });
-
+            var datePicker = $(el).closest('.control-field')[0];
+            formObject.extra.swipeDetect(datePicker, function (swipedir) {
+                switch (swipedir) {
+                        case 'left':
+                            if (comp.showDayView) {
+                                comp.nextMonth();
+                            }
+                            else if (comp.showMonthView) {
+                                comp.nextYear();
+                            }
+                            else if (comp.showYearView) {
+                                comp.nextDecade();
+                            }
+                        break;
+                        case 'right':
+                            if (comp.showDayView) {
+                                comp.previousMonth();
+                            }
+                            else if (comp.showMonthView) {
+                                comp.previousYear();
+                            }
+                            else if (comp.showYearView) {
+                                comp.previousDecade();
+                            }
+                        break;
+                    }
+                }); 
             Vue.nextTick(function () {
                 // DOM updated
                 $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
@@ -2260,10 +2316,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var infantsCat = ["psgInfantsCnt", "psgInfantsNSCnt"];
                 this.avia.passengers.types.forEach(function (value) {
                     currCount += value.count;
-                    if (adultsCat.includes(value.name)) {
+                    if (adultsCat.indexOf(value.name)>=0) {
                         adultCnt += value.count;
                     }
-                    if (infantsCat.includes(value.name)) {
+                    if (infantsCat.indexOf(value.name)>=0) {
                         infantCnt += value.count;
                     }
                 });
@@ -2272,7 +2328,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.avia.passengers.types.forEach(function (value) {
                     value.disabled = availablePassCount < 1;
 
-                    if (infantsCat.includes(value.name) && (adultCnt===0 || adultCnt < infantCnt + 1)) {
+                    if (infantsCat.indexOf(value.name)>=0 && (adultCnt===0 || adultCnt < infantCnt + 1)) {
                         value.disabled = true;
                     }
                 });
@@ -2303,11 +2359,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     var length = this.avia.multyRoutes.length;
                     var obj = new EmptyRouteItem();
                     if (length === 0) {
-                        var avi = Object.assign({}, this.avia.aviTo);
+                        var avi = $.extend({}, this.avia.aviTo);
                         obj.aviFrom = avi;
                     } else {
                         if (this.avia.multyRoutes[length - 1].aviTo !== undefined && this.avia.multyRoutes[length - 1].aviTo !== null) {
-                            var avi = Object.assign({}, this.avia.multyRoutes[length - 1].aviTo);
+                            var avi = $.extend({}, this.avia.multyRoutes[length - 1].aviTo);
                             obj.aviFrom = avi;
                         }
                     }
