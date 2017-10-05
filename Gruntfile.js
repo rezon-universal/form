@@ -72,7 +72,7 @@
 	    			replace:true,
 	    			beautify:true,
 	    			styles: {
-	    				bundle: 'css/minified/*.css'
+	    				bundle: 'minified/css/*.css'
 	    			},
 	    			sections:{
 	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
