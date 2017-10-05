@@ -58,7 +58,7 @@
 				dist: {
 					files: [{
 						expand:	true,
-						/cwd:	'src/js',
+						cwd:	'src/js',
 						src:	['typeahead.bundle.js','vue_datepicker/Datepicker.js','rezon-form.js'],
 						dest:	'minified/js',
 						ext:	'.min.js',
