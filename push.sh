@@ -14,7 +14,7 @@ commit_website_files() {
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
    git fetch --quiet rezon    
-   git checkout -b master rezon/master  
+   git checkout -b master
    git merge minify --quiet --commit -m "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs   
    git push -u --quiet rezon 
  }
