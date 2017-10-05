@@ -26,6 +26,6 @@
     "grunt-githooks": "*",
     "grunt-css": "*",
     "grunt-contrib-copy": "*",
-    "grunt-insert":"*"
+    "grunt-html-build":"*"
   }
 }

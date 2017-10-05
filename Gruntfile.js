@@ -65,22 +65,15 @@
 						extDot:	'last'
 					}]
 				}
-			},
-			insert: {
-	    		options: {},
-	     		main:
-	     		{
-	        		src: "src/html/aviaForm.html",
-	        		dest: "src/html/Index.html",
-	        		match: "//aviaform"
-	    		}
-	    		// ,
-	    		// rail:
-	    		// {
-	    		// 	src: "src/html/railForm.html",
-	      //   		dest: "src/html/Index.html",
-	      //   		match: "//railform"
-	    		// }	    		
+			},			
+			htmlbuild: {
+				src: "src/html/Index.html",
+				dest: 'dist/',
+	    		options: {
+	    			section:{
+	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
+	    			}
+	    		}	     				
 	    	}, 
 			copy: {
 				main: {
@@ -100,7 +93,7 @@
 		grunt.loadNpmTasks('grunt-contrib-uglify');	
 		grunt.loadNpmTasks('grunt-githooks');
 		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-insert');		
+		grunt.loadNpmTasks('grunt-html-build');		
 		
 		
 		grunt.registerTask('default', ['concat','uglify','cssmin','copy','insert']);
