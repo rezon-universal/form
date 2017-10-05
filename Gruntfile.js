@@ -67,8 +67,8 @@
 				}
 			},			
 			htmlbuild: {
-				//src: "src/html/Index.html",
-				dest: 'html/',
+				src: "src/html/Index.html",
+				//dest: 'html/',
 	    		options: {
 	    			replace:true,
 	    			sections:{
