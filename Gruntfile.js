@@ -67,8 +67,7 @@
 				}
 			},			
 			htmlbuild: {
-				src: "src/html/Index.html",
-				dest: 'dist/',
+				src: "src/html/Index.html",				
 	    		options: {
 	    			sections:{
 	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
