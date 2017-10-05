@@ -70,7 +70,7 @@
 				src: "src/html/Index.html",
 				dest: 'dist/',
 	    		options: {
-	    			section:{
+	    			sections:{
 	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
 	    			}
 	    		}	     				
