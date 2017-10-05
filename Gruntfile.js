@@ -73,12 +73,14 @@
 	        		src: "src/html/aviaForm.html",
 	        		dest: "src/html/Index",
 	        		match: "<!--avia-form-->"
-	    		},{
+	    		},
+	    		{
 	        		src: "src/html/railForm.html",
 	        		dest: "src/html/Index",
 	        		match: "<!--rail-form-->"
 	    		}
-	    		], 
+	    		]
+	    	}, 
 			copy: {
 				main: {
 	    			files: [      
