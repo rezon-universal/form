@@ -9,8 +9,7 @@ commit_website_files() {
   git checkout --orphan minify 
   git rm -rf --quiet .
   git add minified/\*.min.js minified/\*min.css minified/\*.map origin/* html/*
-  git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"   
-  ls -a
+  git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"    
 }
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
@@ -18,7 +17,8 @@ commit_website_files() {
    git checkout -b master   
    #git merge minify --ff-only --quiet --commit -m "Travis build: $TRAVIS_BUILD_NUMBER" -X theirs   
    git merge --allow-unrelated-histories minify   
-   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+   git branch -d -r minify
+   #git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
    git push -u -f --quiet rezon 
  }
 
