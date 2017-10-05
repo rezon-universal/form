@@ -67,10 +67,13 @@
 				}
 			},			
 			htmlbuild: {
-				src: "src/html/Index.html",
-				//dest: 'html/',
+				src: "src/html/Index.html",				
 	    		options: {
 	    			replace:true,
+	    			beautify:true,
+	    			styles: {
+	    				bundle: 'src/css/*.css'
+	    			},
 	    			sections:{
 	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
 	    			}
