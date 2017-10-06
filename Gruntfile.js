@@ -84,6 +84,7 @@
 	    			scripts: {
 	    				bundle: [
 	    				'origin/js/*.min.js',
+	    				'minified/js/vue_datepicker/*.min.js'
 	    				'minified/js/*.min.js',	    				
 	    				],	    			
 	    			},
