@@ -2,12 +2,7 @@
 
 #rezon-forms
 {
-    background-image: url(../img/shell.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
     background-color: #4a148c;
-    background-blend-mode: overlay;
     font-size: 100%;
     padding: 60px 20px 50px;
 }
@@ -219,9 +214,8 @@
     right: 40px;
 	z-index: 3;
 }
-#rezon-forms .express 
-{
-    color: #d28d16;
+#rezon-forms .express {
+    color: #7100c5;
     font-size: 9px;
     position: absolute;
     top: 30px;
