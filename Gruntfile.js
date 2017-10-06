@@ -66,8 +66,18 @@
 					}]
 				}
 			},			
-			htmlbuild: {
-				src: "src/html/Index.html",				
+			copy: {
+				main: {
+	    			files: [      
+	      			{expand: true, cwd:'src/css/',src: '**', dest: 'origin/css/'},
+	      			{expand: true, cwd:'src/js/',src: '**', dest: 'origin/js/'},
+	      			{expand: true, cwd:'src/html/',src:'**', dest: 'html/'},
+	      			{expand: true, cwd:'src/img/',src:'**', dest: 'img/'}
+	      			],
+	      		},
+	      	},
+	      	htmlbuild: {
+				src: "html/Index.html",				
 	    		options: {
 	    			replace:true,
 	    			beautify:true,
@@ -81,20 +91,10 @@
 	    				bundle: 'minified/css/*.css'
 	    			},
 	    			sections:{
-	    				templates:['src/html/aviaForm.html','src/html/railForm.html']
+	    				templates:['html/aviaForm.html','html/railForm.html']
 	    			}
 	    		}	     				
-	    	}, 
-			copy: {
-				main: {
-	    			files: [      
-	      			{expand: true, cwd:'src/css/',src: '**', dest: 'origin/css/'},
-	      			{expand: true, cwd:'src/js/',src: '**', dest: 'origin/js/'},
-	      			{expand: true, cwd:'src/html/',src:'**', dest: 'html/'},
-	      			{expand: true, cwd:'src/img/',src:'**', dest: 'img/'}
-	      			],
-	      		},
-	      	}
+	    	}
 		});	
 
 		// Load tasks
