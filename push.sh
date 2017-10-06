@@ -10,7 +10,7 @@ commit_website_files() {
   git rm -rf --quiet .
   git add minified/\*.min.js minified/\*min.css minified/\*.map origin/* html/*
   git commit --message "Travis minify: $TRAVIS_BUILD_NUMBER"    
-  ls -a
+ 
 }
  upload_files() {
    git remote add rezon https://${GH_TOKEN}@github.com/rezon-universal/form.git > /dev/null 2>&1           
