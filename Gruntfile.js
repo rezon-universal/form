@@ -33,10 +33,10 @@
 				}
 			},
 			concat: {			
-				js: {
-					src: 'src/js/*.js',
-					dest: 'js/concat.js'
-				},
+				// js: {
+				// 	src: 'src/js/*.js',
+				// 	dest: 'js/concat.js'
+				// },
 				css: {
 					src: 'src/css/*.css',
 					dest: 'css/concat.css'
@@ -58,27 +58,14 @@
 				dist: {
 					files: [{
 						expand:	true,
-						cwd:	'js',
-						src:	'concat.js',
+						cwd:	'src/js',
+						src:	['typeahead.bundle.js','vue_datepicker/Datepicker.js','rezon-form.js'],
 						dest:	'minified/js',
-							ext:	'.min.js',
+						ext:	'.min.js',
 						extDot:	'last'
 					}]
 				}
-			},
-			insert: {
-	    		options: {},
-	     		main:[
-	     		{
-	        		src: "src/html/aviaForm.html",
-	        		dest: "src/html/Index",
-	        		match: "<!--avia-form-->"
-	    		},{
-	        		src: "src/html/railForm.html",
-	        		dest: "src/html/Index",
-	        		match: "<!--rail-form-->"
-	    		}
-	    		], 
+			},			
 			copy: {
 				main: {
 	    			files: [      
@@ -88,7 +75,27 @@
 	      			{expand: true, cwd:'src/img/',src:'**', dest: 'img/'}
 	      			],
 	      		},
-	      	}
+	      	},
+	      	htmlbuild: {
+				src: "html/Index.html",				
+	    		options: {
+	    			replace:true,
+	    			beautify:true,
+	    			scripts: {
+	    				bundle: [
+	    				'origin/js/*.min.js',
+	    				'minified/js/vue_datepicker/*.min.js',
+	    				'minified/js/*.min.js',	    				
+	    				],	    			
+	    			},
+	    			styles: {
+	    				bundle: 'minified/css/*.css'
+	    			},
+	    			sections:{
+	    				templates:['html/aviaForm.html','html/railForm.html']
+	    			}
+	    		}	     				
+	    	}
 		});	
 
 		// Load tasks
@@ -97,10 +104,10 @@
 		grunt.loadNpmTasks('grunt-contrib-uglify');	
 		grunt.loadNpmTasks('grunt-githooks');
 		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-insert');		
+		grunt.loadNpmTasks('grunt-html-build');		
 		
 		
-		grunt.registerTask('default', ['concat','uglify','cssmin','copy','insert']);
+		grunt.registerTask('default', ['concat','uglify','cssmin','copy','htmlbuild']);
 		
 
 	};
