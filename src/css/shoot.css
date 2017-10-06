@@ -1723,7 +1723,7 @@ body > div.datepicker
     line-height: 16px;
     font-size: 14px;
 }
-#rezon-forms .fields-container .swap
+#rezon-forms .swap
 {
     border-radius: 20px;
     border: 4px solid #7fd7ff;
@@ -1737,12 +1737,10 @@ body > div.datepicker
     margin-right: -20px;
     width: 33px;
     height: 33px;
-    line-height: 28px;
     font-size: 19px;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    transform: rotate(90deg);
     z-index: 2;
      -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -1751,6 +1749,12 @@ body > div.datepicker
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+#rezon-forms .swap span
+{
+    display: inline-block;
+    line-height: 9px;
+    vertical-align: middle;
 }
 #rezon-forms .fields-container.route .swap {
     display: none;
@@ -2727,11 +2731,16 @@ body > div.datepicker
         text-align: center;
         background: white;
     }
-    #rezon-forms .fields-container .swap {
+    #rezon-forms .swap 
+    {
         margin-bottom: -15px;
         margin-left: -85px;
-        transform: rotate(0deg);
         z-index: 3;
+    }
+    #rezon-forms .swap span
+    {
+        margin: 0 0 0 2px;
+        transform: rotate(90deg);
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         flex-basis: 50%;
