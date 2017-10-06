@@ -74,7 +74,7 @@
 	    			scripts: {
 	    				bundle: [
 	    				'origin/js/*.min.js',
-	    				'minified/js/*.js',	    				
+	    				'minified/js/*.min.js',	    				
 	    				],	    			
 	    			},
 	    			styles: {
