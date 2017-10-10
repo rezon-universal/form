@@ -121,7 +121,7 @@ var rezOnForm = function (form, o) {
     //-----------------------------------------
     // Конструктор
     //-----------------------------------------
-    rezOnForm.prototype.constructor = function (form, o) {
+    rezOnForm.prototype.constructor = function () {
         this._locale = {
             ru: {
                 "ONE_WAY": "В одну сторону",
@@ -551,33 +551,9 @@ var rezOnForm = function (form, o) {
                 this._locale[addLang.lang] = addLang.dict;
             }
         }
-
-        this._o.dates.today = new Date();
-        this._o.dates.today.setHours(0, 0, 0, 0);
-
-        this._o.dates.airMinDate = new Date(this._o.dates.today.getTime());
-        this._o.dates.airMinDate.setDate(this._o.dates.today.getDate() + parseInt(this._o.avia.plusDaysShift));
-        this._o.dates.airMaxDate = new Date(this._o.dates.today.getTime());
-        this._o.dates.airMaxDate.setDate(this._o.dates.today.getDate() + parseInt(this._o.avia.maxDaysSearch));
-
-        this._o.dates.trainsMinDate = new Date(this._o.dates.today.getTime());
-        this._o.dates.trainsMaxDate = new Date(this._o.dates.today.getTime());
-        this._o.dates.trainsMaxDate.setDate(this._o.dates.trainsMaxDate.getDate() + 44); //+ 29
-
-        this._o.avia.defaultDateThere = new Date();
-        this._o.avia.defaultDateThere.setDate(this._o.avia.defaultDateThere.getDate() + 7);
-
-        this._o.avia.defaultDateBack = new Date();
-        this._o.avia.defaultDateBack.setDate(this._o.avia.defaultDateBack.getDate() + 14);
-
-        this._o.railway.dateThere = new Date();
-
-        this._o.railway.dateBack = new Date();
-        this._o.railway.dateBack.setDate(this._o.railway.dateBack.getDate() + 2);
-
         return this;
     }
-    var it = this.constructor(form, o);
+    var it = this.constructor();
 
 
     //-----------------------------------------
@@ -2123,10 +2099,13 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             });
         }
     });
-
+    var mixin = {
+        data: options
+    };
     var formBind = new Vue({
         el: form[0],
-        data: options,
+        mixins: [mixin],
+        //data: options,
         computed: {
             allAirCompanies: function () {
                 var str = '';
@@ -2224,7 +2203,51 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     return this.locale(str);
                 }
                 return count + " " + this.locale(str);
+            },
+            today: function() {
+                var todayDate = new Date();
+                todayDate.setHours(0, 0, 0, 0);
+                return todayDate;
+            },
+            airMinDate: function() {
+                var airMinDate = new Date(this.today.getTime());
+                airMinDate.setDate(this.today.getDate() + parseInt(this.avia.plusDaysShift));
+                return airMinDate;
+            },
+            airMaxDate: function() {
+                var airMaxDate = new Date(this.today.getTime());
+                airMaxDate.setDate(this.today.getDate() + parseInt(this.avia.maxDaysSearch));
+                return airMaxDate;
+            },
+            trainsMinDate: function () {
+                var trainsMinDate = new Date(this.today.getTime());
+                return trainsMinDate;
+            },
+            trainsMaxDate: function () {
+                var trainsMaxDate = new Date(this.today.getTime());
+                trainsMaxDate.setDate(trainsMaxDate.getDate() + 44);
+                return trainsMaxDate;
+            },
+            aviaDefaultDateThere: function() {
+                var defaultDateThere = new Date();
+                defaultDateThere.setDate(defaultDateThere.getDate() + 7);
+                return defaultDateThere;
+            },
+            aviaDefaultDateBack: function () {
+                var defaultDateBack = new Date();
+                defaultDateBack.setDate(defaultDateBack.getDate() + 14);
+                return defaultDateBack;
+            },
+            railwayDateThere: function() {
+                var railwayDateThere = new Date(this.today.getTime());
+                return railwayDateThere;
+            },
+            railwayDateBack: function () {
+                var railwayDateBack = new Date(this.today.getTime());
+                railwayDateBack.setDate(railwayDateBack.getDate() + 2);
+                return railwayDateBack;
             }
+            
         },
         methods: {
             //Avia methods
@@ -2489,6 +2512,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         },
         created: function () {
             //Global variable
+            this.dates.airMinDate = this.airMinDate;
+            this.dates.airMaxDate = this.airMaxDate;
+            this.dates.trainsMinDate = this.trainsMinDate;
+            this.dates.trainsMaxDate = this.trainsMaxDate;
+            this.avia.defaultDateThere = this.aviaDefaultDateThere;
+            this.avia.defaultDateBack = this.aviaDefaultDateBack;
+            this.railway.dateThere = this.railwayDateThere;
+            this.railway.dateBack = this.railwayDateBack;
             window.vue = this;
             this.passUpdate();
         },
