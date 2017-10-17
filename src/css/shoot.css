@@ -112,22 +112,31 @@
 {
 	margin: 0 4% 0 0;
 }
-#rezon-forms .item 
-{
-	/*border: 1px solid #bdc6d7;
-	border-radius: 4px;*/
-	position: relative;
-	clear: both;
-    /*z-index: 2;*/ /* Без него мигало. Вроде как попустило. Будем наблюдать */
-}
 #rezon-forms .direct 
 {
     text-align: center;
 }
 #rezon-forms .direct label 
 {
-	margin: 0 10px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
     cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    opacity: 1;
+    padding: 8px 20px;
+    user-select: none;
+}
+#rezon-forms .direct label:hover
+{
+    background: rgba(255,255,255,0.2);
+}
+#rezon-forms .direct label.active
+{
+    background: rgba(0,0,0,0.4);
+    border-radius: 1px;
+    color: #ffab00;
 }
 #rezon-forms label.menu-title 
 {
@@ -2021,23 +2030,6 @@ body > div.datepicker
 #rezon-forms .direct .radio_bull 
 {
     display: none;
-}
-#rezon-forms .direct label
-{
-    font-size: 13px;
-    font-weight: 600;
-    color: #fff;
-    display: inline-block;
-    margin: 0;
-    opacity: 1;
-    padding: 8px 20px;
-    user-select: none;
-}
-#rezon-forms .direct label.active 
-{
-    background: rgba(0,0,0,0.4);
-    border-radius: 1px; 
-    color: #ffab00;
 }
 #rezon-forms .clear_form 
 {
