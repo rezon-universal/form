@@ -1,10 +1,13 @@
 ﻿@charset "utf-8";
 
-#rezon-forms
-{
+#rezon-forms {
     background-color: #4a148c;
     font-size: 100%;
     padding: 60px 20px 50px;
+}
+#rezon-forms form {
+    transition: opacity .5s;
+    -webkit-transition: opacity .5s;
 }
 #rezon-forms .rez-forms 
 {
@@ -138,33 +141,39 @@
     opacity: 0.5;
 	padding: 0;
 }
-#rezon-forms .check_bull 
-{
-	background: #fff;
+#rezon-forms form.unload {
+    opacity: 0.5;
+}
+#rezon-forms .unload input, #rezon-forms .unload button, #rezon-forms .unload input::placeholder, #rezon-forms .unload label, #rezon-forms .unload .direct label, #rezon-forms .unload .direct label.active, #rezon-forms .unload .radio-group, #rezon-forms .unload .field, #rezon-forms .unload .transp span, #rezon-forms .unload .direct, #rezon-forms .unload .passengers-text, #rezon-forms .unload .selectpicker, #rezon-forms .unload .inside {
+    color: transparent;
+    text-shadow: none;
+}
+#rezon-forms .check_bull {
+    background: #fff;
     border-radius: 2px;
-	display: inline-block;
-	float: none;
-	height: 22px;
+    display: inline-block;
+    float: none;
+    height: 22px;
     margin: -2px 2px 0 0;
     position: relative;
     vertical-align: middle;
-	width: 22px;
+    width: 22px;
 }
-    #rezon-forms .check_bull:after {
-        border-bottom: 1px solid #000;
-        border-right: 1px solid #000;
-        content: "";
-        color: #333;
-        display: block;
-        height: 14px;
-        left: 35%;
-        opacity: 0;
-        position: absolute;
-        top: 11%;
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        width: 7px;
-    }
+#rezon-forms .check_bull:after {
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    content: "";
+    color: #333;
+    display: block;
+    height: 14px;
+    left: 35%;
+    opacity: 0;
+    position: absolute;
+    top: 11%;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 7px;
+}
 #rezon-forms label:hover .check_bull:after 
 {
     opacity: 0.3;
@@ -2536,6 +2545,9 @@ body > div.datepicker
     }
     #rezon-forms .fields-container .field.airport.opened, #rezon-forms .fields-container .field.station.opened {
         background: white;
+    }
+    #rezon-forms .fields-container .field.opened .delete {
+        display: none;
     }
     #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead {
         height: 100%;

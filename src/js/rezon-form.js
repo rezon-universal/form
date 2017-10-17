@@ -2542,6 +2542,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             var el = this.$el;
             Vue.nextTick(function () {
                 !!callback && typeof (callback) === "function" && callback(el);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight(); 
+                $('.unload').removeClass('unload');
+            });
+        },
+        updated: function() {
+            Vue.nextTick(function ()
+            {
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
             });
         }
     });
