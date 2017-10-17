@@ -2278,10 +2278,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             clearForm: function () {
                 this.avia.aviFrom = new AirportItem();
-                this.avia.defaultDateThere = new Date();
+                this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 this.avia.aviFromTime = 0;
                 this.avia.aviTo = new AirportItem();
-                this.avia.defaultDateBack = new Date();
+                this.avia.defaultDateBack = this.aviaDefaultDateBack;
                 this.avia.aviToTime = 0;
                 this.avia.formExtended = false;
                 //this.avia.multyRoutes = [];
@@ -2431,6 +2431,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $(document).trigger("StartPtChange.MapBridge", [from])
                 $(document).trigger("EndPtChange.MapBridge", [to])
             },
+            hasAviaResult: function () {
+                return this.avia.historyGuid !== undefined &&
+                    this.avia.historyGuid !== null &&
+                    this.avia.historyGuid.trim() !== '';
+            },
             //Railway methods
             changeRailFormExtended: function () {
                 this.railway.formExtended = !this.railway.formExtended;
@@ -2461,6 +2466,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             railTypeChanged: function (index) {
                 this.railway.formType = this.railway.formTypes[index];
+            },
+            hasRailResult: function () {
+                return this.railway.historyGuid !== undefined &&
+                    this.railway.historyGuid !== null &&
+                    this.railway.historyGuid.trim() !== '';            
             }
         },
         watch: {
@@ -2516,10 +2526,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             this.dates.airMaxDate = this.airMaxDate;
             this.dates.trainsMinDate = this.trainsMinDate;
             this.dates.trainsMaxDate = this.trainsMaxDate;
-            this.avia.defaultDateThere = this.aviaDefaultDateThere;
-            this.avia.defaultDateBack = this.aviaDefaultDateBack;
-            this.railway.dateThere = this.railwayDateThere;
-            this.railway.dateBack = this.railwayDateBack;
+            if (this.formType==='avia' && !this.hasAviaResult()) {
+                this.avia.defaultDateThere = this.aviaDefaultDateThere;
+                this.avia.defaultDateBack = this.aviaDefaultDateBack;
+            }
+            if (this.formType === 'railway' && !this.hasRailResult()) {
+                this.railway.dateThere = this.railwayDateThere;
+                this.railway.dateBack = this.railwayDateBack;
+            }
+           
             window.vue = this;
             this.passUpdate();
         },
