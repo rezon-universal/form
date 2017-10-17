@@ -150,21 +150,21 @@
     vertical-align: middle;
 	width: 22px;
 }
-#rezon-forms .check_bull:after 
-{
-    border-bottom: 1px solid #000;
-    border-right: 1px solid #000;
-    content: "";
-    color: #333;
-    display: block;
-    height: 14px;
-    left: 35%;
-    opacity: 0;
-    position: absolute;
-    top: 11%;
-    transform: rotate(45deg);
-    width: 7px;
-}
+    #rezon-forms .check_bull:after {
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        content: "";
+        color: #333;
+        display: block;
+        height: 14px;
+        left: 35%;
+        opacity: 0;
+        position: absolute;
+        top: 11%;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        width: 7px;
+    }
 #rezon-forms label:hover .check_bull:after 
 {
     opacity: 0.3;
@@ -1994,10 +1994,12 @@ body > div.datepicker
     position: absolute;
     top: 30%;
     transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     width: 6px;
 }
 #rezon-forms .extended .field.hide_s .arrow:after {
      transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
       top: 50%;
 }
 #rezon-forms .direct 
@@ -2260,6 +2262,7 @@ body > div.datepicker
     left: 50%;
     top: 30%;
     transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     width: 15px;
 }
 .vdp-datepicker__calendar header .prev:after
@@ -2741,6 +2744,7 @@ body > div.datepicker
     {
         margin: 0 0 0 2px;
         transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         flex-basis: 50%;
