@@ -2039,10 +2039,17 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             this.$on('opened', function () {
                 var el = $(comp.$el);
                 formObject.extra.openField(el);
+                var calendarClass = 'vdp-datepicker__calendar';
+                var popup = el.find('.' + calendarClass);
+                var popupHeight = popup.height();
+                var offset = popup.offset().top;
+                var bodyHeight = popupHeight + offset;
+                $('body').css({ 'min-height': bodyHeight + 'px' });
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
                 formObject.extra.closeField(el);
+                $('body').css({ 'min-height':'inherit' });
             });
 
             this.$on('selected', function () {
