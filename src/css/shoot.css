@@ -48,13 +48,13 @@
 {
 	text-decoration: none;
 }
-#rezon-forms span.dashed {
+#rezon-forms span.dashed 
+{
     color: white;
 }
-#rezon-forms .dashed span 
+#rezon-forms .dashed span
 {
-	border-bottom-width: 1px;
-	border-bottom-style: dashed;
+    border-bottom: 1px dashed rgba((255,255,255,0.4);
 }
 #rezon-forms a span 
 {
