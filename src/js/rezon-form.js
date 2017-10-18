@@ -2048,12 +2048,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     var offset = popup.offset().top;
                     var bodyHeight = popupHeight + offset;
                     $('body').css({ 'min-height': bodyHeight + 'px' });
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 });
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
                 formObject.extra.closeField(el);
-                $('body').css({ 'min-height':'inherit' });
+                $('body').css({ 'min-height': 'inherit' });
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
             });
 
             this.$on('selected', function () {
