@@ -1337,6 +1337,7 @@ var rezOnForm = function (form, o) {
                     });
                 }, 100));
             }
+
             typeof (updatingHeight) !== 'undefined' && updatingHeight();
             return false;
         }).find(".inside").click(function () {
