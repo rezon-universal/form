@@ -656,7 +656,6 @@ var rezOnForm = function (form, o) {
                 
             }
         }
-        typeof (updatingHeight) !== 'undefined' && updatingHeight(); 
         return false;
     }
     rezOnForm.prototype.extra.closeField = function (el) {
@@ -672,7 +671,6 @@ var rezOnForm = function (form, o) {
 
             }
         }
-        typeof (updatingHeight) !== 'undefined' && updatingHeight(); 
         return false;
     }
     rezOnForm.prototype.extra.swipeDetect = function(el, callback) {
@@ -845,6 +843,7 @@ var rezOnForm = function (form, o) {
                 ret = false;
             }
         });
+        typeof (updatingHeight) !== 'undefined' && updatingHeight();
         return ret;
     };
 
@@ -894,6 +893,7 @@ var rezOnForm = function (form, o) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
+        typeof (updatingHeight) !== 'undefined' && updatingHeight();
         return ret;
     }    
 
@@ -949,8 +949,9 @@ var rezOnForm = function (form, o) {
                         });
                     }
 
-
                 }
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+
                 return false;
             });
            
@@ -966,6 +967,8 @@ var rezOnForm = function (form, o) {
                         selectpicker.removeClass("opened");
                     });
                 }
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+
                 return false;
             });
 
@@ -1096,6 +1099,7 @@ var rezOnForm = function (form, o) {
                 it.extra.openField(item);
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
             })
             .click(function () {
                 $(this).select();
@@ -1244,6 +1248,7 @@ var rezOnForm = function (form, o) {
                         $(this).addClass("g-hide");
                     });
                 }
+
             } else {
                 it.extra.openField(field);
                 $(this).addClass("opened");
@@ -1260,6 +1265,7 @@ var rezOnForm = function (form, o) {
                     });
                 }
             }
+            typeof (updatingHeight) !== 'undefined' && updatingHeight();
         });
 
         it._aviaForm.find(".select-age").focusin(function () {
@@ -1283,6 +1289,7 @@ var rezOnForm = function (form, o) {
                     });
                 }, 100));
             }
+            typeof (updatingHeight) !== 'undefined' && updatingHeight();
         });
         it._aviaForm.find(".select-age .button-hide").click(function (e) {
             $(this).closest(".select-age").focus().blur();
@@ -1307,6 +1314,7 @@ var rezOnForm = function (form, o) {
                         $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                     });
                 }
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 it.extra.openField(field);
             }
         }).focusout(function () {
@@ -1329,6 +1337,7 @@ var rezOnForm = function (form, o) {
                     });
                 }, 100));
             }
+            typeof (updatingHeight) !== 'undefined' && updatingHeight();
             return false;
         }).find(".inside").click(function () {
             var carriersItem = $(this).closest(".carriers");
@@ -1347,6 +1356,7 @@ var rezOnForm = function (form, o) {
             $(this).closest(".error-box").slideUp(it._o.animationDelay, function () {
                 $(this).html("").closest(".has-error").removeClass("has-error");
             });
+            typeof (updatingHeight) !== 'undefined' && updatingHeight();
             return false;
         });
 
@@ -1436,6 +1446,7 @@ var rezOnForm = function (form, o) {
                 var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
                 $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
             }
+            typeof (updatingHeight) !== 'undefined' && updatingHeight();
         }).click(function () {
             $(this).select();
         }).blur(function () {
