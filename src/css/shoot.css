@@ -1874,7 +1874,6 @@ body > div.datepicker
 }
 #rezon-forms .field.airport, #rezon-forms .field.station {
     -webkit-flex-basis: 25%;
-
     flex-basis: 25%;
     min-width: 240px;
     position: relative;
