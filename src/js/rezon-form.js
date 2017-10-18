@@ -928,10 +928,11 @@ var rezOnForm = function (form, o) {
                     selectpicker.addClass("opened");
                     if (isMobile) {
                         $('body').addClass('m-no-scroll');
-                        options.fadeIn(300).css({
-                            'display': '-webkit-flex',
-                            'display': 'flex'
-                        });
+                        var displayStyle = [
+                            'display: -webkit-flex',
+                            'display: flex'
+                        ].join(';');
+                        options.fadeIn(300).attr('style', displayStyle);
                     } else {
                         var maxHeight = $(window).height() - (selectpicker[0].getBoundingClientRect().top + selectpicker.height());
                         options.css({
