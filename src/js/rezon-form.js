@@ -656,6 +656,7 @@ var rezOnForm = function (form, o) {
                 
             }
         }
+        typeof (updatingHeight) !== 'undefined' && updatingHeight(); 
         return false;
     }
     rezOnForm.prototype.extra.closeField = function (el) {
@@ -671,6 +672,7 @@ var rezOnForm = function (form, o) {
 
             }
         }
+        typeof (updatingHeight) !== 'undefined' && updatingHeight(); 
         return false;
     }
     rezOnForm.prototype.extra.swipeDetect = function(el, callback) {
@@ -2040,11 +2042,13 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var el = $(comp.$el);
                 formObject.extra.openField(el);
                 var calendarClass = 'vdp-datepicker__calendar';
-                var popup = el.find('.' + calendarClass);
-                var popupHeight = popup.height();
-                var offset = popup.offset().top;
-                var bodyHeight = popupHeight + offset;
-                $('body').css({ 'min-height': bodyHeight + 'px' });
+                Vue.nextTick(function() {
+                    var popup = el.find('.' + calendarClass + ":visible");
+                    var popupHeight = popup.height();
+                    var offset = popup.offset().top;
+                    var bodyHeight = popupHeight + offset;
+                    $('body').css({ 'min-height': bodyHeight + 'px' });
+                });
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
