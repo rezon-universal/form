@@ -929,6 +929,7 @@ var rezOnForm = function (form, o) {
                     if (isMobile) {
                         $('body').addClass('m-no-scroll');
                         options.fadeIn(300).css({
+                            'display': '-webkit-flex',
                             'display': 'flex'
                         });
                     } else {

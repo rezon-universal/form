@@ -2686,8 +2686,8 @@ body > div.datepicker
         display: -webkit-flex;
         -webkit-flex-wrap: wrap;
         -webkit-justify-content: center;
-        -wbekit-align-items: center;
-
+        -webkit-align-items: center;
+        
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
