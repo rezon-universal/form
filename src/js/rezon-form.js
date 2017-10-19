@@ -673,6 +673,7 @@ var rezOnForm = function (form, o) {
         }
         return false;
     }
+    
     rezOnForm.prototype.extra.swipeDetect = function(el, callback) {
         var touchsurface = el,
             swipedir,
@@ -843,7 +844,6 @@ var rezOnForm = function (form, o) {
                 ret = false;
             }
         });
-        typeof (updatingHeight) !== 'undefined' && updatingHeight();
         return ret;
     };
 
@@ -893,7 +893,6 @@ var rezOnForm = function (form, o) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
-        typeof (updatingHeight) !== 'undefined' && updatingHeight();
         return ret;
     }    
 
@@ -901,7 +900,8 @@ var rezOnForm = function (form, o) {
         //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
         if (window.main == undefined) {
            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
-                var selectpicker = $(this).closest(".selectpicker");
+               var selectpicker = $(this).closest(".selectpicker");
+               var options = selectpicker.find('.options');
                 var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 if (selectpicker.is(".opened")) {
                     if ($(this).is(".option")) {
@@ -911,28 +911,43 @@ var rezOnForm = function (form, o) {
                         $(this).siblings(".option").find("input:radio:checked").removeAttr("checked");
                         $(this).find("input:radio").prop("checked", true).trigger("change");
                     }
+                    var updatingClosedSelect = function() {
+                        selectpicker.removeClass("opened");
+                        if(rezOnForm.static.isInIframe()) {
+                            rezOnForm.static.recalculateHeightOnClose();
+                            typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                        };
+                    };
                     if (isMobile) {
-                        selectpicker.find(".options").fadeOut(300, function () {
+                       options.fadeOut(300, function () {
                             $('body').removeClass('m-no-scroll');
-                            selectpicker.removeClass("opened");
-                        });
+                           updatingClosedSelect();
+                       });
 
                     } else {
-                        selectpicker.find(".options").slideUp(300, function () {
-                            selectpicker.removeClass("opened");
-                        });
+                       options.slideUp(300, function () {
+                           updatingClosedSelect();
+                       });
                     }
-
+                   
                 } else {
-                    var options = selectpicker.find(".options").addClass("z-100");
+                    options.addClass("z-100");
                     selectpicker.addClass("opened");
+                    var updatingOpenSelect = function (el) {
+                       if (rezOnForm.static.isInIframe()) {
+                           rezOnForm.static.recalculateHeightOnOpen(el);
+                           typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                       }
+                    };
                     if (isMobile) {
                         $('body').addClass('m-no-scroll');
                         var displayStyle = [
                             'display: -webkit-flex',
                             'display: flex'
                         ].join(';');
-                        options.fadeIn(300).attr('style', displayStyle);
+                        options.fadeIn(300,function() {
+                            updatingOpenSelect($(this));
+                        }).attr('style', displayStyle);
                     } else {
                         var maxHeight = $(window).height() - (selectpicker[0].getBoundingClientRect().top + selectpicker.height());
                         options.css({
@@ -948,29 +963,33 @@ var rezOnForm = function (form, o) {
                             } else {
                                 $(this).removeClass("overflowing");
                             }
+                            updatingOpenSelect($(this));
                         });
                     }
-
                 }
-                typeof (updatingHeight) !== 'undefined' && updatingHeight();
-
                 return false;
             });
            
             it._form.on("blur, click, focusout", ".selectpicker.opened", function () {
                 var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 var selectpicker = $(this);
+                var updatingCloseSelect = function () {
+                    selectpicker.removeClass("opened");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnClose();
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    };
+                };
+
                 if (isMobile) {
                     selectpicker.find(".options").hide(300, function () {
-                        selectpicker.removeClass("opened");
+                        updatingCloseSelect();
                     });
                 } else {
                     selectpicker.find(".options").slideUp(300, function () {
-                        selectpicker.removeClass("opened");
+                        updatingCloseSelect();
                     });
                 }
-                typeof (updatingHeight) !== 'undefined' && updatingHeight();
-
                 return false;
             });
 
@@ -1101,8 +1120,7 @@ var rezOnForm = function (form, o) {
                 it.extra.openField(item);
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                typeof (updatingHeight) !== 'undefined' && updatingHeight();
-            })
+                })
             .click(function () {
                 $(this).select();
             }).blur(function () {
@@ -1110,6 +1128,10 @@ var rezOnForm = function (form, o) {
                 if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
                 var item = $(this).closest('.field');
                 it.extra.closeField(item);
+
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                }
                 return false;
                 })
             .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
@@ -1126,7 +1148,7 @@ var rezOnForm = function (form, o) {
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
-                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
                             setTimeout(function () {
                              dp.focus();
                             }, 100);
@@ -1141,9 +1163,24 @@ var rezOnForm = function (form, o) {
                     $(this).blur();
                 }
                 }).on("typeahead:dropdown", function (its) {
-                var item = $(this).closest('.field');
-                it.extra.openField(item);
+                    var item = $(this).closest('.field');
+                    it.extra.openField(item);
+                    
+                    if (rezOnForm.static.isInIframe()) {
+                        var dropdown = item.find('.tt-dropdown-menu');
+                        var offset = dropdown.parent().offset().top;
+                        var height = parseFloat(dropdown.css('max-height'));
+                        var currHeight = parseFloat($(this).css('height'));
+                        var totalHeight = height + currHeight;
+                        
+                        rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    }
             }).on("typeahead:dropup", function (its) {
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                }
                 //var item = $(this).closest(".field");
                 //it.extra.closeField(item);
                 //if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
@@ -1200,8 +1237,19 @@ var rezOnForm = function (form, o) {
                 $(this).closest(".twitter-typeahead").next().val(datum.code);
             }
             $(this).trigger("change");
-        }).on("typeahead:opened", function(e, datum) {
+            }).on("typeahead:opened", function (e, datum) {
             //Открыли
+            var item = $(this).closest('.field');
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find('.tt-dropdown-menu');
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css('height'));
+                var currHeight = parseFloat($(this).css('height'));
+                var totalHeihgt = height + currHeight;
+
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeihgt);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
             $(this).trigger("typeahead:queryChanged");
         }).on("typeahead:queryCleared", function(e, datum) {
             //Очистили поле - кнопка Х.
@@ -1236,62 +1284,84 @@ var rezOnForm = function (form, o) {
             var selectAge = it._aviaForm.find(".select-age");
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
             var field = $(this).closest('.field');
-
+             
             if ($(this).is(".opened")) {
                 $(this).removeClass("opened");
                 it.extra.closeField(field);
 
+                var updatingClosedSelect = function(el) {
+                    el.addClass("g-hide");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnClose();
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    }
+                };
                 if (isMobile) {
                     selectAge.fadeOut(it._o.animationDelay, function () {
-                        $(this).addClass("g-hide");
+                        updatingClosedSelect($(this));
                     });
                 } else {
                     selectAge.slideUp(it._o.animationDelay, function () {
-                        $(this).addClass("g-hide");
+                        updatingClosedSelect($(this));
                     });
                 }
-
+               
             } else {
                 it.extra.openField(field);
                 $(this).addClass("opened");
 
+                var updatingOpenSelect = function (el) {
+                   el.removeClass("g-hide");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnOpen(el);
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    } else {
+                        el.focus();
+                    }
+                };
+
                 if (isMobile) {
                     selectAge.fadeIn(it._o.animationDelay, function () {
-                        $(this).removeClass("g-hide");
-                        $(this).focus();
+                        updatingOpenSelect($(this));
                     });
                 } else {
                     selectAge.slideDown(it._o.animationDelay, function () {
-                        $(this).removeClass("g-hide");
-                        $(this).focus();
+                        updatingOpenSelect($(this));
                     });
                 }
             }
-            typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            return false;
         });
 
         it._aviaForm.find(".select-age").focusin(function () {
             if ($(this).data('focusTimer')) clearTimeout($(this).data('focusTimer'));
-        }).focusout(function () {
+            return false;
+        }).on('blur, focusout', function () {
             var selectAge = $(this);
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
             var field = $(this).closest('.field');
-            
+
+            var updateClosedSelect = function(el) {
+                el.addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
+                it.extra.closeField(field);
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                }
+            };
             if (isMobile) {
                 $(this).fadeOut(300, function () {
-                    $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
-                    it.extra.closeField(field);
+                    updateClosedSelect($(this));
                 });
             }
             else {
                 $(this).data('focusTimer', setTimeout(function () {
                     selectAge.slideUp(it._o.animationDelay, function () {
-                        $(this).addClass("g-hide").siblings(".switch-box").find(".switch.opened").removeClass("opened");
-                        it.extra.closeField(field);
+                        updateClosedSelect($(this));
                     });
                 }, 100));
             }
-            typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            return false;
         });
         it._aviaForm.find(".select-age .button-hide").click(function (e) {
             $(this).closest(".select-age").focus().blur();
@@ -1306,17 +1376,25 @@ var rezOnForm = function (form, o) {
             if (carriersItem.find(".carriers-finder.g-hide").length > 0) {
                 var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
                 var field = $(this).closest('.field');
+                var updateOpenedSelect = function(el) {
+                    el.removeClass("g-hide").closest(".carriers").removeClass("z-100");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnOpen(el);
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    }
+                }
 
                 if (isMobile) {
                     $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").show();
+                    updateOpenedSelect(carriersItem.find(".carriers-finder"));
 
                 } else {
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").slideDown(it._o.animationDelay, function () {
                         $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
+                        updateOpenedSelect($(this));
                     });
                 }
-                typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 it.extra.openField(field);
             }
         }).focusout(function () {
@@ -1324,23 +1402,29 @@ var rezOnForm = function (form, o) {
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
             var field = $(this).closest('.field');
 
+            var updateClosedSelect = function (el) {
+                el.addClass("g-hide");
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                };
+                it.extra.closeField(field);
+            }
+
             if (isMobile) {
                 carriersItem.data('focusTimer', setTimeout(function () {
                     carriersItem.find(".carriers-finder").fadeOut(300, function () {
-                        $(this).addClass("g-hide");
-                        it.extra.closeField(field);
+                        updateClosedSelect($(this));
                     });
                 }, 100));
             } else {
                 carriersItem.data('focusTimer', setTimeout(function () {
                     carriersItem.find(".carriers-finder").slideUp(it._o.animationDelay, function () {
-                        $(this).addClass("g-hide");
-                        it.extra.closeField(field);
+                        updateClosedSelect($(this));
                     });
                 }, 100));
             }
-
-            typeof (updatingHeight) !== 'undefined' && updatingHeight();
+          
             return false;
         }).find(".inside").click(function () {
             var carriersItem = $(this).closest(".carriers");
@@ -1449,7 +1533,6 @@ var rezOnForm = function (form, o) {
                 var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
                 $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
             }
-            typeof (updatingHeight) !== 'undefined' && updatingHeight();
         }).click(function () {
             $(this).select();
         }).blur(function () {
@@ -1485,7 +1568,22 @@ var rezOnForm = function (form, o) {
         }).on("typeahead:dropdown", function (its) {
             var item = $(this).closest('.field');
             it.extra.openField(item);
-        }).on("typeahead:dropup", function (its) {
+
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find('.tt-dropdown-menu');
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css('max-height'));
+                var currHeight = parseFloat($(this).css('height'));
+                var totalHeight = height + currHeight;
+
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+            }).on("typeahead:dropup", function (its) {
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
             //TODO First selected
             //var item = $(this).closest(".field");
             //it.extra.closeField(item);
@@ -1714,6 +1812,19 @@ rezOnForm.staticGalSubstringMatcher = function (strs) {
     };
 };
 
+rezOnForm.static.isInIframe = function () {
+    var isInIframe = window.parent != undefined && window.parent != window && window.parent.postMessage;
+    return isInIframe;
+}
+rezOnForm.static.recalculateHeightOnOpen = function (el,offset,height) {
+    var elHeight = height || el.height();
+    var topOffset = offset || el.offset().top;
+    var bodyHeight = elHeight + topOffset;
+    $('body').css({ 'min-height': bodyHeight + 'px' });
+}
+rezOnForm.static.recalculateHeightOnClose = function () {
+    $('body').css({ 'min-height': 'inherit' });
+}
 
 //-----------------------------------------
 
@@ -2058,17 +2169,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var calendarClass = 'vdp-datepicker__calendar';
                 Vue.nextTick(function() {
                     var popup = el.find('.' + calendarClass + ":visible");
-                    var popupHeight = popup.height();
-                    var offset = popup.offset().top;
-                    var bodyHeight = popupHeight + offset;
-                    $('body').css({ 'min-height': bodyHeight + 'px' });
+                    rezOnForm.static.recalculateHeightOnOpen(popup);
                     typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 });
             });
             this.$on('closed', function () {
                 var el = $(comp.$el);
                 formObject.extra.closeField(el);
-                $('body').css({ 'min-height': 'inherit' });
+                rezOnForm.static.recalculateHeightOnClose();
                 typeof (updatingHeight) !== 'undefined' && updatingHeight();
             });
 
