@@ -73,8 +73,8 @@
 	      			{expand: true, cwd:'src/js/',src: '**', dest: 'origin/js/'},
 	      			{expand: true, cwd:'src/html/',src:'**', dest: 'html/'},
 	      			{expand: true, cwd:'src/img/',src:'**', dest: 'img/'}
-	      			],
-	      		},
+	      			]
+	      		}
 	      	},
 	      	htmlbuild: {
 				src: "html/Index.html",				
@@ -104,9 +104,8 @@
 		grunt.loadNpmTasks('grunt-contrib-uglify');	
 		grunt.loadNpmTasks('grunt-githooks');
 		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-html-build');		
-		
-		
+        grunt.loadNpmTasks('grunt-html-build');		
+
 		grunt.registerTask('default', ['concat','uglify','cssmin','copy','htmlbuild']);
 		
 

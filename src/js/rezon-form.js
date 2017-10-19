@@ -1207,9 +1207,11 @@ var rezOnForm = function (form, o) {
                 var radio = $(this).find("input:radio:checked");
                 if (radio.length == 0) radio = $(this).find("input:radio:first");
 
-                $("<div/>").prependTo($(this)).addClass("selected-value").append($("<span/>").html(radio.prev("span").html()));
+                var selectedValue = $(this).find(".selected-value");
+                if (selectedValue.length === 0) {
+                    $("<div/>").prependTo($(this)).addClass("selected-value").append($("<span/>").html(radio.prev("span").html()));
+                }
             });
-
             //Init Typeahead for added segment field
             it._aviaForm.bindAirportTypeahead(inputs);
         });
@@ -1315,9 +1317,8 @@ var rezOnForm = function (form, o) {
                     if (rezOnForm.static.isInIframe()) {
                         rezOnForm.static.recalculateHeightOnOpen(el);
                         typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                    } else {
-                        el.focus();
-                    }
+                   }
+                   el.focus();
                 };
 
                 if (isMobile) {
