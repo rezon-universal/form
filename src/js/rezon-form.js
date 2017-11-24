@@ -1330,8 +1330,7 @@ var rezOnForm = function (form, o) {
                         updatingOpenSelect($(this));
                     });
                 }
-            }
-            return false;
+            }          
         });
 
         it._aviaForm.find(".select-age").focusin(function () {
