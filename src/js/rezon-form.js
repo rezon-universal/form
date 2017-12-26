@@ -1143,11 +1143,11 @@ var rezOnForm = function (form, o) {
                     it.extra.closeField(item);
                     
                     //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
-                    if (it._initialized && !it.extra.mobileAndTabletcheck()) {
+                    if (it._initialized && !it.extra.mobileAndTabletcheck()) {                        
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
-                        } else if ($(this).is(".book-to")) {
+                        } else if ($(this).is(".book-to") && vue.avia.formType.value === "roundtrip") {
                             var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
                             setTimeout(function () {
                              dp.focus();
@@ -1330,8 +1330,7 @@ var rezOnForm = function (form, o) {
                         updatingOpenSelect($(this));
                     });
                 }
-            }
-            return false;
+            }          
         });
 
         it._aviaForm.find(".select-age").focusin(function () {

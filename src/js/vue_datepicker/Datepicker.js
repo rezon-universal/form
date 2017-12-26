@@ -521,7 +521,7 @@ var defaultDatepickerSettings = {
         wrapperClass: [String, Object],
         mondayFirst: {
             type: Boolean,
-            default: false
+            default: true
         },
         clearButton: {
             type: Boolean,
