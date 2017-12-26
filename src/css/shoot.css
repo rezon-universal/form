@@ -976,12 +976,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
 {
     background: #e94b34;
     border-radius: 2px;
-    color: white;
+    color: rgba(255, 255, 255, 0.75);
     display: none;
     font-size: 13px;
     padding: 5px 10px;
-    right: 1px;
-    left: 1px;
+    right: 0;
+    left: 0;
     z-index: 1;
 }
 #rezon-forms .error-box .close
@@ -989,9 +989,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover {
     background: none;
     float: right;
     height: 20px;
-    margin: 0 -5px 0 0;
+    margin: 0;
+    right: 3px;
+    top: 3px;
     opacity: 0.5;
-    position: relative;
+    position: absolute;
     width: 20px;
 }
 #rezon-forms .error-box .close:before,
@@ -1945,12 +1947,13 @@ body > div.datepicker
 {
     background: #fff;
     border-radius: 2px;
-    height: 45px;
+    min-height: 45px;
     position: relative;
 }
 #rezon-forms .field .control-field .inside 
 {
     height: 45px;
+    position: relative;
 }
 #rezon-forms .field.airport .inside:before,#rezon-forms .field.station .inside:before {
     content: '';
