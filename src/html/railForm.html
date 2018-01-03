@@ -152,12 +152,12 @@
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
         <div class="field hide_s">
-            <div class="transp">
+            <div class="transp" v-on:click="changeRailFormExtended()">
                 <div class="hide_settings dashed">
-                    <div class="simple_search" v-on:click="changeRailFormExtended()">
+                    <div class="simple_search">
                         <span>{{locale("SIMPLE_SEARCH")}}</span>
                     </div>
-                    <div class="advanced_search" v-on:click="changeRailFormExtended()">
+                    <div class="advanced_search">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
                     </div>
                 </div>
