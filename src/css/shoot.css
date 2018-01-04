@@ -129,7 +129,7 @@
 }
 #rezon-forms .direct label:hover
 {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.3);
 }
 #rezon-forms .direct label.active
 {
@@ -407,9 +407,18 @@
 }
 #rezon-forms .passengers.has-error span.switch
 {
-    background: #ffdee1;
-    box-shadow: inset 0 0 10px #f44336;
+    background: #fcebeb;
+    box-shadow: inset 0 0 30px rgba(245, 0, 87, 0.25);
     border-radius: 2px;
+}
+#rezon-forms .passengers.has-error .passengers-text 
+{
+    color: #f50057;
+}
+#rezon-forms .passengers.has-error .passengers-text:before
+{
+    border-bottom-color: #f50057;
+    border-right-color: #f50057;
 }
 #rezon-forms .passengers-text 
 {
@@ -539,10 +548,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     font-size: 14px;
     font-weight: normal;
 }
-/*Хак для IE. */
 #rezon-forms input[type='text']::-ms-clear 
 {
-    display: none;
+    display: none; /* IE fix */
 }
 #rezon-forms .country 
 {
@@ -887,7 +895,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 	float: right;
 }
 
-/* Start twitter-typeahead */
+/* ---------- start twitter-typeahead ---------- */
 #rezon-forms .twitter-typeahead > .tt-hint 
 {
     display: none;
@@ -1018,35 +1026,65 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     padding: 5px 10px;
     font-size: 14px;
 }
-#rezon-forms .typeahead-selectpicker-control 
+#rezon-forms .typeahead-selectpicker-control
 {
-    position: absolute;
-    right: 4px;
-    display: block;
-    width: 17px;
-    height: 19px;
-    opacity: .3;
+    background: none;
     cursor: pointer;
-    top: 50%;
-    margin-top: -9px;
+    display: block;
+    height: 40px;
+    margin: 0;
+    opacity: 0.4;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
     z-index: 1;
 }
-#rezon-forms .typeahead-selectpicker-control.opened 
+#rezon-forms .typeahead-selectpicker-control.opened:before 
+{
+    background: none;
+    border-bottom: 1px solid #546e7a;
+    border-right: 1px solid #546e7a;
+    content: "";
+    display: block;
+    height: 15px;
+    margin: 0;
+    position: absolute;
+    right: 15px;
+    top: 16px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    width: 15px;
+}
+#rezon-forms .typeahead-selectpicker-control.empty:before,
+#rezon-forms .typeahead-selectpicker-control.empty:after 
+{
+    background: #546e7a;
+    border: none;
+    content: "";
+    display: block;
+    height: 1px;
+    left: -2px;
+    position: absolute;
+    width: 21px;
+    top: 20px;
+}
+#rezon-forms .typeahead-selectpicker-control.empty:before 
+{
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+#rezon-forms .typeahead-selectpicker-control.empty:after 
+{
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+#rezon-forms .typeahead-selectpicker-control:hover,
+#rezon-forms .typeahead-selectpicker-control:active
 {
     opacity: 1;
 }
-#rezon-forms .typeahead-selectpicker-control.empty 
-{
-    background-image: url(../img/delit.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 120% auto;            
-}
-#rezon-forms .typeahead-selectpicker-control:hover,
-#rezon-forms .typeahead-selectpicker-control:active 
-{
-	opacity: 1;
-}
+/* ---------- end twitter-typeahead ---------- */
 
 
 /*REDESING*/
@@ -1157,7 +1195,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .transp 
 {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 2px;
     color: white;
     cursor: pointer;
@@ -1170,7 +1208,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .transp:hover 
 {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.3);
 }
 #rezon-forms .transp a span,
 #rezon-forms .transp a:hover span,
@@ -1530,9 +1568,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-order: 6;
     order: 6;
 }
-/*!---------!*/
+/* ---------- ! ---------- */
 
-/*Multy-route*/
+
+/* ---------- multy-route ---------- */
 #rezon-forms .fields-container.route .multy-route 
 {
     display: -webkit-inline-flex;
@@ -1690,7 +1729,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-/*!-------  start vdp-datepicker__calendar ------!*/
+/* --------- start vdp-datepicker ---------- */
 .rtl {
 	direction: rtl;
 }
@@ -1862,7 +1901,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 	cursor: pointer;
 	font-style: normal;
 }
-/*!----  end vdp-datepicker__calendar -----!*/
+/* ---------- end vdp-datepicker ---------- */
 
 
 #rezon-forms .tt-dropdown-menu,
@@ -2064,7 +2103,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         overflow: scroll;
         top: 0;
         background: white;
-        /*display: flex;*/
         flex-direction: column;
         align-items: center;
         height: 100%;
@@ -2360,9 +2398,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         overflow: hidden;
         top: 0;
         padding: 10px;
-        /* max-height: 244px; */
         display: none;
-        /*display: flex;*/
         flex-direction: column;
         align-items: center;
         height: 100%;
