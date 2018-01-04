@@ -683,6 +683,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .carriers .item:hover 
 {
     background-color: #eceff1;
+    border-radius: 2px;
 	color: #333333;
 }
 #rezon-forms #railway-form-shoot .selectpicker.opened .selected-value 
