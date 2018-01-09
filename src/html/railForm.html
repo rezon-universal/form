@@ -11,9 +11,9 @@
     <div class="fields-container" v-bind:class="[railway.formType.value,{'extended':railway.formExtended}]">
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <railway-input name="tshi_station_from" input-class="book-from" v-model="railway.stationFrom" :placeholder="locale('RAILWAY_PLACEHOLDER')" input-class="book-from"></railway-input>
@@ -23,9 +23,9 @@
         <div v-on:click="swapRailDest()" class="swap"><div class="arrows"></div></div>
         <div class="field station to">
             <label data-local="true" data-localtext="FROM" class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <railway-input name="tshi_station_to" input-class="book-to" v-model="railway.stationTo" :placeholder="locale('RAILWAY_PLACEHOLDER')" input-class="book-from"></railway-input>
@@ -34,9 +34,9 @@
         </div>
         <div class="field date from">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("THERE")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
@@ -46,9 +46,9 @@
         </div>
         <div class="field date to">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("BACK")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="date-wrapper">

@@ -13,9 +13,9 @@
     <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
         <div class="field airport from">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <airport-input name="from_iata" v-model="avia.aviFrom" :placeholder="locale('PLACEHOLDER_AIRPORT2')" input-class="book-from"></airport-input>
@@ -25,9 +25,9 @@
         <div v-on:click="swapAviaDest()" class="swap"><div class="arrows"></div></div>
         <div class="field airport to">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <airport-input name="to_iata" v-model="avia.aviTo" :placeholder="locale('PLACEHOLDER_AIRPORT2')" input-class="book-to"></airport-input>
@@ -36,9 +36,9 @@
         </div>
         <div class="field date from">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("THERE")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
@@ -48,9 +48,9 @@
         </div>
         <div class="field date to">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("BACK")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
@@ -61,9 +61,9 @@
         </div>
         <div class="field pass">
             <label class="menu-title">
-                <span class="link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("PASSENGERS")}}
-                <span class="link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="passengers" :class="{'has-error':avia.passengers.hasError}">
@@ -175,9 +175,9 @@
         <div class="multy-route" v-if="avia.formType.value=='route'" v-bind:class="{last : index==avia.multyRoutes.length-1}" v-for="(route,index) in avia.multyRoutes">
             <div class="field airport">
                 <label class="menu-title">
-                    <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                    <span class="link-left"></span>
                     {{locale("FROM")}}
-                    <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                    <span class="link-right"></span>
                 </label>
                 <div class="control-field">
                     <airport-input :name="'from_iata'+(index+2)" v-model="route.aviFrom" input-class="book-from" :placeholder="locale('PLACEHOLDER_AIRPORT2')"></airport-input>
@@ -186,9 +186,9 @@
             </div>
             <div class="field airport">
                 <label class="menu-title">
-                    <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                    <span class="link-left"></span>
                     {{locale("TO")}}
-                    <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                    <span class="link-right"></span>
                 </label>
                 <div class="control-field">
                     <airport-input :name="'to_iata'+(index+2)" v-model="route.aviTo" input-class="book-to" :placeholder="locale('PLACEHOLDER_AIRPORT2')"></airport-input>
@@ -197,9 +197,9 @@
             </div>
             <div class="field date">
                  <label class="menu-title">
-                    <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                    <span class="link-left"></span>
                     {{locale("SORTIE")}}
-                    <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                    <span class="link-right"></span>
                 </label>
                 <div class="control-field">
                     <div class="date-wrapper">
@@ -295,9 +295,9 @@
         </div>
         <div class="field carrier">
             <label class="menu-title">
-                <span class="visible-xs-inline-block link-left hidden">&larr;</span>
+                <span class="link-left"></span>
                 {{locale("AIRCOMPANY")}}
-                <span class="visible-xs-inline-block link-right hidden">&#215;</span>
+                <span class="link-right"></span>
             </label>
             <div class="control-field">
                 <div class="carriers" tabindex="-1">
@@ -310,7 +310,7 @@
                         <div class="carriers-finder-inside">
                             <div v-for="(item, index) in avia.airCompanies">
                                 <input type="hidden" :name="'selectedAirCompany'+(index+1)" v-model="avia.airCompanies[index].code"/>
-                                <label class="clearfix carrier_name"><span class="pull-left">{{item.label}}</span><span class="pull-right removes" v-on:click="removeCarrier(index)">&#215;</span></label>
+                                <label class="clearfix carrier_name"><span class="pull-left">{{item.label}}</span><span class="delete" v-on:click="removeCarrier(index)"></span></label>
                             </div>
                             <div v-show="avia.airCompanies.length<avia.maxAirCompaniesCount">
                                 <input type="text" class="typeahead-selectpicker galileo-aircompany-select" :placeholder="locale('ANY_AVIACOMPANY')"/>
