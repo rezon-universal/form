@@ -591,7 +591,7 @@ var rezOnForm = function (form, o) {
 
     rezOnForm.prototype.extra.onResizeEvent = function () {
         var width = $(window).width();
-        if (width <= 600) {
+        if (width <= 575) {
             $('input.book-date.datepicker').prop('readonly', true);
         } else {
             $('input.book-date.datepicker').prop('readonly', false);
@@ -647,7 +647,7 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
 
             $('body').addClass('m-no-scroll');
             field.addClass('opened');
@@ -662,7 +662,7 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
 
             $('body').removeClass('m-no-scroll');
             field.removeClass('opened');
@@ -902,7 +902,7 @@ var rezOnForm = function (form, o) {
            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
                var selectpicker = $(this).closest(".selectpicker");
                var options = selectpicker.find('.options');
-                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                 if (selectpicker.is(".opened")) {
                     if ($(this).is(".option")) {
                         selectpicker.find(".selected-value:first").find("span:first").html(
@@ -971,7 +971,7 @@ var rezOnForm = function (form, o) {
             });
            
             it._form.on("blur, click, focusout", ".selectpicker.opened", function () {
-                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                 var selectpicker = $(this);
                 var updatingCloseSelect = function () {
                     selectpicker.removeClass("opened");
@@ -1284,7 +1284,7 @@ var rezOnForm = function (form, o) {
         //Passengers menu
         it._aviaForm.find(".passengers > .switch-box .switch").click(function () {
             var selectAge = it._aviaForm.find(".select-age");
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
             var field = $(this).closest('.field');
              
             if ($(this).is(".opened")) {
@@ -1338,7 +1338,7 @@ var rezOnForm = function (form, o) {
             return false;
         }).on('blur, focusout', function () {
             var selectAge = $(this);
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
             var field = $(this).closest('.field');
 
             var updateClosedSelect = function(el) {
@@ -1374,7 +1374,7 @@ var rezOnForm = function (form, o) {
             if (carriersItem.data('focusTimer')) clearTimeout(carriersItem.data('focusTimer'));
 
             if (carriersItem.find(".carriers-finder.g-hide").length > 0) {
-                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                 var field = $(this).closest('.field');
                 var updateOpenedSelect = function(el) {
                     el.removeClass("g-hide").closest(".carriers").removeClass("z-100");
@@ -1399,7 +1399,7 @@ var rezOnForm = function (form, o) {
             }
         }).focusout(function () {
             var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
             var field = $(this).closest('.field');
 
             var updateClosedSelect = function (el) {
@@ -2182,7 +2182,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             this.$on('selected', function () {
                 Vue.nextTick(function () {
-                    var isMobile = formObject.extra.mobileAndTabletcheck() && window.innerWidth <= 600;
+                    var isMobile = formObject.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                     if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null && !isMobile) {
                             var el = $(comp.$el);
                             var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
@@ -2243,7 +2243,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         //data: options,
         computed: {
             allAirCompanies: function () {
-                var str = '';
+                var str = [];
                 if (this.avia.airCompanies.length === 0) {
                     str = this.locale('ANY_AVIACOMPANY');
                 } else {
@@ -2251,8 +2251,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     	if(n!==undefined  && n!==null && n.label!=undefined && n.label!=null)
                     	{
                     		return n.label;
-                    	}                        
-                    }).join();
+                    	}
+                    }).join(', ');
                 }
                 return str;
             },
