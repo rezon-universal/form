@@ -705,14 +705,15 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     flex-direction: column;
     left: 0;
     position: absolute;
-    right: 0;
+    right: auto;
     z-index: 10;
 }
-#rezon-forms .selectpicker .option 
+#rezon-forms .selectpicker .option
 {
     cursor: pointer;
     padding: 0 12px;
     line-height: 45px;
+    white-space: nowrap;
 }
 #rezon-forms .selectpicker .option:last-child 
 {
@@ -1170,9 +1171,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     float: left;
     font-size: 19px;
     height: 33px;
-    margin-bottom: 17px;
-    margin-left: -17px;
-    margin-right: -16px;
+    margin: 0 -16px 17px -17px;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -1198,7 +1197,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     position: absolute;
     right: -4px;
     top: -4px;
-    }
+}
 #rezon-forms .arrows 
 {
     border-bottom: 1px solid #fff;
@@ -1251,7 +1250,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     height: 45px;
     line-height: 45px;
     padding: 0 3px;
-    text-align: center;
     white-space: nowrap;
 }
 #rezon-forms .transp:hover 
@@ -1577,7 +1575,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     display: none;
 }
-#rezon-forms .fields-container.extended .field.time + .time 
+#rezon-forms .avia-form .fields-container.extended .field.time + .time 
 {
     -webkit-flex-basis: 25%;
 
@@ -1779,54 +1777,55 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 
 /* --------- start vdp-datepicker ---------- */
-.rtl {
-	direction: rtl;
-}
-.vdp-datepicker 
+#rezon-forms .rtl
 {
-	position: relative;
-	text-align: left;
+    direction: rtl;
 }
-.vdp-datepicker * 
+#rezon-forms .vdp-datepicker
+{
+    position: relative;
+    text-align: left;
+}
+#rezon-forms .vdp-datepicker * 
 {
 	box-sizing: border-box;
 }
-.vdp-datepicker__calendar 
+#rezon-forms .vdp-datepicker__calendar
 {
-	background: #fff;
+    background: #fff;
     border-radius: 2px;
-	position: absolute;
-	width: 300px;
-	z-index: 100;
+    position: absolute;
+    width: 300px;
+    z-index: 100;
 }
-.vdp-datepicker__calendar header 
+#rezon-forms .vdp-datepicker__calendar header 
 {
 	display: block;
 	line-height: 40px;
 }
-.vdp-datepicker__calendar header .up,
-.vdp-datepicker__calendar header .current 
+#rezon-forms .vdp-datepicker__calendar header .up,
+#rezon-forms .vdp-datepicker__calendar header .current 
 {
     margin: 0 40px;
     text-align: center;
 }
-.vdp-datepicker__calendar header .prev,
-.vdp-datepicker__calendar header .next 
+#rezon-forms .vdp-datepicker__calendar header .prev,
+#rezon-forms .vdp-datepicker__calendar header .next 
 {
     position: relative;
     text-indent: -10000px;
     width: 40px;
 }
-.vdp-datepicker__calendar header .prev 
+#rezon-forms .vdp-datepicker__calendar header .prev 
 {
     float: left;
 }
-.vdp-datepicker__calendar header .next 
+#rezon-forms .vdp-datepicker__calendar header .next 
 {
     float: right;
 }
-.vdp-datepicker__calendar header .prev:after,
-.vdp-datepicker__calendar header .next:after 
+#rezon-forms .vdp-datepicker__calendar header .prev:after,
+#rezon-forms .vdp-datepicker__calendar header .next:after 
 {
     content: '';
     height: 15px;
@@ -1837,46 +1836,50 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-transform: rotate(45deg);
     width: 15px;
 }
-.vdp-datepicker__calendar header .prev:after 
+#rezon-forms .vdp-datepicker__calendar header .prev:after 
 {
     border-left: 1px solid #26b6ff;
     border-bottom: 1px solid #26b6ff;
     margin-left: -5px;
 }
-.vdp-datepicker__calendar header .prev.disabled:after 
+#rezon-forms .vdp-datepicker__calendar header .prev.disabled:after 
 {
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
-.vdp-datepicker__calendar header .next:after 
+#rezon-forms .vdp-datepicker__calendar header .next:after 
 {
     border-top: 1px solid #26b6ff;
     border-right: 1px solid #26b6ff;
     margin-left: -10px;
 }
-.vdp-datepicker__calendar header .next.disabled:after 
+#rezon-forms .vdp-datepicker__calendar header .next.disabled:after 
 {
     border-top: 1px solid #ddd;
     border-right: 1px solid #ddd;
 }
-.vdp-datepicker__calendar header .prev:not(.disabled),
-.vdp-datepicker__calendar header .next:not(.disabled),
-.vdp-datepicker__calendar header .up:not(.disabled) 
+#rezon-forms .vdp-datepicker__calendar header .prev:not(.disabled),
+#rezon-forms .vdp-datepicker__calendar header .next:not(.disabled),
+#rezon-forms .vdp-datepicker__calendar header .up:not(.disabled) 
 {
 	cursor: pointer;
 }
-.vdp-datepicker__calendar header .prev:not(.disabled):hover,
-.vdp-datepicker__calendar header .next:not(.disabled):hover,
-.vdp-datepicker__calendar header .up:not(.disabled):hover 
+#rezon-forms .vdp-datepicker__calendar header .prev:not(.disabled):hover,
+#rezon-forms .vdp-datepicker__calendar header .next:not(.disabled):hover,
+#rezon-forms .vdp-datepicker__calendar header .up:not(.disabled):hover 
 {
 	background: #eee;
 }
-.vdp-datepicker__calendar .disabled 
+#rezon-forms .vdp-datepicker__calendar header .up span 
+{
+    border-bottom: 1px dashed rgba(0,0,0,0.4);
+}
+#rezon-forms .vdp-datepicker__calendar .disabled 
 {
 	color: #ddd;
 	cursor: default;
 }
-.vdp-datepicker__calendar .flex-rtl 
+#rezon-forms .vdp-datepicker__calendar .flex-rtl 
 {
     display: -webkit-flex;
     -webkit-flex-wrap: wrap;
@@ -1885,11 +1888,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 	width: inherit;
 	flex-wrap: wrap;
 }
-.vdp-datepicker__calendar .cell 
+#rezon-forms .vdp-datepicker__calendar .cell 
 {
-    border: 1px solid transparent;
     display: inline-block;
-    padding: 0 5px;
     width: 14.285714285714286%;
     height: 40px;
     line-height: 40px;
@@ -1897,67 +1898,67 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     vertical-align: middle;
     margin: 1px 0;
 }
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year 
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month,
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year 
 {
 	cursor: pointer;
 }
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
-.vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover 
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+#rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover 
 {
     border: 1px solid #26b6ff;
 }
-.vdp-datepicker__calendar .cell.selected,
-.vdp-datepicker__calendar .cell.selected:hover,
-.vdp-datepicker__calendar .cell.selected.highlighted 
+#rezon-forms .vdp-datepicker__calendar .cell.selected,
+#rezon-forms .vdp-datepicker__calendar .cell.selected:hover,
+#rezon-forms .vdp-datepicker__calendar .cell.selected.highlighted 
 {
     background: #26b6ff;
     color: white;
 }
-.vdp-datepicker__calendar .cell.highlighted 
+#rezon-forms .vdp-datepicker__calendar .cell.highlighted 
 {
     background: #e9ebf2;
 }
-.vdp-datepicker__calendar .cell.grey 
+#rezon-forms .vdp-datepicker__calendar .cell.grey 
 {
 	color: #888;
 }
-.vdp-datepicker__calendar .cell.grey:hover 
+#rezon-forms .vdp-datepicker__calendar .cell.grey:hover 
 {
 	background: inherit;
 }
-.vdp-datepicker__calendar .cell.day-header 
+#rezon-forms .vdp-datepicker__calendar .cell.day-header 
 {
     color: #9e9e9e;
     cursor: inherit;
     font-size: 75%;
     white-space: no-wrap;
 }
-.vdp-datepicker__calendar .cell.day-header:hover 
+#rezon-forms .vdp-datepicker__calendar .cell.day-header:hover 
 {
 	background: inherit;
 }
-.vdp-datepicker__calendar .month,
-.vdp-datepicker__calendar .year 
+#rezon-forms .vdp-datepicker__calendar .month,
+#rezon-forms .vdp-datepicker__calendar .year 
 {
 	width: 33.333%;
 }
-.vdp-datepicker__clear-button,
-.vdp-datepicker__calendar-button 
+#rezon-forms .vdp-datepicker__clear-button,
+#rezon-forms .vdp-datepicker__calendar-button
 {
-	cursor: pointer;
-	font-style: normal;
+    cursor: pointer;
+    font-style: normal;
 }
 /* ---------- end vdp-datepicker ---------- */
 
 
 #rezon-forms .tt-dropdown-menu,
-.vdp-datepicker__calendar,
+#rezon-forms .vdp-datepicker__calendar,
 #rezon-forms .select-age,
 #rezon-forms .selectpicker.opened .options,
-#rezon-forms .carriers-finder 
+#rezon-forms .carriers-finder
 {
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
 }
@@ -1981,7 +1982,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media (min-width: 600px) and (max-width: 1200px) 
+@media (min-width: 576px) and (max-width: 1200px) 
 {
     #rezon-forms .fields-container .field.find 
     {
@@ -2003,11 +2004,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .fields-container .field.date,
     #rezon-forms .fields-container.extended .field.pass,
-    #rezon-forms .fields-container .field.time 
+    #rezon-forms .fields-container .field.time,
+    #rezon-forms .fields-container .field.only-direct
     {
         -webkit-flex-basis: 25%;
         -webkit-flex-grow: 0;
-
         flex-basis: 25%;
         flex-grow: 0;
     }
@@ -2047,7 +2048,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media (min-width: 600px) 
+@media (min-width: 576px) 
 {
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
@@ -2090,7 +2091,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media (max-width: 599px) 
+@media (max-width: 575px) 
 {
     #rezon-forms 
     {
@@ -2126,11 +2127,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .dates-item 
     {
-        top:-9px;
+        top: -9px;
     }
     #rezon-forms .row 
     {
-        padding-top:0;
+        padding-top: 0;
     }
 
     /*Pop-up*/
@@ -2251,7 +2252,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         justify-content: center;
         align-items: center;
     }
-    .m-no-scroll 
+    #rezon-forms .m-no-scroll 
     {
         position: fixed;
         width: 100%;
@@ -2502,7 +2503,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media screen and (min-width: 600px ) and (max-width: 768px) 
+@media screen and (min-width: 576px ) and (max-width: 768px) 
 {
     #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col + .datepicker-col 
     {

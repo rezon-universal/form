@@ -460,7 +460,7 @@ var defaultDatepickerSettings = {
             "<header>" +
                 "<span @click=\"isRtl ? previousMonth() : nextMonth()\" class=\"next\" v-bind:class=\"{ 'disabled' : isRtl ? previousMonthDisabled(pageDate) : nextMonthDisabled(pageDate) }\">&gt;</span>" +
                 "<span @click=\"isRtl ? nextMonth() : previousMonth()\" class=\"prev\" v-bind:class=\"{ 'disabled' : isRtl ? nextMonthDisabled(pageDate) : previousMonthDisabled(pageDate) }\">&lt;</span>" +
-                "<div @click=\"showMonthCalendar\" :class=\"!dayViewOnly ? 'up' : ''\">{{ currMonthName }} {{ currYear }}</div>" +
+                "<div @click=\"showMonthCalendar\" :class=\"!dayViewOnly ? 'up' : ''\"><span>{{ currMonthName }} {{ currYear }}</span></div>" +
             "</header>"+
             "<div :class=\"isRtl ? 'flex-rtl' : ''\">" +
                 "<span class=\"cell day-header\" v-for=\"d in daysOfWeek\">{{ d }}</span>" +
@@ -475,7 +475,7 @@ var defaultDatepickerSettings = {
                 "<header>" +
                     "<span @click=\"nextYear\" class=\"next\" v-bind:class=\"{ 'disabled' : nextYearDisabled(pageDate) }\">&gt;</span>" +
                     "<span @click=\"previousYear\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousYearDisabled(pageDate) }\">&lt;</span>" +
-                    "<div @click=\"showYearCalendar\" class=\"up\">{{ getPageYear() }}</div>" +
+                    "<div @click=\"showYearCalendar\" class=\"up\"><span>{{ getPageYear() }}</span></div>" +
                 "</header>" +
                 "<span class=\"cell month\" v-for=\"month in months\" track-by=\"timestamp\" v-bind:class=\"{ 'selected': month.isSelected, 'disabled': month.isDisabled }\" @click.stop=\"selectMonth(month)\">{{ month.month }}</span>" +
             "</div>"+
