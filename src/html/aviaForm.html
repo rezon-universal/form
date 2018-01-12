@@ -74,15 +74,11 @@
                     </div>
                     <div class="select-age g-hide" tabindex="-1">
                         <div class="pass_types">
-                            <div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden" :class="{'has-error':type.hasError}">
+                            <div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden" :class="{'has-error':type.hasError,'active':type.count>0}">
                                 <div class="pass_counter pull-right">
-                                    <div class="remove_pass" v-on:click="removePassenger(type.name)">
-                                        <span href="#">&minus;</span>
-                                    </div>
+                                    <div class="remove_pass" v-on:click="removePassenger(type.name)"></div>
                                     <div class="count_pass"><span>{{type.count}}</span></div>
-                                    <div class="add_pass" v-on:click="addPassenger(type.name)">
-                                        <span href="#">+</span>
-                                    </div>
+                                    <div class="add_pass" v-on:click="addPassenger(type.name)"></div>
                                     <input type="hidden" :name="type.name" v-model="type.count" />
                                 </div>
                                 <div class="pass_inf">

@@ -970,7 +970,7 @@ var rezOnForm = function (form, o) {
                 return false;
             });
            
-            it._form.on("blur, click, focusout", ".selectpicker.opened", function () {
+           it._form.on("blur click focusout", ".selectpicker.opened", function () {
                 var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                 var selectpicker = $(this);
                 var updatingCloseSelect = function () {
@@ -1336,7 +1336,7 @@ var rezOnForm = function (form, o) {
         it._aviaForm.find(".select-age").focusin(function () {
             if ($(this).data('focusTimer')) clearTimeout($(this).data('focusTimer'));
             return false;
-        }).on('blur, focusout', function () {
+        }).on('blur focusout', function () {
             var selectAge = $(this);
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
             var field = $(this).closest('.field');
@@ -1370,7 +1370,9 @@ var rezOnForm = function (form, o) {
 
         //Carriers menu
         it._aviaForm.find(".carriers").focusin(function () {
-            var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
+            var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");          
+            var carriersInput = carriersItem.find('input.tt-input');
+          
             if (carriersItem.data('focusTimer')) clearTimeout(carriersItem.data('focusTimer'));
 
             if (carriersItem.find(".carriers-finder.g-hide").length > 0) {

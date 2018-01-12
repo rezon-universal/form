@@ -652,19 +652,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .avia-airport-finder .typeahead-selectpicker,
 #rezon-forms .carriers-finder .typeahead-selectpicker 
 {
-    border: 1px solid #b1b7be;
-    width: 100%;
     outline: 0;
+    width: 100%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-}
-#rezon-forms .avia-airport-finder .typeahead-selectpicker:focus,
-#rezon-forms .avia-airport-finder .typeahead-selectpicker:active,
-#rezon-forms .carriers-finder .typeahead-selectpicker:focus,
-#rezon-forms .carriers-finder .typeahead-selectpicker:active 
-{
-    border: 1px solid #ffd900;
 }
 #rezon-forms .avia-airport-finder .tt-dropdown-menu,
 #rezon-forms .carriers-finder .tt-dropdown-menu 
@@ -1002,17 +994,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #railway-form-shoot .tt-dropdown-menu 
 {
     border-color: #669900;
-}
-#rezon-forms .tt-dropdown-menu:before 
-{
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding-top:32px;
-    top:-32px;
-    content: '';
-    z-index: -1;
 }
 #rezon-forms .tt-suggestion 
 {
@@ -1679,73 +1660,99 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     flex-basis: 10%;
     flex-grow: 1;
 }
-#rezon-forms .field.pass .pass_types 
+#rezon-forms .pass .pass_types 
 {
     padding: 15px 0;
 }
-#rezon-forms .field.pass .pass_type 
+#rezon-forms .pass .pass_type 
 {
     padding: 10px 20px;
 }
-#rezon-forms .field.pass .pass_counter 
+#rezon-forms .pass .pass_counter 
 {
-    background: #eceff1;
-    border-radius: 2px;
     margin: -4px 0 0 0;
     text-align: center;
 }
-#rezon-forms .field.pass .pass_inf
+#rezon-forms .pass .pass_inf
 {
     margin: 0 155px 0 0;
     white-space: nowrap;
 }
-#rezon-forms .field.pass .remove_pass,
-#rezon-forms .field.pass .add_pass 
+#rezon-forms .pass .remove_pass,
+#rezon-forms .pass .add_pass 
 {
-    float: left;
-    width: 50px;
-    margin-top: 10px;
-    font-size: 24px;
+    background: #eceff1;
+    border-radius: 2px;
     cursor: pointer;
+    float: left;
+    height: 36px;
+    position: relative;
+    width: 70px;
 
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+            user-select: none;
 }
-#rezon-forms .field.pass .pass_counter a 
+#rezon-forms .pass .remove_pass:hover,
+#rezon-forms .pass .add_pass:hover
 {
-    color: #90a4ae;
-    font-size: 24px;
-    line-height: 36px;
+    background: #b2e7ff;
 }
-#rezon-forms .field.pass .count_pass 
+#rezon-forms .pass .remove_pass:before,
+#rezon-forms .pass .add_pass:before,
+#rezon-forms .pass .add_pass:after 
+{
+    background: #546e7a;
+    box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5);
+    content: "";
+    display: block;
+    height: 1px;
+    position: absolute;
+    width: 15px;
+    top: 17px;
+}
+#rezon-forms .pass .remove_pass:before 
+{
+    left: 16px;
+}
+#rezon-forms .pass .add_pass:before,
+#rezon-forms .pass .add_pass:after 
+{
+    right: 16px;
+}
+#rezon-forms .pass .add_pass:after 
+{
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+}
+#rezon-forms .pass .count_pass
 {
     border-radius: 30px;
     border-color: #00b0ff;
-    background: #00b0ff;
+    background: #b0bec5;
     color: white;
-    width: 42px;
-    margin: -3px 0;
-    line-height: 42px;
-    text-align: center;
     float: left;
+    line-height: 42px;
+    margin: -3px -21px;
+    position: relative;
+    text-align: center;
+    width: 42px;
+    z-index: 1;
 }
-#rezon-forms .field.pass .pass_counter a 
+#rezon-forms .pass .pass_counter:hover .count_pass,
+#rezon-forms .pass .active .count_pass
 {
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
+    background: #00b0ff;
 }
-#rezon-forms .field.carrier .carriers-finder 
+#rezon-forms .carrier .carriers-finder 
 {
-    width: 100%;
     background: white;
+    width: 100%;
 }
-#rezon-forms .field.carrier .carriers-finder .carrier_name 
+#rezon-forms .carrier .carrier_name 
 {
     display: block;
     border-bottom: 1px solid #cfd8dc;
@@ -1755,23 +1762,23 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     padding: 0 10px;
     position: relative;
 }
-#rezon-forms .field.carrier .carriers-finder .carrier_name .removes 
+#rezon-forms .carrier .carrier_name .removes 
 {
     color: #99dfff;
     font-size: 32px;
 }
-#rezon-forms .field.carrier .twitter-typeahead 
+#rezon-forms .carrier .twitter-typeahead 
 {
      height: 40px;
  }
-#rezon-forms .field.carrier .carriers-finder .galileo-aircompany-select.tt-input 
+#rezon-forms .carrier .tt-input 
 {
     height: 40px;
     line-height: 40px;
     border: none;
     font-size: 14px;
 }
-#rezon-forms .field.carrier .carriers-finder .tt-dropdown-menu 
+#rezon-forms .carrier .tt-dropdown-menu 
 {
     border: none;
     height: 300px;
@@ -2093,7 +2100,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         left: 22px;
     }
 }
-
+.carriers:focus{
+    background:red;
+}
 
 @media (max-width: 575px) 
 {
@@ -2170,16 +2179,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         height: 100%;
     }
-    #rezon-forms .tt-dropdown-menu , #rezon-forms .carriers-finder 
+    #rezon-forms .tt-dropdown-menu,
+    #rezon-forms .carriers-finder 
     {
         box-shadow: none;
+        padding: 0;
     }
-    #rezon-forms .field.airport.opened span.tt-dropdown-menu,
-    #rezon-forms .field.station.opened span.tt-dropdown-menu 
+    #rezon-forms .airport.opened .tt-dropdown-menu,
+    #rezon-forms .station.opened .tt-dropdown-menu
     {
-        top: 50px!important;
+        top: 100%;
         width: 100%;
-        border: none;
     }
     #rezon-forms .field.opened .menu-title 
     {
@@ -2207,44 +2217,43 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         float: right;
     }
-    #rezon-forms .fields-container .field.pass.opened .switch-box 
+    #rezon-forms .pass.opened .switch-box 
     {
         display: none;
     }
-    #rezon-forms .fields-container .field.pass.opened .select-age 
+    #rezon-forms .pass.opened .select-age 
     {
         width: 100%;
         top: 0;
         box-shadow: none;
     }
-    #rezon-forms .fields-container .field.carrier.opened .carriers-finder 
+    #rezon-forms .carrier.opened .carriers-finder 
     {
-        width: 100%;
         height: 100%;
+        width: 100%;
         top: 0;
-        border: none;
     }
-    #rezon-forms .fields-container .field.carrier.opened .carriers .item 
+    #rezon-forms .carrier.opened .carriers .item 
     {
         display: none;
     }
-    #rezon-forms .fields-container .field.opened.date .date-wrapper 
+    #rezon-forms .date.opened .date-wrapper 
     {
         position: fixed;
         height: 100%;
     }
-    #rezon-forms .fields-container .field.opened.date .dates-item-row 
+    #rezon-forms .date.opened .dates-item-row 
     {
-            padding: 0;
-            overflow: scroll;
+        padding: 0;
+        overflow: scroll;
         height: 100vh;
     }
-    #rezon-forms .fields-container .field.opened.date .dates-item 
+    #rezon-forms .date.opened .dates-item 
     {
-            border: none;
+        border: none;
         box-shadow: none;
     }
-    #rezon-forms .fields-container .field.opened.date .dates-item .datepickerContainer 
+    #rezon-forms .date.opened .dates-item .datepickerContainer 
     {
         display: -webkit-flex;
         -webkit-flex-wrap: wrap;
