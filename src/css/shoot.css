@@ -285,9 +285,8 @@
 #rezon-forms .iata
 {
     bottom: 14px;
-    color: #78909c;
-    font-size: 10px;
-    font-weight: bold;
+    color: #90a4ae;
+    font-size: 11px;
     letter-spacing: 0.1em;
     position: absolute;
     right: 35px;
@@ -1020,9 +1019,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .tt-dropdown-menu .iata-code
 {
     font-family: "Oxygen Mono";
-    font-weight: bold;
-    font-size: 10px;
-    color: #78909c;
+    font-size: 11px;
+    color: #90a4ae;
     letter-spacing: 0.1em;
     position: absolute;
     right: 10px;
@@ -2132,6 +2130,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .tt-suggestion 
     {
         line-height: 40px;
+        padding: 0 38px 0 10px;
     }
     #rezon-forms .column.from.calendar-dropdown + .column.to,
     #rezon-forms .column.from.calendar-dropdown + .swap + .column.to 
