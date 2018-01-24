@@ -1851,13 +1851,16 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         var params = { iata_codes: dataToSend };
         $.getJSON(options.projectUrl + options.defaultLang + '/HelperAsync/GetAirport?' + $.param(params), function (data) {
             var result = JSON.parse(data);
+            
             $.each(result, function (index, value) {
+
                 if (value !== undefined && value !== null) {
                     var aviItem = new AirportItem(value.IataCode, value.CountryCode, value.CountryName, value.Airport);
-                    if (aviItem.IataCode == options.avia.defaultAirportFrom) {
+                    if (aviItem.IataCode.substring(0, 3) == options.avia.defaultAirportFrom) {
                         options.avia.aviFrom = aviItem;
+                        
                     }
-                    if (aviItem.IataCode == options.avia.defaultAirportTo) {
+                    if (aviItem.IataCode.substring(0, 3) == options.avia.defaultAirportTo) {
                         options.avia.aviTo = aviItem;
                     }
                 }
