@@ -1991,7 +1991,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media (min-width: 576px) and (max-width: 1200px) 
+@media (min-width: 576px) and (max-width: 1199px) 
 {
     #rezon-forms .fields-container .field.find 
     {
@@ -2029,7 +2029,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media screen and (max-width: 1200px) 
+@media screen and (max-width: 1199px) 
 {
     #rezon-forms .fields-container.route .multy-route.last .delete-leg 
     {
@@ -2493,16 +2493,16 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         -webkit-flex-basis: 50%;
         flex-basis: 50%;
     }
-     #rezon-forms .field.date.opened .book-date 
-     {
-         display: none;
-     }
-     #rezon-forms .field.date .vdp-datepicker__calendar 
-     {
-         width: 100%;
-         box-shadow: none;
-         position: relative;
-     }
+    #rezon-forms .field.date.opened .book-date 
+    {
+        display: none;
+    }
+    #rezon-forms .field.date .vdp-datepicker__calendar 
+    {
+        width: 100%;
+        box-shadow: none;
+        position: relative;
+    }
     #rezon-forms #railway-form-shoot .fields-container .field.range 
     {
         -webkit-flex-basis: 50%;
@@ -2515,7 +2515,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-@media screen and (min-width: 576px ) and (max-width: 768px) 
+@media (min-width: 576px ) and (max-width: 767px) 
 {
     #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col + .datepicker-col 
     {
@@ -2528,5 +2528,43 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .rez-forms 
     {
         padding: 0 10px;
+    }
+}
+
+
+
+#rezon-forms #railway-form-shoot .field.hide_s
+{
+    text-align: center;
+}
+
+
+@media (min-width: 576px ) and (max-width: 1199px)
+{
+    #rezon-forms #railway-form-shoot .field.hide_s,
+    #rezon-forms #railway-form-shoot .field.clear
+    {
+        -webkit-flex-basis: 25%;
+        flex-basis: 25%;
+    }
+}
+
+@media (min-width: 1200px) 
+{
+    #rezon-forms #railway-form-shoot .field.date
+    {
+        -webkit-flex-basis: 15%;
+        flex-basis: 15%;
+    }
+    #rezon-forms #railway-form-shoot .field.find
+    {
+        margin-left: initial;
+        -webkit-flex-basis: 20%;
+        flex-basis: 20%;
+    }
+    #rezon-forms #railway-form-shoot .field.hide_s
+    {
+        -webkit-flex-basis: 15%;
+        flex-basis: 15%;
     }
 }
