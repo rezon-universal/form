@@ -1619,7 +1619,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     flex-basis: 15%;
     cursor: pointer;
 }
-#rezon-forms .route .multy-route.last .add_segment 
+#rezon-forms .route .multy-route .add_segment 
 {
     -webkit-flex-basis: 100%;
 
@@ -1633,12 +1633,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .fields-container.route .field.pass 
 {
-    -webkit-flex-basis: 25%;
     -webkit-order: 4;
     -webkit-flex-grow:0;
+    -webkit-flex-basis: 20%;
 
     order: 4;
     flex-grow: 0;
+    flex-basis: 20%;
+}
+#rezon-forms .fields-container.route.extended .field.pass 
+{
+    -webkit-flex-basis: 25%;
     flex-basis: 25%;
 }
 #rezon-forms .fields-container.route .hide_s,
@@ -1661,6 +1666,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     display: block;
     flex-basis: 10%;
     flex-grow: 1;
+    text-align: center;
 }
 #rezon-forms .pass .pass_types 
 {
@@ -2555,6 +2561,29 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 @media (min-width: 1200px) 
 {
+    #rezon-forms .fields-container .multy-route.last .delete-leg,
+    #rezon-forms .route .multy-route .add_segment
+    {
+        -webkit-flex-basis: 20%;
+        flex-basis: 20%;
+    }
+    #rezon-forms .fields-container.extended .field.date
+    {
+        -webkit-flex-basis: 10%;
+        flex-basis: 10%;
+    }
+    #rezon-forms .fields-container.extended .field.time,
+    #rezon-forms .route .add_segment,
+    #rezon-forms .fields-container.extended .delete-leg
+    {
+        -webkit-flex-basis: 20%;
+        flex-basis: 20%;
+    }
+    #rezon-forms .route.extended .multy-route .add_segment
+    {
+        -webkit-flex-basis: 100%;
+        flex-basis: 100%;
+    }
     #rezon-forms #railway-form-shoot .field.date
     {
         -webkit-flex-basis: 15%;
