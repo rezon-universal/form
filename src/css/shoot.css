@@ -1067,6 +1067,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     width: 30px;
     z-index: 1;
 }
+#rezon-forms .field.airport .twitter-typeahead .typeahead-selectpicker-control
+{
+    display: none;
+}
 #rezon-forms .typeahead-selectpicker-control.opened:before 
 {
     background: none;
@@ -1943,7 +1947,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     color: #9e9e9e;
     cursor: inherit;
     font-size: 75%;
-    white-space: no-wrap;
+    white-space: nowrap;
 }
 #rezon-forms .vdp-datepicker__calendar .cell.day-header:hover 
 {

@@ -70,6 +70,7 @@ var rezOnForm = function (form, o) {
             defaultRouteType: null, // [oneway/roundtrip/multy]
             defaultAirportFrom: null, // IATA code, ex. IEV 
             defaultAirportTo: null, // IATA code, ex. IEV
+            onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
             defaultDateThere: new Date(), // dd.MM.yyyy
             defaultDateBack: new Date(), // dd.MM.yyyy
             plusDaysShift: 1, // -1 - 10
@@ -1061,10 +1062,20 @@ var rezOnForm = function (form, o) {
 
         it._aviaForm.bindAirportTypeahead = function (el) {
             el = el || it._aviaForm.find('.book-from, .book-to');
-
-            el.typeahead({
+            var typeaheadOptions = {
                 minLength: 2
-            }, {
+            };
+            
+            if (it._o.avia.onlySpecificAirportsInDropdown) {
+                typeaheadOptions = {
+                    hint: true,
+                    highlight: true,
+                    minLength: 0,
+                    isSelectPicker: true
+                };
+            }
+
+            el.typeahead(typeaheadOptions, {
                 name: "airports-" + it._o.defaultLang,
                 displayKey: 'value',
                 source: it.dataWork.airporFinderData.ttAdapter(),
@@ -1113,15 +1124,20 @@ var rezOnForm = function (form, o) {
                         return ret;
                     }
                 }
-            }).keyup(function (e) {
-                
             }).focus(function () {
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                 item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                })
-            .click(function () {
+                
+                if (it._o.avia.onlySpecificAirportsInDropdown && $(this).is(".book-to")) {
+                    //Если жестко фиксированный список аэропортов - подгружаем список доступных аэропортов для выбранного аэропорта "Туда"
+                    var dp = $(this);
+                    Vue.nextTick(function () {
+                        dp.typeahead('query', "from_iata_" + dp.closest(".fields-container").find("[name='from_iata']").val());
+                    });
+                }
+            }).click(function () {
                 $(this).select();
             }).blur(function () {
                 $(this).closest('.field.focused').removeClass('focused');
@@ -1133,8 +1149,7 @@ var rezOnForm = function (form, o) {
                     rezOnForm.static.recalculateHeightOnClose();
                 }
                 return false;
-                })
-            .on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
+            }).on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
                     var name = item.find(".inside input[type='hidden']").attr('name');
@@ -1142,7 +1157,7 @@ var rezOnForm = function (form, o) {
                     vue.updateAirportTypeAhead(name, datum);
                     it.extra.closeField(item);
                     
-                    //TODO Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
+                    //Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
                     if (it._initialized && !it.extra.mobileAndTabletcheck()) {                        
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
@@ -1150,14 +1165,14 @@ var rezOnForm = function (form, o) {
                         } else if ($(this).is(".book-to") && vue.avia.formType.value === "roundtrip") {
                             var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
                             setTimeout(function () {
-                             dp.focus();
+                                dp.focus();
                             }, 100);
                         }
                     }
                     if ($(this).is(".book-from")) {
-                        $(document).trigger("StartPtChange.MapBridge", [datum])
+                        $(document).trigger("StartPtChange.MapBridge", [datum]);
                     } else {
-                        $(document).trigger("EndPtChange.MapBridge", [datum])
+                        $(document).trigger("EndPtChange.MapBridge", [datum]);
                     }
                     //Hide mobile keyboard
                     $(this).blur();
