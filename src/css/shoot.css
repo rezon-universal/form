@@ -2572,7 +2572,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         -webkit-flex-basis: 10%;
         flex-basis: 10%;
     }
-    #rezon-forms .fields-container.extended .field.time,
+    #rezon-forms .fields-container.extended.route .field.time,
     #rezon-forms .route .add_segment,
     #rezon-forms .fields-container.extended .delete-leg
     {
