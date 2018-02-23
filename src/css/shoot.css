@@ -126,6 +126,7 @@
     opacity: 1;
     padding: 8px 20px;
     user-select: none;
+    display: inline-block;
 }
 #rezon-forms .direct label:hover
 {
