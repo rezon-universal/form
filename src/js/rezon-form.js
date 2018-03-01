@@ -1043,13 +1043,30 @@ var rezOnForm = function (form, o) {
             return false;
         });
         
+        //При переключении вкладок повторно вызывать событие фокуса для активного элемента.
+        $(window).on('focus', function(){
+            var activeEl = $(document.activeElement);
+            if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0) {
+                activeEl.trigger('blur').trigger('focus');
+            }
+        });
+
+
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
 
         $(document).ajaxStart(function () {
-            it._form.find(".field.focused .twitter-typeahead").addClass("loading");
+            var el = it._form.find(".field.focused .twitter-typeahead");
+            if (el.length) {
+                el.addClass("loading");
+                console.log('request start');
+            }
         });
-        $(document).ajaxComplete(function () {
-            it._form.find(".field.focused .twitter-typeahead.loading").removeClass("loading");
+        $(document).ajaxStop(function () {
+            var el = it._form.find(".field.focused .twitter-typeahead.loading");
+            if (el.length) {
+                el.removeClass("loading");
+                console.log('request end');
+            }
         });
     }
 
@@ -1196,13 +1213,20 @@ var rezOnForm = function (form, o) {
                     rezOnForm.static.recalculateHeightOnClose();
                     typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 }
-                //var item = $(this).closest(".field");
-                //it.extra.closeField(item);
-                //if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
-                //{
-                //    TODO
-                //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                //}
+                var item = $(this).closest(".field");
+                it.extra.closeField(item);
+                if ($(its.currentTarget).val() !== "" && $(this).data("lastHist"))
+                {
+                    var _this = $(this);
+                    var lastHint = $(this).data("lastHist");
+                    var iata = item.find(".inside input[type='hidden']");
+                    Vue.nextTick(function () {
+                        if ($.trim(iata.val()) === "" && lastHint) {
+                            //Обновляем последним запомненным только если клиент ничего не выбрал из выпадашки
+                            _this.trigger("typeahead:autocompleted", [lastHint]);
+                        }
+                    });
+                }
             }).on("typeahead:queryChanged", function (it, query) {
 
             }).on("typeahead:updateHint", function (a, b) {
@@ -1479,7 +1503,7 @@ var rezOnForm = function (form, o) {
                 CountryCode: data.countryCode,
                 CountryName: '',
                 Name: data.name
-            })
+            });
         });
     }
 
