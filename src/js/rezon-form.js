@@ -648,14 +648,9 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
-
             $('body').addClass('m-no-scroll');
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
-            if (isMobile) {
-                
-            }
         }
         return false;
     }

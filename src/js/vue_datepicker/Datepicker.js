@@ -583,7 +583,8 @@ var defaultDatepickerSettings = {
             /*
              * Positioning
              */
-            calendarHeight: 0
+            calendarHeight: 0,
+            initialViewRewrited: undefined
         }
     },
     watch: {
@@ -741,7 +742,7 @@ var defaultDatepickerSettings = {
             this.setInitialView();
         },
         setInitialView: function () {
-            switch (this.initialView) {
+            switch (this.initialViewRewrited || this.initialView) {
                 case 'year':
                     this.showYearCalendar();
                     break;
