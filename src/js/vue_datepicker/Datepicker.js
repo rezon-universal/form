@@ -721,9 +721,11 @@ var defaultDatepickerSettings = {
         resetDefaultDate: function () {
             if (this.selectedDate === null) {
                 this.setPageDate();
+                this.$emit('resetDefaultDate');
                 return;
             }
             this.setPageDate(this.selectedDate);
+            this.$emit('resetDefaultDate');
         },
         /**
          * Effectively a toggle to show/hide the calendar
