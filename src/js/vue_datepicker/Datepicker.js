@@ -583,7 +583,8 @@ var defaultDatepickerSettings = {
             /*
              * Positioning
              */
-            calendarHeight: 0
+            calendarHeight: 0,
+            initialViewRewrited: undefined
         }
     },
     watch: {
@@ -720,9 +721,11 @@ var defaultDatepickerSettings = {
         resetDefaultDate: function () {
             if (this.selectedDate === null) {
                 this.setPageDate();
+                this.$emit('resetDefaultDate');
                 return;
             }
             this.setPageDate(this.selectedDate);
+            this.$emit('resetDefaultDate');
         },
         /**
          * Effectively a toggle to show/hide the calendar
@@ -741,7 +744,7 @@ var defaultDatepickerSettings = {
             this.setInitialView();
         },
         setInitialView: function () {
-            switch (this.initialView) {
+            switch (this.initialViewRewrited || this.initialView) {
                 case 'year':
                     this.showYearCalendar();
                     break;

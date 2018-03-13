@@ -262,7 +262,8 @@ var rezOnForm = function (form, o) {
                 "DEPARTURE_TIME": "Время отправления",
                 "ARRIVAL_TIME": "Время прибытия",
                 "SELECT_DATE":"Выберите дату",
-                "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму"
+                "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму",
+                "CONFIRM": "Подтвердить"
             },
             en: {
                 "ONE_WAY": "One way",
@@ -402,7 +403,8 @@ var rezOnForm = function (form, o) {
                 "DEPARTURE_TIME": "Departure time",
                 "ARRIVAL_TIME": "Arrival time",
                 "SELECT_DATE":"Select date",
-                "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form"
+                "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form",
+                "CONFIRM": "Confirm"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -542,7 +544,8 @@ var rezOnForm = function (form, o) {
                 "DEPARTURE_TIME": "Час відправлення",
                 "ARRIVAL_TIME": "Час прибуття",
                 "SELECT_DATE":"Оберіть дату",
-                "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму"
+                "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму",
+                "CONFIRM": "Підтвердити"
             }
         };
 
@@ -648,14 +651,9 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
-
             $('body').addClass('m-no-scroll');
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
-            if (isMobile) {
-                
-            }
         }
         return false;
     }
@@ -1058,14 +1056,12 @@ var rezOnForm = function (form, o) {
             var el = it._form.find(".field.focused .twitter-typeahead");
             if (el.length) {
                 el.addClass("loading");
-                console.log('request start');
             }
         });
         $(document).ajaxStop(function () {
             var el = it._form.find(".field.focused .twitter-typeahead.loading");
             if (el.length) {
                 el.removeClass("loading");
-                console.log('request end');
             }
         });
     }
@@ -1091,7 +1087,6 @@ var rezOnForm = function (form, o) {
                     isSelectPicker: true
                 };
             }
-
             el.typeahead(typeaheadOptions, {
                 name: "airports-" + it._o.defaultLang,
                 displayKey: 'value',
@@ -2225,6 +2220,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             });
 
             this.$on('selected', function () {
+                comp.initialViewRewrited = !!comp.selectedDate ? "day" : comp.initialView;
+
                 Vue.nextTick(function () {
                     var isMobile = formObject.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
                     if (comp.name === 'book_from_date' && comp.highlighted.to !== undefined && comp.highlighted.to !== null && !isMobile) {
