@@ -651,7 +651,8 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            $(window).scrollTop($(window).scrollTop() + 1);//fix bug with pulls away cursor in popup inputs for mobile Safari                      
+            $(window).scrollTop($(window).scrollTop() + 1);//fix bug with pulls away cursor in popup inputs for mobile Safari          
+
             $('body').addClass('m-no-scroll');
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
