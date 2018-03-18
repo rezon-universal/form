@@ -1846,12 +1846,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .vdp-datepicker__calendar header 
 {
 	display: block;
-	line-height: 40px;
+	line-height: 45px;
 }
 #rezon-forms .vdp-datepicker__calendar .up,
 #rezon-forms .vdp-datepicker__calendar .current 
 {
-    margin: 0 40px;
+    margin: 0 50px;
     text-align: center;
 }
 #rezon-forms .vdp-datepicker__calendar .prev,
@@ -1859,7 +1859,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     position: relative;
     text-indent: -10000px;
-    width: 40px;
+    width: 50px;
 }
 #rezon-forms .vdp-datepicker__calendar .prev 
 {
@@ -1885,7 +1885,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-left: 1px solid #26b6ff;
     border-bottom: 1px solid #26b6ff;
-    margin-left: -5px;
+    margin-left: -2px;
 }
 #rezon-forms .vdp-datepicker__calendar .prev.disabled:after 
 {
@@ -1896,7 +1896,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-top: 1px solid #26b6ff;
     border-right: 1px solid #26b6ff;
-    margin-left: -10px;
+    margin-left: -13px;
 }
 #rezon-forms .vdp-datepicker__calendar .next.disabled:after 
 {
@@ -1953,7 +1953,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
 #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover 
 {
-    border: 1px solid #26b6ff;
+    background: rgba(38, 182, 255, 0.5);
 }
 #rezon-forms .vdp-datepicker__calendar .cell.selected,
 #rezon-forms .vdp-datepicker__calendar .cell.selected:hover,
