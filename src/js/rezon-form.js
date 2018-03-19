@@ -651,8 +651,18 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            $(window).scrollTop($(window).scrollTop() + 1);//fix bug with pulls away cursor in popup inputs for mobile Safari          
+            //fix bug with pulls away cursor in popup inputs for mobile Safari          
+            // Detect ios 11_x_x affected  
+            // NEED TO BE UPDATED if new versions are affected
+            var ua = navigator.userAgent,
+                iOS = /iPad|iPhone|iPod/.test(ua),
+                iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
 
+            // ios 11 bug caret position
+            if (iOS && iOS11 ) {
+                $(window).scrollTop($(window).scrollTop() + 1).scrollTop($(window).scrollTop() - 1);
+            }
+            
             $('body').addClass('m-no-scroll');
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
@@ -1422,15 +1432,24 @@ var rezOnForm = function (form, o) {
                     }
                 }
 
+                var focusOnFirst = function () {
+                    var finder = carriersItem.find(".carriers-finder");
+                    if (finder.is(".g-hide")) return;
+                    if (!finder.find("[name='selectedAirCompany1']").val()) {
+                        carriersItem.find(".tt-input").first().focus();
+                    }
+                }
+                
                 if (isMobile) {
                     $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").show();
                     updateOpenedSelect(carriersItem.find(".carriers-finder"));
-
+                    focusOnFirst();
                 } else {
                     carriersItem.addClass("z-100").find(".carriers-finder.g-hide").slideDown(it._o.animationDelay, function () {
                         $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
                         updateOpenedSelect($(this));
+                        focusOnFirst();
                     });
                 }
                 it.extra.openField(field);

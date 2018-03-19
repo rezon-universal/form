@@ -2134,9 +2134,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         left: 22px;
     }
 }
-.carriers:focus{
-    background:red;
-}
 
 @media (max-width: 575px) 
 {
@@ -2305,7 +2302,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         justify-content: center;
         align-items: center;
     }
-    #rezon-forms .m-no-scroll 
+    .m-no-scroll 
     {
         position: fixed;
         width: 100%;
