@@ -250,7 +250,7 @@
                 </div>
             </div>
         </div>
-        <div class="field class">
+        <div class="field class" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.length > 0 ">
             <label class="hidden-xs menu-title">
                 {{locale("CLASS")}}
             </label>
@@ -258,26 +258,26 @@
                 <div class="book-class">
                     <div class="selectpicker standalone">
                         <div class="options">
-                            <div class="option" v-on:click="avia.bookClass=0">
+                            <div class="option"  v-on:click="avia.bookClass=0">
                                 <span>{{locale("FORM_CLASS_ANY")}}</span>
                                 <input type="radio" name="book_class" value="0" v-bind:checked="avia.bookClass==0" />
                             </div>
-                            <div class="option" v-on:click="avia.bookClass=1">
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(1) > -1"  v-on:click="avia.bookClass=1">
                                 <span>{{locale("FORM_CLASS_E")}}</span>
                                 <input type="radio" name="book_class" value="1" v-bind:checked="avia.bookClass==1"/>
                             </div>
-                            <!--<div class="option" v-on:click="avia.bookClass=4">
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(4) > -1" v-on:click="avia.bookClass=4">
                                 <span>{{locale("FORM_CLASS_W")}}</span>
                                 <input type="radio" name="book_class" value="4" v-bind:checked="avia.bookClass==4"/>
-                            </div>-->
-                            <div class="option" v-on:click="avia.bookClass=2">
+                            </div>
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(2) > -1" v-on:click="avia.bookClass=2">
                                 <span>{{locale("FORM_CLASS_B")}}</span>
                                 <input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2"/>
                             </div>
-                            <!--<div class="option" v-on:click="avia.bookClass=3">
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
                                 <span>{{locale("FORM_CLASS_F")}}</span>
                                 <input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3"/>
-                            </div>-->
+                            </div>
                         </div>
                     </div>
                 </div>
