@@ -71,6 +71,7 @@ var rezOnForm = function (form, o) {
             defaultAirportFrom: null, // IATA code, ex. IEV 
             defaultAirportTo: null, // IATA code, ex. IEV
             onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
+            enabledCabinClasses: null, // string cabinClasses, ex. "1,2" (Economy,Business)
             defaultDateThere: new Date(), // dd.MM.yyyy
             defaultDateBack: new Date(), // dd.MM.yyyy
             plusDaysShift: 1, // -1 - 10
