@@ -274,10 +274,10 @@
                                 <span>{{locale("FORM_CLASS_B")}}</span>
                                 <input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2"/>
                             </div>
-                            <!--<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
                                 <span>{{locale("FORM_CLASS_F")}}</span>
                                 <input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3"/>
-                            </div>-->
+                            </div>
                             <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(5) > -1" v-on:click="avia.bookClass=5">
                                 <span>{{locale("FORM_CLASS_P")}}</span>
                                 <input type="radio" name="book_class" value="5" v-bind:checked="avia.bookClass==5"/>
