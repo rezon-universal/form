@@ -46,6 +46,7 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype._form = undefined;
     rezOnForm.prototype._aviaForm = undefined;
     rezOnForm.prototype._railwayForm = undefined;
+    rezOnForm.prototype._busesForm = undefined;
 
     rezOnForm.prototype._locale = {};
     rezOnForm.prototype._o = {
@@ -61,7 +62,7 @@ var rezOnForm = function (form, o) {
 
         projectUrl: "/",
         defaultLang: "ru",
-        formType: "all", //avia|railway|all
+        formType: "all", //avia|railway|buses|all
         formTarget: "_blank",
         defaultFormTab: undefined,
         avia: {
@@ -101,6 +102,21 @@ var rezOnForm = function (form, o) {
             //end temp
         },
         railway: {
+            recStationsFrom: [],
+            recStationsTo: [],
+            historyGuid: '',
+            dateThere: new Date(),
+            dateBack: new Date(),
+            stationFrom: new StationItem(),
+            stationTo: new StationItem(),
+            timeThere: 0,
+            timeBack: 0,
+            dateRange: 0,
+            formTypes: [types[0], types[1]],
+            formType: types[0],
+            formExtended: false
+        },
+        buses: {
             recStationsFrom: [],
             recStationsTo: [],
             historyGuid: '',
@@ -189,6 +205,7 @@ var rezOnForm = function (form, o) {
                 "BY_EXACT_DATE": "по точной дате",
                 "FIND": "Найти",
                 "RAILWAY_PLACEHOLDER": "Введите название города или станции",
+                "BUSES_PLACEHOLDER": "Введите название города",
                 "SELECT_AIRPORT_FROM_LIST": "Выберите аэропорт из списка...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "Необходимо указать разные аэропорты для пунктов вылета и прилета...",
                 "SELECT_STATION_FROM_LIST": "Выберите станцию из списка...",
@@ -329,6 +346,7 @@ var rezOnForm = function (form, o) {
                 "BY_EXACT_DATE": "by exact date",
                 "FIND": "Find",
                 "RAILWAY_PLACEHOLDER": "Enter the name of the city or station",
+                "BUSES_PLACEHOLDER": "Enter the name of the city",
                 "SELECT_AIRPORT_FROM_LIST": "Select an airport from the list...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "You must specify different airports for departure and arrival points...",
                 "SELECT_STATION_FROM_LIST": "Select a station from the list...",
@@ -469,6 +487,7 @@ var rezOnForm = function (form, o) {
                 "BY_EXACT_DATE": "за точною датою",
                 "FIND": "Знайти",
                 "RAILWAY_PLACEHOLDER": "Введіть назву міста або станції",
+                "BUSES_PLACEHOLDER": "Введіть назву міста",
                 "SELECT_AIRPORT_FROM_LIST": "Виберіть аеропорт зі списку...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "Необхідно вказати різні аеропорти для пунктів вильоту і прильоту...",
                 "SELECT_STATION_FROM_LIST": "Виберіть станцію зі списку...",
@@ -791,6 +810,25 @@ var rezOnForm = function (form, o) {
             }
         });
     };
+    rezOnForm.prototype.dataWork.busStationsFinderData = function () {
+        return new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: it.extra.remoteUrl() + '/HelperAsync/LookupBusStations?query=',
+                rateLimitWait: 10,
+                replace: function (url, query) {
+                    return url + encodeURIComponent(query.replace(/[^a-zA-Zа-яА-ЯіїІЇ0-9]{1}/g, "_"));
+                },
+                filter: function (data) {
+                    return data;
+                }
+            }
+        });
+    };
+
 
     //Установка значений по-умолчанию
     rezOnForm.prototype.dataWork.setDefaults = function (o) {
@@ -874,6 +912,16 @@ var rezOnForm = function (form, o) {
         var ret = it.validation.stations();
         ret = rezOnForm.prototype.validation.dateRange(it._railwayForm) && ret;
         if (ret && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(it._railwayForm);
+        return ret;
+    }
+    //Валидация формы поиска автобусов
+    rezOnForm.prototype.validation.busForm = function () {
+    
+        //var ret = it.validation.stations();
+        //ret = rezOnForm.prototype.validation.dateRange(it._railwayForm) && ret;
+        //TODO!!!
+        var ret = true;
+        if (ret && typeof main !== 'undefined' && main.traintickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
 
@@ -1645,6 +1693,122 @@ var rezOnForm = function (form, o) {
         });
     }
 
+    rezOnForm.prototype.busesBind = function () {
+        // Поиск городов в основной форме
+        it._busesForm.find('.book-from, .book-to').typeahead({
+            minLength: 2
+        }, {
+            name: "bus-stations-" + it._o.defaultLang,
+            displayKey: 'value',
+            source: it.dataWork.busStationsFinderData.ttAdapter(),
+            display: function (data) {
+                return data != undefined ? data.Name : null;
+            },
+            templates: {
+                empty: [
+                    '<div class="templ-message">',
+                    it.extra.locale("NOTHING_FOUND") + '...',
+                    '</div>'
+                ].join('\n'),
+                suggestion: function (data) {
+                    var ret = [];
+                    if (!!data.countryName && !!data.countryCode) {
+                        ret.push(
+                        {
+                            key: $("<span class='country-separator'><small>" + data.countryName + " (" + data.countryCode + ")</small><span>"),
+                            value: undefined
+                        });
+                    }
+                    for (var stationIt = 0; stationIt < data.cities.length; stationIt++) {
+                        ret.push({
+                            key: data.cities[stationIt].CityName + " <small class='express-code'>" + data.cities[stationIt].CountryName + "</small>",
+                            value: {
+                                ExpressCode: data.cities[stationIt].CountryName,
+                                Name: data.cities[stationIt].CityName,
+                                CountryCode: data.CityName,
+                                CountryName: data.CountryCode
+                            }
+                        });
+                    }
+                    return ret;
+                }
+            }
+        }).keyup(function (e) {
+          
+        }).focus(function () {
+            var item = $(this).closest('.field');
+
+            it.extra.openField(item);
+            item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            if ($(this).is(".book-to") && $(this).val() === "") {
+                var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
+                $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
+            }
+        }).click(function () {
+            $(this).select();
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
+            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            var item = $(this).closest('.field');
+            it.extra.closeField(item);
+            return false;
+        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                var field = $(this).closest('.field.station');
+                var name = field.find(".inside input[type='hidden']").attr('name');
+               
+                it.extra.closeField(field);
+                vue.updateStationTypeAhead(name, datum);
+                if (!it.extra.mobileAndTabletcheck()) {
+                    switch (name) {
+                        case "tshi_station_from":
+                            var sib = field.closest("form").find("input[name='tshi_station_to']");
+                            if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                            break;
+                        case "tshi_station_to":
+                            //Focus TODO
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                                dp.focus();
+                            }, 100);
+                    }
+                }
+                //Hide mobile keyboard
+                $(this).blur();
+            }
+        }).on("typeahead:dropdown", function (its) {
+            var item = $(this).closest('.field');
+            it.extra.openField(item);
+
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find('.tt-dropdown-menu');
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css('max-height'));
+                var currHeight = parseFloat($(this).css('height'));
+                var totalHeight = height + currHeight;
+
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+            }).on("typeahead:dropup", function (its) {
+                if (rezOnForm.static.isInIframe()) {
+                    rezOnForm.static.recalculateHeightOnClose();
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+        }).on("typeahead:queryChanged", function (it, query) {
+
+        }).on("typeahead:updateHint", function (a, b) {
+            if (b) $(this).data("lastHist", b);
+            else $(this).removeData("lastHist");
+        });
+
+        //Отправка формы поиска ЖД билетов
+        it._busesForm.submit(function () {
+            return it.validation.busForm();
+        });
+    }
+
     // Установка всех локализаций
     rezOnForm.prototype.localeBind = function () {
         it._form.find("*[data-local='true']").each(function () {
@@ -1681,6 +1845,7 @@ var rezOnForm = function (form, o) {
         this._form = form;
         this._aviaForm = this._form.find("#avia-form-shoot");
         this._railwayForm = this._form.find("#railway-form-shoot");
+        this._busesForm = this._form.find("#buses-form-shoot");
 
         if (this._o.avia) for (var optionKey in this._o.avia) {
             if (this._aviaForm.attr("data-" + optionKey)) this._o.avia[optionKey] = this._aviaForm.attr("data-" + optionKey);
@@ -1707,7 +1872,7 @@ var rezOnForm = function (form, o) {
 
         var neededTabs = [];
         if (this._o.formType != "all") neededTabs.push(this._o.formType);
-        else neededTabs = ["avia", "railway"];
+        else neededTabs = ["avia", "railway", "buses"];
 
         if (neededTabs.length > 1) {
             this._form.find(".rez-forms-links").removeClass("g-hide");
@@ -1748,6 +1913,20 @@ var rezOnForm = function (form, o) {
                     if (this._o.projectUrl != "/")
                         this._railwayForm.attr("method", "POST")
                             .attr("action", this.extra.remoteUrl() + "/RailwayTickets/ModuleSearch")
+                            .attr("target", this._o.formTarget || "_blank");
+                    break;
+                case "buses":
+                    this._form.find(".rez-forms-links a.rez-form-link[href='#" + this._busesForm.attr("id") + "']").removeClass("g-hide").addClass(frstTab == neededTabs[n] ? "active" : "");
+                    if (neededTabs.length == 1 || frstTab == neededTabs[n]) this._busesForm.removeClass("g-hide");
+
+                    this.dataWork.busStationsFinderData = this.dataWork.busStationsFinderData();
+                    this.dataWork.busStationsFinderData.initialize();
+
+                    this.busesBind();
+
+                    if (this._o.projectUrl != "/")
+                        this._railwayForm.attr("method", "POST")
+                            .attr("action", this.extra.remoteUrl() + "/BusTickets/ModuleSearch")
                             .attr("target", this._o.formTarget || "_blank");
                     break;
             }
@@ -1807,6 +1986,18 @@ rezOnForm.static.prepareAviaSearchParams = function (params) {
 }
 
 rezOnForm.static.prepareRailSearchParams = function (params) {
+    if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
+        var dateThere = new Date(params.dateThere);
+        params.dateThere = dateThere;
+    }
+    if (params.dateBack !== undefined && params.dateBack !== null && params.dateBack.trim() !== '') {
+        var dateBack = new Date(params.dateBack);
+        params.dateBack = dateBack;
+    }
+    return params;
+}
+
+rezOnForm.static.prepareBusSearchParams = function (params) {
     if (params.dateThere !== undefined && params.dateThere !== null && params.dateThere.trim() !== '') {
         var dateThere = new Date(params.dateThere);
         params.dateThere = dateThere;
@@ -2139,6 +2330,109 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             vue.$on('stationUpdate', function (name, station) {
                 if (comp.name === name) {
                     comp.updateRailItem(station);
+                }
+            });
+        }
+    });
+
+    Vue.component('busesInput', {
+        template: ' <div class="inside">' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="BUSES_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<div class="express">' +
+            '{{item.Code}}' +
+            '</div>' +
+            '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
+            '<input type="hidden" :name="name" v-model="item.Code"/>' +
+            '</div>',
+        props: {
+            name: {
+                type: String
+            },
+            value: {
+                type: Object
+            },
+            inputClass:
+            {
+                type: String
+            },
+            placeholder: {
+                type: String,
+                default: "BUSES_PLACEHOLDER"
+            }
+        },
+        computed: {
+            inputClasses: function () {
+                var input = $(this.$el).find('input:not(.tt-hint).' + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(' ');
+                }
+
+                if (this.item.Name === null || this.item.Name === undefined || this.item.Name.trim() === '') {
+                    if (classes.indexOf('isEmpty')<=0) {
+                        classes.push('isEmpty');
+                    }
+                } else {
+                    var index = classes.indexOf('isEmpty');
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+
+                return classes.join(' ');
+            }
+        },
+        watch: {
+            value: {
+                handler: function (newValue) {
+                    this.item = newValue;
+
+                    var comp = this;
+                    Vue.nextTick(function () {
+                        //Update typeahead
+                        var el = comp.$el;
+                        var selector = comp.inputClass;
+                        $(el).find('.' + selector).typeahead('val', newValue.Name);
+                    });
+                },
+                deep: true
+            }
+        },
+        data: function () {
+            return {
+                item: this.value
+            }
+        },
+        methods: {
+            updateBusItem: function (newValue) {
+                this.item = newValue;
+                this.$emit('input', this.item);
+            },
+            clearItem: function () {
+                this.item = new StationItem();
+                this.$emit('input', this.item);
+                var comp = this;
+                Vue.nextTick(function () {
+                    //Update typeahead
+                    var el = comp.$el;
+                    var selector = comp.inputClass;
+                    $(el).find('.' + selector).typeahead('val', '');
+                });
+            },
+            checkItem: function (event) {
+                if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    this.item.Code = '';
+                    this.$emit('input', this.item);
+                }
+            }
+        },
+        created: function () {
+            var comp = this;
+            vue.$on('stationUpdate', function (name, station) {
+                if (comp.name === name) {
+                    comp.updateBusItem(station);
                 }
             });
         }
@@ -2650,6 +2944,42 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.railway.historyGuid !== undefined &&
                     this.railway.historyGuid !== null &&
                     this.railway.historyGuid.trim() !== '';            
+            },
+            //Buses methods
+            changeBusFormExtended: function () {
+                this.buses.formExtended = !this.buses.formExtended;
+            },
+            updateStationTypeAhead: function (name, data) {
+                var stationItem = new StationItem(data.ExpressCode, data.Name, data.CountryCode, data.CountryName);
+                vue.$emit('stationUpdate', name, stationItem);
+            },
+            swapBusDest: function () {
+                var to = this.buses.stationFrom;
+                var from = this.buses.stationTo;
+                this.buses.stationFrom = from;
+                this.buses.stationTo = to;
+            },
+            clearBusForm: function () {
+                this.buses.dateThere = new Date();
+                this.buses.dateBack = new Date();
+                this.buses.stationFrom = new StationItem();
+                this.buses.stationTo = new StationItem();
+                this.buses.timeThere = 0;
+                this.buses.timeBack = 0;
+                this.buses.dateRange = 0;
+                var model = this;
+                Vue.nextTick(function () {
+                    // DOM updated
+                    model.updateHtmlElements();
+                });
+            },
+            busTypeChanged: function (index) {
+                this.buses.formType = this.buses.formTypes[index];
+            },
+            hasRailResult: function () {
+                return this.buses.historyGuid !== undefined &&
+                    this.buses.historyGuid !== null &&
+                    this.buses.historyGuid.trim() !== '';            
             }
         },
         watch: {
