@@ -32,6 +32,12 @@ function StationItem(code, name, countryCode, countryName) {
     this.CountryCode = countryCode;
     this.CountryName = countryName;
 }
+function CityItem(id, name, countryCode, countryName) {
+    this.Id = id;
+    this.Name = name;
+    this.CountryCode = countryCode;
+    this.CountryName = countryName;
+}
 var types = [new DirectionType('oneway', 'ONE_WAY'), new DirectionType('roundtrip', 'ROUND_TRIP'), new DirectionType('route', 'MULTY_ROUTE')];
 var passTypes = [
                     new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
@@ -57,7 +63,9 @@ var rezOnForm = function (form, o) {
             airMinDate: null,
             airMaxDate: null,
             trainsMinDate: null,
-            trainsMaxDate: null
+            trainsMaxDate: null,
+            busesMinDate: null,
+            busesMaxDate: null
         },
 
         projectUrl: "/",
@@ -117,13 +125,13 @@ var rezOnForm = function (form, o) {
             formExtended: false
         },
         buses: {
-            recStationsFrom: [],
-            recStationsTo: [],
+            recCityFrom: [],
+            recCityTo: [],
             historyGuid: '',
             dateThere: new Date(),
             dateBack: new Date(),
-            stationFrom: new StationItem(),
-            stationTo: new StationItem(),
+            cityFrom: new CityItem(),
+            cityTo: new CityItem(),
             timeThere: 0,
             timeBack: 0,
             dateRange: 0,
@@ -209,7 +217,9 @@ var rezOnForm = function (form, o) {
                 "SELECT_AIRPORT_FROM_LIST": "Выберите аэропорт из списка...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "Необходимо указать разные аэропорты для пунктов вылета и прилета...",
                 "SELECT_STATION_FROM_LIST": "Выберите станцию из списка...",
+                "SELECT_CITY_FROM_LIST": "Выберите город из списка...",
                 "NEED_TO_SELECT_DIFFERENT_STATIONS": "Необходимо указать разные станции для пунктов отправления и прибытия...",
+                "NEED_TO_SELECT_DIFFERENT_CITIES": "Необходимо указать разные города для пунктов отправления и прибытия...",
                 "NOTHING_FOUND": "Ничего не найдено",
                 "PASS_CAT_INF": "Младенец",
                 "PASS_CAT_INF_NS_DESC": "без места до 2 лет",
@@ -350,7 +360,9 @@ var rezOnForm = function (form, o) {
                 "SELECT_AIRPORT_FROM_LIST": "Select an airport from the list...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "You must specify different airports for departure and arrival points...",
                 "SELECT_STATION_FROM_LIST": "Select a station from the list...",
+                "SELECT_CITY_FROM_LIST": "Select a city from the list...",
                 "NEED_TO_SELECT_DIFFERENT_STATIONS": "You must specify different stations for departure and arrival points...",
+                "NEED_TO_SELECT_DIFFERENT_CITIES": "You must specify different cities for departure and arrival points...",
                 "NOTHING_FOUND": "Nothing found",
                 "PASS_CAT_INF": "Infant",
                 "PASS_CAT_INF_NS_DESC": "without seat, up to 2 years",
@@ -491,7 +503,9 @@ var rezOnForm = function (form, o) {
                 "SELECT_AIRPORT_FROM_LIST": "Виберіть аеропорт зі списку...",
                 "NEED_TO_SELECT_DIFFERENT_AIRPORTS": "Необхідно вказати різні аеропорти для пунктів вильоту і прильоту...",
                 "SELECT_STATION_FROM_LIST": "Виберіть станцію зі списку...",
+                "SELECT_CITY_FROM_LIST": "Виберіть місто зі списку...",
                 "NEED_TO_SELECT_DIFFERENT_STATIONS": "Необхідно вказати різні станції для пунктів відправлення та прибуття...",
+                "NEED_TO_SELECT_DIFFERENT_CITIES": "Необхідно вказати різні міста для пунктів відправлення та прибуття...",
                 "NOTHING_FOUND": "Нічого не знайдено",
                 "PASS_CAT_INF": "Немовля",
                 "PASS_CAT_INF_NS_DESC": "без місця до 2 років",
@@ -810,7 +824,8 @@ var rezOnForm = function (form, o) {
             }
         });
     };
-    rezOnForm.prototype.dataWork.busStationsFinderData = function () {
+
+    rezOnForm.prototype.dataWork.busCitiesFinderData = function () {
         return new Bloodhound({
             datumTokenizer: function (datum) {
                 return Bloodhound.tokenizers.whitespace(datum.value);
@@ -917,11 +932,10 @@ var rezOnForm = function (form, o) {
     //Валидация формы поиска автобусов
     rezOnForm.prototype.validation.busForm = function () {
     
-        //var ret = it.validation.stations();
-        //ret = rezOnForm.prototype.validation.dateRange(it._railwayForm) && ret;
+        var ret = it.validation.cities();
+        ret = rezOnForm.prototype.validation.dateRange(it._busesForm) && ret;
         //TODO!!!
-        var ret = true;
-        if (ret && typeof main !== 'undefined' && main.traintickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(it._busesForm);
+        if (ret && typeof main !== 'undefined' && main.bustickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
 
@@ -940,6 +954,26 @@ var rezOnForm = function (form, o) {
             ret = false;
         } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val())) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
+            ret = false;
+        }
+        return ret;
+    }    
+
+    //Проверка городов отправления / прибытия
+    rezOnForm.prototype.validation.cities = function () {
+        var ret = true;
+        var inpFrom = it._busesForm.find("input[name='CityIdFrom']").first();
+        var inpTo = it._busesForm.find("input[name='CityIdTo']").first();
+
+        if ($.trim(inpFrom.val()) === "" || inpFrom.val() === "&nbsp;") {
+            inpFrom.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
+            ret = false;
+        }
+        if ($.trim(inpTo.val()) === "" || inpTo.val() === "&nbsp;") {
+            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
+            ret = false;
+        } else if ($.trim(inpFrom.val()) === $.trim(inpTo.val())) {
+            inpTo.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("NEED_TO_SELECT_DIFFERENT_CITIES", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             ret = false;
         }
         return ret;
@@ -1698,9 +1732,9 @@ var rezOnForm = function (form, o) {
         it._busesForm.find('.book-from, .book-to').typeahead({
             minLength: 2
         }, {
-            name: "bus-stations-" + it._o.defaultLang,
+            name: "bus-cities-" + it._o.defaultLang,
             displayKey: 'value',
-            source: it.dataWork.busStationsFinderData.ttAdapter(),
+            source: it.dataWork.busCitiesFinderData.ttAdapter(),
             display: function (data) {
                 return data != undefined ? data.Name : null;
             },
@@ -1719,14 +1753,14 @@ var rezOnForm = function (form, o) {
                             value: undefined
                         });
                     }
-                    for (var stationIt = 0; stationIt < data.cities.length; stationIt++) {
+                    for (var cityIt = 0; cityIt < data.cities.length; cityIt++) {
                         ret.push({
-                            key: data.cities[stationIt].CityName + " <small class='express-code'>" + data.cities[stationIt].CountryName + "</small>",
+                            key: data.cities[cityIt].CityName + " <small class='express-code'>" + data.cities[cityIt].CountryName + "</small>",
                             value: {
-                                ExpressCode: data.cities[stationIt].CountryName,
-                                Name: data.cities[stationIt].CityName,
-                                CountryCode: data.CityName,
-                                CountryName: data.CountryCode
+                                Id: data.cities[cityIt].Id,
+                                Name: data.cities[cityIt].CityName,
+                                CountryCode: data.cities[cityIt].CountryName,
+                                CountryName: data.cities[cityIt].CountryCode
                             }
                         });
                     }
@@ -1742,8 +1776,8 @@ var rezOnForm = function (form, o) {
             item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             if ($(this).is(".book-to") && $(this).val() === "") {
-                var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
-                $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
+                var fromCity = it._busesForm.find("[name='CityIdFrom']").val();
+                $.trim(fromCity) !== "" && $(this).typeahead('query', "fromCity_" + fromCity);
             }
         }).click(function () {
             $(this).select();
@@ -1759,16 +1793,16 @@ var rezOnForm = function (form, o) {
                 var name = field.find(".inside input[type='hidden']").attr('name');
                
                 it.extra.closeField(field);
-                vue.updateStationTypeAhead(name, datum);
+                vue.updateCityTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
                     switch (name) {
-                        case "tshi_station_from":
-                            var sib = field.closest("form").find("input[name='tshi_station_to']");
-                            if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                        case "CityIdFrom":
+                            var sib = field.closest("form").find("input[name='CityIdFrom']");
+                            if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                             break;
-                        case "tshi_station_to":
+                        case "CityIdTo":
                             //Focus TODO
-                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CityIdTo']");
                             setTimeout(function () {
                                 dp.focus();
                             }, 100);
@@ -1803,7 +1837,7 @@ var rezOnForm = function (form, o) {
             else $(this).removeData("lastHist");
         });
 
-        //Отправка формы поиска ЖД билетов
+        //Отправка формы поиска автобусов
         it._busesForm.submit(function () {
             return it.validation.busForm();
         });
@@ -1852,6 +1886,9 @@ var rezOnForm = function (form, o) {
         }
         if (this._o.railway) for (var optionKey in this._o.railway) {
             if (this._railwayForm.attr("data-" + optionKey)) this._o.railway[optionKey] = this._railwayForm.attr("data-" + optionKey);
+        }
+        if (this._o.buses) for (var optionKey in this._o.buses) {
+            if (this._busesForm.attr("data-" + optionKey)) this._o.buses[optionKey] = this._busesForm.attr("data-" + optionKey);
         }
 
         var timeOutId;
@@ -1917,15 +1954,15 @@ var rezOnForm = function (form, o) {
                     break;
                 case "buses":
                     this._form.find(".rez-forms-links a.rez-form-link[href='#" + this._busesForm.attr("id") + "']").removeClass("g-hide").addClass(frstTab == neededTabs[n] ? "active" : "");
-                    if (neededTabs.length == 1 || frstTab == neededTabs[n]) this._busesForm.removeClass("g-hide");
+                    if (neededTabs.length === 1 || frstTab === neededTabs[n]) this._busesForm.removeClass("g-hide");
 
-                    this.dataWork.busStationsFinderData = this.dataWork.busStationsFinderData();
-                    this.dataWork.busStationsFinderData.initialize();
+                    this.dataWork.busCitiesFinderData = this.dataWork.busCitiesFinderData();
+                    this.dataWork.busCitiesFinderData.initialize();
 
                     this.busesBind();
 
-                    if (this._o.projectUrl != "/")
-                        this._railwayForm.attr("method", "POST")
+                    if (this._o.projectUrl !== "/")
+                        this._busesForm.attr("method", "POST")
                             .attr("action", this.extra.remoteUrl() + "/BusTickets/ModuleSearch")
                             .attr("target", this._o.formTarget || "_blank");
                     break;
@@ -2342,7 +2379,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             '{{item.Code}}' +
             '</div>' +
             '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
-            '<input type="hidden" :name="name" v-model="item.Code"/>' +
+            '<input type="hidden" :name="name" v-model="item.Id"/>' +
             '</div>',
         props: {
             name: {
@@ -2411,7 +2448,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.$emit('input', this.item);
             },
             clearItem: function () {
-                this.item = new StationItem();
+                this.item = new CityItem();
                 this.$emit('input', this.item);
                 var comp = this;
                 Vue.nextTick(function () {
@@ -2430,9 +2467,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         },
         created: function () {
             var comp = this;
-            vue.$on('stationUpdate', function (name, station) {
+            vue.$on("cityUpdate", function (name, city) {
                 if (comp.name === name) {
-                    comp.updateBusItem(station);
+                    comp.updateBusItem(city);
                 }
             });
         }
@@ -2463,6 +2500,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                             }
                         }
                         break;
+                    case "buses":
+                        if (vue.railway.formType.value === "roundtrip") {
+                            highlighted = {
+                                from: this.dateFrom,
+                                to: this.dateTo
+                            }
+                        }
+                        break;
                 }
                 return highlighted;
             },
@@ -2479,6 +2524,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                         disabled = {
                             to: this.minDate !== undefined ? this.minDate : vue.dates.trainsMinDate,
                             from: this.maxDate !== undefined ? this.maxDate : vue.dates.trainsMaxDate
+                        }
+                        break;
+                    case "buses":
+                        disabled = {
+                            to: this.minDate !== undefined ? this.minDate : vue.dates.busesMinDate,
+                            from: this.maxDate !== undefined ? this.maxDate : vue.dates.busesMaxDate
                         }
                         break;
                 }
@@ -2701,6 +2752,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 trainsMaxDate.setDate(trainsMaxDate.getDate() + 44);
                 return trainsMaxDate;
             },
+            busesMinDate: function () {
+                var busesMinDate = new Date(this.today.getTime());
+                return busesMinDate;
+            },
+            busesMaxDate: function () {
+                var busesMaxDate = new Date(this.today.getTime());
+                busesMaxDate.setDate(busesMaxDate.getDate() + 44);
+                return busesMaxDate;
+            },
             aviaDefaultDateThere: function() {
                 var defaultDateThere = new Date();
                 defaultDateThere.setDate(defaultDateThere.getDate() + 7);
@@ -2719,6 +2779,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var railwayDateBack = new Date(this.today.getTime());
                 railwayDateBack.setDate(railwayDateBack.getDate() + 2);
                 return railwayDateBack;
+            },
+            busesDateThere: function() {
+                var busesDateThere = new Date(this.today.getTime());
+                return busesDateThere;
+            },
+            busesDateBack: function () {
+                var busesDateBack = new Date(this.today.getTime());
+                busesDateBack.setDate(busesDateBack.getDate() + 2);
+                return busesDateBack;
             }
             
         },
@@ -2949,21 +3018,21 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             changeBusFormExtended: function () {
                 this.buses.formExtended = !this.buses.formExtended;
             },
-            updateStationTypeAhead: function (name, data) {
-                var stationItem = new StationItem(data.ExpressCode, data.Name, data.CountryCode, data.CountryName);
-                vue.$emit('stationUpdate', name, stationItem);
+            updateCityTypeAhead: function (name, data) {
+                var cityItem = new CityItem(data.Id, data.Name, data.CountryCode, data.CountryName);
+                vue.$emit("cityUpdate", name, cityItem);
             },
             swapBusDest: function () {
-                var to = this.buses.stationFrom;
-                var from = this.buses.stationTo;
-                this.buses.stationFrom = from;
-                this.buses.stationTo = to;
+                var to = this.buses.cityFrom;
+                var from = this.buses.cityTo;
+                this.buses.cityFrom = from;
+                this.buses.cityTo = to;
             },
             clearBusForm: function () {
                 this.buses.dateThere = new Date();
                 this.buses.dateBack = new Date();
-                this.buses.stationFrom = new StationItem();
-                this.buses.stationTo = new StationItem();
+                this.buses.cityFrom = new CityItem();
+                this.buses.cityTo = new CityItem();
                 this.buses.timeThere = 0;
                 this.buses.timeBack = 0;
                 this.buses.dateRange = 0;
@@ -2976,7 +3045,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             busTypeChanged: function (index) {
                 this.buses.formType = this.buses.formTypes[index];
             },
-            hasRailResult: function () {
+            hasBusResult: function () {
                 return this.buses.historyGuid !== undefined &&
                     this.buses.historyGuid !== null &&
                     this.buses.historyGuid.trim() !== '';            
@@ -3027,6 +3096,28 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value < this.dates.trainsMinDate) {
                     this.railway.dateBack = this.dates.trainsMinDate;
                 }
+            },
+            'buses.dateThere': function (value) {
+                if (value > this.buses.dateBack) {
+                    this.buses.dateBack = value;
+                }
+                if (value > this.dates.busesMaxDate) {
+                    this.buses.dateThere = this.dates.busesMaxDate;
+                }
+                if (value < this.dates.busesMinDate) {
+                    this.buses.dateThere = this.dates.busesMinDate;
+                }
+            },
+            'buses.dateBack': function (value) {
+                if (value < this.buses.dateThere) {
+                    this.buses.dateThere = value;
+                }
+                if (value > this.dates.trainsMaxDate) {
+                    this.buses.dateBack = this.dates.trainsMaxDate;
+                }
+                if (value < this.dates.trainsMinDate) {
+                    this.buses.dateBack = this.dates.trainsMinDate;
+                }
             }
         },
         created: function () {
@@ -3035,6 +3126,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             this.dates.airMaxDate = this.airMaxDate;
             this.dates.trainsMinDate = this.trainsMinDate;
             this.dates.trainsMaxDate = this.trainsMaxDate;
+            this.dates.busesMinDate = this.busesMinDate;
+            this.dates.busesMaxDate = this.busesMaxDate;
             if (this.formType==='avia' && !this.hasAviaResult()) {
                 this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 this.avia.defaultDateBack = this.aviaDefaultDateBack;
@@ -3042,6 +3135,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             if (this.formType === 'railway' && !this.hasRailResult()) {
                 this.railway.dateThere = this.railwayDateThere;
                 this.railway.dateBack = this.railwayDateBack;
+            }
+            if (this.formType === 'buses' && !this.hasBusResult()) {
+                this.buses.dateThere = this.busesDateThere;
+                this.buses.dateBack = this.busesDateBack;
             }
            
             window.vue = this;

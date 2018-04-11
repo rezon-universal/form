@@ -16,7 +16,7 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <buses-input name="tshi_station_from" input-class="book-from" v-model="buses.stationFrom" :placeholder="locale('BUSES_PLACEHOLDER')" input-class="book-from"></buses-input>
+                <buses-input name="CityIdFrom" input-class="book-from" v-model="buses.cityFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
                 <div class="error-box"></div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <buses-input name="tshi_station_to" input-class="book-to" v-model="buses.stationTo" :placeholder="locale('BUSES_PLACEHOLDER')" input-class="book-from"></buses-input>
+                <buses-input name="CityIdTo" input-class="book-to" v-model="buses.cityTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
                 <div class="error-box"></div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateThere" name="book_from_date" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateThere" name="DateThere" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack"></datepicker>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateBack" name="book_to_date" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack" v-if="buses.formType.value==='roundtrip'"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateBack" name="DateBack" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack" v-if="buses.formType.value==='roundtrip'"></datepicker>
                     <span class="roundtrip_click" v-on:click="busTypeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 </div>
             </div>
         </div>-->
-        <div class="field range">
+        <!--<div class="field range">
             <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
                 {{locale("SEARCH")}}
             </label>
@@ -147,11 +147,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
-        <div class="field hide_s">
+        <!--<div class="field hide_s">
             <div class="transp" v-on:click="changebusFormExtended()">
                 <div class="hide_settings dashed">
                     <div class="simple_search">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="field clear ">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearbusForm()">
