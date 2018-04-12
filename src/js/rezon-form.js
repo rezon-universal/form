@@ -127,6 +127,11 @@ var rezOnForm = function (form, o) {
         buses: {
             recCityFrom: [],
             recCityTo: [],
+            passengers: {
+                types: passTypes,
+                hasError: false,
+                messages: []
+            },
             historyGuid: '',
             dateThere: new Date(),
             dateBack: new Date(),
@@ -1837,6 +1842,58 @@ var rezOnForm = function (form, o) {
             else $(this).removeData("lastHist");
         });
 
+        //Passengers menu
+        it._busesForm.find(".passengers > .switch-box .switch").click(function () {
+            var selectAge = it._busesForm.find(".select-age");
+            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+            var field = $(this).closest('.field');
+
+            if ($(this).is(".opened")) {
+                $(this).removeClass("opened");
+                it.extra.closeField(field);
+
+                var updatingClosedSelect = function (el) {
+                    el.addClass("g-hide");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnClose();
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    }
+                };
+                if (isMobile) {
+                    selectAge.fadeOut(it._o.animationDelay, function () {
+                        updatingClosedSelect($(this));
+                    });
+                } else {
+                    selectAge.slideUp(it._o.animationDelay, function () {
+                        updatingClosedSelect($(this));
+                    });
+                }
+
+            } else {
+                it.extra.openField(field);
+                $(this).addClass("opened");
+
+                var updatingOpenSelect = function (el) {
+                    el.removeClass("g-hide");
+                    if (rezOnForm.static.isInIframe()) {
+                        rezOnForm.static.recalculateHeightOnOpen(el);
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    }
+                    el.focus();
+                };
+
+                if (isMobile) {
+                    selectAge.fadeIn(it._o.animationDelay, function () {
+                        updatingOpenSelect($(this));
+                    });
+                } else {
+                    selectAge.slideDown(it._o.animationDelay, function () {
+                        updatingOpenSelect($(this));
+                    });
+                }
+            }
+        });
+
         //Отправка формы поиска автобусов
         it._busesForm.submit(function () {
             return it.validation.busForm();
@@ -2728,6 +2785,88 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
                 return count + " " + this.locale(str);
             },
+            passStringBuses: function () {
+                var oneCategory = true;
+                var cat = "";
+                var count = 0;
+
+                this.buses.passengers.types.forEach(function (value) {
+                    count += value.count;
+                    if (value.count > 0) {
+                        if (cat === "") {
+                            cat = value.name;
+                        } else {
+                            oneCategory = cat === value.name;
+                        }
+                    }
+                });
+
+                var str = "";
+                var oneNumber = cat, zeroNumber = cat, fourNumber = cat;
+                if (oneCategory) {
+                    switch (cat) {
+                        case "psgInfantsCnt":
+                            oneNumber = "PASS_CAT_INF_NS_1";
+                            zeroNumber = "PASS_CAT_INF_NS_0";
+                            fourNumber = "PASS_CAT_INF_NS_4";
+                            break;
+                        case "psgInfantsNSCnt":
+                            oneNumber = "PASS_CAT_INF_WS_1";
+                            zeroNumber = "PASS_CAT_INF_WS_0";
+                            fourNumber = "PASS_CAT_INF_WS_4";
+                            break;
+                        case "psgKidsCnt":
+                            oneNumber = "PASS_CAT_CNN_1";
+                            zeroNumber = "PASS_CAT_CNN_0";
+                            fourNumber = "PASS_CAT_CNN_4";
+                            break;
+                        case "psgYouthCnt":
+                            oneNumber = "PASS_CAT_YTH_1";
+                            zeroNumber = "PASS_CAT_YTH_0";
+                            fourNumber = "PASS_CAT_YTH_0";
+                            break;
+                        case "psgAdultsCnt":
+                            oneNumber = "PASS_CAT_ADT_1";
+                            zeroNumber = "PASS_CAT_ADT_0";
+                            fourNumber = "PASS_CAT_ADT_0";
+                            break;
+                        case "psgOldCnt":
+                            oneNumber = "PASS_CAT_SNN_1";
+                            zeroNumber = "PASS_CAT_SNN_0";
+                            fourNumber = "PASS_CAT_SNN_0";
+                            break;
+                    }
+                } else {
+                    oneNumber = "C_PASSENGER";
+                    zeroNumber = "C_PASSENGERS";
+                    fourNumber = "C_PASSEGNERS2";
+                }
+                if (count === 0 || (count >= 5 && count <= 20)) {
+                    //вариантов
+                    str += zeroNumber;
+                } else {
+                    switch (count % 10) {
+                        case 1:
+                            //вариант
+                            str += oneNumber;
+                            break;
+                        case 2:
+                        case 3:
+                        case 4:
+                            //варианта
+                            str += fourNumber;
+                            break;
+                        default:
+                            str += zeroNumber;
+                            break;
+                    }
+                }
+                if (count === 0) {
+                    str = "SPECIFY_PASSENGERS";
+                    return this.locale(str);
+                }
+                return count + " " + this.locale(str);
+            },
             today: function() {
                 var todayDate = new Date();
                 todayDate.setHours(0, 0, 0, 0);
@@ -3036,6 +3175,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.buses.timeThere = 0;
                 this.buses.timeBack = 0;
                 this.buses.dateRange = 0;
+                this.buses.passengers.types.forEach(function (value, index) {
+                    if (value.name === 'psgAdultsCnt') {
+                        value.count = 1;
+                    } else {
+                        value.count = 0;
+                    }
+                });
+                this.buses.passengers.hasError = false;
+                this.buses.passengers.messages = [];
                 var model = this;
                 Vue.nextTick(function () {
                     // DOM updated
