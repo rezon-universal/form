@@ -888,6 +888,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     font-size: 12px;
     line-height: 45px;
 	text-align: center;
+    cursor: pointer;
 }
 #rezon-forms .button-hide span 
 {
@@ -1845,12 +1846,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .vdp-datepicker__calendar header 
 {
 	display: block;
-	line-height: 40px;
+	line-height: 45px;
 }
 #rezon-forms .vdp-datepicker__calendar .up,
 #rezon-forms .vdp-datepicker__calendar .current 
 {
-    margin: 0 40px;
+    margin: 0 50px;
     text-align: center;
 }
 #rezon-forms .vdp-datepicker__calendar .prev,
@@ -1858,7 +1859,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     position: relative;
     text-indent: -10000px;
-    width: 40px;
+    width: 50px;
 }
 #rezon-forms .vdp-datepicker__calendar .prev 
 {
@@ -1884,7 +1885,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-left: 1px solid #26b6ff;
     border-bottom: 1px solid #26b6ff;
-    margin-left: -5px;
+    margin-left: -2px;
 }
 #rezon-forms .vdp-datepicker__calendar .prev.disabled:after 
 {
@@ -1895,7 +1896,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-top: 1px solid #26b6ff;
     border-right: 1px solid #26b6ff;
-    margin-left: -10px;
+    margin-left: -13px;
 }
 #rezon-forms .vdp-datepicker__calendar .next.disabled:after 
 {
@@ -1952,7 +1953,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
 #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover 
 {
-    border: 1px solid #26b6ff;
+    background: rgba(38, 182, 255, 0.5);
 }
 #rezon-forms .vdp-datepicker__calendar .cell.selected,
 #rezon-forms .vdp-datepicker__calendar .cell.selected:hover,
@@ -2133,9 +2134,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         left: 22px;
     }
 }
-.carriers:focus{
-    background:red;
-}
 
 @media (max-width: 575px) 
 {
@@ -2212,6 +2210,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .fields-container .field.station.opened .twitter-typeahead 
     {
         height: 100%;
+    }
+    #rezon-forms .fields-container .field.airport.opened .delete,
+    #rezon-forms .fields-container .field.station.opened .delete
+    {
+        display: none;
     }
     #rezon-forms .tt-dropdown-menu,
     #rezon-forms .carriers-finder 
@@ -2299,7 +2302,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         justify-content: center;
         align-items: center;
     }
-    #rezon-forms .m-no-scroll 
+    .m-no-scroll 
     {
         position: fixed;
         width: 100%;
@@ -2518,7 +2521,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .swap 
     {
         margin-bottom: -17px;
-        margin-left: -70px;
+        margin-left: -74px;
         transform: rotate(90deg);
         -webkit-transform: rotate(90deg);
         z-index: 3;
