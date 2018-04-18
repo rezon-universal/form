@@ -2114,11 +2114,12 @@ rezOnForm.static.prepareBusSearchParams = function (params) {
     if (!!params.dateBack && params.dateBack.trim() !== '')
         params.dateBack = new Date(params.dateBack);
 
-    if (!!params.cityIdFrom && params.cityIdFrom.trim() !== '')
-        params.cityFrom = new CityItem(params.cityIdFrom, params.cityIdFrom, params.cityIdFrom, params.cityIdFrom);
+    if (!!params.CityFrom)
+        params.cityFrom = new CityItem(params.CityFrom.Id, params.CityFrom.Name, params.CityFrom.CountryCode, params.CityFrom.CountryName);
 
-    if (!!params.cityIdTo && params.cityIdTo.trim() !== '')
-        params.cityTo = new CityItem(params.cityIdTo, params.cityIdTo, params.cityIdTo, params.cityIdTo);
+    if (!!params.CityTo)
+        params.cityTo = new CityItem(params.CityTo.Id, params.CityTo.Name, params.CityTo.CountryCode, params.CityTo.CountryName);
+
 
     return params;
 }
