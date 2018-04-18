@@ -1,5 +1,6 @@
 <form class="g-hide unload" role="form" id="buses-form-shoot" autocomplete="off">
     <input type="hidden" name="HistoryGuid" :value="buses.historyGuid"/>
+    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
     <div class="row">
         <div class="direct radio-group">
             <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">

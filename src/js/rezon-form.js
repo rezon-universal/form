@@ -951,7 +951,8 @@ var rezOnForm = function (form, o) {
         var ret = it.validation.cities();
         ret = rezOnForm.prototype.validation.dateRange(it._busesForm) && ret;
         //TODO!!!
-        if (ret && typeof main !== 'undefined' && main.bustickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(it._busesForm);
+        if (ret && typeof main !== 'undefined' && main.bustickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined)
+            return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
 
