@@ -2121,6 +2121,19 @@ rezOnForm.static.prepareBusSearchParams = function (params) {
     if (!!params.CityTo)
         params.cityTo = new CityItem(params.CityTo.Id, params.CityTo.Name, params.CityTo.CountryCode, params.CityTo.CountryName);
 
+    if (!!params.ticketCount) {
+        params.passengers = {
+            types: passTypes,
+            hasError: false,
+            messages: []
+        }
+        params.passengers.types[4] = new PassItem("psgAdultsCnt", "PASS_CAT_ADT", "PASS_CAT_ADT_DESC", params.ticketCount);
+    }
+    if (!!params.formType)
+        if (params.formType.Value === "roundTrip")
+            params.formType = types[1];
+        else
+            params.formType = types[0];
 
     return params;
 }
