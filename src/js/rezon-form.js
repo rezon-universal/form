@@ -2939,6 +2939,16 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 busesMaxDate.setDate(busesMaxDate.getDate() + 44);
                 return busesMaxDate;
             },
+            busesDefaultDateThere: function () {
+                var defaultDateThere = new Date();
+                defaultDateThere.setDate(defaultDateThere.getDate() + 7);
+                return defaultDateThere;
+            },
+            busesDefaultDateBack: function () {
+                var defaultDateBack = new Date();
+                defaultDateBack.setDate(defaultDateBack.getDate() + 14);
+                return defaultDateBack;
+            },
             aviaDefaultDateThere: function () {
                 var defaultDateThere = new Date();
                 defaultDateThere.setDate(defaultDateThere.getDate() + 7);
@@ -3203,8 +3213,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.buses.cityTo = to;
             },
             clearBusForm: function () {
-                this.buses.dateThere = new Date();
-                this.buses.dateBack = new Date();
+                this.buses.dateThere = this.busesDefaultDateThere;
+                this.buses.dateBack = this.busesDefaultDateBack;
                 this.buses.cityFrom = new CityItem();
                 this.buses.cityTo = new CityItem();
                 this.buses.timeThere = 0;
@@ -3299,11 +3309,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value < this.buses.dateThere) {
                     this.buses.dateThere = value;
                 }
-                if (value > this.dates.trainsMaxDate) {
-                    this.buses.dateBack = this.dates.trainsMaxDate;
+                if (value > this.dates.busesMaxDate) {
+                    this.buses.dateBack = this.dates.busesMaxDate;
                 }
-                if (value < this.dates.trainsMinDate) {
-                    this.buses.dateBack = this.dates.trainsMinDate;
+                if (value < this.dates.busesMinDate) {
+                    this.buses.dateBack = this.dates.busesMinDate;
                 }
             }
         },
@@ -3323,9 +3333,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.railway.dateThere = this.railwayDateThere;
                 this.railway.dateBack = this.railwayDateBack;
             }
-            if (this.formType === 'buses' && !this.hasBusResult()) {
-                this.buses.dateThere = this.busesDateThere;
-                this.buses.dateBack = this.busesDateBack;
+            if (this.formType === 'buses') {
+                if (!this.buses.dateThere) this.buses.dateThere = this.busesDefaultDateThere;
+                if (!this.buses.dateBack) this.buses.dateBack = this.busesDefaultDateBack;
+                else if (this.buses.dateBack < this.buses.dateThere)
+                    this.buses.dateBack = this.buses.dateThere;
             }
 
             window.vue = this;
