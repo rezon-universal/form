@@ -105,8 +105,8 @@ var rezOnForm = function (form, o) {
             recStationsFrom: [],
             recStationsTo: [],
             historyGuid: '',
-            dateThere: new Date(),
-            dateBack: new Date(),
+            dateThere: undefined,
+            dateBack: undefined,
             stationFrom: new StationItem(),
             stationTo: new StationItem(),
             timeThere: 0,
@@ -2729,7 +2729,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
             }
-            if (this.formType === 'railway' && !this.hasRailResult()) {
+            if (this.formType === 'railway') {
                 this.railway.dateThere = this.railwayDateThere;
                 this.railway.dateBack = this.railwayDateBack;
             }
