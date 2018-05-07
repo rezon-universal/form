@@ -2732,7 +2732,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
             }
-            if (this.formType === 'railway') {
+            if (this.formType === 'railway' && !this.hasRailResult()) {
                 this.railway.dateThere = this.railwayDateThere;
                 this.railway.dateBack = this.railwayDateBack;
             }
