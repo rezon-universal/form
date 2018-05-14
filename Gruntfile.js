@@ -92,7 +92,7 @@
 	    				bundle: 'minified/css/*.css'
 	    			},
 	    			sections:{
-	    				templates:['html/aviaForm.html','html/railForm.html']
+                        templates: ['html/aviaForm.html','html/railForm.html','html/busForm.html']
 	    			}
 	    		}	     				
 	    	}
