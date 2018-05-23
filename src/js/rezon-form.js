@@ -2369,7 +2369,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     Vue.component('railwayInput', {
         template: ' <div class="inside">' +
             '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
-            '<div class="express">' +
+            '<div v-if="item.Code != 0" class="express">' +
             '{{item.Code}}' +
             '</div>' +
             '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
