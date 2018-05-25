@@ -59,6 +59,7 @@ var rezOnForm = function (form, o) {
         animationDelay: 300,
         dates: {
             plusDaysShift: -1,
+            maxSearchDayDepth: 0,
             today: null,
             airMinDate: null,
             airMaxDate: null,
@@ -123,7 +124,8 @@ var rezOnForm = function (form, o) {
             dateRange: 0,
             formTypes: [types[0], types[1]],
             formType: types[0],
-            formExtended: false
+            formExtended: false,
+            maxSearchDayDepth: 0
         },
         buses: {
             recCityFrom: [],
@@ -2367,7 +2369,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     Vue.component('railwayInput', {
         template: ' <div class="inside">' +
             '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
-            '<div class="express">' +
+            '<div v-if="item.Code != 0" class="express">' +
             '{{item.Code}}' +
             '</div>' +
             '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
@@ -2927,7 +2929,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             trainsMaxDate: function () {
                 var trainsMaxDate = new Date(this.today.getTime());
-                trainsMaxDate.setDate(trainsMaxDate.getDate() + 44);
+                trainsMaxDate.setDate(trainsMaxDate.getDate() + this.railway.maxSearchDayDepth);
                 return trainsMaxDate;
             },
             busesMinDate: function () {
