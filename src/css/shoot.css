@@ -2530,7 +2530,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .selectpicker .option 
     {
-        width: 50%;
+        width: 100%;
         text-align: center;
         background: white;
     }
