@@ -2938,7 +2938,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             busesMaxDate: function () {
                 var busesMaxDate = new Date(this.today.getTime());
-                busesMaxDate.setDate(busesMaxDate.getDate() + 44);
+                busesMaxDate.setDate(busesMaxDate.getDate() + 200);
                 return busesMaxDate;
             },
             busesDefaultDateThere: function () {
