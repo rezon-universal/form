@@ -1820,12 +1820,12 @@ var rezOnForm = function (form, o) {
                     if (!it.extra.mobileAndTabletcheck()) {
                         switch (name) {
                             case "CityIdFrom":
-                                var sib = field.closest("form").find("input[name='CityIdFrom']");
+                                var sib = field.closest("form").find("input[name='CityIdTo']");
                                 if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                                 break;
                             case "CityIdTo":
                                 //Focus TODO
-                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CityIdTo']");
+                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateThere']");
                                 setTimeout(function () {
                                     dp.focus();
                                 }, 100);
