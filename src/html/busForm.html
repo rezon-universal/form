@@ -65,144 +65,17 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="passengers" :class="{'has-error':buses.passengers.hasError}">
-                    <div class="switch-box">
-                        <span href="#" class="switch">
-                            <div class="passengers-text">{{passStringBuses}}</div>
-                        </span>
-                    </div>
-                    <div class="select-age g-hide" tabindex="-1">
-                        <div class="pass_types">
-                            <div class="pass_type" v-for="(type,index) in buses.passengers.types" v-show="!type.hidden" :class="{'has-error':type.hasError,'active':type.count>0}">
-                                <div class="pass_counter pull-right">
-                                    <div class="remove_pass" v-on:click="removePassenger(type.name)"></div>
-                                    <div class="count_pass"><span>{{type.count}}</span></div>
-                                    <div class="add_pass" v-on:click="addPassenger(type.name)"></div>
-                                    <input type="hidden" :name="type.name" v-model="type.count" />
-                                </div>
-                                <div class="pass_inf">
-                                    <div class="category">{{locale(type.text)}}</div>
-                                    <div class="age">{{locale(type.desc)}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="error-box" :style="{ display: buses.passengers.messages.length>0?'block':'none'}">
-                            <label v-for="msg in buses.passengers.messages">{{locale(msg)}}</label>
-                        </div>
-                        <span href="#" class="button-hide hidden-xs">
-                            <span class="hide-inner">{{locale("HIDE")}}</span>
-                        </span>
-                        <div class="clear"></div>
-                    </div>
+                <div class="pass_counter">
+                    <div class="remove_pass" v-on:click="removeBusPassenger()"></div>
+                    <div class="count_pass"><span>{{buses.passenger.count}}</span></div>
+                    <div class="add_pass" v-on:click="addBusPassenger()"></div>
+                    <input type="hidden" :name="buses.passenger.name" v-model="buses.passenger.count" />
                 </div>
             </div>
         </div>
-        <!--<div class="field time">
-        <label class="hidden-xs menu-title">{{locale("DEPARTURE_TIME")}}</label>
-        <div class="control-field">
-            <div class="selectpicker book-time">
-                <div class="options">
-                    <div class="option" v-on:click="buses.timeThere=0">
-                        <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
-                        <input type="radio" name="book_from_time" value="0" v-bind:checked="buses.timeThere == 0"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeThere=1">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
-                        </span>
-                        <input type="radio" name="book_from_time" value="1" v-bind:checked="buses.timeThere == 1"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeThere=2">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
-                        </span>
-                        <input type="radio" name="book_from_time" value="2" v-bind:checked="buses.timeThere == 2"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeThere=3">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
-                        </span>
-                        <input type="radio" name="book_from_time" value="3" v-bind:checked="buses.timeThere == 3"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-        <!--<div class="field time">
-        <label class="hidden-xs menu-title">{{locale("ARRIVAL_TIME")}}</label>
-        <div class="control-field">
-            <div class="selectpicker book-time">
-                <div class="options">
-                    <div class="option" v-on:click="buses.timeBack=0">
-                        <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
-                        <input type="radio" name="book_to_time" value="0" v-bind:checked="buses.timeBack == 0"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeBack=1">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
-                        </span>
-                        <input type="radio" name="book_to_time" value="1" v-bind:checked="buses.timeBack == 1"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeBack=2">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
-                        </span>
-                        <input type="radio" name="book_to_time" value="2" v-bind:checked="buses.timeBack == 2"/>
-                    </div>
-                    <div class="option" v-on:click="buses.timeBack=3">
-                        <span>
-                            <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
-                        </span>
-                        <input type="radio" name="book_to_time" value="3" v-bind:checked="buses.timeBack == 3"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-        <!--<div class="field range">
-        <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
-            {{locale("SEARCH")}}
-        </label>
-        <div class="control-field">
-            <div class="book-range">
-                <div class="selectpicker standalone">
-                    <div class="options">
-                        <div class="option" v-on:click="buses.dateRange = 0">
-                            <span data-local="true" data-localtext="BY_EXACT_DATE">{{locale("BY_EXACT_DATE")}}</span>
-                            <input type="radio" name="dateRange" value="0" v-bind:checked="buses.dateRange == 0"/>
-                        </div>
-                        <div class="option" v-on:click="buses.dateRange = 1">
-                            <span>&plusmn;1 <span data-local="true" data-localtext="DAY">{{locale("DAY")}}</span></span>
-                            <input type="radio" name="dateRange" value="1" v-bind:checked="buses.dateRange == 1"/>
-                        </div>
-                        <div class="option" v-on:click="buses.dateRange = 2">
-                            <span>&plusmn;2 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
-                            <input type="radio" name="dateRange" value="2" v-bind:checked="buses.dateRange == 2"/>
-                        </div>
-                        <div class="option" v-on:click="buses.dateRange = 3">
-                            <span>&plusmn;3 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
-                            <input type="radio" name="dateRange" value="3" v-bind:checked="buses.dateRange == 3"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
-        <!--<div class="field hide_s">
-        <div class="transp" v-on:click="changebusFormExtended()">
-            <div class="hide_settings dashed">
-                <div class="simple_search">
-                    <span>{{locale("SIMPLE_SEARCH")}}</span>
-                </div>
-                <div class="advanced_search">
-                    <span>{{locale("ADVANCED_SEARCH")}}</span>
-                </div>
-            </div>
-        </div>
-    </div>-->
         <div class="field clear ">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearbusForm()">
