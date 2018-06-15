@@ -1767,7 +1767,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .pass .count_pass
 {
-    border-radius: 50%;
+    border-radius: 30px;
     border-color: #00b0ff;
     background: #b0bec5;
     color: white;
