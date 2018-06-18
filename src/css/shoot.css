@@ -1724,7 +1724,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     float: left;
     height: 45px;
     position: relative;
-    width: 50%;
+    width: 70px;
 
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -1732,6 +1732,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none;
+}
+#rezon-forms .pass .bus_pass .remove_pass,
+#rezon-forms .pass .bus_pass .add_pass {
+    width: 50%;
 }
 #rezon-forms .pass .remove_pass:hover,
 #rezon-forms .pass .add_pass:hover
@@ -1767,7 +1771,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .pass .count_pass
 {
-    border-radius: 50%;
+    border-radius: 30px;
     border-color: #00b0ff;
     background: #b0bec5;
     color: white;
