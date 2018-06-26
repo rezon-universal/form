@@ -695,11 +695,11 @@ var rezOnForm = function (form, o) {
             // Detect ios 11_x_x affected  
             // NEED TO BE UPDATED if new versions are affected
             var ua = navigator.userAgent,
-                iOS = /iPad|iPhone|iPod/.test(ua),
-                iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
+                iOS = /iPad|iPhone|iPod/.test(ua);
+                //iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
 
             // ios 11 bug caret position
-            if (iOS && iOS11) {
+            if (iOS) {
                 $(window).scrollTop($(window).scrollTop() + 1).scrollTop($(window).scrollTop() - 1);
             }
 
