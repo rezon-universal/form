@@ -130,11 +130,7 @@ var rezOnForm = function (form, o) {
         buses: {
             recCityFrom: [],
             recCityTo: [],
-            passengers: {
-                types: passTypes,
-                hasError: false,
-                messages: []
-            },
+            passenger: new PassItem("psgAdultsCnt", 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
             historyGuid: '',
             dateThere: new Date(),
             dateBack: new Date(),
@@ -1824,12 +1820,12 @@ var rezOnForm = function (form, o) {
                     if (!it.extra.mobileAndTabletcheck()) {
                         switch (name) {
                             case "CityIdFrom":
-                                var sib = field.closest("form").find("input[name='CityIdFrom']");
+                                var sib = field.closest("form").find("input[name='CityIdTo']");
                                 if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                                 break;
                             case "CityIdTo":
                                 //Focus TODO
-                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CityIdTo']");
+                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateThere']");
                                 setTimeout(function () {
                                     dp.focus();
                                 }, 100);
@@ -2127,12 +2123,7 @@ rezOnForm.static.prepareBusSearchParams = function (params) {
         params.cityTo = new CityItem(params.CityTo.Id, params.CityTo.Name, params.CityTo.CountryCode, params.CityTo.CountryName);
 
     if (!!params.ticketCount) {
-        params.passengers = {
-            types: passTypes,
-            hasError: false,
-            messages: []
-        }
-        params.passengers.types[4] = new PassItem("psgAdultsCnt", "PASS_CAT_ADT", "PASS_CAT_ADT_DESC", params.ticketCount);
+        params.passenger = new PassItem("psgAdultsCnt", "PASS_CAT_ADT", "PASS_CAT_ADT_DESC", params.ticketCount);
     }
     if (!!params.formType)
         if (params.formType.Value === "roundTrip")
@@ -2827,62 +2818,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return count + " " + this.locale(str);
             },
             passStringBuses: function () {
-                var oneCategory = true;
-                var cat = "";
-                var count = 0;
-
-                this.buses.passengers.types.forEach(function (value) {
-                    count += value.count;
-                    if (value.count > 0) {
-                        if (cat === "") {
-                            cat = value.name;
-                        } else {
-                            oneCategory = cat === value.name;
-                        }
-                    }
-                });
+                var count = this.buses.passenger.count;
 
                 var str = "";
-                var oneNumber = cat, zeroNumber = cat, fourNumber = cat;
-                if (oneCategory) {
-                    switch (cat) {
-                        case "psgInfantsCnt":
-                            oneNumber = "PASS_CAT_INF_NS_1";
-                            zeroNumber = "PASS_CAT_INF_NS_0";
-                            fourNumber = "PASS_CAT_INF_NS_4";
-                            break;
-                        case "psgInfantsNSCnt":
-                            oneNumber = "PASS_CAT_INF_WS_1";
-                            zeroNumber = "PASS_CAT_INF_WS_0";
-                            fourNumber = "PASS_CAT_INF_WS_4";
-                            break;
-                        case "psgKidsCnt":
-                            oneNumber = "PASS_CAT_CNN_1";
-                            zeroNumber = "PASS_CAT_CNN_0";
-                            fourNumber = "PASS_CAT_CNN_4";
-                            break;
-                        case "psgYouthCnt":
-                            oneNumber = "PASS_CAT_YTH_1";
-                            zeroNumber = "PASS_CAT_YTH_0";
-                            fourNumber = "PASS_CAT_YTH_0";
-                            break;
-                        case "psgAdultsCnt":
-                            oneNumber = "PASS_CAT_ADT_1";
-                            zeroNumber = "PASS_CAT_ADT_0";
-                            fourNumber = "PASS_CAT_ADT_0";
-                            break;
-                        case "psgOldCnt":
-                            oneNumber = "PASS_CAT_SNN_1";
-                            zeroNumber = "PASS_CAT_SNN_0";
-                            fourNumber = "PASS_CAT_SNN_0";
-                            break;
-                    }
-                } else {
-                    oneNumber = "C_PASSENGER";
-                    zeroNumber = "C_PASSENGERS";
-                    fourNumber = "C_PASSEGNERS2";
-                }
-                if (count === 0 || (count >= 5 && count <= 20)) {
+                var oneNumber = "PASS_CAT_ADT_1";
+                var zeroNumber = "PASS_CAT_ADT_0";
+                var fourNumber = "PASS_CAT_ADT_0";
+
+                if (count >= 5 && count <= 20) {
                     //вариантов
                     str += zeroNumber;
                 } else {
@@ -2901,10 +2844,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                             str += zeroNumber;
                             break;
                     }
-                }
-                if (count === 0) {
-                    str = "SPECIFY_PASSENGERS";
-                    return this.locale(str);
                 }
                 return count + " " + this.locale(str);
             },
@@ -2938,7 +2877,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             busesMaxDate: function () {
                 var busesMaxDate = new Date(this.today.getTime());
-                busesMaxDate.setDate(busesMaxDate.getDate() + 44);
+                busesMaxDate.setDate(busesMaxDate.getDate() + 200);
                 return busesMaxDate;
             },
             busesDefaultDateThere: function () {
@@ -3060,6 +2999,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     }
                 });
                 this.passUpdate();
+            },
+            removeBusPassenger: function () {
+                this.buses.passenger.count--;
+                if (this.buses.passenger.count <= 0)
+                    this.buses.passenger.count = 1;
+            },
+            addBusPassenger: function () {
+                this.buses.passenger.count++;
             },
             passUpdate: function () {
                 var currCount = 0;
@@ -3222,15 +3169,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.buses.timeThere = 0;
                 this.buses.timeBack = 0;
                 this.buses.dateRange = 0;
-                this.buses.passengers.types.forEach(function (value, index) {
-                    if (value.name === 'psgAdultsCnt') {
-                        value.count = 1;
-                    } else {
-                        value.count = 0;
-                    }
-                });
-                this.buses.passengers.hasError = false;
-                this.buses.passengers.messages = [];
+                this.buses.passenger.count = 1;
                 var model = this;
                 Vue.nextTick(function () {
                     // DOM updated
