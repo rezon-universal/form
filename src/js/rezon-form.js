@@ -1189,6 +1189,10 @@ var rezOnForm = function (form, o) {
                     isSelectPicker: true
                 };
             }
+            //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
+            if (it.extra.mobileAndTabletcheck()) {
+                typeaheadOptions.minLength = 0;
+            }
             el.typeahead(typeaheadOptions, {
                 name: "airports-" + it._o.defaultLang,
                 displayKey: 'value',
