@@ -1263,6 +1263,19 @@ var rezOnForm = function (form, o) {
                 var item = $(this).closest('.field');
                 it.extra.closeField(item);
 
+                
+                if ($(this).val() !== "" && $(this).data("lastHist")) {
+                    var _this = $(this);
+                    var lastHint = $(this).data("lastHist");
+                    var iata = item.find(".inside input[type='hidden']");
+                    Vue.nextTick(function () {
+                        if ($.trim(iata.val()) === "" && lastHint) {
+                            //Обновляем последним запомненным только если клиент ничего не выбрал из выпадашки
+                            _this.trigger("typeahead:autocompleted", [lastHint]);
+                        }
+                    });
+                }
+
                 if (rezOnForm.static.isInIframe()) {
                     rezOnForm.static.recalculateHeightOnClose();
                 }
@@ -1316,17 +1329,6 @@ var rezOnForm = function (form, o) {
                 }
                 var item = $(this).closest(".field");
                 it.extra.closeField(item);
-                if ($(its.currentTarget).val() !== "" && $(this).data("lastHist")) {
-                    var _this = $(this);
-                    var lastHint = $(this).data("lastHist");
-                    var iata = item.find(".inside input[type='hidden']");
-                    Vue.nextTick(function () {
-                        if ($.trim(iata.val()) === "" && lastHint) {
-                            //Обновляем последним запомненным только если клиент ничего не выбрал из выпадашки
-                            _this.trigger("typeahead:autocompleted", [lastHint]);
-                        }
-                    });
-                }
             }).on("typeahead:queryChanged", function (it, query) {
 
             }).on("typeahead:updateHint", function (a, b) {
