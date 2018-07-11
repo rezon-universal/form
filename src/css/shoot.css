@@ -1737,6 +1737,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .pass .bus_pass .remove_pass,
 #rezon-forms .pass .bus_pass .add_pass {
     width: 50%;
+    float: none;
+}
+.bus_pass .pass_counter {
+    display: flex;
+}
+#rezon-forms .pass .bus_pass .count_pass {
+    border-radius: 50%;
+    float: none;
+    top: 5px;
+    width: 42px;
+    height: 42px;
 }
 #rezon-forms .pass .remove_pass:hover,
 #rezon-forms .pass .add_pass:hover
