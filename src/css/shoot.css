@@ -2040,7 +2040,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .selectpicker .modal_block {
     background: #fff !important;
     justify-content: start !important;
-    padding-top: 60px !important;
 }
 #rezon-forms .selectpicker .modal_block:before {
     content: '';
@@ -2593,6 +2592,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .rez-forms 
     {
         padding: 0 10px;
+    }
+    #rezon-forms .selectpicker .modal_block {
+        padding-top: 60px !important;
     }
 }
 
