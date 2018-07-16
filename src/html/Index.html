@@ -71,7 +71,7 @@
 						</label>
 						<div class="control-field">
 							<div class="date-wrapper">
-								 <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack"></datepicker>
+								 <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang"  v-model="avia.defaultDateThere" name="book_from_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" initial-view="month"></datepicker>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 						</label>
 						<div class="control-field">
 							<div class="date-wrapper">
-								<datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" v-if="avia.formType.value==='roundtrip'"></datepicker>
+								<datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="avia.defaultDateBack" name="book_to_date" input-class="book-date datepicker" :date-from="avia.defaultDateThere" :date-to="avia.defaultDateBack" v-if="avia.formType.value==='roundtrip'" initial-view="day"></datepicker>
 								 <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
 							</div>
 						</div>
@@ -103,7 +103,7 @@
 								</div>
 								<div class="select-age g-hide" tabindex="-1">
 									<div class="pass_types">
-										<div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden" :class="{'has-error':type.hasError,'active':type.count>0}">
+										<div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden && avia.enabledPassengerTypes && avia.enabledPassengerTypes.indexOf(index) > -1" :class="{'has-error':type.hasError,'active':type.count>0}">
 											<div class="pass_counter pull-right">
 												<div class="remove_pass" v-on:click="removePassenger(type.name)"></div>
 												<div class="count_pass"><span>{{type.count}}</span></div>
@@ -119,8 +119,11 @@
 									<div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}"> 
 										<label v-for="msg in avia.passengers.messages">{{locale(msg)}}</label>
 									</div>
-									<span href="#" class="button-hide hidden-xs">
+									<span class="button-hide hidden-xs">
 										<span class="hide-inner">{{locale("HIDE")}}</span>
+									</span>
+									<span class="button-hide visible-xs">
+										<button type="button" class="hide-inner search">{{locale("CONFIRM")}}</button>
 									</span>
 									<div class="clear"></div>
 								</div>
@@ -228,7 +231,7 @@
 							</label>
 							<div class="control-field">
 								<div class="date-wrapper">
-									<datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere"></datepicker>
+									<datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="route.defaultDateThere" :name="'book_from_date'+(index+2)" input-class="book-date datepicker" :change="updateSegmentsDates(index)" :min-date="index>0?route.minDate:avia.defaultDateThere" initial-view="day"></datepicker>
 								</div>
 							</div>
 						</div>
@@ -276,7 +279,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="field class">
+					<div class="field class" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.length > 0 ">
 						<label class="hidden-xs menu-title">
 							{{locale("CLASS")}}
 						</label>
@@ -284,26 +287,30 @@
 							<div class="book-class">
 								<div class="selectpicker standalone">
 									<div class="options">
-										<div class="option" v-on:click="avia.bookClass=0">
+										<div class="option"  v-on:click="avia.bookClass=0">
 											<span>{{locale("FORM_CLASS_ANY")}}</span>
 											<input type="radio" name="book_class" value="0" v-bind:checked="avia.bookClass==0" />
 										</div>
-										<div class="option" v-on:click="avia.bookClass=1">
+										<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(1) > -1"  v-on:click="avia.bookClass=1">
 											<span>{{locale("FORM_CLASS_E")}}</span>
 											<input type="radio" name="book_class" value="1" v-bind:checked="avia.bookClass==1"/>
 										</div>
-										<!--<div class="option" v-on:click="avia.bookClass=4">
+										<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(4) > -1" v-on:click="avia.bookClass=4">
 											<span>{{locale("FORM_CLASS_W")}}</span>
 											<input type="radio" name="book_class" value="4" v-bind:checked="avia.bookClass==4"/>
-										</div>-->
-										<div class="option" v-on:click="avia.bookClass=2">
+										</div>
+										<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(2) > -1" v-on:click="avia.bookClass=2">
 											<span>{{locale("FORM_CLASS_B")}}</span>
 											<input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2"/>
 										</div>
-										<!--<div class="option" v-on:click="avia.bookClass=3">
+										<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
 											<span>{{locale("FORM_CLASS_F")}}</span>
 											<input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3"/>
-										</div>-->
+										</div>
+										<div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(5) > -1" v-on:click="avia.bookClass=5">
+											<span>{{locale("FORM_CLASS_P")}}</span>
+											<input type="radio" name="book_class" value="5" v-bind:checked="avia.bookClass==5"/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -406,6 +413,7 @@
 					</div>
 				</div>
 			</form>
+
 			<!-- END TEMPLATE aviaForm.html -->		
 	    </div>
     </div>
@@ -414,7 +422,7 @@
 		    $("#rezon-forms").rezOnForm({
 				projectUrl: "https://domain.galileo.com.ua/", //Установите ссылку на свой проект
 				defaultLang: "ru", // ua|ru|en
-				formType: "all", // avia|railway|all,
+				formType: "avia", // avia|railway|all,
 				formTarget: "_blank" // '_blank' - загружает поисковую выдачу в новое окно браузера., '_self' - в текущее окно.
 			});
 		});

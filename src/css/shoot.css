@@ -2676,3 +2676,215 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         flex-basis: 15%;
     }
 }
+
+
+#rezon-forms .visible-xs-block,
+#rezon-forms .visible-xs-inline,
+#rezon-forms .visible-xs-inline-block,
+#rezon-forms .visible-sm-block,
+#rezon-forms .visible-sm-inline,
+#rezon-forms .visible-sm-inline-block,
+#rezon-forms .visible-md-block,
+#rezon-forms .visible-md-inline,
+#rezon-forms .visible-md-inline-block,
+#rezon-forms .visible-lg-block,
+#rezon-forms .visible-lg-inline,
+#rezon-forms .visible-lg-inline-block {
+    display: none !important;
+}
+
+/* недостающий апдейт по бутстрапу */
+#rezon-forms .visible-xs,
+#rezon-forms .visible-sm,
+#rezon-forms .visible-md,
+#rezon-forms .visible-lg {
+    display: none !important;
+}
+
+#rezon-forms .visible-xs-block,
+#rezon-forms .visible-xs-inline,
+#rezon-forms .visible-xs-inline-block,
+#rezon-forms .visible-sm-block,
+#rezon-forms .visible-sm-inline,
+#rezon-forms .visible-sm-inline-block,
+#rezon-forms .visible-md-block,
+#rezon-forms .visible-md-inline,
+#rezon-forms .visible-md-inline-block,
+#rezon-forms .visible-lg-block,
+#rezon-forms .visible-lg-inline,
+#rezon-forms .visible-lg-inline-block {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    #rezon-forms .visible-xs {
+        display: block !important;
+    }
+
+    #rezon-forms table.visible-xs {
+        display: table !important;
+    }
+
+    #rezon-forms tr.visible-xs {
+        display: table-row !important;
+    }
+
+    #rezon-forms th.visible-xs,
+    #rezon-forms td.visible-xs {
+        display: table-cell !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #rezon-forms .visible-xs-block {
+        display: block !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #rezon-forms .visible-xs-inline {
+        display: inline !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #rezon-forms .visible-xs-inline-block {
+        display: inline-block !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #rezon-forms .visible-sm {
+        display: block !important;
+    }
+
+    #rezon-forms table.visible-sm {
+        display: table !important;
+    }
+
+    #rezon-forms tr.visible-sm {
+        display: table-row !important;
+    }
+
+    #rezon-forms th.visible-sm,
+    #rezon-forms td.visible-sm {
+        display: table-cell !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #rezon-forms .visible-sm-block {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #rezon-forms .visible-sm-inline {
+        display: inline !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #rezon-forms .visible-sm-inline-block {
+        display: inline-block !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #rezon-forms .visible-md {
+        display: block !important;
+    }
+
+    #rezon-forms table.visible-md {
+        display: table !important;
+    }
+
+    #rezon-forms tr.visible-md {
+        display: table-row !important;
+    }
+
+    #rezon-forms th.visible-md,
+    #rezon-forms td.visible-md {
+        display: table-cell !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #rezon-forms .visible-md-block {
+        display: block !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #rezon-forms .visible-md-inline {
+        display: inline !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #rezon-forms .visible-md-inline-block {
+        display: inline-block !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rezon-forms .visible-lg {
+        display: block !important;
+    }
+
+    #rezon-forms table.visible-lg {
+        display: table !important;
+    }
+
+    #rezon-forms tr.visible-lg {
+        display: table-row !important;
+    }
+
+    #rezon-forms th.visible-lg,
+    #rezon-forms td.visible-lg {
+        display: table-cell !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rezon-forms .visible-lg-block {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rezon-forms .visible-lg-inline {
+        display: inline !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rezon-forms .visible-lg-inline-block {
+        display: inline-block !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #rezon-forms .hidden-xs {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #rezon-forms .hidden-sm {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #rezon-forms .hidden-md {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rezon-forms .hidden-lg {
+        display: none !important;
+    }
+}
+/*----------------*/

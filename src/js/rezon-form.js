@@ -81,8 +81,8 @@ var rezOnForm = function (form, o) {
             defaultAirportFrom: null, // IATA code, ex. IEV 
             defaultAirportTo: null, // IATA code, ex. IEV
             onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
-            enabledCabinClasses: null, // string cabinClasses, ex. "1,2" (Economy,Business)
-            enabledPassengerTypes: null,// string enabledPassengerTypes, ex. "1,2,3,4" (InfantNoSeat,Infant,Child,Young)
+            enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
+            enabledPassengerTypes: '0,1,2,3,4,5',// string enabledPassengerTypes, ex. "1,2,3,4" (InfantNoSeat,Infant,Child,Young)
             defaultDateThere: undefined, // dd.MM.yyyy
             defaultDateBack: undefined, // dd.MM.yyyy
             plusDaysShift: 1, // -1 - 10
