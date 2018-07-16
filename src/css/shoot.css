@@ -2595,6 +2595,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .selectpicker .modal_block {
         padding-top: 60px !important;
+        transition: all 0.8s;
     }
 }
 
