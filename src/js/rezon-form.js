@@ -1737,12 +1737,12 @@ var rezOnForm = function (form, o) {
                     typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 }
                 //TODO First selected
-                //var item = $(this).closest(".field");
-                //it.extra.closeField(item);
-                //if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
-                //    // $(this).val($(this).data("lastHist").Name);
-                //    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                //}
+                var item = $(this).closest(".field");
+                it.extra.closeField(item);
+                if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+                   $(this).val($(this).data("lastHist").Name);
+                   $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                }
             }).on("typeahead:queryChanged", function (it, query) {
 
             }).on("typeahead:updateHint", function (a, b) {
@@ -2364,13 +2364,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     });
 
     Vue.component('railwayInput', {
-        template: ' <div class="inside">' +
-            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
-            '<div v-if="item.Code != 0" class="express">' +
-            '{{item.Code}}' +
-            '</div>' +
-            '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
-            '<input type="hidden" :name="name" v-model="item.Code"/>' +
+        template:
+            '<div class="inside">' +
+                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
+                '<div v-if="item.Code != 0" class="express">' + '{{item.Code}}' + '</div>' +
+                '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
+                '<input type="hidden" :name="name" v-model="item.Code"/>' +
             '</div>',
         props: {
             name: {
