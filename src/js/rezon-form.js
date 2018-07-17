@@ -1859,6 +1859,15 @@ var rezOnForm = function (form, o) {
                     rezOnForm.static.recalculateHeightOnClose();
                     typeof (updatingHeight) !== 'undefined' && updatingHeight();
                 }
+
+                //TODO First selected
+                var item = $(this).closest(".field");
+                it.extra.closeField(item);
+                if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+                    $(this).val($(this).data("lastHist").Name);
+                    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+                }
+
             }).on("typeahead:queryChanged", function (it, query) {
 
             }).on("typeahead:updateHint", function (a, b) {
