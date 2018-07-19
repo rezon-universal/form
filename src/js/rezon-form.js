@@ -1620,10 +1620,17 @@ var rezOnForm = function (form, o) {
     }
 
     rezOnForm.prototype.railwayBind = function () {
-        // Поиск станций / городов в основной форме
-        it._railwayForm.find('.book-from, .book-to').typeahead({
+        var typeaheadOptions = {
             minLength: 2
-        }, {
+        };
+
+        //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
+        if (it.extra.mobileAndTabletcheck()) {
+            typeaheadOptions.minLength = 0;
+        }
+
+        // Поиск станций / городов в основной форме
+        it._railwayForm.find('.book-from, .book-to').typeahead(typeaheadOptions, {
                 name: "stations-" + it._o.defaultLang,
                 displayKey: 'value',
                 source: it.dataWork.stationsFinderData.ttAdapter(),
@@ -1758,10 +1765,17 @@ var rezOnForm = function (form, o) {
     }
 
     rezOnForm.prototype.busesBind = function () {
-        // Поиск городов в основной форме
-        it._busesForm.find('.book-from, .book-to').typeahead({
+        var typeaheadOptions = {
             minLength: 2
-        }, {
+        };
+
+        //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
+        if (it.extra.mobileAndTabletcheck()) {
+            typeaheadOptions.minLength = 0;
+        }
+
+        // Поиск городов в основной форме
+        it._busesForm.find('.book-from, .book-to').typeahead(typeaheadOptions, {
                 name: "bus-cities-" + it._o.defaultLang,
                 displayKey: 'value',
                 source: it.dataWork.busCitiesFinderData.ttAdapter(),
