@@ -1126,8 +1126,9 @@ var defaultDatepickerSettings = {
                 date = isNaN(parsed.valueOf()) ? null : parsed;
             }
             if (!date) {
-                this.setPageDate();
-                this.selectedDate = null;
+                //this.setPageDate();
+                //this.selectedDate = null;
+                this.resetDefaultDate();
                 return;
             }
             this.selectedDate = date;
