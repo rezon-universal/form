@@ -1,0 +1,66 @@
+<form class="g-hide unload" role="form" id="hotel-form-shoot" autocomplete="off">
+    <input type="hidden" name="HistoryGuid" :value="hotel.historyGuid"/>
+    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
+    <div class="fields-container">
+        <div class="field station from">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CITY")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <hotel-input name="CityId" input-class="book-from" v-model="hotel.city" :placeholder="locale('HOTEL_PLACEHOLDER')"></hotel-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div class="field date from">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_IN")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkIn" name="CheckIn" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_OUT")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkOut" name="CheckOut" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field pass">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PASSENGERS")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field hotel_pass">
+                <div class="pass_counter pass_counter-top">
+                    <div class="remove_pass" v-on:click="removeHotelAdults()"></div>
+                    <div class="count_pass"><span>{{hotel.adults.count}}</span></div>
+                    <div class="add_pass" v-on:click="addHotelAdults()"></div>
+                    <input type="hidden" name="Adults" v-model="hotel.adults.count" />
+                </div>
+            </div>
+        </div>
+        <div class="field find">
+            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+        <div class="field clear ">
+            <div class="transp">
+                <span href="#" class="clear_form" v-on:click="clearHotelForm()">
+                    <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
