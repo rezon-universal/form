@@ -40,15 +40,15 @@
         <div class="field pass">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("PASSENGERS")}}
+                {{locale("ADULTS")}}
                 <span class="link-right"></span>
             </label>
-            <div class="control-field hotel_pass">
+            <div class="control-field bus_pass">
                 <div class="pass_counter pass_counter-top">
                     <div class="remove_pass" v-on:click="removeHotelAdults()"></div>
-                    <div class="count_pass"><span>{{hotel.adults.count}}</span></div>
+                    <div class="count_pass"><span>{{hotel.adults}}</span></div>
                     <div class="add_pass" v-on:click="addHotelAdults()"></div>
-                    <input type="hidden" name="Adults" v-model="hotel.adults.count" />
+                    <input type="hidden" name="Adults" v-model="hotel.adults" />
                 </div>
             </div>
         </div>

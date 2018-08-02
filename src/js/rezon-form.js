@@ -2119,61 +2119,9 @@ var rezOnForm = function (form, o) {
             else $(this).removeData("lastHist");
         });
 
-        //Passengers menu
-        it._busesForm.find(".passengers > .switch-box .switch").click(function () {
-            var selectAge = it._busesForm.find(".select-age");
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
-            var field = $(this).closest('.field');
-
-            if ($(this).is(".opened")) {
-                $(this).removeClass("opened");
-                it.extra.closeField(field);
-
-                var updatingClosedSelect = function (el) {
-                    el.addClass("g-hide");
-                    if (rezOnForm.static.isInIframe()) {
-                        rezOnForm.static.recalculateHeightOnClose();
-                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                    }
-                };
-                if (isMobile) {
-                    selectAge.fadeOut(it._o.animationDelay, function () {
-                        updatingClosedSelect($(this));
-                    });
-                } else {
-                    selectAge.slideUp(it._o.animationDelay, function () {
-                        updatingClosedSelect($(this));
-                    });
-                }
-
-            } else {
-                it.extra.openField(field);
-                $(this).addClass("opened");
-
-                var updatingOpenSelect = function (el) {
-                    el.removeClass("g-hide");
-                    if (rezOnForm.static.isInIframe()) {
-                        rezOnForm.static.recalculateHeightOnOpen(el);
-                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                    }
-                    el.focus();
-                };
-
-                if (isMobile) {
-                    selectAge.fadeIn(it._o.animationDelay, function () {
-                        updatingOpenSelect($(this));
-                    });
-                } else {
-                    selectAge.slideDown(it._o.animationDelay, function () {
-                        updatingOpenSelect($(this));
-                    });
-                }
-            }
-        });
-
         //Отправка формы поиска автобусов
-        it._busesForm.submit(function () {
-            return it.validation.busForm();
+        it._hotelForm.submit(function () {
+            return it.validation.hotelForm();
         });
     }
 
@@ -2982,7 +2930,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                         }
                         break;
                     case "buses":
-                        if (vue.railway.formType.value === "roundtrip") {
+                        if (vue.buses.formType.value === "roundtrip") {
                             highlighted = {
                                 from: this.dateFrom,
                                 to: this.dateTo
@@ -3420,12 +3368,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.buses.passenger.count++;
             },
             removeHotelAdults: function () {
-                this.hotel.adults.count--;
-                if (this.hotel.adults.count <= 0)
-                    this.hotel.adults.count = 1;
+                this.hotel.adults--;
+                if (this.hotel.adults <= 0)
+                    this.hotel.adults = 1;
             },
             addHotelAdults: function () {
-                this.hotel.adults.count++;
+                this.hotel.adults++;
             },
             passUpdate: function () {
                 var currCount = 0;
@@ -3620,7 +3568,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.hotel.timeThere = 0;
                 this.hotel.timeBack = 0;
                 this.hotel.dateRange = 0;
-                this.hotel.adults.count = 1;
+                this.hotel.adults = 1;
                 var model = this;
                 Vue.nextTick(function () {
                     // DOM updated
