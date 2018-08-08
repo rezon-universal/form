@@ -2361,14 +2361,17 @@ rezOnForm.static.prepareBusSearchParams = function (params) {
 
 
 rezOnForm.static.prepareHotelSearchParams = function (params) {
-    if (!!params.checkIn && params.checkOut.trim() !== "")
-        params.checkIn = new Date(params.checkIn);
+    if (!!params.CheckIn && params.CheckIn.trim() !== "")
+        params.checkIn = new Date(params.CheckIn);
 
-    if (!!params.checkOut && params.checkOut.trim() !== '')
-        params.checkOut = new Date(params.checkOut);
+    if (!!params.CheckOut && params.CheckOut.trim() !== "")
+        params.checkOut = new Date(params.CheckOut);
 
-    if (!!params.city)
-        params.city = new HotelCityItem(params.city.Id, params.city.Name, params.city.CountryCode);
+    if (!!params.City)
+        params.city = new HotelCityItem(params.City.Id, params.City.Name, params.City.CountryCode);
+
+    if (!!params.Adults)
+        params.adults = params.Adults;
 
     return params;
 }
