@@ -1739,7 +1739,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     width: 50%;
     float: none;
 }
-.bus_pass .pass_counter {
+#rezon-forms .bus_pass .pass_counter {
     display: flex;
 }
 #rezon-forms .pass .bus_pass .count_pass {
