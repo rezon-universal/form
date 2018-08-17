@@ -2373,6 +2373,9 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
     if (!!params.Adults)
         params.adults = params.Adults;
 
+    if (!!params.HistoryGuid && params.HistoryGuid.trim() !== "")
+        params.historyGuid = params.HistoryGuid;
+
     return params;
 }
 
