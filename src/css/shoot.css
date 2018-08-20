@@ -1419,7 +1419,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .field .control-field 
 {
     background: #fff;
-    /*border-radius: 2px;*/
+    border-radius: 2px;
     min-height: 45px;
     position: relative;
 }
