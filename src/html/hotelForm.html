@@ -5,7 +5,7 @@
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
-                {{locale("CITY")}}
+                {{locale("City")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -37,21 +37,107 @@
                 </div>
             </div>
         </div>
-        <div class="field pass">
+
+        <div class="field num_people">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("ADULTS")}}
+                {{locale("Adult")}}
                 <span class="link-right"></span>
             </label>
-            <div class="control-field bus_pass">
-                <div class="pass_counter pass_counter-top">
-                    <div class="remove_pass" v-on:click="removeHotelAdults()"></div>
-                    <div class="count_pass"><span>{{hotel.adults}}</span></div>
-                    <div class="add_pass" v-on:click="addHotelAdults()"></div>
-                    <input type="hidden" name="Adults" v-model="hotel.adults" />
+            <div class="control-field">
+                <div class="select_box">
+                    <div class="value_tag">
+                        <span class="number_val">1</span>
+                        <input class="input_val" type="hidden"  value="">
+                    </div>
+                    <ul class="option_box"></ul>
                 </div>
             </div>
         </div>
+        <div class="field num_children">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("Children")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box">
+                    <div class="value_tag">
+                        <span class="quantity_val">&mdash;</span>
+                        <input class="input_quantity" type="hidden"  value="">
+                    </div>
+                    <div class="children_box option_box">
+                        <div class="children_box-item">
+                            <label class="children-title">
+                                Возраст 1 ребенка
+                            </label>
+                            <div class="children_input">
+                                <span class="number_val">&mdash;</span>
+                                <input class="input_val" type="hidden"  value="">
+                            </div>
+                            <ul class="children_age">
+                                <li class="option">&mdash;</li>
+                                <li class="option">Меньше года</li>
+                                <li class="option">1 год</li>
+                                <li class="option">2 года</li>
+                                <li class="option">3 года</li>
+                                <li class="option">4 года</li>
+                                <li class="option">5 лет</li>
+                                <li class="option">6 лет</li>
+                                <li class="option">7 лет</li>
+                                <li class="option">8 лет</li>
+                                <li class="option">9 лет</li>
+                                <li class="option">10 лет</li>
+                                <li class="option">11 лет</li>
+                                <li class="option">12 лет</li>
+                            </ul>
+                        </div>
+                        <span class="button-hide hidden-xs">
+                            <span class="hide-inner">{{locale("HIDE")}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field num_room">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("Rooms")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box">
+                    <div class="value_tag">
+                        <span class="number_val">1</span>
+                        <input class="input_val" type="hidden"  value="">
+                    </div>
+                    <ul class="option_box"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="field nationality_hotels">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("Nationality")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box">
+                    <div class="value_tag">
+                        <span class="number_val">Украина</span>
+                        <input class="input_val" type="hidden"  value="UA">
+                    </div>
+                    <ul class="option_box"></ul>
+                </div>
+            </div>
+            <div class="error-box">
+                <span class="close hidden"></span>
+            </div>
+        </div>
+
+
+
+
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>

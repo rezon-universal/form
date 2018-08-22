@@ -1996,7 +1996,6 @@ var rezOnForm = function (form, o) {
                 }
             }
         });
-
         //Отправка формы поиска автобусов
         it._busesForm.submit(function () {
             return it.validation.busForm();
@@ -2008,6 +2007,48 @@ var rezOnForm = function (form, o) {
         var typeaheadOptions = {
             minLength: 2
         };
+
+        // Отели select
+        for(var i = 1; i <= 12; i++) {
+             $('.num_people .option_box').append("<li class='option'>" + i + "</li>");
+        }
+        for(var i = 1; i <= 3; i++) {
+            $('.num_room .option_box').append("<li class='option'>" + i + "</li>");
+        }
+
+        it._hotelForm.find('.select_box').click(function () {
+            $(this).children('.option_box').toggleClass('open');
+            $(this).children('.value_tag').toggleClass('rotate');
+            $(document).bind('click', HandlerClick);
+        }).on('click','.children_box', function(e) {
+            e.stopPropagation();
+        });
+
+        it._hotelForm.find('.children_input').click(function () {
+            $(this).next().toggleClass('open');
+            $(this).toggleClass('rotate');
+        })
+
+        function HandlerClick(e) {
+            if (!$(e.target).hasClass("select_box") && $(e.target).parents(".select_box").length === 0) {
+                $(".option_box").removeClass("open");
+                $(document).unbind('click', HandlerClick);
+            }
+        }
+
+        $('.num_children .button-hide').click(function() {
+            $(".option_box").removeClass('open');
+            $('.value_tag').removeClass('rotate');
+        });
+
+        $('.select_box .option').click(function() {
+            var num = $(this).text();
+            $(this).closest('.select_box').find('.input_val').val(num);
+            $(this).closest('.select_box').find('.number_val').html(num);
+            $('.children_age').removeClass('open');
+
+
+        });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
