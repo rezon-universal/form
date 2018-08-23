@@ -2928,10 +2928,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 .num_people,
 .num_children,
 .num_room {
-    flex-basis: 8%;
+    flex-basis: 10%;
 }
 .nationality_hotels {
-     flex-basis: 22%;
+     flex-basis: 26%;
  }
 .option_box {
     position: absolute;
@@ -2994,6 +2994,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 .children_box-item {
     padding: 15px;
+}
+.children_box-item:first-child {
+    padding-bottom: 0;
+}
+.children_box-item:last-of-type {
+    padding-top: 0;
 }
 .num_children .children-title {
     color: rgb(138, 144, 163);

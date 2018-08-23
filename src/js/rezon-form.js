@@ -157,7 +157,9 @@ var rezOnForm = function (form, o) {
             checkIn: new Date(),
             checkOut: new Date(),
             city: new HotelCityItem(),
-            formExtended: false
+            formExtended: false,
+            child: [],
+            nationality: ""
         }
 
     }
@@ -2008,12 +2010,9 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-        // Отели select
-        for(var i = 1; i <= 12; i++) {
+    // Отели select
+        for(var i = 1; i <= 4; i++) {
              $('.num_people .option_box').append("<li class='option'>" + i + "</li>");
-        }
-        for(var i = 1; i <= 3; i++) {
-            $('.num_room .option_box').append("<li class='option'>" + i + "</li>");
         }
 
         it._hotelForm.find('.select_box').click(function () {
@@ -2027,11 +2026,14 @@ var rezOnForm = function (form, o) {
         it._hotelForm.find('.children_input').click(function () {
             $(this).next().toggleClass('open');
             $(this).toggleClass('rotate');
-        })
+        });
 
         function HandlerClick(e) {
             if (!$(e.target).hasClass("select_box") && $(e.target).parents(".select_box").length === 0) {
-                $(".option_box").removeClass("open");
+                $('.option_box').removeClass('open');
+                $('.children_age').removeClass('open');
+                $('.value_tag').removeClass('rotate');
+                $('.children_input').removeClass('rotate');
                 $(document).unbind('click', HandlerClick);
             }
         }
@@ -2041,14 +2043,32 @@ var rezOnForm = function (form, o) {
             $('.value_tag').removeClass('rotate');
         });
 
-        $('.select_box .option').click(function() {
+        $('.num_people .option').click(function() {
             var num = $(this).text();
+            // hotel.adults = Number(num);
             $(this).closest('.select_box').find('.input_val').val(num);
             $(this).closest('.select_box').find('.number_val').html(num);
-            $('.children_age').removeClass('open');
-
-
         });
+
+        $('.num_children .option').click(function() {
+            var text = $(this).text();
+            var value = text.replace(/[^-0-9]/gim,'');
+            $(this).closest('.children_box-item').find('.input_val').val(value);
+            $(this).closest('.children_box-item').find('.number_val').html(text);
+            $('.children_age').removeClass('open');
+            $('.children_input').removeClass('rotate');
+
+            var sum = 0;
+            $('.children_box-item .input_val').each( function () {
+                if ($(this).val()!=0) {
+                    sum++;
+                }
+            });
+            $('.quantity_val').text(sum);
+            $('.input_quantity').val(sum);
+        });
+
+
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
