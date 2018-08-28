@@ -3023,9 +3023,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 .children_input:before {
     top: 10px;
 }
-.test {
-    max-height: 300px;
-}
 .num_children .children_age {
     list-style-type: none;
     padding: 0;

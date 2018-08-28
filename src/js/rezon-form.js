@@ -1458,7 +1458,7 @@ var rezOnForm = function (form, o) {
                 item.closest(".twitter-typeahead").next().val('');
                 item.trigger("typeahead:filterIt");
                 setTimeout(function () {
-                    //После очистки, находим первый пестой элемент и устанавливаем на него фокус. 
+                    //После очистки, находим первый пестой элемент и устанавливаем на него фокус.
                     //Ищем т.к. все значения съезжают к верхнему
                     item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
                 }, 100);
@@ -2016,16 +2016,7 @@ var rezOnForm = function (form, o) {
         }
 
         it._hotelForm.find('.select_box').click(function () {
-            $(this).children('.option_box').toggleClass('open');
-            $(this).children('.value_tag').toggleClass('rotate');
             $(document).bind('click', HandlerClick);
-        }).on('click','.children_box', function(e) {
-            e.stopPropagation();
-        });
-
-        it._hotelForm.find('.children_input').click(function () {
-            $(this).next().toggleClass('open');
-            $(this).toggleClass('rotate');
         });
 
         function HandlerClick(e) {
@@ -2043,30 +2034,23 @@ var rezOnForm = function (form, o) {
             $('.value_tag').removeClass('rotate');
         });
 
-        $('.num_people .option').click(function() {
-            var num = $(this).text();
-            // hotel.adults = Number(num);
-            $(this).closest('.select_box').find('.input_val').val(num);
-            $(this).closest('.select_box').find('.number_val').html(num);
-        });
-
-        $('.num_children .option').click(function() {
-            var text = $(this).text();
-            var value = text.replace(/[^-0-9]/gim,'');
-            $(this).closest('.children_box-item').find('.input_val').val(value);
-            $(this).closest('.children_box-item').find('.number_val').html(text);
-            $('.children_age').removeClass('open');
-            $('.children_input').removeClass('rotate');
-
-            var sum = 0;
-            $('.children_box-item .input_val').each( function () {
-                if ($(this).val()!=0) {
-                    sum++;
-                }
-            });
-            $('.quantity_val').text(sum);
-            $('.input_quantity').val(sum);
-        });
+        // $('.num_children .option').click(function() {
+        //     var text = $(this).text();
+        //     var value = text.replace(/[^-0-9]/gim,'');
+        //     $(this).closest('.children_box-item').find('.input_val').val(value);
+        //     $(this).closest('.children_box-item').find('.number_val').html(text);
+        //     $('.children_age').removeClass('open');
+        //     $('.children_input').removeClass('rotate');
+        //
+        //     var sum = 0;
+        //     $('.children_box-item .input_val').each( function () {
+        //         if ($(this).val()!=0) {
+        //             sum++;
+        //         }
+        //     });
+        //     $('.quantity_val').text(sum);
+        //     $('.input_quantity').val(sum);
+        // });
 
 
 
@@ -3434,13 +3418,20 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             addBusPassenger: function () {
                 this.buses.passenger.count++;
             },
-            removeHotelAdults: function () {
-                this.hotel.adults--;
-                if (this.hotel.adults <= 0)
-                    this.hotel.adults = 1;
+            toggleClass: function(e) {
+                $(e.currentTarget).children('.option_box').toggleClass('open');
+                $(e.currentTarget).children('.value_tag').toggleClass('rotate');
             },
-            addHotelAdults: function () {
-                this.hotel.adults++;
+            toggleClassChild: function(e) {
+                $(e.currentTarget).next().toggleClass('open');
+                $(e.currentTarget).toggleClass('rotate');
+            },
+            fieldOption: function(e){
+                var num = $(e.target).text();
+                this.hotel.adults = parseInt(num);
+            },
+            stopClick: function(e){
+                e.stopPropagation();
             },
             passUpdate: function () {
                 var currCount = 0;

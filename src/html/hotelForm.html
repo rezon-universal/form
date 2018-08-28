@@ -45,12 +45,12 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box">
+                <div class="select_box"  v-on:click="toggleClass">
                     <div class="value_tag">
-                        <span class="number_val">1</span>
-                        <input class="input_val" type="hidden" name="Adults" value="">
+                        <span class="number_val">{{hotel.adults}}</span>
+                        <input class="input_val" type="hidden" name="Adults" v-model="hotel.adults">
                     </div>
-                    <ul class="option_box"></ul>
+                    <ul class="option_box" v-on:click="fieldOption"></ul>
                 </div>
             </div>
         </div>
@@ -61,22 +61,21 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box">
+                <div class="select_box" v-on:click="toggleClass">
                     <div class="value_tag">
                         <span class="quantity_val">&mdash;</span>
                         <input class="input_quantity" type="hidden"  value="">
                     </div>
-                    <div class="children_box option_box">
+                    <div class="children_box option_box" v-on:click="stopClick">
                         <div class="children_box-item">
                             <label class="children-title">
                                 {{locale("Возраст 1 ребенка")}}
                             </label>
-                            <div class="children_input">
+                            <div class="children_input" v-on:click="toggleClassChild">
                                 <span class="number_val">&mdash;</span>
                                 <input class="input_val" type="hidden"  value="">
                             </div>
                             <ul class="children_age">
-                                <li class="option">Меньше года</li>
                                 <li class="option">1 год</li>
                                 <li class="option">2 года</li>
                                 <li class="option">3 года</li>
@@ -95,7 +94,7 @@
                             <label class="children-title">
                                 {{locale("Возраст 2 ребенка")}}
                             </label>
-                            <div class="children_input">
+                            <div class="children_input" v-on:click="toggleClassChild">
                                 <span class="number_val">&mdash;</span>
                                 <input class="input_val" type="hidden"  value="">
                             </div>
@@ -119,12 +118,11 @@
                             <label class="children-title">
                                 {{locale("Возраст 3 ребенка")}}
                             </label>
-                            <div class="children_input">
+                            <div class="children_input" v-on:click="toggleClassChild">
                                 <span class="number_val">&mdash;</span>
                                 <input class="input_val" type="hidden"  value="">
                             </div>
                             <ul class="children_age">
-                                <li class="option">Меньше года</li>
                                 <li class="option">1 год</li>
                                 <li class="option">2 года</li>
                                 <li class="option">3 года</li>
