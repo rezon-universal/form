@@ -158,7 +158,7 @@ var rezOnForm = function (form, o) {
             checkOut: new Date(),
             city: new HotelCityItem(),
             formExtended: false,
-            child: [],
+            childs: [],
             nationality: ""
         }
 
@@ -2011,10 +2011,6 @@ var rezOnForm = function (form, o) {
         };
 
     // Отели select
-        for(var i = 1; i <= 4; i++) {
-             $('.num_people .option_box').append("<li class='option'>" + i + "</li>");
-        }
-
         it._hotelForm.find('.select_box').click(function () {
             $(document).bind('click', HandlerClick);
         });
@@ -2034,23 +2030,19 @@ var rezOnForm = function (form, o) {
             $('.value_tag').removeClass('rotate');
         });
 
-        // $('.num_children .option').click(function() {
-        //     var text = $(this).text();
-        //     var value = text.replace(/[^-0-9]/gim,'');
-        //     $(this).closest('.children_box-item').find('.input_val').val(value);
-        //     $(this).closest('.children_box-item').find('.number_val').html(text);
-        //     $('.children_age').removeClass('open');
-        //     $('.children_input').removeClass('rotate');
-        //
-        //     var sum = 0;
-        //     $('.children_box-item .input_val').each( function () {
-        //         if ($(this).val()!=0) {
-        //             sum++;
-        //         }
-        //     });
-        //     $('.quantity_val').text(sum);
-        //     $('.input_quantity').val(sum);
-        // });
+        $('.num_children .option').click(function() {
+            var text = $(this).text();
+            var value = text.replace(/[^-0-9]/gim,'');
+            $(this).closest('.children_box-item').find('.input_val').val(value);
+
+            var sum = 0;
+            $('.children_box-item .input_val').each( function () {
+                if ($(this).val() != 0) {
+                    sum++;
+                }
+            });
+            $('.quantity_val').text(sum);
+        });
 
 
 
@@ -3432,6 +3424,19 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             stopClick: function(e){
                 e.stopPropagation();
+            },
+            childOption: function(e){
+                var text = $(e.target).text();
+                var value = text.replace(/[^-0-9]/gim,'');
+
+                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
+                this.hotel.childs[parseInt(child) - 1] = value;
+
+                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
+                $('.children_age').removeClass('open');
+                $('.children_input').removeClass('rotate');
+
+                $('.select_box .input_quantity').val(this.hotel.childs);
             },
             passUpdate: function () {
                 var currCount = 0;
