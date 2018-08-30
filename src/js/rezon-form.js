@@ -3734,25 +3734,35 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 }
             },
             'hotel.checkIn': function (value) {
-                if (value > this.hotel.checkIn) {
-                    this.hotel.checkIn = value;
-                }
-                if (value > this.dates.hotelMaxDate) {
-                    this.hotel.checkIn = this.hotel.hotelMaxDate;
-                }
-                if (value < this.dates.hotelMinDate) {
+                var tempDate = new Date(this.dates.hotelMaxDate);
+                tempDate.setDate(this.dates.hotelMaxDate.getDate() - 1);
+
+                if (value > tempDate) 
+                    this.hotel.checkIn = tempDate;
+                
+                if (value < this.dates.hotelMinDate)
                     this.hotel.checkIn = this.dates.hotelMinDate;
+
+                if (this.hotel.checkIn >= this.hotel.checkOut) {
+                    tempDate = new Date(this.hotel.checkIn);
+                    tempDate.setDate(this.hotel.checkIn.getDate() + 1);
+                    this.hotel.checkOut = tempDate;
                 }
             },
             'hotel.checkOut': function (value) {
-                if (value < this.hotel.checkOut) {
-                    this.hotel.checkOut = value;
-                }
-                if (value > this.hotel.hotelMaxDate) {
+                var tempDate = new Date(this.dates.hotelMinDate);
+                tempDate.setDate(this.dates.hotelMinDate.getDate() + 1);
+
+                if (value > this.dates.hotelMaxDate)
                     this.hotel.checkOut = this.dates.hotelMaxDate;
-                }
-                if (value < this.dates.hotelMinDate) {
-                    this.hotel.checkOut = this.dates.hotelMinDate;
+
+                if (value < tempDate) 
+                    this.hotel.checkOut = tempDate;
+
+                if (this.hotel.checkOut <= this.hotel.checkIn) {
+                    tempDate = new Date(this.hotel.checkOut);
+                    tempDate.setDate(this.hotel.checkOut.getDate() - 1);
+                    this.hotel.checkIn = tempDate;
                 }
             }
         },
