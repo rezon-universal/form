@@ -72,7 +72,9 @@ var rezOnForm = function (form, o) {
             trainsMinDate: null,
             trainsMaxDate: null,
             busesMinDate: null,
-            busesMaxDate: null
+            busesMaxDate: null,
+            hotelMinDate: null,
+            hotelMaxDate: null
         },
 
         projectUrl: "/",
@@ -154,8 +156,8 @@ var rezOnForm = function (form, o) {
             recCity: [],
             historyGuid: "",
             adults: 1,
-            checkIn: new Date(),
-            checkOut: new Date(),
+            checkIn: null,
+            checkOut: null,
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
@@ -2010,7 +2012,7 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-    // Отели select
+        // Отели select
         it._hotelForm.find('.select_box').click(function () {
             $(document).bind('click', HandlerClick);
         });
@@ -2025,18 +2027,18 @@ var rezOnForm = function (form, o) {
             }
         }
 
-        $('.num_children .button-hide').click(function() {
+        $('.num_children .button-hide').click(function () {
             $(".option_box").removeClass('open');
             $('.value_tag').removeClass('rotate');
         });
 
-        $('.num_children .option').click(function() {
+        $('.num_children .option').click(function () {
             var text = $(this).text();
-            var value = text.replace(/[^-0-9]/gim,'');
+            var value = text.replace(/[^-0-9]/gim, '');
             $(this).closest('.children_box-item').find('.input_val').val(value);
 
             var sum = 0;
-            $('.children_box-item .input_val').each( function () {
+            $('.children_box-item .input_val').each(function () {
                 if ($(this).val() != 0) {
                     sum++;
                 }
@@ -2508,15 +2510,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     //Get defaultDatepickerSettings settings for Datepicker from Datepicker.js
     var datepickerSetting = defaultDatepickerSettings;
     var defaultComp =
-        {
-            template: datepickerSetting.template,
-            props: datepickerSetting.props,
-            data: datepickerSetting.data,
-            mounted: datepickerSetting.mounted,
-            watch: datepickerSetting.watch,
-            computed: datepickerSetting.computed,
-            methods: datepickerSetting.methods
-        }
+    {
+        template: datepickerSetting.template,
+        props: datepickerSetting.props,
+        data: datepickerSetting.data,
+        mounted: datepickerSetting.mounted,
+        watch: datepickerSetting.watch,
+        computed: datepickerSetting.computed,
+        methods: datepickerSetting.methods
+    }
 
     //Airport typeahead input component
     Vue.component('airportInput', {
@@ -2536,9 +2538,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "PLACEHOLDER_AIRPORT2"
@@ -2655,9 +2657,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "RAILWAY_PLACEHOLDER"
@@ -2758,9 +2760,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "BUSES_PLACEHOLDER"
@@ -2861,9 +2863,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "HOTEL_PLACEHOLDER"
@@ -2980,6 +2982,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                             }
                         }
                         break;
+                    case "hotel":
+                        highlighted = {
+                            from: this.dateFrom,
+                            to: this.dateTo
+                        }
+                        break;
                 }
                 return highlighted;
             },
@@ -3002,6 +3010,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                         disabled = {
                             to: this.minDate !== undefined ? this.minDate : vue.dates.busesMinDate,
                             from: this.maxDate !== undefined ? this.maxDate : vue.dates.busesMaxDate
+                        }
+                        break;
+                    case "hotel":
+                        disabled = {
+                            to: this.minDate !== undefined ? this.minDate : vue.dates.hotelMinDate,
+                            from: this.maxDate !== undefined ? this.maxDate : vue.dates.hotelMaxDate
                         }
                         break;
                 }
@@ -3279,7 +3293,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             hotelMaxDate: function () {
                 var maxDate = new Date(this.today.getTime());
-                maxDate.setDate(maxDate.getDate() + 180);
+                maxDate.setDate(maxDate.getDate() + 30);
                 return maxDate;
             },
             hotelDefaultCheckIn: function () {
@@ -3410,24 +3424,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             addBusPassenger: function () {
                 this.buses.passenger.count++;
             },
-            toggleClass: function(e) {
+            toggleClass: function (e) {
                 $(e.currentTarget).children('.option_box').toggleClass('open');
                 $(e.currentTarget).children('.value_tag').toggleClass('rotate');
             },
-            toggleClassChild: function(e) {
+            toggleClassChild: function (e) {
                 $(e.currentTarget).next().toggleClass('open');
                 $(e.currentTarget).toggleClass('rotate');
             },
-            fieldOption: function(e){
+            fieldOption: function (e) {
                 var num = $(e.target).text();
                 this.hotel.adults = parseInt(num);
             },
-            stopClick: function(e){
+            stopClick: function (e) {
                 e.stopPropagation();
             },
-            childOption: function(e){
+            childOption: function (e) {
                 var text = $(e.target).text();
-                var value = text.replace(/[^-0-9]/gim,'');
+                var value = text.replace(/[^-0-9]/gim, '');
 
                 var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
                 this.hotel.childs[parseInt(child) - 1] = value;
@@ -3737,7 +3751,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value > this.hotel.hotelMaxDate) {
                     this.hotel.checkOut = this.dates.hotelMaxDate;
                 }
-                if (value < this.dates.busesMinDate) {
+                if (value < this.dates.hotelMinDate) {
                     this.hotel.checkOut = this.dates.hotelMinDate;
                 }
             }
