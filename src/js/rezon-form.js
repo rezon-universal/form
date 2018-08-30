@@ -161,7 +161,10 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
-            nationality: ""
+            nationality: "",
+            get inputChilds() {
+                return this.childs.join();
+            }
         }
 
     }

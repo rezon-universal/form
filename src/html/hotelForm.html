@@ -66,7 +66,7 @@
                 <div class="select_box" v-on:click="toggleClass">
                     <div class="value_tag">
                         <span class="quantity_val">&mdash;</span>
-                        <input class="input_quantity" type="hidden" v-model="hotel.childs">
+                        <input class="input_quantity" type="hidden" v-model="hotel.inputChilds" name="childs">
                     </div>
                     <div class="children_box option_box" v-on:click="stopClick">
                         <div class="children_box-item" v-for="n in 3">
