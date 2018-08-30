@@ -3293,7 +3293,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             hotelMaxDate: function () {
                 var maxDate = new Date(this.today.getTime());
-                maxDate.setDate(maxDate.getDate() + 30);
+                maxDate.setDate(maxDate.getDate() + 180);
                 return maxDate;
             },
             hotelDefaultCheckIn: function () {
@@ -3748,6 +3748,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     tempDate.setDate(this.hotel.checkIn.getDate() + 1);
                     this.hotel.checkOut = tempDate;
                 }
+
+                tempDate = new Date(this.hotel.checkIn);
+                tempDate.setDate(this.hotel.checkIn.getDate() + 30);
+
+                if (tempDate < this.hotel.checkOut) 
+                    this.hotel.checkOut = tempDate;
             },
             'hotel.checkOut': function (value) {
                 var tempDate = new Date(this.dates.hotelMinDate);
@@ -3764,6 +3770,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     tempDate.setDate(this.hotel.checkOut.getDate() - 1);
                     this.hotel.checkIn = tempDate;
                 }
+
+                tempDate = new Date(this.hotel.checkOut);
+                tempDate.setDate(this.hotel.checkOut.getDate() - 30);
+
+                if (tempDate > this.hotel.checkIn) 
+                    this.hotel.checkIn = tempDate;
             }
         },
         created: function () {
