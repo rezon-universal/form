@@ -161,6 +161,9 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
+            guests: [],
+            counter: 1,
+            rooms: 1,
             nationality: "",
             get inputChilds() {
                 return this.childs.join();
@@ -3439,10 +3442,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var num = $(e.target).text();
                 this.hotel.adults = parseInt(num);
             },
+            fieldRoom: function (e) {
+                var num = $(e.target).text();
+                this.hotel.rooms = parseInt(num);
+            },
             stopClick: function (e) {
                 e.stopPropagation();
             },
-            childOption: function (e) {
+            childOption(e) {
                 var text = $(e.target).text();
                 var value = text.replace(/[^-0-9]/gim, '');
 
@@ -3454,6 +3461,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
+            },
+            addChild() {
+                this.counter++;
+            },
+            deleteChild(index){
+
             },
             passUpdate: function () {
                 var currCount = 0;

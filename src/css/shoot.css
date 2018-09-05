@@ -2928,10 +2928,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 .num_people,
 .num_children,
 .num_room {
-    flex-basis: 10%;
+    flex-basis: 8%;
 }
 .nationality_hotels {
-     flex-basis: 26%;
+     flex-basis: 22%;
  }
 .option_box {
     position: absolute;
@@ -2971,10 +2971,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: rgba(38, 182, 255, 0.5);
 }
 .option_box li:first-child {
-    padding-top: 10px;
+    padding-top: 5px;
 }
 .option_box li:last-child {
-    padding-bottom: 15px;
+    padding-bottom: 5px;
 }
 #rezon-forms .nationality_select-home {
     width: 100%;
@@ -2991,6 +2991,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    overflow-y: auto;
 }
 .children_box-item {
     padding: 15px;
@@ -3043,5 +3044,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 .children_age li:last-child {
     padding-bottom: 4px;
+}
+.btn_children {
+    padding: 0 6px;
 }
 /************************End Hotels***********************/

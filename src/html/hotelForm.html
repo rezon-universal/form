@@ -45,12 +45,12 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box"  v-on:click="toggleClass">
+                <div class="select_box"  @click="toggleClass">
                     <div class="value_tag">
                         <span class="number_val">{{hotel.adults}}</span>
                         <input class="input_val" type="hidden" name="Adults" v-model="hotel.adults">
                     </div>
-                    <ul class="option_box" v-on:click="fieldOption">
+                    <ul class="option_box" @click="fieldOption">
                         <li class="option" v-for="i in 4">{{ i }}</li>
                     </ul>
                 </div>
@@ -63,28 +63,47 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box" v-on:click="toggleClass">
+                <div class="select_box" @click="toggleClass">
                     <div class="value_tag">
                         <span class="quantity_val">&mdash;</span>
                         <input class="input_quantity" type="hidden" v-model="hotel.inputChilds" name="Child">
                     </div>
-                    <div class="children_box option_box" v-on:click="stopClick">
+                    <div class="children_box option_box" @click="stopClick">
                         <div class="children_box-item" v-for="n in 3">
                             <label class="children-title">
                                 Возраст {{ n }} ребенка
                             </label>
-                            <div class="children_input" v-on:click="toggleClassChild">
+                            <div class="children_input" @click="toggleClassChild">
                                 <span class="number_val" :child="n">&mdash;</span>
                                 <input class="input_val" type="hidden"  value="">
                             </div>
-                            <ul class="children_age" v-on:click="childOption">
+                            <ul class="children_age" @click="childOption">
                                 <li class="option" v-for="i in 12">{{ i }} год</li>
                             </ul>
                         </div>
+
                         <span class="button-hide hidden-xs">
                             <span class="hide-inner">{{locale("HIDE")}}</span>
                         </span>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="field num_room">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("Room")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box"  v-on:click="toggleClass">
+                    <div class="value_tag">
+                        <span class="number_val">{{hotel.rooms}}</span>
+                        <input class="input_val" type="hidden" name="Rooms" v-model="hotel.rooms">
+                    </div>
+                    <ul class="option_box" v-on:click="fieldRoom">
+                        <li class="option" v-for="i in 3">{{ i }}</li>
+                    </ul>
                 </div>
             </div>
         </div>
