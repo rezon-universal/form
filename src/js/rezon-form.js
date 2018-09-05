@@ -161,8 +161,6 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
-            guests: [],
-            counter: 1,
             rooms: 1,
             nationality: "",
             get inputChilds() {
@@ -3461,12 +3459,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
-            },
-            addChild() {
-                this.counter++;
-            },
-            deleteChild(index){
-
             },
             passUpdate: function () {
                 var currCount = 0;
