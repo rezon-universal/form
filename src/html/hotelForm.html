@@ -96,12 +96,12 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box"  v-on:click="toggleClass">
+                <div class="select_box" @click="toggleClass">
                     <div class="value_tag">
                         <span class="number_val">{{hotel.rooms}}</span>
                         <input class="input_val" type="hidden" name="Rooms" v-model="hotel.rooms">
                     </div>
-                    <ul class="option_box" v-on:click="fieldRoom">
+                    <ul class="option_box" @click="fieldRoom">
                         <li class="option" v-for="i in 3">{{ i }}</li>
                     </ul>
                 </div>
@@ -114,12 +114,17 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <div class="select_box">
+                <div class="select_box" @click="toggleClass">
                     <div class="value_tag">
                         <span class="number_val">Украина</span>
                         <input class="input_val" type="hidden"  value="UA">
                     </div>
-                    <ul class="option_box"></ul>
+                    <ul class="option_box" @click="countryOption">
+                        <li class="option" v-for="country in hotel.countries">
+                            <span class="country_name">{{ country.name }}</span>
+                            <span class="country_code hidden">{{ country.alpha2Code }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="error-box">

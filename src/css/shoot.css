@@ -2952,6 +2952,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     max-height: 300px;
     transition: max-height 0.8s ease-in;
 }
+.nationality_hotels .option_box.open {
+    overflow-y: auto;
+}
 .value_tag {
     min-height: 45px;
     padding: 0 15px;

@@ -162,6 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
+            countries: [],
+            selectedCoutry: '',
             nationality: "",
             get inputChilds() {
                 return this.childs.join();
@@ -3460,6 +3462,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
             },
+            getAllCountries() {
+                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
+                    this.hotel.countries = response.data;
+                })
+            },
+            countryOption(e) {
+                var countryName = $(e.target).text();
+                $(e.currentTarget).closest('.select_box').find('.number_val').html(countryName);
+            },
             passUpdate: function () {
                 var currCount = 0;
                 var adultCnt = 0;
@@ -3668,6 +3679,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
             }
+        },
+        beforeMount: function() {
+            this.getAllCountries()
         },
         watch: {
             'avia.defaultDateThere': function (value) {
