@@ -163,8 +163,8 @@ var rezOnForm = function (form, o) {
             childs: [],
             rooms: 1,
             countries: [],
-            selectedCoutry: '',
-            nationality: "",
+            nationalityName: "Ukraine",
+            nationalityCode: "UA",
             get inputChilds() {
                 return this.childs.join();
             }
@@ -3467,9 +3467,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.countries = response.data;
                 })
             },
-            countryOption(e) {
-                var countryName = $(e.target).text();
-                $(e.currentTarget).closest('.select_box').find('.number_val').html(countryName);
+            handleClick({name, alpha2Code}) {
+                this.hotel.nationalityName = name;
+                this.hotel.nationalityCode = alpha2Code;
             },
             passUpdate: function () {
                 var currCount = 0;
@@ -3680,9 +3680,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid.trim() !== "";
             }
         },
-        beforeMount: function() {
-            this.getAllCountries()
-        },
         watch: {
             'avia.defaultDateThere': function (value) {
                 if (value > this.avia.defaultDateBack) {
@@ -3833,6 +3830,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             window.vue = this;
             this.passUpdate();
+
+            this.getAllCountries();
         },
         mounted: function () {
             var el = this.$el;

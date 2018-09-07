@@ -116,11 +116,11 @@
             <div class="control-field">
                 <div class="select_box" @click="toggleClass">
                     <div class="value_tag">
-                        <span class="number_val">Украина</span>
-                        <input class="input_val" type="hidden"  value="UA">
+                        <span class="number_val">{{ hotel.nationalityName }}</span>
+                        <input class="input_val" type="hidden" name="Countries"  v-model="hotel.nationalityCode">
                     </div>
-                    <ul class="option_box" @click="countryOption">
-                        <li class="option" v-for="country in hotel.countries">
+                    <ul class="option_box">
+                        <li class="option" v-for="country in hotel.countries" @click=handleClick(country)>
                             <span class="country_name">{{ country.name }}</span>
                             <span class="country_code hidden">{{ country.alpha2Code }}</span>
                         </li>
@@ -140,7 +140,7 @@
         </div>
         <div class="field clear ">
             <div class="transp">
-                <span href="#" class="clear_form" v-on:click="clearHotelForm()">
+                <span href="#" class="clear_form" @click="clearHotelForm()">
                     <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
                 </span>
             </div>
