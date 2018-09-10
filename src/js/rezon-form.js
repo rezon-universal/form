@@ -2415,11 +2415,23 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
     if (!!params.City)
         params.city = new HotelCityItem(params.City.Id, params.City.Name, params.City.CountryCode);
 
-    if (!!params.Adults)
-        params.adults = params.Adults;
+    if (!!params.Rooms[0].Adults)
+        params.adults = params.Rooms[0].Adults;
 
     if (!!params.HistoryGuid && params.HistoryGuid.trim() !== "")
         params.historyGuid = params.HistoryGuid;
+
+    if (!!params.Rooms[0].ChildAges) {
+        params.childs = [];
+        for (var i = 0; i < params.Rooms[0].ChildAges.length; i++)
+            params.childs.push(params.Rooms[0].ChildAges[i].toString());
+    }
+
+    if (!!params.Rooms[0].LeaderCitizenship && params.Rooms[0].LeaderCitizenship.trim().length === 2)
+        params.nationalityCode = params.Rooms[0].LeaderCitizenship;
+
+    if (!!params.Rooms[0].Quantity && params.Rooms[0].Quantity !== 0)
+        params.rooms = params.Rooms[0].Quantity;
 
     return params;
 }
@@ -3465,9 +3477,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             getAllCountries() {
                 this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
                     this.hotel.countries = response.data;
-                })
+                });
             },
-            handleClick({name, alpha2Code}) {
+            handleClick({ name, alpha2Code }) {
                 this.hotel.nationalityName = name;
                 this.hotel.nationalityCode = alpha2Code;
             },
@@ -3756,9 +3768,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var tempDate = new Date(this.dates.hotelMaxDate);
                 tempDate.setDate(this.dates.hotelMaxDate.getDate() - 1);
 
-                if (value > tempDate) 
+                if (value > tempDate)
                     this.hotel.checkIn = tempDate;
-                
+
                 if (value < this.dates.hotelMinDate)
                     this.hotel.checkIn = this.dates.hotelMinDate;
 
@@ -3771,7 +3783,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 tempDate = new Date(this.hotel.checkIn);
                 tempDate.setDate(this.hotel.checkIn.getDate() + 30);
 
-                if (tempDate < this.hotel.checkOut) 
+                if (tempDate < this.hotel.checkOut)
                     this.hotel.checkOut = tempDate;
             },
             'hotel.checkOut': function (value) {
@@ -3781,7 +3793,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value > this.dates.hotelMaxDate)
                     this.hotel.checkOut = this.dates.hotelMaxDate;
 
-                if (value < tempDate) 
+                if (value < tempDate)
                     this.hotel.checkOut = tempDate;
 
                 if (this.hotel.checkOut <= this.hotel.checkIn) {
@@ -3793,7 +3805,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 tempDate = new Date(this.hotel.checkOut);
                 tempDate.setDate(this.hotel.checkOut.getDate() - 30);
 
-                if (tempDate > this.hotel.checkIn) 
+                if (tempDate > this.hotel.checkIn)
                     this.hotel.checkIn = tempDate;
             }
         },
