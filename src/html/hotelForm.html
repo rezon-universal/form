@@ -117,7 +117,8 @@
                 <div class="select_box" @click="toggleClass">
                     <div class="value_tag">
                         <span class="number_val">{{ hotel.nationalityName }}</span>
-                        <input class="input_val" type="hidden" name="Nationality"  v-model="hotel.nationalityCode">
+                        <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
+                        <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                     </div>
                     <ul class="option_box">
                         <li class="option" v-for="country in hotel.countries" @click=handleClick(country)>

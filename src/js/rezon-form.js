@@ -2427,8 +2427,11 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
             params.childs.push(params.Rooms[0].ChildAges[i].toString());
     }
 
-    if (!!params.Rooms[0].LeaderCitizenship && params.Rooms[0].LeaderCitizenship.trim().length === 2)
-        params.nationalityCode = params.Rooms[0].LeaderCitizenship;
+    if (!!params.Rooms[0].NationalityName && params.Rooms[0].NationalityName.trim() !== "")
+        params.nationalityName = params.Rooms[0].NationalityName;
+
+    if (!!params.Rooms[0].NationalityCode && params.Rooms[0].NationalityCode.trim().length === 2)
+        params.nationalityCode = params.Rooms[0].NationalityCode;
 
     if (!!params.Rooms[0].Quantity && params.Rooms[0].Quantity !== 0)
         params.rooms = params.Rooms[0].Quantity;
