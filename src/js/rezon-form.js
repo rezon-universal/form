@@ -161,7 +161,10 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
-            nationality: "",
+            rooms: 1,
+            countries: [],
+            nationalityName: "Ukraine",
+            nationalityCode: "UA",
             get inputChilds() {
                 return this.childs.join();
             }
@@ -3439,10 +3442,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var num = $(e.target).text();
                 this.hotel.adults = parseInt(num);
             },
+            fieldRoom: function (e) {
+                var num = $(e.target).text();
+                this.hotel.rooms = parseInt(num);
+            },
             stopClick: function (e) {
                 e.stopPropagation();
             },
-            childOption: function (e) {
+            childOption(e) {
                 var text = $(e.target).text();
                 var value = text.replace(/[^-0-9]/gim, '');
 
@@ -3454,6 +3461,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
+            },
+            getAllCountries() {
+                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
+                    this.hotel.countries = response.data;
+                })
+            },
+            handleClick({name, alpha2Code}) {
+                this.hotel.nationalityName = name;
+                this.hotel.nationalityCode = alpha2Code;
             },
             passUpdate: function () {
                 var currCount = 0;
@@ -3814,6 +3830,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
             window.vue = this;
             this.passUpdate();
+
+            this.getAllCountries();
         },
         mounted: function () {
             var el = this.$el;
