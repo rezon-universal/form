@@ -5,7 +5,7 @@
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
-                {{locale("City")}}
+                {{locale("CITY")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -41,7 +41,7 @@
         <div class="field num_people">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("Adult")}}
+                {{locale("PASS_CAT_ADT")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -59,7 +59,7 @@
         <div class="field num_children">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("Children")}}
+                {{locale("PASS_CAT_CNN")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -71,14 +71,14 @@
                     <div class="children_box option_box" @click="stopClick">
                         <div class="children_box-item" v-for="n in 3">
                             <label class="children-title">
-                                Возраст {{ n }} ребенка
+                                Age of {{ n }} child
                             </label>
                             <div class="children_input" @click="toggleClassChild">
                                 <span class="number_val" :child="n">&mdash;</span>
                                 <input class="input_val" type="hidden"  value="">
                             </div>
                             <ul class="children_age" @click="childOption">
-                                <li class="option" v-for="i in 12">{{ i }} год</li>
+                                <li class="option" v-for="i in 12">{{ i }} year</li>
                             </ul>
                         </div>
 
@@ -92,7 +92,7 @@
         <div class="field num_room">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("Room")}}
+                {{locale("ROOMS")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -110,7 +110,7 @@
         <div class="field nationality_hotels">
             <label class="menu-title">
                 <span class="link-left"></span>
-                {{locale("Nationality")}}
+                {{locale("NATIONALITY")}}
                 <span class="link-right"></span>
             </label>
             <div class="control-field">

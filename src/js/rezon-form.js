@@ -321,7 +321,13 @@ var rezOnForm = function (form, o) {
                 "ARRIVAL_TIME": "Время прибытия",
                 "SELECT_DATE": "Выберите дату",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму",
-                "CONFIRM": "Подтвердить"
+                "CONFIRM": "Подтвердить",
+                "CITY": "Город",
+                "CHECK_IN": "Заезд",
+                "CHECK_OUT": "Отъезд",
+                "HOTEL_PLACEHOLDER": "Куда вы хотите поеъать?",
+                "ROOMS": "Комнат",
+                "NATIONALITY": "Национальность"
             },
             en: {
                 "ONE_WAY": "One-Way",
@@ -466,7 +472,13 @@ var rezOnForm = function (form, o) {
                 "ARRIVAL_TIME": "Arrival time",
                 "SELECT_DATE": "Select date",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form",
-                "CONFIRM": "Confirm"
+                "CONFIRM": "Confirm",
+                "CITY": "City",
+                "CHECK_IN": "Check-in",
+                "CHECK_OUT": "Check-out",
+                "HOTEL_PLACEHOLDER": "Where are you going?",
+                "ROOMS": "Rooms",
+                "NATIONALITY": "Nationality"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -611,7 +623,13 @@ var rezOnForm = function (form, o) {
                 "ARRIVAL_TIME": "Час прибуття",
                 "SELECT_DATE": "Оберіть дату",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму",
-                "CONFIRM": "Підтвердити"
+                "CONFIRM": "Підтвердити",
+                "CITY": "Місто",
+                "CHECK_IN": "Заїзд",
+                "CHECK_OUT": "Виїзд",
+                "HOTEL_PLACEHOLDER": "Куди ви вирушаєте?",
+                "ROOMS": "Кімнат",
+                "NATIONALITY": "Національність"
             }
         };
 
