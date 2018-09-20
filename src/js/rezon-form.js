@@ -3482,28 +3482,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             stopClick: function (e) {
                 e.stopPropagation();
             },
-            childOption(e) {
-                var text = $(e.target).text();
-                var value = text.replace(/[^-0-9]/gim, '');
-
-                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
-                this.hotel.childs[parseInt(child) - 1] = value;
-
-                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
-                $('.children_age').removeClass('open');
-                $('.children_input').removeClass('rotate');
-
-                $('.select_box .input_quantity').val(this.hotel.childs);
-            },
-            getAllCountries() {
-                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
-                    this.hotel.countries = response.data;
-                });
-            },
-            handleClick({ name, alpha2Code }) {
-                this.hotel.nationalityName = name;
-                this.hotel.nationalityCode = alpha2Code;
-            },
             passUpdate: function () {
                 var currCount = 0;
                 var adultCnt = 0;
@@ -3607,6 +3585,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $(document).trigger("StartPtChange.MapBridge", [from])
                 $(document).trigger("EndPtChange.MapBridge", [to])
             },
+
+
             //Railway methods
             changeRailFormExtended: function () {
                 this.railway.formExtended = !this.railway.formExtended;
@@ -3711,7 +3691,30 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.hotel.historyGuid !== undefined &&
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
-            }
+            },
+            
+            childOption : function(e) {
+                var text = $(e.target).text();
+                var value = text.replace(/[^-0-9]/gim, '');
+
+                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
+                this.hotel.childs[parseInt(child) - 1] = value;
+
+                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
+                $('.children_age').removeClass('open');
+                $('.children_input').removeClass('rotate');
+
+                $('.select_box .input_quantity').val(this.hotel.childs);
+            },
+            getAllCountries() {
+                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
+                    this.hotel.countries = response.data;
+                });
+            },
+            handleClick : function( name, alpha2Code ) {
+                this.hotel.nationalityName = name;
+                this.hotel.nationalityCode = alpha2Code;
+            },
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3843,6 +3846,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             if (this.formType === 'avia') {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
+                
+                this.passUpdate();
             }
             if (this.formType === 'railway' && !this.hasRailResult()) {
                 this.railway.dateThere = this.railwayDateThere;
@@ -3859,12 +3864,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
                 else if (this.hotel.checkOut < this.hotel.checkIn)
                     this.hotel.checkOut = this.hotel.checkIn;
+                
+                this.getAllCountries();
             }
 
             window.vue = this;
-            this.passUpdate();
 
-            this.getAllCountries();
         },
         mounted: function () {
             var el = this.$el;
