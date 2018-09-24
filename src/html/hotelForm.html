@@ -1,0 +1,150 @@
+<form class="g-hide unload" role="form" id="hotel-form-shoot" autocomplete="off">
+    <input type="hidden" name="HistoryGuid" :value="hotel.historyGuid"/>
+    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
+    <div class="fields-container">
+        <div class="field station from">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CITY")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <hotel-input name="CityId" input-class="book-from" v-model="hotel.city" :placeholder="locale('HOTEL_PLACEHOLDER')"></hotel-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div class="field date from">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_IN")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkIn" name="CheckIn" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_OUT")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkOut" name="CheckOut" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+
+        <div class="field num_people">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PASS_CAT_ADT")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box"  @click="toggleClass">
+                    <div class="value_tag">
+                        <span class="number_val">{{hotel.adults}}</span>
+                        <input class="input_val" type="hidden" name="Adults" v-model="hotel.adults">
+                    </div>
+                    <ul class="option_box" @click="fieldOption">
+                        <li class="option" v-for="i in 4">{{ i }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="field num_children">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PASS_CAT_CNN")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box" @click="toggleClass">
+                    <div class="value_tag">
+                        <span class="quantity_val">&mdash;</span>
+                        <input class="input_quantity" type="hidden" v-model="hotel.inputChilds" name="Child">
+                    </div>
+                    <div class="children_box option_box" @click="stopClick">
+                        <div class="children_box-item" v-for="n in 3">
+                            <label class="children-title">
+                                Age of {{ n }} child
+                            </label>
+                            <div class="children_input" @click="toggleClassChild">
+                                <span class="number_val" :child="n">&mdash;</span>
+                                <input class="input_val" type="hidden"  value="">
+                            </div>
+                            <ul class="children_age" @click="childOption">
+                                <li class="option" v-for="i in 12">{{ i }} year</li>
+                            </ul>
+                        </div>
+
+                        <span class="button-hide hidden-xs">
+                            <span class="hide-inner">{{locale("HIDE")}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field num_room">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("ROOMS")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box" @click="toggleClass">
+                    <div class="value_tag">
+                        <span class="number_val">{{hotel.rooms}}</span>
+                        <input class="input_val" type="hidden" name="Rooms" v-model="hotel.rooms">
+                    </div>
+                    <ul class="option_box" @click="fieldRoom">
+                        <li class="option" v-for="i in 3">{{ i }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="field nationality_hotels">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("NATIONALITY")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="select_box" @click="toggleClass">
+                    <div class="value_tag">
+                        <span class="number_val">{{ hotel.nationalityName }}</span>
+                        <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
+                        <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
+                    </div>
+                    <ul class="option_box">
+                        <li class="option" v-for="country in hotel.countries" @click=handleClick(country)>
+                            <span class="country_name">{{ country.name }}</span>
+                            <span class="country_code hidden">{{ country.alpha2Code }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="error-box">
+                <span class="close hidden"></span>
+            </div>
+        </div>
+
+
+
+
+        <div class="field find">
+            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+        <div class="field clear ">
+            <div class="transp">
+                <span href="#" class="clear_form" @click="clearHotelForm()">
+                    <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>

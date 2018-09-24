@@ -2081,6 +2081,187 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
+
+/************************Hotels***********************/
+#rezon-forms .num_people .value_tag:before,
+#rezon-forms .num_children .value_tag:before,
+#rezon-forms .num_room .value_tag:before,
+#rezon-forms .nationality_hotels .value_tag:before,
+#rezon-forms .children_input:before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #7921D5;
+    border-left: 1px solid #7921D5;
+    transform: rotate(-135deg);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#rezon-forms .num_people .value_tag.rotate:before,
+#rezon-forms .num_children .value_tag.rotate:before,
+#rezon-forms .num_room .value_tag.rotate:before,
+#rezon-forms .nationality_hotels .value_tag.rotate:before,
+#rezon-forms .children_input.rotate:before {
+    transform: rotate(45deg);
+}
+
+#rezon-forms .num_people,
+#rezon-forms .num_children,
+#rezon-forms .num_room {
+    flex-basis: 8%;
+}
+
+#rezon-forms .nationality_hotels {
+    flex-basis: 22%;
+}
+
+#rezon-forms .option_box {
+    position: absolute;
+    top: 102%;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    z-index: 10;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+    #rezon-forms .option_box.open {
+        max-height: 300px;
+        transition: max-height 0.8s ease-in;
+    }
+
+#rezon-forms .nationality_hotels .option_box.open {
+    overflow-y: auto;
+}
+
+#rezon-forms .value_tag {
+    min-height: 45px;
+    padding: 0 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#rezon-forms .nationality_hotels .value_tag {
+    padding: 0 15px;
+}
+
+#rezon-forms .option_box li {
+    padding: 4px 15px;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+    #rezon-forms .option_box li:hover {
+        background-color: rgba(38, 182, 255, 0.5);
+    }
+
+    #rezon-forms .option_box li:first-child {
+        padding-top: 5px;
+    }
+
+    #rezon-forms .option_box li:last-child {
+        padding-bottom: 5px;
+    }
+
+#rezon-forms .nationality_select-home {
+    width: 100%;
+    border-radius: 3px;
+    min-height: 45px;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+#rezon-forms .num_children .children_box {
+    position: absolute;
+    top: 102%;
+    left: 0;
+    min-width: 190px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    overflow-y: auto;
+}
+
+#rezon-forms .children_box-item {
+    padding: 15px;
+}
+
+    #rezon-forms .children_box-item:first-child {
+        padding-bottom: 0;
+    }
+
+    #rezon-forms .children_box-item:last-of-type {
+        padding-top: 0;
+    }
+
+#rezon-forms .num_children .children-title {
+    color: rgb(138, 144, 163);
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#rezon-forms .children_input {
+    width: 100%;
+    height: 30px;
+    background-color: #e4f4ff;
+    border-radius: 3px;
+}
+
+#rezon-forms .num_children .children_input {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+}
+
+#rezon-forms .children_input:before {
+    top: 10px;
+}
+
+#rezon-forms .num_children .children_age {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #eceff1;
+    font-size: 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    border-radius: 0 0 3px 3px;
+}
+
+    #rezon-forms .num_children .children_age.open {
+        max-height: 100px;
+        overflow-y: scroll;
+    }
+
+#rezon-forms .children_age li:first-child {
+    padding-top: 4px;
+}
+
+#rezon-forms .children_age li:last-child {
+    padding-bottom: 4px;
+}
+
+#rezon-forms .btn_children {
+    padding: 0 6px;
+}
+/************************End Hotels***********************/
+
+
 @media (min-width: 576px) and (max-width: 1199px) 
 {
     #rezon-forms .fields-container .field.find 
