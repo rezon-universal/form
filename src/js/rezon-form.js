@@ -38,14 +38,19 @@ function CityItem(id, name, countryCode, countryName) {
     this.CountryCode = countryCode;
     this.CountryName = countryName;
 }
+function HotelCityItem(id, name, countryCode) {
+    this.Id = id;
+    this.Name = name;
+    this.CountryCode = countryCode;
+}
 var types = [new DirectionType('oneway', 'ONE_WAY'), new DirectionType('roundtrip', 'ROUND_TRIP'), new DirectionType('route', 'MULTY_ROUTE')];
 var passTypes = [
-    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
-    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
-    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
-    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
     new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
-    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC')
+    new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
+    new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
+    new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC'),
+    new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
+    new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC'),
 ];
 
 var rezOnForm = function (form, o) {
@@ -53,6 +58,7 @@ var rezOnForm = function (form, o) {
     rezOnForm.prototype._aviaForm = undefined;
     rezOnForm.prototype._railwayForm = undefined;
     rezOnForm.prototype._busesForm = undefined;
+    rezOnForm.prototype._hotelForm = undefined;
 
     rezOnForm.prototype._locale = {};
     rezOnForm.prototype._o = {
@@ -66,7 +72,9 @@ var rezOnForm = function (form, o) {
             trainsMinDate: null,
             trainsMaxDate: null,
             busesMinDate: null,
-            busesMaxDate: null
+            busesMaxDate: null,
+            hotelMinDate: null,
+            hotelMaxDate: null
         },
 
         projectUrl: "/",
@@ -78,11 +86,11 @@ var rezOnForm = function (form, o) {
             //recAirportsFrom: [ "TLV" ],
             //recAirportsTo: [],
             defaultRouteType: null, // [oneway/roundtrip/multy]
-            defaultAirportFrom: null, // IATA code, ex. IEV 
+            defaultAirportFrom: null, // IATA code, ex. IEV
             defaultAirportTo: null, // IATA code, ex. IEV
             onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
             enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
-            enabledPassengerTypes: '0,1,2,3,4,5',// string enabledPassengerTypes, ex. "1,2,3,4" (InfantNoSeat,Infant,Child,Young)
+            enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes,
             defaultDateThere: undefined, // dd.MM.yyyy
             defaultDateBack: undefined, // dd.MM.yyyy
             plusDaysShift: 1, // -1 - 10
@@ -143,6 +151,23 @@ var rezOnForm = function (form, o) {
             formTypes: [types[0], types[1]],
             formType: types[0],
             formExtended: false
+        },
+        hotel: {
+            recCity: [],
+            historyGuid: "",
+            adults: 1,
+            checkIn: null,
+            checkOut: null,
+            city: new HotelCityItem(),
+            formExtended: false,
+            childs: [],
+            rooms: 1,
+            countries: [],
+            nationalityName: "Ukraine",
+            nationalityCode: "UA",
+            get inputChilds() {
+                return this.childs.join();
+            }
         }
 
     }
@@ -296,12 +321,18 @@ var rezOnForm = function (form, o) {
                 "ARRIVAL_TIME": "Время прибытия",
                 "SELECT_DATE": "Выберите дату",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму",
-                "CONFIRM": "Подтвердить"
+                "CONFIRM": "Подтвердить",
+                "CITY": "Город",
+                "CHECK_IN": "Заезд",
+                "CHECK_OUT": "Отъезд",
+                "HOTEL_PLACEHOLDER": "Куда вы хотите поеъать?",
+                "ROOMS": "Комнат",
+                "NATIONALITY": "Национальность"
             },
             en: {
-                "ONE_WAY": "One way",
-                "ROUND_TRIP": "Round trip",
-                "MULTY_ROUTE": "Multiple destinations",
+                "ONE_WAY": "One-Way",
+                "ROUND_TRIP": "Round Trip",
+                "MULTY_ROUTE": "Multi-City",
                 "JANUARY": "January",
                 "FEBRUARY": "February",
                 "MARCH": "March",
@@ -361,7 +392,7 @@ var rezOnForm = function (form, o) {
                 "SELECT_AIRPORT2": "Select airport...",
                 "REMOVE_LEG": "Remove flight",
                 "BY_EXACT_DATE": "by exact date",
-                "FIND": "Find",
+                "FIND": "Search",
                 "RAILWAY_PLACEHOLDER": "Enter the name of the city or station",
                 "BUSES_PLACEHOLDER": "Enter the name of the city",
                 "SELECT_AIRPORT_FROM_LIST": "Select an airport from the list...",
@@ -372,31 +403,31 @@ var rezOnForm = function (form, o) {
                 "NEED_TO_SELECT_DIFFERENT_CITIES": "You must specify different cities for departure and arrival points...",
                 "NOTHING_FOUND": "Nothing found",
                 "PASS_CAT_INF": "Infant",
-                "PASS_CAT_INF_NS_DESC": "without seat, up to 2 years",
+                "PASS_CAT_INF_NS_DESC": "below 2 yrs without seat",
                 "PASS_CAT_INF_NS_1": "infant w./s.",
                 "PASS_CAT_INF_NS_0": "infants w./s.",
                 "PASS_CAT_INF_NS_4": "infants w./s.",
-                "PASS_CAT_INF_WS_DESC": "with place, up to 2 years",
+                "PASS_CAT_INF_WS_DESC": "below 2 yrs with seat",
                 "PASS_CAT_INF_WS_1": "infant",
                 "PASS_CAT_INF_WS_0": "infants",
                 "PASS_CAT_INF_WS_4": "infants",
                 "PASS_CAT_CNN": "Children",
-                "PASS_CAT_CNN_DESC": "2 – 11",
+                "PASS_CAT_CNN_DESC": "2 – 11 yrs",
                 "PASS_CAT_CNN_1": "child",
                 "PASS_CAT_CNN_0": "children",
                 "PASS_CAT_CNN_4": "children",
                 "PASS_CAT_YTH": "Youth",
-                "PASS_CAT_YTH_DESC": "12 – 25",
+                "PASS_CAT_YTH_DESC": "12 – 25 yrs",
                 "PASS_CAT_YTH_1": "youth",
                 "PASS_CAT_YTH_0": "youth",
                 "PASS_CAT_ADT": "Adults",
-                "PASS_CAT_ADT_DESC": "26 – 60",
+                "PASS_CAT_ADT_DESC": "26 – 60 yrs",
                 "PASS_CAT_ADT_1": "adult",
                 "PASS_CAT_ADT_0": "adults",
-                "PASS_CAT_SNN": "Elderly",
-                "PASS_CAT_SNN_DESC": "over 60",
-                "PASS_CAT_SNN_1": "elderly",
-                "PASS_CAT_SNN_0": "elderly",
+                "PASS_CAT_SNN": "Senior",
+                "PASS_CAT_SNN_DESC": "over 60 yrs",
+                "PASS_CAT_SNN_1": "senior",
+                "PASS_CAT_SNN_0": "senior",
                 "SPECIFY_PASSENGERS": "Specify the passengers ...",
                 "FORM_CLASS_ANY": "Any",
                 "FORM_CLASS_E": "Economy",
@@ -409,7 +440,7 @@ var rezOnForm = function (form, o) {
                 "DAY": "day",
                 "DAYS": "days",
                 "CLASS": "Class",
-                "AIRCOMPANY": "Carrier",
+                "AIRCOMPANY": "Preferred Airline",
                 "ANY_AVIACOMPANY": "Any airline",
                 "SELECT_AVIACOMPANY": "Select carrier",
                 "ONLY_DIRECT_FLIGHTS": "only direct flights",
@@ -430,18 +461,24 @@ var rezOnForm = function (form, o) {
                 "OR": "or",
                 "STATE": "State",
                 "FORM_CLASS_W": "Premium economy",
-                "BACK": "Back",
-                "THERE": "There",
+                "BACK": "Return on",
+                "THERE": "Depart on",
                 "TIME_FLY_THERE": "Departure time to",
                 "TIME_FLY_BACK": "Departure time back",
                 "SORTIE": "Departure",
                 "SIMPLE_SEARCH": "Simple search",
-                "ADVANCED_SEARCH": "Advanced search",
+                "ADVANCED_SEARCH": "More options",
                 "DEPARTURE_TIME": "Departure time",
                 "ARRIVAL_TIME": "Arrival time",
                 "SELECT_DATE": "Select date",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form",
-                "CONFIRM": "Confirm"
+                "CONFIRM": "Confirm",
+                "CITY": "City",
+                "CHECK_IN": "Check-in",
+                "CHECK_OUT": "Check-out",
+                "HOTEL_PLACEHOLDER": "Where are you going?",
+                "ROOMS": "Rooms",
+                "NATIONALITY": "Nationality"
             },
             ua: {
                 "ONE_WAY": "В одну сторону",
@@ -586,7 +623,13 @@ var rezOnForm = function (form, o) {
                 "ARRIVAL_TIME": "Час прибуття",
                 "SELECT_DATE": "Оберіть дату",
                 "OPEN_AVIA_ADDITIONAL_FORM": "Відкрити розширену форму",
-                "CONFIRM": "Підтвердити"
+                "CONFIRM": "Підтвердити",
+                "CITY": "Місто",
+                "CHECK_IN": "Заїзд",
+                "CHECK_OUT": "Виїзд",
+                "HOTEL_PLACEHOLDER": "Куди ви вирушаєте?",
+                "ROOMS": "Кімнат",
+                "NATIONALITY": "Національність"
             }
         };
 
@@ -692,12 +735,12 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            //fix bug with pulls away cursor in popup inputs for mobile Safari          
-            // Detect ios 11_x_x affected  
+            //fix bug with pulls away cursor in popup inputs for mobile Safari
+            // Detect ios 11_x_x affected
             // NEED TO BE UPDATED if new versions are affected
             var ua = navigator.userAgent,
                 iOS = /iPad|iPhone|iPod/.test(ua);
-                //iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
+            //iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
 
             // ios 11 bug caret position
             if (iOS) {
@@ -734,8 +777,8 @@ var rezOnForm = function (form, o) {
             distX,
             distY,
             threshold = 150, //min distance
-            restraint = 100, // max distance 
-            allowedTime = 300, // max time 
+            restraint = 100, // max distance
+            allowedTime = 300, // max time
             elapsedTime,
             startTime,
             handleswipe = callback || function (swipedir) { }
@@ -862,6 +905,25 @@ var rezOnForm = function (form, o) {
         });
     };
 
+    rezOnForm.prototype.dataWork.hotelCityFinderData = function () {
+        return new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: it.extra.remoteUrl() + '/HelperAsync/LookupHotels?query=',
+                rateLimitWait: 10,
+                replace: function (url, query) {
+                    return url + encodeURIComponent(query.replace(/[^a-zA-Zа-яА-ЯіїІЇ0-9]{1}/g, "_"));
+                },
+                filter: function (data) {
+                    return data;
+                }
+            }
+        });
+    };
+
 
     //Установка значений по-умолчанию
     rezOnForm.prototype.dataWork.setDefaults = function (o) {
@@ -957,6 +1019,16 @@ var rezOnForm = function (form, o) {
             return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
+    //Валидация формы поиска автобусов
+    rezOnForm.prototype.validation.hotelForm = function () {
+
+        var ret = it.validation.hotelCity();
+        ret = rezOnForm.prototype.validation.dateRange(it._hotelForm) && ret;
+        //TODO!!!
+        if (ret && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined)
+            return main.hotel.searchForm.send(it._hotelForm);
+        return ret;
+    }
 
     //Проверка станций отправления / прибытия
     rezOnForm.prototype.validation.stations = function () {
@@ -996,6 +1068,17 @@ var rezOnForm = function (form, o) {
             ret = false;
         }
         return ret;
+    }
+
+    //Validation hotel city
+    rezOnForm.prototype.validation.hotelCity = function () {
+        var city = it._hotelForm.find("input[name='CityId']").first();
+
+        if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
+            city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
+            return false;
+        }
+        return true;
     }
 
     rezOnForm.prototype.bind = function () {
@@ -1145,12 +1228,14 @@ var rezOnForm = function (form, o) {
         });
 
         //При переключении вкладок повторно вызывать событие фокуса для активного элемента.
-        $(window).on('focus', function () {
-            var activeEl = $(document.activeElement);
-            if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0) {
-                activeEl.trigger('blur').trigger('focus');
-            }
-        });
+        if (!($("#rezon-forms").submit)) {
+            $(window).on('focus', function () {
+                var activeEl = $(document.activeElement);
+                if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0) {
+                    activeEl.trigger('blur').trigger('focus');
+                }
+            });
+        }
 
 
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
@@ -1264,7 +1349,7 @@ var rezOnForm = function (form, o) {
                 var item = $(this).closest('.field');
                 it.extra.closeField(item);
 
-                
+
                 if ($(this).val() !== "" && $(this).data("lastHist")) {
                     var _this = $(this);
                     var lastHint = $(this).data("lastHist");
@@ -1401,7 +1486,7 @@ var rezOnForm = function (form, o) {
                 item.closest(".twitter-typeahead").next().val('');
                 item.trigger("typeahead:filterIt");
                 setTimeout(function () {
-                    //После очистки, находим первый пестой элемент и устанавливаем на него фокус. 
+                    //После очистки, находим первый пестой элемент и устанавливаем на него фокус.
                     //Ищем т.к. все значения съезжают к верхнему
                     item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
                 }, 100);
@@ -1631,132 +1716,132 @@ var rezOnForm = function (form, o) {
 
         // Поиск станций / городов в основной форме
         it._railwayForm.find('.book-from, .book-to').typeahead(typeaheadOptions, {
-                name: "stations-" + it._o.defaultLang,
-                displayKey: 'value',
-                source: it.dataWork.stationsFinderData.ttAdapter(),
-                display: function (data) {
-                    return data != undefined ? data.Name : null;
-                },
-                templates: {
-                    empty: [
-                        '<div class="templ-message">',
-                        it.extra.locale("NOTHING_FOUND") + '...',
-                        '</div>'
-                    ].join('\n'),
-                    suggestion: function (data) {
-                        var ret = [];
-                        if (!!data.countryName && !!data.countryCode) {
-                            ret.push(
-                                {
-                                    key: $("<span class='country-separator'><small>" + data.countryName + " (" + data.countryCode + ")</small><span>"),
-                                    value: undefined
-                                });
-                        }
-                        for (var stationIt = 0; stationIt < data.stations.length; stationIt++) {
-                            ret.push({
-                                key: data.stations[stationIt].stationName + " <small class='express-code'>" + data.stations[stationIt].stationCode + "</small>",
-                                value: {
-                                    ExpressCode: data.stations[stationIt].stationCode,
-                                    Name: data.stations[stationIt].stationName,
-                                    CountryCode: data.countryCode,
-                                    CountryName: data.countryName
-                                }
+            name: "stations-" + it._o.defaultLang,
+            displayKey: 'value',
+            source: it.dataWork.stationsFinderData.ttAdapter(),
+            display: function (data) {
+                return data != undefined ? data.Name : null;
+            },
+            templates: {
+                empty: [
+                    '<div class="templ-message">',
+                    it.extra.locale("NOTHING_FOUND") + '...',
+                    '</div>'
+                ].join('\n'),
+                suggestion: function (data) {
+                    var ret = [];
+                    if (!!data.countryName && !!data.countryCode) {
+                        ret.push(
+                            {
+                                key: $("<span class='country-separator'><small>" + data.countryName + " (" + data.countryCode + ")</small><span>"),
+                                value: undefined
                             });
-                            if (data.stations[stationIt].includeItems && data.stations[stationIt].includeItems.length > 0)
-                                for (var inclStat = 0; inclStat < data.stations[stationIt].includeItems.length; inclStat++) {
-                                    ret.push(
-                                        {
-                                            key: "<span class='item-child" + (inclStat == 0 ? '-first' : '') + "'></span>" +
-                                                "<span class='item-text'>" + data.stations[stationIt].includeItems[inclStat].inclName + "</span>" +
-                                                " <small class='express-code'>" + data.stations[stationIt].includeItems[inclStat].inclCode + "</small>",
-                                            value: {
-                                                ExpressCode: data.stations[stationIt].includeItems[inclStat].inclCode,
-                                                Name: data.stations[stationIt].includeItems[inclStat].inclName,
-                                                CountryCode: data.countryCode,
-                                                CountryName: data.countryName
-                                            }
-                                        });
-                                }
-                        }
-                        return ret;
+                    }
+                    for (var stationIt = 0; stationIt < data.stations.length; stationIt++) {
+                        ret.push({
+                            key: data.stations[stationIt].stationName + " <small class='express-code'>" + data.stations[stationIt].stationCode + "</small>",
+                            value: {
+                                ExpressCode: data.stations[stationIt].stationCode,
+                                Name: data.stations[stationIt].stationName,
+                                CountryCode: data.countryCode,
+                                CountryName: data.countryName
+                            }
+                        });
+                        if (data.stations[stationIt].includeItems && data.stations[stationIt].includeItems.length > 0)
+                            for (var inclStat = 0; inclStat < data.stations[stationIt].includeItems.length; inclStat++) {
+                                ret.push(
+                                    {
+                                        key: "<span class='item-child" + (inclStat == 0 ? '-first' : '') + "'></span>" +
+                                            "<span class='item-text'>" + data.stations[stationIt].includeItems[inclStat].inclName + "</span>" +
+                                            " <small class='express-code'>" + data.stations[stationIt].includeItems[inclStat].inclCode + "</small>",
+                                        value: {
+                                            ExpressCode: data.stations[stationIt].includeItems[inclStat].inclCode,
+                                            Name: data.stations[stationIt].includeItems[inclStat].inclName,
+                                            CountryCode: data.countryCode,
+                                            CountryName: data.countryName
+                                        }
+                                    });
+                            }
+                    }
+                    return ret;
+                }
+            }
+        }).keyup(function (e) {
+
+        }).focus(function () {
+            var item = $(this).closest('.field');
+
+            it.extra.openField(item);
+            item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            if ($(this).is(".book-to") && $(this).val() === "") {
+                var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
+                $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
+            }
+        }).click(function () {
+            $(this).select();
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
+            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            var item = $(this).closest('.field');
+            it.extra.closeField(item);
+            return false;
+        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                var field = $(this).closest('.field.station');
+                var name = field.find(".inside input[type='hidden']").attr('name');
+
+                it.extra.closeField(field);
+                vue.updateStationTypeAhead(name, datum);
+                if (!it.extra.mobileAndTabletcheck()) {
+                    switch (name) {
+                        case "tshi_station_from":
+                            var sib = field.closest("form").find("input[name='tshi_station_to']");
+                            if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                            break;
+                        case "tshi_station_to":
+                            //Focus TODO
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
+                            setTimeout(function () {
+                                dp.focus();
+                            }, 100);
                     }
                 }
-            }).keyup(function (e) {
+                //Hide mobile keyboard
+                $(this).blur();
+            }
+        }).on("typeahead:dropdown", function (its) {
+            var item = $(this).closest('.field');
+            it.extra.openField(item);
 
-            }).focus(function () {
-                var item = $(this).closest('.field');
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find('.tt-dropdown-menu');
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css('max-height'));
+                var currHeight = parseFloat($(this).css('height'));
+                var totalHeight = height + currHeight;
 
-                it.extra.openField(item);
-                item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                if ($(this).is(".book-to") && $(this).val() === "") {
-                    var fromStation = it._railwayForm.find("[name='tshi_station_from']").val();
-                    $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
-                }
-            }).click(function () {
-                $(this).select();
-            }).blur(function () {
-                $(this).closest('.field.focused').removeClass('focused');
-                if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-                var item = $(this).closest('.field');
-                it.extra.closeField(item);
-                return false;
-            }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-                if (datum != undefined) {
-                    var field = $(this).closest('.field.station');
-                    var name = field.find(".inside input[type='hidden']").attr('name');
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+        }).on("typeahead:dropup", function (its) {
+            if (rezOnForm.static.isInIframe()) {
+                rezOnForm.static.recalculateHeightOnClose();
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+            //TODO First selected
+            var item = $(this).closest(".field");
+            it.extra.closeField(item);
+            if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+                $(this).val($(this).data("lastHist").Name);
+                $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+            }
+        }).on("typeahead:queryChanged", function (it, query) {
 
-                    it.extra.closeField(field);
-                    vue.updateStationTypeAhead(name, datum);
-                    if (!it.extra.mobileAndTabletcheck()) {
-                        switch (name) {
-                            case "tshi_station_from":
-                                var sib = field.closest("form").find("input[name='tshi_station_to']");
-                                if (sib.val() == "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
-                                break;
-                            case "tshi_station_to":
-                                //Focus TODO
-                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']")
-                                setTimeout(function () {
-                                    dp.focus();
-                                }, 100);
-                        }
-                    }
-                    //Hide mobile keyboard
-                    $(this).blur();
-                }
-            }).on("typeahead:dropdown", function (its) {
-                var item = $(this).closest('.field');
-                it.extra.openField(item);
-
-                if (rezOnForm.static.isInIframe()) {
-                    var dropdown = item.find('.tt-dropdown-menu');
-                    var offset = dropdown.parent().offset().top;
-                    var height = parseFloat(dropdown.css('max-height'));
-                    var currHeight = parseFloat($(this).css('height'));
-                    var totalHeight = height + currHeight;
-
-                    rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
-                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                }
-            }).on("typeahead:dropup", function (its) {
-                if (rezOnForm.static.isInIframe()) {
-                    rezOnForm.static.recalculateHeightOnClose();
-                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                }
-                //TODO First selected
-                var item = $(this).closest(".field");
-                it.extra.closeField(item);
-                if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
-                   $(this).val($(this).data("lastHist").Name);
-                   $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                }
-            }).on("typeahead:queryChanged", function (it, query) {
-
-            }).on("typeahead:updateHint", function (a, b) {
-                if (b) $(this).data("lastHist", b);
-                else $(this).removeData("lastHist");
-            });
+        }).on("typeahead:updateHint", function (a, b) {
+            if (b) $(this).data("lastHist", b);
+            else $(this).removeData("lastHist");
+        });
 
         //Отправка формы поиска ЖД билетов
         it._railwayForm.submit(function () {
@@ -1776,119 +1861,119 @@ var rezOnForm = function (form, o) {
 
         // Поиск городов в основной форме
         it._busesForm.find('.book-from, .book-to').typeahead(typeaheadOptions, {
-                name: "bus-cities-" + it._o.defaultLang,
-                displayKey: 'value',
-                source: it.dataWork.busCitiesFinderData.ttAdapter(),
-                display: function (data) {
-                    return data != undefined ? data.Name : null;
-                },
-                templates: {
-                    empty: [
-                        '<div class="templ-message">',
-                        it.extra.locale("NOTHING_FOUND") + '...',
-                        '</div>'
-                    ].join('\n'),
-                    suggestion: function (data) {
-                        var ret = [];
-                        if (!!data.countryName && !!data.countryCode) {
-                            ret.push(
-                                {
-                                    key: $("<span class='country-separator'><small>" + data.countryName + " (" + data.countryCode + ")</small><span>"),
-                                    value: undefined
-                                });
-                        }
-                        for (var cityIt = 0; cityIt < data.cities.length; cityIt++) {
-                            ret.push({
-                                key: data.cities[cityIt].CityName + " <small class='express-code'>" + data.cities[cityIt].CountryName + "</small>",
-                                value: {
-                                    Id: data.cities[cityIt].Id,
-                                    Name: data.cities[cityIt].CityName,
-                                    CountryCode: data.cities[cityIt].CountryName,
-                                    CountryName: data.cities[cityIt].CountryCode
-                                }
+            name: "bus-cities-" + it._o.defaultLang,
+            displayKey: 'value',
+            source: it.dataWork.busCitiesFinderData.ttAdapter(),
+            display: function (data) {
+                return data != undefined ? data.Name : null;
+            },
+            templates: {
+                empty: [
+                    '<div class="templ-message">',
+                    it.extra.locale("NOTHING_FOUND") + '...',
+                    '</div>'
+                ].join('\n'),
+                suggestion: function (data) {
+                    var ret = [];
+                    if (!!data.countryName && !!data.countryCode) {
+                        ret.push(
+                            {
+                                key: $("<span class='country-separator'><small>" + data.countryName + " (" + data.countryCode + ")</small><span>"),
+                                value: undefined
                             });
-                        }
-                        return ret;
+                    }
+                    for (var cityIt = 0; cityIt < data.cities.length; cityIt++) {
+                        ret.push({
+                            key: data.cities[cityIt].CityName + " <small class='express-code'>" + data.cities[cityIt].CountryName + "</small>",
+                            value: {
+                                Id: data.cities[cityIt].Id,
+                                Name: data.cities[cityIt].CityName,
+                                CountryCode: data.cities[cityIt].CountryName,
+                                CountryName: data.cities[cityIt].CountryCode
+                            }
+                        });
+                    }
+                    return ret;
+                }
+            }
+        }).keyup(function (e) {
+
+        }).focus(function () {
+            var item = $(this).closest('.field');
+
+            it.extra.openField(item);
+            item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            if ($(this).is(".book-to") && $(this).val() === "") {
+                var fromCity = it._busesForm.find("[name='CityIdFrom']").val();
+                $.trim(fromCity) !== "" && $(this).typeahead('query', "fromCity_" + fromCity);
+            }
+        }).click(function () {
+            $(this).select();
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
+            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
+            var item = $(this).closest('.field');
+            it.extra.closeField(item);
+            return false;
+        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                var field = $(this).closest('.field.station');
+                var name = field.find(".inside input[type='hidden']").attr('name');
+
+                it.extra.closeField(field);
+                vue.updateCityTypeAhead(name, datum);
+                if (!it.extra.mobileAndTabletcheck()) {
+                    switch (name) {
+                        case "CityIdFrom":
+                            var sib = field.closest("form").find("input[name='CityIdTo']");
+                            if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                            break;
+                        case "CityIdTo":
+                            //Focus TODO
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateThere']");
+                            setTimeout(function () {
+                                dp.focus();
+                            }, 100);
                     }
                 }
-            }).keyup(function (e) {
+                //Hide mobile keyboard
+                $(this).blur();
+            }
+        }).on("typeahead:dropdown", function (its) {
+            var item = $(this).closest('.field');
+            it.extra.openField(item);
 
-            }).focus(function () {
-                var item = $(this).closest('.field');
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find('.tt-dropdown-menu');
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css('max-height'));
+                var currHeight = parseFloat($(this).css('height'));
+                var totalHeight = height + currHeight;
 
-                it.extra.openField(item);
-                item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                if ($(this).is(".book-to") && $(this).val() === "") {
-                    var fromCity = it._busesForm.find("[name='CityIdFrom']").val();
-                    $.trim(fromCity) !== "" && $(this).typeahead('query', "fromCity_" + fromCity);
-                }
-            }).click(function () {
-                $(this).select();
-            }).blur(function () {
-                $(this).closest('.field.focused').removeClass('focused');
-                if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-                var item = $(this).closest('.field');
-                it.extra.closeField(item);
-                return false;
-            }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-                if (datum != undefined) {
-                    var field = $(this).closest('.field.station');
-                    var name = field.find(".inside input[type='hidden']").attr('name');
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+        }).on("typeahead:dropup", function (its) {
+            if (rezOnForm.static.isInIframe()) {
+                rezOnForm.static.recalculateHeightOnClose();
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
 
-                    it.extra.closeField(field);
-                    vue.updateCityTypeAhead(name, datum);
-                    if (!it.extra.mobileAndTabletcheck()) {
-                        switch (name) {
-                            case "CityIdFrom":
-                                var sib = field.closest("form").find("input[name='CityIdTo']");
-                                if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
-                                break;
-                            case "CityIdTo":
-                                //Focus TODO
-                                var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateThere']");
-                                setTimeout(function () {
-                                    dp.focus();
-                                }, 100);
-                        }
-                    }
-                    //Hide mobile keyboard
-                    $(this).blur();
-                }
-            }).on("typeahead:dropdown", function (its) {
-                var item = $(this).closest('.field');
-                it.extra.openField(item);
+            //TODO First selected
+            var item = $(this).closest(".field");
+            it.extra.closeField(item);
+            if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+                $(this).val($(this).data("lastHist").Name);
+                $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+            }
 
-                if (rezOnForm.static.isInIframe()) {
-                    var dropdown = item.find('.tt-dropdown-menu');
-                    var offset = dropdown.parent().offset().top;
-                    var height = parseFloat(dropdown.css('max-height'));
-                    var currHeight = parseFloat($(this).css('height'));
-                    var totalHeight = height + currHeight;
+        }).on("typeahead:queryChanged", function (it, query) {
 
-                    rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
-                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                }
-            }).on("typeahead:dropup", function (its) {
-                if (rezOnForm.static.isInIframe()) {
-                    rezOnForm.static.recalculateHeightOnClose();
-                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
-                }
-
-                //TODO First selected
-                var item = $(this).closest(".field");
-                it.extra.closeField(item);
-                if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
-                    $(this).val($(this).data("lastHist").Name);
-                    $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
-                }
-
-            }).on("typeahead:queryChanged", function (it, query) {
-
-            }).on("typeahead:updateHint", function (a, b) {
-                if (b) $(this).data("lastHist", b);
-                else $(this).removeData("lastHist");
-            });
+        }).on("typeahead:updateHint", function (a, b) {
+            if (b) $(this).data("lastHist", b);
+            else $(this).removeData("lastHist");
+        });
 
         //Passengers menu
         it._busesForm.find(".passengers > .switch-box .switch").click(function () {
@@ -1941,10 +2026,167 @@ var rezOnForm = function (form, o) {
                 }
             }
         });
-
         //Отправка формы поиска автобусов
         it._busesForm.submit(function () {
             return it.validation.busForm();
+        });
+    }
+
+
+    rezOnForm.prototype.hotelBind = function () {
+        var typeaheadOptions = {
+            minLength: 2
+        };
+
+        // Отели select
+        it._hotelForm.find('.select_box').click(function () {
+            $(document).bind('click', HandlerClick);
+        });
+
+        function HandlerClick(e) {
+            if (!$(e.target).hasClass("select_box") && $(e.target).parents(".select_box").length === 0) {
+                $('.option_box').removeClass('open');
+                $('.children_age').removeClass('open');
+                $('.value_tag').removeClass('rotate');
+                $('.children_input').removeClass('rotate');
+                $(document).unbind('click', HandlerClick);
+            }
+        }
+
+        $('.num_children .button-hide').click(function () {
+            $(".option_box").removeClass('open');
+            $('.value_tag').removeClass('rotate');
+        });
+
+        $('.num_children .option').click(function () {
+            var text = $(this).text();
+            var value = text.replace(/[^-0-9]/gim, '');
+            $(this).closest('.children_box-item').find('.input_val').val(value);
+
+            var sum = 0;
+            $('.children_box-item .input_val').each(function () {
+                if ($(this).val() != 0) {
+                    sum++;
+                }
+            });
+            $('.quantity_val').text(sum);
+        });
+
+
+
+        //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
+        if (it.extra.mobileAndTabletcheck()) {
+            typeaheadOptions.minLength = 0;
+        }
+
+        // Поиск городa в основной форме
+        it._hotelForm.find('.book-from, .book-to').typeahead(typeaheadOptions, {
+            name: "hotel-city-" + it._o.defaultLang,
+            displayKey: "value",
+            source: it.dataWork.hotelCityFinderData.ttAdapter(),
+            display: function (data) {
+                return data != undefined ? data.Name : null;
+            },
+            templates: {
+                empty: [
+                    '<div class="templ-message">',
+                    it.extra.locale("NOTHING_FOUND") + "...",
+                    "</div>"
+                ].join("\n"),
+                suggestion: function (data) {
+                    var ret = [];
+                    if (!!data.countryCode) {
+                        ret.push(
+                            {
+                                key: $("<span class='country-separator'><small>" + data.countryCode + "</small><span>"),
+                                value: undefined
+                            });
+                    }
+                    for (var iHotel = 0; iHotel < data.hotels.length; iHotel++) {
+                        ret.push({
+                            key: data.hotels[iHotel].CityName + " <small class='express-code'>" + data.hotels[iHotel].CountryCode + "</small>",
+                            value: {
+                                Id: data.hotels[iHotel].Id,
+                                Name: data.hotels[iHotel].CityName,
+                                CountryCode: data.hotels[iHotel].CountryCode
+                            }
+                        });
+                    }
+                    return ret;
+                }
+            }
+        }).keyup(function () {
+
+        }).focus(function () {
+            var item = $(this).closest(".field");
+
+            it.extra.openField(item);
+            item.addClass("focused").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+            if ($(this).is(".book-to") && $(this).val() === "") {
+                var city = it._busesForm.find("[name='CityId']").val();
+                $.trim(city) !== "" && $(this).typeahead("query", "city_" + city);
+            }
+        }).click(function () {
+            $(this).select();
+        }).blur(function () {
+            $(this).closest(".field.focused").removeClass("focused");
+            if ($.trim($(this).val()) === "") $(this).trigger("typeahead:queryChanged");
+            var item = $(this).closest(".field");
+            it.extra.closeField(item);
+            return false;
+        }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                var field = $(this).closest(".field.station");
+                var name = field.find(".inside input[type='hidden']").attr("name");
+
+                it.extra.closeField(field);
+                vue.updateCityTypeAhead(name, datum);
+                if (!it.extra.mobileAndTabletcheck()) {
+                    var sib = field.closest("form").find("input[name='CityId']");
+                    if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                }
+                //Hide mobile keyboard
+                $(this).blur();
+            }
+        }).on("typeahead:dropdown", function () {
+            var item = $(this).closest(".field");
+            it.extra.openField(item);
+
+            if (rezOnForm.static.isInIframe()) {
+                var dropdown = item.find(".tt-dropdown-menu");
+                var offset = dropdown.parent().offset().top;
+                var height = parseFloat(dropdown.css("max-height"));
+                var currHeight = parseFloat($(this).css("height"));
+                var totalHeight = height + currHeight;
+
+                rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+            }
+        }).on("typeahead:dropup", function () {
+            if (rezOnForm.static.isInIframe()) {
+                rezOnForm.static.recalculateHeightOnClose();
+                typeof (updatingHeight) !== "undefined" && updatingHeight();
+            }
+
+            //TODO First selected
+            var item = $(this).closest(".field");
+            it.extra.closeField(item);
+            if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {
+                $(this).val($(this).data("lastHist").Name);
+                $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
+            }
+
+        }).on("typeahead:queryChanged", function (it) {
+
+        }).on("typeahead:updateHint", function (a, b) {
+            if (b) $(this).data("lastHist", b);
+            else $(this).removeData("lastHist");
+        });
+
+        //Отправка формы поиска автобусов
+        it._hotelForm.submit(function () {
+            return it.validation.hotelForm();
         });
     }
 
@@ -1985,6 +2227,7 @@ var rezOnForm = function (form, o) {
         this._aviaForm = this._form.find("#avia-form-shoot");
         this._railwayForm = this._form.find("#railway-form-shoot");
         this._busesForm = this._form.find("#buses-form-shoot");
+        this._hotelForm = this._form.find("#hotel-form-shoot");
 
         if (this._o.avia) for (var optionKey in this._o.avia) {
             if (this._aviaForm.attr("data-" + optionKey)) this._o.avia[optionKey] = this._aviaForm.attr("data-" + optionKey);
@@ -1994,6 +2237,9 @@ var rezOnForm = function (form, o) {
         }
         if (this._o.buses) for (var optionKey in this._o.buses) {
             if (this._busesForm.attr("data-" + optionKey)) this._o.buses[optionKey] = this._busesForm.attr("data-" + optionKey);
+        }
+        if (this._o.hotel) for (var optionKey in this._o.hotel) {
+            if (this._hotelForm.attr("data-" + optionKey)) this._o.hotel[optionKey] = this._hotelForm.attr("data-" + optionKey);
         }
 
         var timeOutId;
@@ -2010,11 +2256,11 @@ var rezOnForm = function (form, o) {
         $.mask.definitions['#'] = '[0123456789]';
         $.mask.definitions['$'] = '[01]';
 
-        this._o.projectUrl != "/" && this.localeBind();
+        this._o.projectUrl !== "/" && this.localeBind();
 
         var neededTabs = [];
-        if (this._o.formType != "all") neededTabs.push(this._o.formType);
-        else neededTabs = ["avia", "railway", "buses"];
+        if (this._o.formType !== "all") neededTabs.push(this._o.formType);
+        else neededTabs = ["avia", "railway", "buses", "hotel"];
 
         if (neededTabs.length > 1) {
             this._form.find(".rez-forms-links").removeClass("g-hide");
@@ -2069,6 +2315,20 @@ var rezOnForm = function (form, o) {
                     if (this._o.projectUrl !== "/")
                         this._busesForm.attr("method", "POST")
                             .attr("action", this.extra.remoteUrl() + "/BusTickets/ModuleSearch")
+                            .attr("target", this._o.formTarget || "_blank");
+                    break;
+                case "hotel":
+                    this._form.find(".rez-forms-links a.rez-form-link[href='#" + this._hotelForm.attr("id") + "']").removeClass("g-hide").addClass(frstTab == neededTabs[n] ? "active" : "");
+                    if (neededTabs.length === 1 || frstTab === neededTabs[n]) this._hotelForm.removeClass("g-hide");
+
+                    this.dataWork.hotelCityFinderData = this.dataWork.hotelCityFinderData();
+                    this.dataWork.hotelCityFinderData.initialize();
+
+                    this.hotelBind();
+
+                    if (this._o.projectUrl !== "/")
+                        this._hotelForm.attr("method", "POST")
+                            .attr("action", this.extra.remoteUrl() + "/Hotels/ModuleSearch")
                             .attr("target", this._o.formTarget || "_blank");
                     break;
             }
@@ -2160,6 +2420,41 @@ rezOnForm.static.prepareBusSearchParams = function (params) {
             params.formType = types[1];
         else
             params.formType = types[0];
+
+    return params;
+}
+
+
+rezOnForm.static.prepareHotelSearchParams = function (params) {
+    if (!!params.CheckIn && params.CheckIn.trim() !== "")
+        params.checkIn = new Date(params.CheckIn);
+
+    if (!!params.CheckOut && params.CheckOut.trim() !== "")
+        params.checkOut = new Date(params.CheckOut);
+
+    if (!!params.City)
+        params.city = new HotelCityItem(params.City.Id, params.City.Name, params.City.CountryCode);
+
+    if (!!params.Rooms[0].Adults)
+        params.adults = params.Rooms[0].Adults;
+
+    if (!!params.HistoryGuid && params.HistoryGuid.trim() !== "")
+        params.historyGuid = params.HistoryGuid;
+
+    if (!!params.Rooms[0].ChildAges) {
+        params.childs = [];
+        for (var i = 0; i < params.Rooms[0].ChildAges.length; i++)
+            params.childs.push(params.Rooms[0].ChildAges[i].toString());
+    }
+
+    if (!!params.Rooms[0].NationalityName && params.Rooms[0].NationalityName.trim() !== "")
+        params.nationalityName = params.Rooms[0].NationalityName;
+
+    if (!!params.Rooms[0].NationalityCode && params.Rooms[0].NationalityCode.trim().length === 2)
+        params.nationalityCode = params.Rooms[0].NationalityCode;
+
+    if (!!params.Rooms[0].Quantity && params.Rooms[0].Quantity !== 0)
+        params.rooms = params.Rooms[0].Quantity;
 
     return params;
 }
@@ -2256,15 +2551,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     //Get defaultDatepickerSettings settings for Datepicker from Datepicker.js
     var datepickerSetting = defaultDatepickerSettings;
     var defaultComp =
-        {
-            template: datepickerSetting.template,
-            props: datepickerSetting.props,
-            data: datepickerSetting.data,
-            mounted: datepickerSetting.mounted,
-            watch: datepickerSetting.watch,
-            computed: datepickerSetting.computed,
-            methods: datepickerSetting.methods
-        }
+    {
+        template: datepickerSetting.template,
+        props: datepickerSetting.props,
+        data: datepickerSetting.data,
+        mounted: datepickerSetting.mounted,
+        watch: datepickerSetting.watch,
+        computed: datepickerSetting.computed,
+        methods: datepickerSetting.methods
+    }
 
     //Airport typeahead input component
     Vue.component('airportInput', {
@@ -2284,9 +2579,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "PLACEHOLDER_AIRPORT2"
@@ -2390,10 +2685,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
     Vue.component('railwayInput', {
         template:
             '<div class="inside">' +
-                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
-                '<div v-if="item.Code != 0" class="express">' + '{{item.Code}}' + '</div>' +
-                '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
-                '<input type="hidden" :name="name" v-model="item.Code"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<div v-if="item.Code != 0" class="express">' + '{{item.Code}}' + '</div>' +
+            '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
+            '<input type="hidden" :name="name" v-model="item.Code"/>' +
             '</div>',
         props: {
             name: {
@@ -2403,9 +2698,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "RAILWAY_PLACEHOLDER"
@@ -2506,9 +2801,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 type: Object
             },
             inputClass:
-                {
-                    type: String
-                },
+            {
+                type: String
+            },
             placeholder: {
                 type: String,
                 default: "BUSES_PLACEHOLDER"
@@ -2592,6 +2887,109 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         }
     });
 
+    Vue.component("hotelInput", {
+        template: ' <div class="inside">' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<div class="express">' +
+            "{{item.Code}}" +
+            "</div>" +
+            '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
+            '<input type="hidden" :name="name" v-model="item.Id"/>' +
+            "</div>",
+        props: {
+            name: {
+                type: String
+            },
+            value: {
+                type: Object
+            },
+            inputClass:
+            {
+                type: String
+            },
+            placeholder: {
+                type: String,
+                default: "HOTEL_PLACEHOLDER"
+            }
+        },
+        computed: {
+            inputClasses: function () {
+                var input = $(this.$el).find("input:not(.tt-hint)." + this.inputClass)[0];
+                var classes = [this.inputClass];
+
+                if (input !== undefined && input !== null) {
+                    classes = input.className.split(" ");
+                }
+
+                if (this.item.Name === null || this.item.Name === undefined || this.item.Name.trim() === "") {
+                    if (classes.indexOf("isEmpty") <= 0) {
+                        classes.push("isEmpty");
+                    }
+                } else {
+                    var index = classes.indexOf("isEmpty");
+                    if (index >= 0) {
+                        classes.splice(index, 1);
+                    }
+                }
+                $.unique(classes);
+
+                return classes.join(" ");
+            }
+        },
+        watch: {
+            value: {
+                handler: function (newValue) {
+                    this.item = newValue;
+
+                    var comp = this;
+                    Vue.nextTick(function () {
+                        //Update typeahead
+                        var el = comp.$el;
+                        var selector = comp.inputClass;
+                        $(el).find("." + selector).typeahead("val", newValue.Name);
+                    });
+                },
+                deep: true
+            }
+        },
+        data: function () {
+            return {
+                item: this.value
+            }
+        },
+        methods: {
+            updateBusItem: function (newValue) {
+                this.item = newValue;
+                this.$emit("input", this.item);
+            },
+            clearItem: function () {
+                this.item = new CityItem();
+                this.$emit("input", this.item);
+                var comp = this;
+                Vue.nextTick(function () {
+                    //Update typeahead
+                    var el = comp.$el;
+                    var selector = comp.inputClass;
+                    $(el).find("." + selector).typeahead("val", "");
+                });
+            },
+            checkItem: function (event) {
+                if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    this.item.Code = "";
+                    this.$emit("input", this.item);
+                }
+            }
+        },
+        created: function () {
+            var comp = this;
+            vue.$on("cityUpdate", function (name, city) {
+                if (comp.name === name) {
+                    comp.updateBusItem(city);
+                }
+            });
+        }
+    });
+
 
     //Datepicker component
     Vue.component('datepicker', {
@@ -2618,11 +3016,17 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                         }
                         break;
                     case "buses":
-                        if (vue.railway.formType.value === "roundtrip") {
+                        if (vue.buses.formType.value === "roundtrip") {
                             highlighted = {
                                 from: this.dateFrom,
                                 to: this.dateTo
                             }
+                        }
+                        break;
+                    case "hotel":
+                        highlighted = {
+                            from: this.dateFrom,
+                            to: this.dateTo
                         }
                         break;
                 }
@@ -2647,6 +3051,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                         disabled = {
                             to: this.minDate !== undefined ? this.minDate : vue.dates.busesMinDate,
                             from: this.maxDate !== undefined ? this.maxDate : vue.dates.busesMaxDate
+                        }
+                        break;
+                    case "hotel":
+                        disabled = {
+                            to: this.minDate !== undefined ? this.minDate : vue.dates.hotelMinDate,
+                            from: this.maxDate !== undefined ? this.maxDate : vue.dates.hotelMaxDate
                         }
                         break;
                 }
@@ -2919,6 +3329,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 defaultDateBack.setDate(defaultDateBack.getDate() + 14);
                 return defaultDateBack;
             },
+            hotelMinDate: function () {
+                return new Date(this.today.getTime());
+            },
+            hotelMaxDate: function () {
+                var maxDate = new Date(this.today.getTime());
+                maxDate.setDate(maxDate.getDate() + 180);
+                return maxDate;
+            },
+            hotelDefaultCheckIn: function () {
+                var defaultCheckIn = new Date();
+                defaultCheckIn.setDate(defaultCheckIn.getDate() + 7);
+                return defaultCheckIn;
+            },
+            hotelDefaultCheckOut: function () {
+                var defaultCheckOut = new Date();
+                defaultCheckOut.setDate(defaultCheckOut.getDate() + 14);
+                return defaultCheckOut;
+            },
             aviaDefaultDateThere: function () {
                 var defaultDateThere = new Date();
                 defaultDateThere.setDate(defaultDateThere.getDate() + 7);
@@ -3037,6 +3465,25 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             addBusPassenger: function () {
                 this.buses.passenger.count++;
             },
+            toggleClass: function (e) {
+                $(e.currentTarget).children('.option_box').toggleClass('open');
+                $(e.currentTarget).children('.value_tag').toggleClass('rotate');
+            },
+            toggleClassChild: function (e) {
+                $(e.currentTarget).next().toggleClass('open');
+                $(e.currentTarget).toggleClass('rotate');
+            },
+            fieldOption: function (e) {
+                var num = $(e.target).text();
+                this.hotel.adults = parseInt(num);
+            },
+            fieldRoom: function (e) {
+                var num = $(e.target).text();
+                this.hotel.rooms = parseInt(num);
+            },
+            stopClick: function (e) {
+                e.stopPropagation();
+            },
             passUpdate: function () {
                 var currCount = 0;
                 var adultCnt = 0;
@@ -3103,7 +3550,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.avia.segmentsCount += 1;
                     var index = this.avia.multyRoutes.length - 1;
                     Vue.nextTick(function () {
-                        // DOM updated                        
+                        // DOM updated
                         //index+2 for selector
                         $(document).trigger('addSegment', index + 2);
                     });
@@ -3140,6 +3587,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $(document).trigger("StartPtChange.MapBridge", [from])
                 $(document).trigger("EndPtChange.MapBridge", [to])
             },
+
+
             //Railway methods
             changeRailFormExtended: function () {
                 this.railway.formExtended = !this.railway.formExtended;
@@ -3212,7 +3661,62 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.buses.historyGuid !== undefined &&
                     this.buses.historyGuid !== null &&
                     this.buses.historyGuid.trim() !== '';
-            }
+            },
+
+            //Hotel methods
+            changeHotelFormExtended: function () {
+                this.hotel.formExtended = !this.hotel.formExtended;
+            },
+            updateHotelCityTypeAhead: function (name, data) {
+                var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryCode);
+                vue.$emit("hotelCityUpdate", name, cityItem);
+            },
+            clearHotelForm: function () {
+                this.hotel.checkIn = this.hotelDefaultCheckIn;
+                this.hotel.checkOut = this.hotelDefaultCheckOut;
+                this.hotel.cityFrom = new HotelCityItem();
+                this.hotel.cityTo = new HotelCityItem();
+                this.hotel.timeThere = 0;
+                this.hotel.timeBack = 0;
+                this.hotel.dateRange = 0;
+                this.hotel.adults = 1;
+                var model = this;
+                Vue.nextTick(function () {
+                    // DOM updated
+                    model.updateHtmlElements();
+                });
+            },
+            hotelTypeChanged: function (index) {
+                this.hotel.formType = this.hotel.formTypes[index];
+            },
+            hasHotelResult: function () {
+                return this.hotel.historyGuid !== undefined &&
+                    this.hotel.historyGuid !== null &&
+                    this.hotel.historyGuid.trim() !== "";
+            },
+
+            childOption : function(e) {
+                var text = $(e.target).text();
+                var value = text.replace(/[^-0-9]/gim, '');
+
+                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
+                this.hotel.childs[parseInt(child) - 1] = value;
+
+                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
+                $('.children_age').removeClass('open');
+                $('.children_input').removeClass('rotate');
+
+                $('.select_box .input_quantity').val(this.hotel.childs);
+            },
+            getAllCountries() {
+                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
+                    this.hotel.countries = response.data;
+                });
+            },
+            handleClick : function( name, alpha2Code ) {
+                this.hotel.nationalityName = name;
+                this.hotel.nationalityCode = alpha2Code;
+            },
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3285,6 +3789,50 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (value < this.dates.busesMinDate) {
                     this.buses.dateBack = this.dates.busesMinDate;
                 }
+            },
+            'hotel.checkIn': function (value) {
+                var tempDate = new Date(this.dates.hotelMaxDate);
+                tempDate.setDate(this.dates.hotelMaxDate.getDate() - 1);
+
+                if (value > tempDate)
+                    this.hotel.checkIn = tempDate;
+
+                if (value < this.dates.hotelMinDate)
+                    this.hotel.checkIn = this.dates.hotelMinDate;
+
+                if (this.hotel.checkIn >= this.hotel.checkOut) {
+                    tempDate = new Date(this.hotel.checkIn);
+                    tempDate.setDate(this.hotel.checkIn.getDate() + 1);
+                    this.hotel.checkOut = tempDate;
+                }
+
+                tempDate = new Date(this.hotel.checkIn);
+                tempDate.setDate(this.hotel.checkIn.getDate() + 30);
+
+                if (tempDate < this.hotel.checkOut)
+                    this.hotel.checkOut = tempDate;
+            },
+            'hotel.checkOut': function (value) {
+                var tempDate = new Date(this.dates.hotelMinDate);
+                tempDate.setDate(this.dates.hotelMinDate.getDate() + 1);
+
+                if (value > this.dates.hotelMaxDate)
+                    this.hotel.checkOut = this.dates.hotelMaxDate;
+
+                if (value < tempDate)
+                    this.hotel.checkOut = tempDate;
+
+                if (this.hotel.checkOut <= this.hotel.checkIn) {
+                    tempDate = new Date(this.hotel.checkOut);
+                    tempDate.setDate(this.hotel.checkOut.getDate() - 1);
+                    this.hotel.checkIn = tempDate;
+                }
+
+                tempDate = new Date(this.hotel.checkOut);
+                tempDate.setDate(this.hotel.checkOut.getDate() - 30);
+
+                if (tempDate > this.hotel.checkIn)
+                    this.hotel.checkIn = tempDate;
             }
         },
         created: function () {
@@ -3295,9 +3843,13 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             this.dates.trainsMaxDate = this.trainsMaxDate;
             this.dates.busesMinDate = this.busesMinDate;
             this.dates.busesMaxDate = this.busesMaxDate;
+            this.dates.hotelMinDate = this.hotelMinDate;
+            this.dates.hotelMaxDate = this.hotelMaxDate;
             if (this.formType === 'avia') {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
+
+                this.passUpdate();
             }
             if (this.formType === 'railway' && !this.hasRailResult()) {
                 this.railway.dateThere = this.railwayDateThere;
@@ -3309,9 +3861,17 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 else if (this.buses.dateBack < this.buses.dateThere)
                     this.buses.dateBack = this.buses.dateThere;
             }
+            if (this.formType === "hotel") {
+                if (!this.hotel.checkIn) this.hotel.checkIn = this.hotelDefaultCheckIn;
+                if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
+                else if (this.hotel.checkOut < this.hotel.checkIn)
+                    this.hotel.checkOut = this.hotel.checkIn;
+
+                this.getAllCountries();
+            }
 
             window.vue = this;
-            this.passUpdate();
+
         },
         mounted: function () {
             var el = this.$el;
