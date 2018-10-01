@@ -121,7 +121,7 @@
                         <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                     </div>
                     <ul class="option_box">
-                        <li class="option" v-for="country in hotel.countries" @click=handleClick(country)>
+                        <li class="option" v-for="country in hotel.countries" @click=handleClick(country.name,country.alpha2Code)>
                             <span class="country_name">{{ country.name }}</span>
                             <span class="country_code hidden">{{ country.alpha2Code }}</span>
                         </li>
