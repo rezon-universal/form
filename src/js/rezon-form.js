@@ -1228,12 +1228,12 @@ var rezOnForm = function (form, o) {
         });
 
         //При переключении вкладок повторно вызывать событие фокуса для активного элемента.
-        $(window).on('focus', function () {
-            var activeEl = $(document.activeElement);
-            if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0) {
-                activeEl.trigger('blur').trigger('focus');
-            }
-        });
+        //$(window).on('focus', function () {
+        //    var activeEl = $(document.activeElement);
+        //    if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0 && !activeEl.is('button')) {
+        //        activeEl.trigger('blur').trigger('focus');
+        //    }
+        //});
 
 
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
