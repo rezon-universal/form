@@ -2274,8 +2274,8 @@ var rezOnForm = function (form, o) {
                     this.dataWork.airporFinderData = this.dataWork.airporFinderData();
                     this.dataWork.airporFinderData.initialize();
 
-                    this.dataWork.countriesData = this.dataWork.countriesData();
-                    this.dataWork.countriesData.initialize();
+                    //this.dataWork.countriesData = this.dataWork.countriesData();
+                    //this.dataWork.countriesData.initialize();
 
                     this.dataWork.carriersData = this.dataWork.carriersData();
                     this.dataWork.carriersData.initialize();
