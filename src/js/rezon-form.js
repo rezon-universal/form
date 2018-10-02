@@ -3706,7 +3706,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
             },
-            getAllCountries() {
+            getAllCountries: function() {
                 this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
                     this.hotel.countries = response.data;
                 });
