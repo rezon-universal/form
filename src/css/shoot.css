@@ -2259,6 +2259,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .btn_children {
     padding: 0 6px;
 }
+#rezon-forms .nationality_hotels .typeahead-selectpicker {
+    box-sizing: border-box;
+    width: 100%;
+    height: 45px;
+    border: none;
+}
 /************************End Hotels***********************/
 
 

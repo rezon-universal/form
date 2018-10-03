@@ -9,7 +9,7 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
-                <hotel-input name="CityId" input-class="book-from" v-model="hotel.city" :placeholder="locale('HOTEL_PLACEHOLDER')"></hotel-input>
+                <hotel-input name="CityId" input-class="book-from" v-model="hotel.city" :placeholder="locale('BUSES_PLACEHOLDER')"></hotel-input>
                 <div class="error-box"></div>
             </div>
         </div>
@@ -108,29 +108,34 @@
             </div>
         </div>
         <div class="field nationality_hotels">
-            <label class="menu-title">
-                <span class="link-left"></span>
-                {{locale("NATIONALITY")}}
-                <span class="link-right"></span>
-            </label>
-            <div class="control-field">
-                <div class="select_box" @click="toggleClass">
-                    <div class="value_tag">
-                        <span class="number_val">{{ hotel.nationalityName }}</span>
-                        <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
-                        <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
-                    </div>
-                    <ul class="option_box">
-                        <li class="option" v-for="country in hotel.countries" @click=handleClick(country.name,country.alpha2Code)>
-                            <span class="country_name">{{ country.name }}</span>
-                            <span class="country_code hidden">{{ country.alpha2Code }}</span>
-                        </li>
-                    </ul>
+            <div class="citizenship">
+                <label for="order-@currentPassNmb-country" class="menu-title">
+                    {{locale("NATIONALITY")}}
+                </label>
+                <div class="control-field" @click=handleClick>
+                    <input type="text" name='nationality' id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select" v-model="hotel.nationality">
+                    <input type="hidden" name="countryFrom@(currentPassNmb)" class="nationality" value="">
                 </div>
             </div>
             <div class="error-box">
                 <span class="close hidden"></span>
             </div>
+
+            <!--<div class="control-field">-->
+                <!--<div class="select_box">-->
+                    <!--<div class="value_tag">-->
+                        <!--<span class="number_val">{{ hotel.nationalityName }}</span>-->
+                        <!--<input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">-->
+                        <!--<input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">-->
+                    <!--</div>-->
+                    <!--<ul class="option_box">-->
+                        <!--<li class="option" v-for="country in hotel.countries" @click=handleClick(country.name,country.alpha2Code)>-->
+                            <!--<span class="country_name">{{ country.name }}</span>-->
+                            <!--<span class="country_code hidden">{{ country.alpha2Code }}</span>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 
 

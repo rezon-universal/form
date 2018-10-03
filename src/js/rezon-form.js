@@ -163,8 +163,8 @@ var rezOnForm = function (form, o) {
             childs: [],
             rooms: 1,
             countries: [],
-            nationalityName: "Ukraine",
-            nationalityCode: "UA",
+            nationality: null,
+            nationalityCode: null,
             get inputChilds() {
                 return this.childs.join();
             }
@@ -923,6 +923,28 @@ var rezOnForm = function (form, o) {
             }
         });
     };
+
+
+
+    rezOnForm.prototype.dataWork.hotelCountriesFinderData = function () {
+        return new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: it.extra.remoteUrl() + '/HelperAsync/LookupHotels?query=',
+                rateLimitWait: 10,
+                replace: function (url, query) {
+                    return url + encodeURIComponent(query.replace(/[^a-zA-Zа-яА-ЯіїІЇ0-9]{1}/g, "_"));
+                },
+                filter: function (data) {
+                    return data;
+                }
+            }
+        });
+    };
+
 
 
     //Установка значений по-умолчанию
@@ -2070,7 +2092,80 @@ var rezOnForm = function (form, o) {
             $('.quantity_val').text(sum);
         });
 
+        //Список стран
+        it._hotelForm.find(".galileo-country-select").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 0,
+                isSelectPicker: true
+            },
+            {
+                name: 'carriers-' + it._o.defaultLang,
+                source: it.dataWork.countriesData.ttAdapter(),
+                valueKey: 'label',
+                display: function (data) {
+                    return data.label;
+                },
+                templates: {
+                    suggestion: function (data) {
+                        return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
+                    }
+                }
+            }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            var item = $(this).closest(".item");
+            if (datum != undefined) {
+                $(this).data("selected", datum);
+                item.find(".galileo-state-select.tt-hint").length > 0 && item.find(".galileo-state-select").typeahead('destroy').val("");
 
+                console.log(datum.label);
+                console.log(datum.code);
+
+                var selectedCountryHasState = false;
+                if (selectedCountryHasState) {
+                    //Страна имеет штаты
+                    $.ajax({
+                        cache: false,
+                        url: it.extra.remoteUrl() + "/HelperAsync/LookupStatesForCountry?country=" + datum.code,
+                        dataType: "JSON",
+                        success: function (json) {
+                            //Список штатов
+                            item.find(".galileo-state-select").typeahead({
+                                    hint: true,
+                                    highlight: true,
+                                    minLength: 0,
+                                    isSelectPicker: true
+                                },
+                                {
+                                    name: 'states-' + it._o.defaultLang,
+                                    displayKey: 'label',
+                                    display: function (data) {
+                                        return data.label + " [" + data.code + "]";
+                                    },
+                                    source: rezOnForm.staticGalSubstringMatcher(json),
+                                    templates: {
+                                        suggestion: function (data) {
+                                            return data.label + " <small class='iata-code'>" + data.code + "</small>";
+                                        }
+                                    }
+                                }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+                                $(this).data("selected", datum);
+                            }).on("typeahead:queryChanged", function (it, query) {
+                                item.find(".galileo-airport-select.tt-input").prop("disabled", true).typeahead('val', "").trigger("typeahead:queryChanged");
+                            });
+                            item.find(".finder-state.g-hide").removeClass("g-hide");
+                        }
+                    });
+                } else {
+                    //У страны нет штатов
+                    item.find(".finder-state").addClass("g-hide");
+                }
+            }
+        }).on("typeahead:queryChanged", function (it, query) {
+            var item = $(this).closest(".item");
+            item.find(".finder-state").addClass("g-hide");
+            item.find(".galileo-state-select").data("selected", undefined);
+            item.find(".galileo-airport-select.tt-input").prop("disabled", true).typeahead('val', "").trigger("typeahead:queryChanged");
+        });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2321,6 +2416,9 @@ var rezOnForm = function (form, o) {
 
                     this.dataWork.hotelCityFinderData = this.dataWork.hotelCityFinderData();
                     this.dataWork.hotelCityFinderData.initialize();
+
+                    this.dataWork.countriesData = this.dataWork.countriesData();
+                    this.dataWork.countriesData.initialize();
 
                     this.hotelBind();
 
@@ -2977,6 +3075,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.$emit("input", this.item);
                 }
             }
+
         },
         created: function () {
             var comp = this;
@@ -3479,6 +3578,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var num = $(e.target).text();
                 this.hotel.rooms = parseInt(num);
             },
+            handleClick: function (e) {
+
+            },
             stopClick: function (e) {
                 e.stopPropagation();
             },
@@ -3706,15 +3808,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
             },
-            getAllCountries() {
-                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
-                    this.hotel.countries = response.data;
-                });
-            },
-            handleClick : function( name, alpha2Code ) {
-                this.hotel.nationalityName = name;
-                this.hotel.nationalityCode = alpha2Code;
-            },
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3864,8 +3957,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
                 else if (this.hotel.checkOut < this.hotel.checkIn)
                     this.hotel.checkOut = this.hotel.checkIn;
-                
-                this.getAllCountries();
             }
 
             window.vue = this;
