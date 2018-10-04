@@ -162,9 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
-            countries: [],
-            nationalityName: "Ukraine",
-            nationalityCode: "UA",
+            nationalityName: '',
+            nationalityCode: '',
             get inputChilds() {
                 return this.childs.join();
             }
@@ -923,6 +922,28 @@ var rezOnForm = function (form, o) {
             }
         });
     };
+
+
+
+    rezOnForm.prototype.dataWork.hotelCountriesFinderData = function () {
+        return new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: it.extra.remoteUrl() + '/HelperAsync/LookupHotels?query=',
+                rateLimitWait: 10,
+                replace: function (url, query) {
+                    return url + encodeURIComponent(query.replace(/[^a-zA-Zа-яА-ЯіїІЇ0-9]{1}/g, "_"));
+                },
+                filter: function (data) {
+                    return data;
+                }
+            }
+        });
+    };
+
 
 
     //Установка значений по-умолчанию
@@ -2070,7 +2091,33 @@ var rezOnForm = function (form, o) {
             $('.quantity_val').text(sum);
         });
 
-
+        //Список стран
+        it._hotelForm.find(".galileo-country-select").typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 0,
+                isSelectPicker: true
+            },
+            {
+                name: 'carriers-' + it._o.defaultLang,
+                source: it.dataWork.countriesData.ttAdapter(),
+                valueKey: 'label',
+                display: function (data) {
+                    return data != undefined ? data.label : null;
+                },
+                templates: {
+                    suggestion: function (data) {
+                        return data.label;
+                    }
+                }
+            }
+        ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                it._o.hotel.nationalityName = datum.label;
+                it._o.hotel.nationalityCode = datum.code;
+            }
+        });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2144,6 +2191,7 @@ var rezOnForm = function (form, o) {
                     var sib = field.closest("form").find("input[name='CityId']");
                     if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                 }
+                console.log(datum)
                 //Hide mobile keyboard
                 $(this).blur();
             }
@@ -2321,6 +2369,9 @@ var rezOnForm = function (form, o) {
 
                     this.dataWork.hotelCityFinderData = this.dataWork.hotelCityFinderData();
                     this.dataWork.hotelCityFinderData.initialize();
+
+                    this.dataWork.countriesData = this.dataWork.countriesData();
+                    this.dataWork.countriesData.initialize();
 
                     this.hotelBind();
 
@@ -3692,8 +3743,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
             },
-            
-            childOption : function(e) {
+
+            childOption: function (e) {
                 var text = $(e.target).text();
                 var value = text.replace(/[^-0-9]/gim, '');
 
@@ -3705,16 +3756,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
-            },
-            getAllCountries: function() {
-                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
-                    this.hotel.countries = response.data;
-                });
-            },
-            handleClick : function( name, alpha2Code ) {
-                this.hotel.nationalityName = name;
-                this.hotel.nationalityCode = alpha2Code;
-            },
+            }
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3846,7 +3888,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             if (this.formType === 'avia') {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
-                
+
                 this.passUpdate();
             }
             if (this.formType === 'railway' && !this.hasRailResult()) {
@@ -3864,8 +3906,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
                 else if (this.hotel.checkOut < this.hotel.checkIn)
                     this.hotel.checkOut = this.hotel.checkIn;
-                
-                this.getAllCountries();
             }
 
             window.vue = this;
