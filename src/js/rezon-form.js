@@ -162,9 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
-            countries: [],
-            nationality: null,
-            nationalityCode: null,
+            nationalityName: '',
+            nationalityCode: '',
             get inputChilds() {
                 return this.childs.join();
             }
@@ -2104,67 +2103,19 @@ var rezOnForm = function (form, o) {
                 source: it.dataWork.countriesData.ttAdapter(),
                 valueKey: 'label',
                 display: function (data) {
-                    return data.label;
+                    return data != undefined ? data.label : null;
                 },
                 templates: {
                     suggestion: function (data) {
-                        return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
+                        return data.label;
                     }
                 }
-            }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-            var item = $(this).closest(".item");
+            },
+            ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
-                $(this).data("selected", datum);
-                item.find(".galileo-state-select.tt-hint").length > 0 && item.find(".galileo-state-select").typeahead('destroy').val("");
-
-                console.log(datum.label);
-                console.log(datum.code);
-
-                var selectedCountryHasState = false;
-                if (selectedCountryHasState) {
-                    //Страна имеет штаты
-                    $.ajax({
-                        cache: false,
-                        url: it.extra.remoteUrl() + "/HelperAsync/LookupStatesForCountry?country=" + datum.code,
-                        dataType: "JSON",
-                        success: function (json) {
-                            //Список штатов
-                            item.find(".galileo-state-select").typeahead({
-                                    hint: true,
-                                    highlight: true,
-                                    minLength: 0,
-                                    isSelectPicker: true
-                                },
-                                {
-                                    name: 'states-' + it._o.defaultLang,
-                                    displayKey: 'label',
-                                    display: function (data) {
-                                        return data.label + " [" + data.code + "]";
-                                    },
-                                    source: rezOnForm.staticGalSubstringMatcher(json),
-                                    templates: {
-                                        suggestion: function (data) {
-                                            return data.label + " <small class='iata-code'>" + data.code + "</small>";
-                                        }
-                                    }
-                                }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-                                $(this).data("selected", datum);
-                            }).on("typeahead:queryChanged", function (it, query) {
-                                item.find(".galileo-airport-select.tt-input").prop("disabled", true).typeahead('val', "").trigger("typeahead:queryChanged");
-                            });
-                            item.find(".finder-state.g-hide").removeClass("g-hide");
-                        }
-                    });
-                } else {
-                    //У страны нет штатов
-                    item.find(".finder-state").addClass("g-hide");
-                }
+                it._o.hotel.nationalityName = datum.label;
+                it._o.hotel.nationalityCode = datum.code;
             }
-        }).on("typeahead:queryChanged", function (it, query) {
-            var item = $(this).closest(".item");
-            item.find(".finder-state").addClass("g-hide");
-            item.find(".galileo-state-select").data("selected", undefined);
-            item.find(".galileo-airport-select.tt-input").prop("disabled", true).typeahead('val', "").trigger("typeahead:queryChanged");
         });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
@@ -2239,6 +2190,7 @@ var rezOnForm = function (form, o) {
                     var sib = field.closest("form").find("input[name='CityId']");
                     if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                 }
+                console.log(datum)
                 //Hide mobile keyboard
                 $(this).blur();
             }
@@ -3075,7 +3027,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.$emit("input", this.item);
                 }
             }
-
         },
         created: function () {
             var comp = this;
@@ -3577,9 +3528,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             fieldRoom: function (e) {
                 var num = $(e.target).text();
                 this.hotel.rooms = parseInt(num);
-            },
-            handleClick: function (e) {
-
             },
             stopClick: function (e) {
                 e.stopPropagation();

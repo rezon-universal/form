@@ -1098,7 +1098,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     display: none;
 }
-#rezon-forms .typeahead-selectpicker-control.opened:before 
+#rezon-forms .typeahead-selectpicker-control.opened:before
 {
     background: none;
     border-bottom: 1px solid #546e7a;
@@ -1114,6 +1114,26 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-transform: rotate(-135deg);
     width: 15px;
 }
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control.opened:before
+{
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    width: 10px;
+    height: 10px;
+    border-bottom: 1px solid #7921D5;
+    border-right: 1px solid #7921D5;
+    transform: rotate(-135deg);
+    cursor: pointer;
+    z-index: 1;
+}
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control {
+    opacity: 1;
+}
+#rezon-forms .typeahead-selectpicker-control.empty.opened:before {
+    display: none;
+}
 #rezon-forms .typeahead-selectpicker-control.empty:before,
 #rezon-forms .typeahead-selectpicker-control.empty:after 
 {
@@ -1126,6 +1146,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     position: absolute;
     width: 21px;
     top: 20px;
+    opacity: 0.4;
+}
+#rezon-forms .typeahead-selectpicker-control.empty:hover::before,
+#rezon-forms .typeahead-selectpicker-control.empty:hover::after {
+    opacity: 1;
 }
 #rezon-forms .typeahead-selectpicker-control.empty:before 
 {
@@ -2086,7 +2111,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .num_people .value_tag:before,
 #rezon-forms .num_children .value_tag:before,
 #rezon-forms .num_room .value_tag:before,
-#rezon-forms .nationality_hotels .value_tag:before,
 #rezon-forms .children_input:before {
     content: '';
     position: absolute;
@@ -2099,6 +2123,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     transform: rotate(-135deg);
     cursor: pointer;
     transition: transform 0.2s;
+    z-index: 1;
+    z-index: 1;
 }
 
 #rezon-forms .num_people .value_tag.rotate:before,
@@ -2153,7 +2179,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 #rezon-forms .nationality_hotels .value_tag {
-    padding: 0 15px;
+    padding: 0;
 }
 
 #rezon-forms .option_box li {
