@@ -2110,7 +2110,7 @@ var rezOnForm = function (form, o) {
                         return data.label;
                     }
                 }
-            },
+            }
             ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 it._o.hotel.nationalityName = datum.label;

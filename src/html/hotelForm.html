@@ -115,7 +115,7 @@
                 <div class="control-field">
                     <div class="select_box">
                         <div class="value_tag">
-                            <input type="text" name='nationality' id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select">
+                            <input type="text" name='nationality' id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select" placeholder="">
                             <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
                             <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                         </div>
@@ -125,27 +125,7 @@
             <div class="error-box">
                 <span class="close hidden"></span>
             </div>
-
-            <!--<div class="control-field">-->
-                <!--<div class="select_box">-->
-                    <!--<div class="value_tag">-->
-                        <!--<span class="number_val">{{ hotel.nationalityName }}</span>-->
-                        <!--<input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">-->
-                        <!--<input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">-->
-                    <!--</div>-->
-                    <!--<ul class="option_box">-->
-                        <!--<li class="option" v-for="country in hotel.countries" @click=handleClick(country.name,country.alpha2Code)>-->
-                            <!--<span class="country_name">{{ country.name }}</span>-->
-                            <!--<span class="country_code hidden">{{ country.alpha2Code }}</span>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
-
-
-
-
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
