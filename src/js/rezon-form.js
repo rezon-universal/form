@@ -162,8 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
-            nationalityName: '',
-            nationalityCode: '',
+            nationalityName: 'Ukraine',
+            nationalityCode: 'UA',
             get inputChilds() {
                 return this.childs.join();
             }
