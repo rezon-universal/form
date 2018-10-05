@@ -1,4 +1,4 @@
-﻿function DirectionType(value, text) {
+﻿﻿function DirectionType(value, text) {
     this.value = value;
     this.text = text;
 };
@@ -2092,7 +2092,8 @@ var rezOnForm = function (form, o) {
         });
 
         //Список стран
-        it._hotelForm.find(".galileo-country-select").typeahead({
+        it._hotelForm.find(".galileo-country-select").typeahead(
+            {
                 hint: true,
                 highlight: true,
                 minLength: 0,
@@ -2111,7 +2112,7 @@ var rezOnForm = function (form, o) {
                     }
                 }
             }
-            ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+        ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 it._o.hotel.nationalityName = datum.label;
                 it._o.hotel.nationalityCode = datum.code;
@@ -2321,8 +2322,8 @@ var rezOnForm = function (form, o) {
                     this.dataWork.airporFinderData = this.dataWork.airporFinderData();
                     this.dataWork.airporFinderData.initialize();
 
-                    this.dataWork.countriesData = this.dataWork.countriesData();
-                    this.dataWork.countriesData.initialize();
+                    //this.dataWork.countriesData = this.dataWork.countriesData();
+                    //this.dataWork.countriesData.initialize();
 
                     this.dataWork.carriersData = this.dataWork.carriersData();
                     this.dataWork.carriersData.initialize();
@@ -3742,8 +3743,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
             },
-            
-            childOption : function(e) {
+
+            childOption: function (e) {
                 var text = $(e.target).text();
                 var value = text.replace(/[^-0-9]/gim, '');
 
@@ -3755,7 +3756,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
-            },
+            }
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3887,7 +3888,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             if (this.formType === 'avia') {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
-                
+
                 this.passUpdate();
             }
             if (this.formType === 'railway' && !this.hasRailResult()) {
