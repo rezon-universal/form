@@ -162,6 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
+            defaultNationalityName: 'Ukraine',
+            defaultNationalityCode: 'UA',
             nationalityName: '',
             nationalityCode: '',
             get inputChilds() {
@@ -324,7 +326,7 @@ var rezOnForm = function (form, o) {
                 "CITY": "Город",
                 "CHECK_IN": "Заезд",
                 "CHECK_OUT": "Отъезд",
-                "HOTEL_PLACEHOLDER": "Куда вы хотите поеъать?",
+                "HOTEL_PLACEHOLDER": "Куда вы хотите поехать?",
                 "ROOMS": "Комнат",
                 "NATIONALITY": "Национальность"
             },
@@ -1040,7 +1042,7 @@ var rezOnForm = function (form, o) {
             return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
-    //Валидация формы поиска автобусов
+    //Валидация формы поиска отелей
     rezOnForm.prototype.validation.hotelForm = function () {
 
         var ret = it.validation.hotelCity();
@@ -1094,9 +1096,14 @@ var rezOnForm = function (form, o) {
     //Validation hotel city
     rezOnForm.prototype.validation.hotelCity = function () {
         var city = it._hotelForm.find("input[name='CityId']").first();
+        var nationality = it._hotelForm.find("input[name='NationalityCode']").first();
 
         if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
             city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
+            return false;
+        }
+        if ($.trim(nationality.val()) === "" || nationality.val() === "&nbsp;") {
+            nationality.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("BLA-BLA-BLA", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             return false;
         }
         return true;
@@ -3725,6 +3732,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.hotel.checkOut = this.hotelDefaultCheckOut;
                 this.hotel.cityFrom = new HotelCityItem();
                 this.hotel.cityTo = new HotelCityItem();
+                this.hotel.nationalityName = this.hotel.defaultNationalityName;
+                this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
                 this.hotel.timeThere = 0;
                 this.hotel.timeBack = 0;
                 this.hotel.dateRange = 0;
