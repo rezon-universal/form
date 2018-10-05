@@ -1131,7 +1131,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .nationality_hotels .typeahead-selectpicker-control {
     opacity: 1;
 }
-#rezon-forms .typeahead-selectpicker-control.empty.opened:before {
+#rezon-forms .typeahead-selectpicker-control.empty.opened:before,
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control.empty
+{
     display: none;
 }
 #rezon-forms .typeahead-selectpicker-control.empty:before,
