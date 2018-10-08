@@ -115,12 +115,12 @@
                 <div class="control-field">
                     <div class="select_box">
                         <div class="value_tag">
-                            <input type="text" name='nationality' id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select" placeholder="">
+                            <input type="text" name="nationality" id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select nationality_focus" v-model="hotel.nationalityName">
                             <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
                             <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                         </div>
                     </div>
-                    <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null}" v-on:click="clearNationality()"></span>
+                    <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null}" v-on:click="clearNationality"></span>
                     <div class="error-box"></div>
                 </div>
             </div>

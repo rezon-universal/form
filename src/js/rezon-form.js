@@ -38,6 +38,10 @@ function CityItem(id, name, countryCode, countryName) {
     this.CountryCode = countryCode;
     this.CountryName = countryName;
 }
+function NationalityItem(nationalityName, nationalityCode) {
+    this.NationalityName = nationalityName;
+    this.NationalityCode = nationalityCode;
+}
 function HotelCityItem(id, name, countryCode) {
     this.Id = id;
     this.Name = name;
@@ -164,8 +168,8 @@ var rezOnForm = function (form, o) {
             rooms: 1,
             defaultNationalityName: 'Ukraine',
             defaultNationalityCode: 'UA',
-            nationalityName: '',
-            nationalityCode: '',
+            nationalityName: null,
+            nationalityCode: null,
             get inputChilds() {
                 return this.childs.join();
             }
@@ -3029,6 +3033,17 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     $(el).find("." + selector).typeahead("val", "");
                 });
             },
+            clearNationality: function () {
+                this.item = new NationalityItem();
+                this.$emit("input", this.item);
+                var comp = this;
+                Vue.nextTick(function () {
+                    //Update typeahead
+                    var el = comp.$el;
+                    var selector = comp.inputClass;
+                    $(el).find("." + selector).typeahead("val", "");
+                });
+            },
             checkItem: function (event) {
                 if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
                     this.item.Code = "";
@@ -3524,6 +3539,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             toggleClass: function (e) {
                 $(e.currentTarget).children('.option_box').toggleClass('open');
                 $(e.currentTarget).children('.value_tag').toggleClass('rotate');
+            },
+            clearNationality: function (e) {
+                this.hotel.nationalityName = this.hotel.defaultNationalityName;
+                this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
             },
             toggleClassChild: function (e) {
                 $(e.currentTarget).next().toggleClass('open');

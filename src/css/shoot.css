@@ -2183,6 +2183,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .nationality_hotels .value_tag {
     padding: 0;
 }
+#rezon-forms .nationality_hotels .nationality_focus:focus {
+    box-shadow: 0 0 8px 2px #00b0ff;
+    outline: none;
+    z-index: 1;
+}
 
 #rezon-forms .option_box li {
     padding: 4px 15px;
