@@ -38,10 +38,6 @@ function CityItem(id, name, countryCode, countryName) {
     this.CountryCode = countryCode;
     this.CountryName = countryName;
 }
-function NationalityItem(nationalityName, nationalityCode) {
-    this.NationalityName = nationalityName;
-    this.NationalityCode = nationalityCode;
-}
 function HotelCityItem(id, name, countryCode) {
     this.Id = id;
     this.Name = name;
@@ -3025,17 +3021,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             clearItem: function () {
                 this.item = new CityItem();
-                this.$emit("input", this.item);
-                var comp = this;
-                Vue.nextTick(function () {
-                    //Update typeahead
-                    var el = comp.$el;
-                    var selector = comp.inputClass;
-                    $(el).find("." + selector).typeahead("val", "");
-                });
-            },
-            clearNationality: function () {
-                this.item = new NationalityItem();
                 this.$emit("input", this.item);
                 var comp = this;
                 Vue.nextTick(function () {
