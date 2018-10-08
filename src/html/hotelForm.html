@@ -120,7 +120,7 @@
                             <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                         </div>
                     </div>
-                    <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null}" v-on:click="clearNationality"></span>
+                    <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null, 'no-visiblity': hotel.nationalityName==null}" v-on:click="clearNationality"></span>
                     <div class="error-box"></div>
                 </div>
             </div>

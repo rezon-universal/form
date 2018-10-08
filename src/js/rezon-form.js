@@ -166,7 +166,7 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
-            defaultNationalityName: 'Ukraine',
+            defaultNationalityName: null,
             defaultNationalityCode: 'UA',
             nationalityName: null,
             nationalityCode: null,
@@ -2071,6 +2071,7 @@ var rezOnForm = function (form, o) {
         // Отели select
         it._hotelForm.find('.select_box').click(function () {
             $(document).bind('click', HandlerClick);
+
         });
 
         function HandlerClick(e) {
