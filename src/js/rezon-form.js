@@ -287,6 +287,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "пассажир",
                 "C_PASSENGERS": "пассажиров",
                 "C_PASSEGNERS2": "пассажира",
+                "GUESTS": "Гости",
                 "DAY": "день",
                 "DAYS": "дня",
                 "CLASS": "Класс",
@@ -438,6 +439,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "passenger",
                 "C_PASSENGERS": "passengers",
                 "C_PASSEGNERS2": "passengers",
+                "GUESTS": "Guests",
                 "DAY": "day",
                 "DAYS": "days",
                 "CLASS": "Class",
@@ -589,6 +591,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "пасажир",
                 "C_PASSENGERS": "пасажирів",
                 "C_PASSEGNERS2": "пасажира",
+                "GUESTS": "Гості",
                 "DAY": "день",
                 "DAYS": "дня",
                 "CLASS": "Клас",
@@ -2065,16 +2068,16 @@ var rezOnForm = function (form, o) {
         };
 
         // Отели select
-        it._hotelForm.find('.select_box').click(function () {
+        it._hotelForm.find('.value_guest').click(function () {
             $(document).bind('click', HandlerClick);
 
         });
 
         function HandlerClick(e) {
-            if (!$(e.target).hasClass("select_box") && $(e.target).parents(".select_box").length === 0) {
-                $('.option_box').removeClass('open');
+            if (!$(e.target).hasClass(".value_guest") && $(e.target).parents(".value_guest").length === 0) {
+                $('.options_guest').removeClass('open');
                 $('.children_age').removeClass('open');
-                $('.value_tag').removeClass('rotate');
+                $('.arrow').removeClass('rotate');
                 $('.children_input').removeClass('rotate');
                 $(document).unbind('click', HandlerClick);
             }
@@ -3047,6 +3050,39 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         }
     });
 
+    Vue.component('guest-input', {
+        props: {
+            name: {
+                type: String
+            },
+            num: {
+                type: Number
+            },
+            value: {
+                type: Number
+            },
+            label: {
+                type: String
+            }
+        },
+        computed: {
+
+        },
+        template:
+            '<div class="hotel_guest">' +
+                '<label class="menu-title">{{ label }}</label>' +
+                '<div class="select_guest">' +
+                    '<div class="value_guest">' +
+                        '<div class="arrow"></div>' +
+                        '<span class="number_val">{{ value }}</span>' +
+                        '<input class="input_val" type="hidden" :name="name" v-model="value">' +
+                    '</div>' +
+                    '<ul class="options_guest">' +
+                        '<li class="option_guest" v-for="i in num">{{ i }}</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>'
+    });
 
     //Datepicker component
     Vue.component('datepicker', {
@@ -3216,6 +3252,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         el: form[0],
         mixins: [mixin],
         //data: options,
+        data: {
+            isActive: false
+        },
         computed: {
             allAirCompanies: function () {
                 var str = [];
@@ -3523,8 +3562,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.buses.passenger.count++;
             },
             toggleClass: function (e) {
-                $(e.currentTarget).children('.option_box').toggleClass('open');
-                $(e.currentTarget).children('.value_tag').toggleClass('rotate');
+                $(e.currentTarget).closest('.select_guest').find('.options_guest').toggleClass('open');
+                $(e.currentTarget).closest('.select_guest').find('.arrow').toggleClass('rotate');
+
             },
             clearNationality: function (e) {
                 this.hotel.nationalityName = this.hotel.defaultNationalityName;
@@ -3534,9 +3574,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $(e.currentTarget).next().toggleClass('open');
                 $(e.currentTarget).toggleClass('rotate');
             },
-            fieldOption: function (e) {
+            fieldAdults: function (e) {
                 var num = $(e.target).text();
                 this.hotel.adults = parseInt(num);
+            },
+            fieldChilds: function (e) {
+
             },
             fieldRoom: function (e) {
                 var num = $(e.target).text();
