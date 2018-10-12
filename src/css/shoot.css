@@ -2171,10 +2171,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 .options_guest {
     list-style-type: none;
     padding: 0;
-    display: none;
+    background-color: #fff;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    /*display: none;*/
 }
 .options_guest.open {
-    display: block;
+    /*display: block;*/
 }
 .option_guest {
     padding: 5px 10px;
@@ -2183,7 +2185,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #26b6ff;
     cursor: pointer;
 }
-#rezon-forms .arrow.rotate {
+#rezon-forms .arrow.rotateClass {
     top: 20px;
     transform: rotate(45deg);
     opacity: 1;

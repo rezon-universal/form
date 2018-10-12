@@ -45,19 +45,17 @@
                 <div class="arrow"></div>
                 <div class="select_box">
                     <div class="guest_flex">
-                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' v-bind:value="hotel.adults" name="Adults" v-bind:num="4"></guest-input>
-                        <guest-input v-bind:label='locale("PASS_CAT_CNN")' v-bind:value="1" name="Child" v-bind:num="3"></guest-input>
-                        <guest-input v-bind:label='locale("ROOMS")' v-bind:value="hotel.rooms" name="Rooms" v-bind:num="3"></guest-input>
+                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="Adults" v-bind:index="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
+                        <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="Child" v-bind:index="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
+                        <guest-input v-bind:label='locale("ROOMS")' name="Rooms" v-bind:index="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
                     </div>
-
-
-
                     <span class="button-hide hidden-xs">
                         <span class="hide-inner">{{locale("HIDE")}}</span>
                     </span>
                 </div>
             </div>
         </div>
+
 
 
 

@@ -161,6 +161,7 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
+            quantityChilds: 0,
             rooms: 1,
             defaultNationalityName: null,
             defaultNationalityCode: 'UA',
@@ -3055,33 +3056,48 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             name: {
                 type: String
             },
-            num: {
-                type: Number
-            },
-            value: {
-                type: Number
-            },
             label: {
                 type: String
+            },
+            index: {
+                type: Number
+            },
+            num: {
+                type: Number
             }
-        },
-        computed: {
-
         },
         template:
             '<div class="hotel_guest">' +
                 '<label class="menu-title">{{ label }}</label>' +
                 '<div class="select_guest">' +
-                    '<div class="value_guest">' +
-                        '<div class="arrow"></div>' +
-                        '<span class="number_val">{{ value }}</span>' +
-                        '<input class="input_val" type="hidden" :name="name" v-model="value">' +
+                    '<div class="value_guest" v-on:click="toggleClass">' +
+                        '<div class="arrow" v-bind:class="{rotateClass:isActive}"></div>' +
+                        '<span class="number_val">{{ num }}</span>' +
+                        '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
-                    '<ul class="options_guest">' +
-                        '<li class="option_guest" v-for="i in num">{{ i }}</li>' +
+                    '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
+                        '<li class="option_guest" v-for="i in index">{{ i }}</li>' +
                     '</ul>' +
                 '</div>' +
-            '</div>'
+            '</div>',
+        data: function () {
+            return {
+                isActive: false,
+                rotateClass: 'rotateClass',
+                quantity: null
+            }
+        },
+        methods: {
+            toggleClass: function () {
+                this.isActive = !this.isActive
+            },
+            changeNum: function (e) {
+                this.isActive = false;
+                var number = $(e.target).text();
+                this.quantity = parseInt(number);
+                this.$emit('quantity-change', this.quantity);
+            },
+        }
     });
 
     //Datepicker component
@@ -3252,9 +3268,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         el: form[0],
         mixins: [mixin],
         //data: options,
-        data: {
-            isActive: false
-        },
         computed: {
             allAirCompanies: function () {
                 var str = [];
@@ -3561,11 +3574,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             addBusPassenger: function () {
                 this.buses.passenger.count++;
             },
-            toggleClass: function (e) {
-                $(e.currentTarget).closest('.select_guest').find('.options_guest').toggleClass('open');
-                $(e.currentTarget).closest('.select_guest').find('.arrow').toggleClass('rotate');
-
-            },
             clearNationality: function (e) {
                 this.hotel.nationalityName = this.hotel.defaultNationalityName;
                 this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
@@ -3573,17 +3581,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             toggleClassChild: function (e) {
                 $(e.currentTarget).next().toggleClass('open');
                 $(e.currentTarget).toggleClass('rotate');
-            },
-            fieldAdults: function (e) {
-                var num = $(e.target).text();
-                this.hotel.adults = parseInt(num);
-            },
-            fieldChilds: function (e) {
-
-            },
-            fieldRoom: function (e) {
-                var num = $(e.target).text();
-                this.hotel.rooms = parseInt(num);
             },
             stopClick: function (e) {
                 e.stopPropagation();
