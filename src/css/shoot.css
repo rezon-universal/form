@@ -1114,6 +1114,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-transform: rotate(-135deg);
     width: 15px;
 }
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control:before,
 #rezon-forms .nationality_hotels .typeahead-selectpicker-control.opened:before
 {
     content: "";
@@ -1124,9 +1125,16 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     height: 10px;
     border-bottom: 1px solid #7921D5;
     border-right: 1px solid #7921D5;
-    transform: rotate(-135deg);
     cursor: pointer;
     z-index: 1;
+}
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control.opened:before {
+    transform: rotate(-135deg);
+    opacity: 1;
+}
+#rezon-forms .nationality_hotels .typeahead-selectpicker-control:before {
+    transform: rotate(45deg);
+    opacity: 0.5;
 }
 #rezon-forms .nationality_hotels .typeahead-selectpicker-control {
     opacity: 1;
@@ -2126,7 +2134,25 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 .guest_flex {
     display: flex;
-    padding: 20px 30px 30px;
+    padding: 20px 30px 14px;
+}
+.nationality_hotels {
+    padding: 5px 30px 14px;
+}
+.select_nationality {
+    position: relative;
+}
+.select_nationality .tt-dropdown-menu {
+    position: relative !important;
+}
+#rezon-forms  .nationality_hotels .typeahead-selectpicker {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: 40px;
+    box-shadow: inset 1px 0px 3px 0px #B8C7E4;
+    background-color: #ecf1fb;
+    border: none;
 }
 #rezon-forms .select_box label.menu-title {
     color: #8087a1;
@@ -2141,8 +2167,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     transition: transform 0.2s linear;
     position: absolute;
     top: 15px;
-    right: 15px;
+    right: 12px;
     opacity: 0.5;
+    z-index: 1;
 }
 .hotel_guest {
     flex-basis: 30%;
@@ -2189,6 +2216,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     top: 20px;
     transform: rotate(45deg);
     opacity: 1;
+}
+#rezon-forms .nationality_hotels .delete {
+    height: 40px;
 }
 /************************End Hotels***********************/
 

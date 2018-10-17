@@ -3069,7 +3069,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         template:
             '<div class="hotel_guest">' +
                 '<label class="menu-title">{{ label }}</label>' +
-                '<div class="select_guest">' +
+                '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{rotateClass:isActive}"></div>' +
                         '<span class="number_val">{{ num }}</span>' +
@@ -3091,12 +3091,29 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             toggleClass: function () {
                 this.isActive = !this.isActive
             },
+            onClickOutside: function () {
+                this.isActive = false;
+            },
             changeNum: function (e) {
                 this.isActive = false;
                 var number = $(e.target).text();
                 this.quantity = parseInt(number);
                 this.$emit('quantity-change', this.quantity);
             },
+        }
+    });
+
+    Vue.directive('click-outside', {
+        bind: function (el, binding, vnode) {
+            this.event = function (event) {
+                if (!(el == event.target || el.contains(event.target))) {
+                    vnode.context[binding.expression](event);
+                }
+            };
+            document.body.addEventListener('click', this.event);
+        },
+        unbind: function (el) {
+            document.body.removeEventListener('click', this.event);
         }
     });
 

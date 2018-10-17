@@ -49,6 +49,20 @@
                         <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="Child" v-bind:index="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
                         <guest-input v-bind:label='locale("ROOMS")' name="Rooms" v-bind:index="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
                     </div>
+                    <div class="nationality_hotels">
+                        <label for="order-@currentPassNmb-country" class="menu-title">
+                            {{locale("NATIONALITY")}}
+                        </label>
+                        <div class="select_nationality">
+                            <div>
+                                <input type="text" name="nationality" id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select nationality_focus" v-model="hotel.nationalityName">
+                                <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
+                                <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
+                            </div>
+                            <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null, 'no-visiblity': hotel.nationalityName==null}" v-on:click="clearNationality"></span>
+                            <div class="error-box"></div>
+                        </div>
+                    </div>
                     <span class="button-hide hidden-xs">
                         <span class="hide-inner">{{locale("HIDE")}}</span>
                     </span>
