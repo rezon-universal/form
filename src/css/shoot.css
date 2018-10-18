@@ -2121,7 +2121,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .hotel_guests {
     flex-basis: 30%;
 }
-#rezon-forms .select_box {
+.hotel_guests .select_box {
     width: 100%;
     background-color: #fff;
     box-sizing: border-box;
@@ -2131,6 +2131,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     left: 0;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
     z-index: 1;
+    display: none;
+}
+.hotel_guests .select_box.open {
+    display: block;
 }
 .guest_flex {
     display: flex;
@@ -2174,7 +2178,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     color: #8087a1;
     opacity: 1;
 }
-#rezon-forms .arrow {
+.hotel_guests .arrow,
+.hotel_guests .arrow_field {
     width: 10px;
     height: 10px;
     border-top: 1px solid #7921D5;
@@ -2224,7 +2229,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #26b6ff;
     cursor: pointer;
 }
-#rezon-forms .arrow.rotateClass {
+.hotel_guests .arrow.rotateClass,
+.hotel_guests .arrow_field.rotateClass {
     top: 20px;
     transform: rotate(45deg);
     opacity: 1;
@@ -2233,11 +2239,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     height: 40px;
 }
 .hotel_guests .control-field {
-    display: flex;
-    align-items: center;
+    cursor: pointer;
 }
 .guest_result {
     padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
 }
 /************************End Hotels***********************/
 

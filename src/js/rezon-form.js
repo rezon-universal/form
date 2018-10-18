@@ -2073,38 +2073,25 @@ var rezOnForm = function (form, o) {
         };
 
         // Отели select
-        it._hotelForm.find('.value_guest').click(function () {
+        it._hotelForm.find('.hotel_guests .control-field').click(function () {
+            $(this).closest('.control-field').find('.select_box').addClass('open');
+            $(this).closest('.control-field').find('.arrow_field').addClass('rotateClass');
             $(document).bind('click', HandlerClick);
-
         });
 
         function HandlerClick(e) {
-            if (!$(e.target).hasClass(".value_guest") && $(e.target).parents(".value_guest").length === 0) {
-                $('.options_guest').removeClass('open');
-                $('.children_age').removeClass('open');
-                $('.arrow').removeClass('rotate');
-                $('.children_input').removeClass('rotate');
+            var open = document.querySelector('.hotel_guests .select_box');
+            var rotate = document.querySelector('.hotel_guests .arrow_field');
+            if (!$(e.target).hasClass(".hotel_guests .control-field") && $(e.target).parents(".hotel_guests .control-field").length === 0) {
+                $(open).removeClass('open');
+                $(rotate).removeClass('rotateClass');
                 $(document).unbind('click', HandlerClick);
             }
         }
 
-        $('.num_children .button-hide').click(function () {
-            $(".option_box").removeClass('open');
-            $('.value_tag').removeClass('rotate');
-        });
-
-        $('.num_children .option').click(function () {
-            var text = $(this).text();
-            var value = text.replace(/[^-0-9]/gim, '');
-            $(this).closest('.children_box-item').find('.input_val').val(value);
-
-            var sum = 0;
-            $('.children_box-item .input_val').each(function () {
-                if ($(this).val() != 0) {
-                    sum++;
-                }
-            });
-            $('.quantity_val').text(sum);
+        $('.hotel_guests .button-hide').click(function () {
+            $(this).closest('.control-field').find('.select_box').removeClass('open');
+            $(this).closest('.control-field').find('.arrow_field').removeClass('rotateClass');
         });
 
         //Список стран
