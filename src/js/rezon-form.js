@@ -162,6 +162,7 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             quantityChilds: 0,
+            ageChilds: [],
             rooms: 1,
             defaultNationalityName: null,
             defaultNationalityCode: 'UA',
@@ -266,6 +267,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_DESC": "2 – 11",
                 "PASS_CAT_CNN_1": "ребенок",
                 "PASS_CAT_CNN_0": "детей",
+                "PASS_AGE_CH": "Возраст детей",
                 "PASS_CAT_CNN_4": "ребенка",
                 "PASS_CAT_YTH": "Молодежь",
                 "PASS_CAT_YTH_DESC": "12 – 25",
@@ -419,6 +421,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_1": "child",
                 "PASS_CAT_CNN_0": "children",
                 "PASS_CAT_CNN_4": "children",
+                "PASS_AGE_CH": "Children's age",
                 "PASS_CAT_YTH": "Youth",
                 "PASS_CAT_YTH_DESC": "12 – 25 yrs",
                 "PASS_CAT_YTH_1": "youth",
@@ -571,6 +574,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_1": "дитина",
                 "PASS_CAT_CNN_0": "дітей",
                 "PASS_CAT_CNN_4": "дитини",
+                "PASS_AGE_CH": "Дитячий вік",
                 "PASS_CAT_YTH": "Молодь",
                 "PASS_CAT_YTH_DESC": "12 – 25",
                 "PASS_CAT_YTH_1": "молодіжний",
@@ -3053,30 +3057,24 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component('guest-input', {
         props: {
-            name: {
-                type: String
-            },
-            label: {
-                type: String
-            },
-            index: {
-                type: Number
-            },
-            num: {
-                type: Number
-            }
+            name: String,
+            label: String,
+            items: Number,
+            num: [Number, Array],
+            published: Boolean,
         },
         template:
             '<div class="hotel_guest">' +
-                '<label class="menu-title">{{ label }}</label>' +
+                '<label class="menu-title" v-if="published">{{ label }}</label>' +
                 '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
-                        '<div class="arrow" v-bind:class="{rotateClass:isActive}"></div>' +
+                        '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
                         '<span class="number_val">{{ num }}</span>' +
                         '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
                     '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
-                        '<li class="option_guest" v-for="i in index">{{ i }}</li>' +
+                        '<li class="option_guest" v-if="name === \'quantityChild\'">0</li>' +
+                        '<li class="option_guest" v-for="item in items">{{ item }}</li>' +
                     '</ul>' +
                 '</div>' +
             '</div>',
@@ -3595,13 +3593,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.hotel.nationalityName = this.hotel.defaultNationalityName;
                 this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
             },
-            toggleClassChild: function (e) {
-                $(e.currentTarget).next().toggleClass('open');
-                $(e.currentTarget).toggleClass('rotate');
-            },
-            stopClick: function (e) {
-                e.stopPropagation();
-            },
             passUpdate: function () {
                 var currCount = 0;
                 var adultCnt = 0;
@@ -3813,20 +3804,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.hotel.historyGuid !== undefined &&
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
-            },
-
-            childOption: function (e) {
-                var text = $(e.target).text();
-                var value = text.replace(/[^-0-9]/gim, '');
-
-                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
-                this.hotel.childs[parseInt(child) - 1] = value;
-
-                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
-                $('.children_age').removeClass('open');
-                $('.children_input').removeClass('rotate');
-
-                $('.select_box .input_quantity').val(this.hotel.childs);
             }
         },
         watch: {

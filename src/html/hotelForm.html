@@ -43,11 +43,22 @@
             </label>
             <div class="control-field">
                 <div class="arrow"></div>
+                <div class="guest_result">
+                    {{ hotel.adults }} взрослых, {{ hotel.quantityChilds }} детей, {{ hotel.rooms }} комнат
+                </div>
                 <div class="select_box">
                     <div class="guest_flex">
-                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="Adults" v-bind:index="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
-                        <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="Child" v-bind:index="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
-                        <guest-input v-bind:label='locale("ROOMS")' name="Rooms" v-bind:index="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
+                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="Adults" v-bind:published="true" v-bind:items="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
+                        <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="quantityChild" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
+                        <guest-input v-bind:label='locale("ROOMS")' name="Rooms" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
+                    </div>
+                    <div class="childs_flex" v-if="hotel.quantityChilds > 0">
+                        <label class="menu-title">{{ locale("PASS_AGE_CH") }}</label>
+                        <div class="childs_block">
+                            <div class="child_box" v-for="item in hotel.quantityChilds">
+                                <guest-input name="Child" v-bind:published="false" v-bind:items="12" v-bind:num="hotel.ageChilds" v-on:quantity-change="hotel.ageChilds = $event"></guest-input>
+                            </div>
+                        </div>
                     </div>
                     <div class="nationality_hotels">
                         <label for="order-@currentPassNmb-country" class="menu-title">
@@ -77,30 +88,6 @@
 
 
 
-
-
-
-
-
-
-        <!--<div class="field num_people">-->
-            <!--<label class="menu-title">-->
-                <!--<span class="link-left"></span>-->
-                <!--{{locale("PASS_CAT_ADT")}}-->
-                <!--<span class="link-right"></span>-->
-            <!--</label>-->
-            <!--<div class="control-field">-->
-                <!--<div class="select_box"  v-on:click="toggleClass">-->
-                    <!--<div class="value_tag">-->
-                        <!--<span class="number_val">{{hotel.adults}}</span>-->
-                        <!--<input class="input_val" type="hidden" name="Adults" v-model="hotel.adults">-->
-                    <!--</div>-->
-                    <!--<ul class="option_box" v-on:click="fieldOption">-->
-                        <!--<li class="option" v-for="i in 4">{{ i }}</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
         <!--<div class="field num_children">-->
             <!--<label class="menu-title">-->
                 <!--<span class="link-left"></span>-->
@@ -134,42 +121,7 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-        <!--<div class="field num_room">-->
-            <!--<label class="menu-title">-->
-                <!--<span class="link-left"></span>-->
-                <!--{{locale("ROOMS")}}-->
-                <!--<span class="link-right"></span>-->
-            <!--</label>-->
-            <!--<div class="control-field">-->
-                <!--<div class="select_box" v-on:click="toggleClass">-->
-                    <!--<div class="value_tag">-->
-                        <!--<span class="number_val">{{hotel.rooms}}</span>-->
-                        <!--<input class="input_val" type="hidden" name="Rooms" v-model="hotel.rooms">-->
-                    <!--</div>-->
-                    <!--<ul class="option_box" v-on:click="fieldRoom">-->
-                        <!--<li class="option" v-for="i in 3">{{ i }}</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="field nationality_hotels">-->
-            <!--<div class="citizenship">-->
-                <!--<label for="order-@currentPassNmb-country" class="menu-title">-->
-                    <!--{{locale("NATIONALITY")}}-->
-                <!--</label>-->
-                <!--<div class="control-field">-->
-                    <!--<div class="select_box">-->
-                        <!--<div class="value_tag">-->
-                            <!--<input type="text" name="nationality" id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select nationality_focus" v-model="hotel.nationalityName">-->
-                            <!--<input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">-->
-                            <!--<input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null, 'no-visiblity': hotel.nationalityName==null}" v-on:click="clearNationality"></span>-->
-                    <!--<div class="error-box"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
