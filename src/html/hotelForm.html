@@ -41,12 +41,12 @@
             <label class="menu-title">
                 {{locale("GUESTS")}}
             </label>
-            <div class="control-field">
-                <div class="arrow_field"></div>
-                <div class="guest_result">
+            <div class="control-field" v-click-outside="onClickOutside">
+                <div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>
+                <div class="guest_result" v-on:click="isActive = !isActive">
                     {{ hotel.adults }} взрослых, {{ hotel.quantityChilds }} детей, {{ hotel.rooms }} комнат
                 </div>
-                <div class="select_box">
+                <div class="select_box" v-show="isActive">
                     <div class="guest_flex">
                         <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="Adults" v-bind:published="true" v-bind:items="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
                         <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="quantityChild" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
@@ -74,7 +74,7 @@
                             <div class="error-box"></div>
                         </div>
                     </div>
-                    <span class="button-hide hidden-xs">
+                    <span class="button-hide hidden-xs" v-on:click="onClickOutside">
                         <span class="hide-inner">{{locale("HIDE")}}</span>
                     </span>
                 </div>

@@ -2072,28 +2072,6 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-        // Отели select
-        it._hotelForm.find('.hotel_guests .control-field').click(function () {
-            $(this).closest('.control-field').find('.select_box').addClass('open');
-            $(this).closest('.control-field').find('.arrow_field').addClass('rotateClass');
-            $(document).bind('click', HandlerClick);
-        });
-
-        function HandlerClick(e) {
-            var open = document.querySelector('.hotel_guests .select_box');
-            var rotate = document.querySelector('.hotel_guests .arrow_field');
-            if (!$(e.target).hasClass(".hotel_guests .control-field") && $(e.target).parents(".hotel_guests .control-field").length === 0) {
-                $(open).removeClass('open');
-                $(rotate).removeClass('rotateClass');
-                $(document).unbind('click', HandlerClick);
-            }
-        }
-
-        $('.hotel_guests .button-hide').click(function () {
-            $(this).closest('.control-field').find('.select_box').removeClass('open');
-            $(this).closest('.control-field').find('.arrow_field').removeClass('rotateClass');
-        });
-
         //Список стран
         it._hotelForm.find(".galileo-country-select").typeahead(
             {
@@ -3069,7 +3047,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             return {
                 isActive: false,
                 rotateClass: 'rotateClass',
-                quantity: null
+                quantity: null,
+                age: []
             }
         },
         methods: {
@@ -3084,7 +3063,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 var number = $(e.target).text();
                 this.quantity = parseInt(number);
                 this.$emit('quantity-change', this.quantity);
-            },
+            }
         }
     });
 
@@ -3270,6 +3249,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         el: form[0],
         mixins: [mixin],
         //data: options,
+        data: {
+            isActive: false
+        },
         computed: {
             allAirCompanies: function () {
                 var str = [];
@@ -3791,6 +3773,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.hotel.historyGuid !== undefined &&
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
+            },
+            onClickOutside: function () {
+                this.isActive = false;
             }
         },
         watch: {

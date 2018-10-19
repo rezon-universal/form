@@ -2131,7 +2131,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     left: 0;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
     z-index: 1;
-    display: none;
+    /*display: none;*/
 }
 .hotel_guests .select_box.open {
     display: block;
@@ -2178,8 +2178,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     color: #8087a1;
     opacity: 1;
 }
-.hotel_guests .arrow,
-.hotel_guests .arrow_field {
+.hotel_guests .arrow {
     width: 10px;
     height: 10px;
     border-top: 1px solid #7921D5;
@@ -2229,8 +2228,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #26b6ff;
     cursor: pointer;
 }
-.hotel_guests .arrow.rotateClass,
-.hotel_guests .arrow_field.rotateClass {
+.hotel_guests .arrow.rotateClass {
     top: 20px;
     transform: rotate(45deg);
     opacity: 1;
@@ -2242,11 +2240,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     cursor: pointer;
 }
 .guest_result {
-    padding-left: 10px;
     width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box !important;
+    user-select: none;
 }
 /************************End Hotels***********************/
 
