@@ -55,8 +55,8 @@
                     <div class="childs_flex" v-if="hotel.quantityChilds > 0">
                         <label class="menu-title">{{ locale("PASS_AGE_CH") }}</label>
                         <div class="childs_block">
-                            <div class="child_box" v-for="item in hotel.quantityChilds">
-                                <guest-input name="Child" v-bind:published="false" v-bind:items="12" v-bind:num="hotel.ageChilds" v-on:quantity-change="hotel.ageChilds = $event"></guest-input>
+                            <div class="child_box" v-for="(item, i) in hotel.quantityChilds">
+                                <guest-input name="Child" v-bind:published="false" v-bind:items="12" v-bind:num="hotel.ageChilds[i]" v-on:quantity-change="hotel.ageChilds[i] = $event"></guest-input>
                             </div>
                         </div>
                     </div>

@@ -3025,7 +3025,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             name: String,
             label: String,
             items: Number,
-            num: [Number, Array],
+            num: Number,
             published: Boolean,
         },
         template:
@@ -3034,7 +3034,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
-                        '<span class="number_val">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name === \'Child\'">{{ quantity }}</span>' +
                         '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
                     '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
@@ -3047,8 +3048,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             return {
                 isActive: false,
                 rotateClass: 'rotateClass',
-                quantity: null,
-                age: []
+                quantity: null
             }
         },
         methods: {
