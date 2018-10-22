@@ -1,4 +1,4 @@
-﻿function DirectionType(value, text) {
+﻿﻿function DirectionType(value, text) {
     this.value = value;
     this.text = text;
 };
@@ -86,11 +86,11 @@ var rezOnForm = function (form, o) {
             //recAirportsFrom: [ "TLV" ],
             //recAirportsTo: [],
             defaultRouteType: null, // [oneway/roundtrip/multy]
-            defaultAirportFrom: null, // IATA code, ex. IEV
+            defaultAirportFrom: null, // IATA code, ex. IEV 
             defaultAirportTo: null, // IATA code, ex. IEV
             onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
             enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
-            enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes,
+            enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes, 
             defaultDateThere: undefined, // dd.MM.yyyy
             defaultDateBack: undefined, // dd.MM.yyyy
             plusDaysShift: 1, // -1 - 10
@@ -162,9 +162,8 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             rooms: 1,
-            countries: [],
-            nationalityName: "Ukraine",
-            nationalityCode: "UA",
+            nationalityName: 'Ukraine',
+            nationalityCode: 'UA',
             get inputChilds() {
                 return this.childs.join();
             }
@@ -735,8 +734,8 @@ var rezOnForm = function (form, o) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
-            //fix bug with pulls away cursor in popup inputs for mobile Safari
-            // Detect ios 11_x_x affected
+            //fix bug with pulls away cursor in popup inputs for mobile Safari          
+            // Detect ios 11_x_x affected  
             // NEED TO BE UPDATED if new versions are affected
             var ua = navigator.userAgent,
                 iOS = /iPad|iPhone|iPod/.test(ua);
@@ -777,8 +776,8 @@ var rezOnForm = function (form, o) {
             distX,
             distY,
             threshold = 150, //min distance
-            restraint = 100, // max distance
-            allowedTime = 300, // max time
+            restraint = 100, // max distance 
+            allowedTime = 300, // max time 
             elapsedTime,
             startTime,
             handleswipe = callback || function (swipedir) { }
@@ -923,6 +922,28 @@ var rezOnForm = function (form, o) {
             }
         });
     };
+
+
+
+    rezOnForm.prototype.dataWork.hotelCountriesFinderData = function () {
+        return new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: it.extra.remoteUrl() + '/HelperAsync/LookupHotels?query=',
+                rateLimitWait: 10,
+                replace: function (url, query) {
+                    return url + encodeURIComponent(query.replace(/[^a-zA-Zа-яА-ЯіїІЇ0-9]{1}/g, "_"));
+                },
+                filter: function (data) {
+                    return data;
+                }
+            }
+        });
+    };
+
 
 
     //Установка значений по-умолчанию
@@ -1228,14 +1249,12 @@ var rezOnForm = function (form, o) {
         });
 
         //При переключении вкладок повторно вызывать событие фокуса для активного элемента.
-        if (!($("#rezon-forms").submit)) {
-            $(window).on('focus', function () {
-                var activeEl = $(document.activeElement);
-                if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0) {
-                    activeEl.trigger('blur').trigger('focus');
-                }
-            });
-        }
+        //$(window).on('focus', function () {
+        //    var activeEl = $(document.activeElement);
+        //    if (activeEl.length > 0 && activeEl.closest(".rez-forms").length > 0 && !activeEl.is('button')) {
+        //        activeEl.trigger('blur').trigger('focus');
+        //    }
+        //});
 
 
         typeof (updatingHeight) !== 'undefined' && updatingHeight(); //Обновление высоты, если фрейм
@@ -2072,7 +2091,33 @@ var rezOnForm = function (form, o) {
             $('.quantity_val').text(sum);
         });
 
-
+        //Список стран
+        it._hotelForm.find(".galileo-country-select").typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 0,
+                isSelectPicker: true
+            },
+            {
+                name: 'carriers-' + it._o.defaultLang,
+                source: it.dataWork.countriesData.ttAdapter(),
+                valueKey: 'label',
+                display: function (data) {
+                    return data != undefined ? data.label : null;
+                },
+                templates: {
+                    suggestion: function (data) {
+                        return data.label;
+                    }
+                }
+            }
+        ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+            if (datum != undefined) {
+                it._o.hotel.nationalityName = datum.label;
+                it._o.hotel.nationalityCode = datum.code;
+            }
+        });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2146,6 +2191,7 @@ var rezOnForm = function (form, o) {
                     var sib = field.closest("form").find("input[name='CityId']");
                     if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                 }
+                console.log(datum)
                 //Hide mobile keyboard
                 $(this).blur();
             }
@@ -2276,8 +2322,8 @@ var rezOnForm = function (form, o) {
                     this.dataWork.airporFinderData = this.dataWork.airporFinderData();
                     this.dataWork.airporFinderData.initialize();
 
-                    this.dataWork.countriesData = this.dataWork.countriesData();
-                    this.dataWork.countriesData.initialize();
+                    //this.dataWork.countriesData = this.dataWork.countriesData();
+                    //this.dataWork.countriesData.initialize();
 
                     this.dataWork.carriersData = this.dataWork.carriersData();
                     this.dataWork.carriersData.initialize();
@@ -2323,6 +2369,9 @@ var rezOnForm = function (form, o) {
 
                     this.dataWork.hotelCityFinderData = this.dataWork.hotelCityFinderData();
                     this.dataWork.hotelCityFinderData.initialize();
+
+                    this.dataWork.countriesData = this.dataWork.countriesData();
+                    this.dataWork.countriesData.initialize();
 
                     this.hotelBind();
 
@@ -3550,7 +3599,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.avia.segmentsCount += 1;
                     var index = this.avia.multyRoutes.length - 1;
                     Vue.nextTick(function () {
-                        // DOM updated
+                        // DOM updated                        
                         //index+2 for selector
                         $(document).trigger('addSegment', index + 2);
                     });
@@ -3695,7 +3744,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid.trim() !== "";
             },
 
-            childOption : function(e) {
+            childOption: function (e) {
                 var text = $(e.target).text();
                 var value = text.replace(/[^-0-9]/gim, '');
 
@@ -3707,16 +3756,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 $('.children_input').removeClass('rotate');
 
                 $('.select_box .input_quantity').val(this.hotel.childs);
-            },
-            getAllCountries() {
-                this.$http.get('https://restcountries.eu/rest/v1/all').then(function(response) {
-                    this.hotel.countries = response.data;
-                });
-            },
-            handleClick : function( name, alpha2Code ) {
-                this.hotel.nationalityName = name;
-                this.hotel.nationalityCode = alpha2Code;
-            },
+            }
         },
         watch: {
             'avia.defaultDateThere': function (value) {
@@ -3866,8 +3906,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
                 else if (this.hotel.checkOut < this.hotel.checkIn)
                     this.hotel.checkOut = this.hotel.checkIn;
-
-                this.getAllCountries();
             }
 
             window.vue = this;
