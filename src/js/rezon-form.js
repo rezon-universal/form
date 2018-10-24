@@ -162,7 +162,7 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             quantityChilds: 0,
-            ageChilds: [],
+            // ageChilds: [],
             rooms: 1,
             defaultNationalityName: null,
             defaultNationalityCode: 'UA',
@@ -2475,6 +2475,7 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
         params.childs = [];
         for (var i = 0; i < params.Rooms[0].ChildAges.length; i++)
             params.childs.push(params.Rooms[0].ChildAges[i].toString());
+        params.quantityChilds = params.childs.length;
     }
 
     if (!!params.Rooms[0].NationalityName && params.Rooms[0].NationalityName.trim() !== "")
@@ -3025,7 +3026,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             name: String,
             label: String,
             items: Number,
-            num: Number,
+            num: [Number, Array, String],
             published: Boolean,
         },
         template:
@@ -3034,10 +3035,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
-                        '<span class="number_val" v-if="name === \'Child\'">{{ quantity }}</span>' +
-                        '<input class="input_val" v-if="name === \'Child\'" type="hidden" :name="name" v-model="num">' +
-                        '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
-                        '<input class="input_val" v-if="name !== \'Child\'" type="hidden" :name="name" v-model="num">' +
+                        '<span class="number_val">{{ num }}</span>' +
+                        '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
                     '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
                         '<li class="option_guest" v-if="name === \'quantityChild\'">0</li>' +
