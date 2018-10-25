@@ -162,7 +162,6 @@ var rezOnForm = function (form, o) {
             formExtended: false,
             childs: [],
             quantityChilds: 0,
-            // ageChilds: [],
             rooms: 1,
             defaultNationalityName: null,
             defaultNationalityCode: 'UA',
@@ -3035,7 +3034,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
-                        '<span class="number_val">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name === \'Child\'">{{ quantity }}</span>' +
                         '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
                     '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
