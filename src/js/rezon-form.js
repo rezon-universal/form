@@ -2074,35 +2074,6 @@ var rezOnForm = function (form, o) {
 
         it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums
 
-
-        //Список стран
-        // it._hotelForm.find(".galileo-country-select").typeahead(
-        //     {
-        //         hint: true,
-        //         highlight: true,
-        //         minLength: 0,
-        //         isSelectPicker: true
-        //     },
-        //     {
-        //         name: 'carriers-' + it._o.defaultLang,
-        //         source: it.dataWork.countriesData.ttAdapter(),
-        //         valueKey: 'label',
-        //         display: function (data) {
-        //             return data != undefined ? data.label : null;
-        //         },
-        //         templates: {
-        //             suggestion: function (data) {
-        //                 return data.label;
-        //             }
-        //         }
-        //     }
-        // ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-        //     if (datum != undefined) {
-        //         it._o.hotel.nationalityName = datum.label;
-        //         it._o.hotel.nationalityCode = datum.code;
-        //     }
-        // });
-
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
             typeaheadOptions.minLength = 0;
@@ -3071,6 +3042,67 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         }
     });
 
+    Vue.component('national-input', {
+        props: {
+            label: String,
+            items: [String, Array],
+            name: String,
+            code: String
+        },
+        template:
+            '<div class="nationality_hotels">' +
+                '<label class="menu-title">{{ label }}</label>' +
+                '<div class="select_nationality" v-click-outside="onClickOutside">' +
+                    '<div class="nationality_input" v-on:click="toggleClass">' +
+                        '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
+                        '<span>{{ name }}</span>' +
+                        '<input type="hidden" name="NationalityCode"  v-model="code">' +
+                        '<input type="hidden" name="NationalityName"  v-model="name">' +
+                    '</div>' +
+                    '<div class="nationality_search" v-show="isActive">' +
+                        '<div class="search_input">' +
+                            '<input class="nationality_search-input" type="text" v-model="search" placeholder="Search">' +
+                        '</div>' +
+                        '<ul class="options">' +
+                            '<li class="option" v-for="(item, index) in filteredCountry" v-bind:key="item.id" v-on:click="countryOption(item)">{{ item.label }}</li>' +
+                        '</ul>' +
+                    '</div>' +
+                '</div>' +
+            '</div>',
+        data: function () {
+            return {
+                isActive: false,
+                rotateClass: 'rotateClass',
+                country: null,
+                alphaCode: null,
+                search: ''
+            }
+        },
+        methods: {
+            toggleClass: function () {
+                this.isActive = !this.isActive
+            },
+            onClickOutside: function () {
+                this.isActive = false;
+            },
+            countryOption: function ({ label, alpha3code }) {
+                this.isActive = false;
+                this.country = label;
+                this.alphaCode = alpha3code;
+                this.$emit('country-change', this.country);
+                this.$emit('code-change', this.alphaCode);
+            }
+        },
+        computed: {
+            filteredCountry: function () {
+                var _this = this;
+                return this.items.filter(function (item) {
+                    return item.label.toLowerCase().includes(_this.search.toLowerCase());
+                })
+            }
+        }
+    });
+
     Vue.directive('click-outside', {
         bind: function (el, binding, vnode) {
             this.event = function (event) {
@@ -3472,7 +3504,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 busesDateBack.setDate(busesDateBack.getDate() + 2);
                 return busesDateBack;
             }
-
         },
         methods: {
             //Avia methods
@@ -3780,6 +3811,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             onClickOutside: function () {
                 this.isActive = false;
+            },
+            toggleClass: function () {
+                this.isActive = !this.isActive
             }
         },
         watch: {

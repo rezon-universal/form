@@ -2134,28 +2134,57 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     padding: 5px 30px 14px;
 }
 .nationality_input {
-    padding: 5px 10px;
     border-radius: 2px;
-    height: 40px;
     box-sizing: border-box !important;
     box-shadow: inset 1px 0px 3px 0px #B8C7E4;
-    display: flex;
-    align-items: center;
     position: relative;
     background-color: #ecf1fb;
+    height: 40px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
 }
 .nationality_search {
-    width: 100%;
-    height: 300px;
-    position: absolute;
-    top: 100%;
-    overflow-y: scroll;
     background-color: #fff;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    border-radius: 2px 2px 5px 2px;
 }
 .nationality_search .options{
     list-style-type: none;
     padding: 0;
+    margin-bottom: 0;
+    height: 285px;
+    overflow-y: scroll;
+}
+.nationality_search .option {
+    padding: 6px 10px;
+}
+.nationality_search .option:hover {
+    background-color: #ffd900;
+}
+.search_input {
+    padding: 10px 10px 6px;
+}
+.nationality_search-input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #B8C7E4 !important;
+    padding: 4px;
+    box-sizing: border-box !important;
+}
+.nationality_search .options::-webkit-scrollbar {
+    width: 8px;
+}
+.nationality_search .options::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey;
+    border-radius: 5px;
+}
+.nationality_search .options::-webkit-scrollbar-thumb {
+    background: #ffd600;
+    border-radius: 5px;
+}
+.nationality_search .options::-webkit-scrollbar-thumb:hover {
+    background: #ffd600;
 }
 #rezon-forms .select_box label.menu-title {
     color: #8087a1;
