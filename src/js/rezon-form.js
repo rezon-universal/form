@@ -163,8 +163,9 @@ var rezOnForm = function (form, o) {
             childs: [],
             quantityChilds: 0,
             rooms: 1,
+            nationalitys: [],
             defaultNationalityName: null,
-            defaultNationalityCode: 'UA',
+            defaultNationalityCode: null,
             nationalityName: null,
             nationalityCode: null,
             get inputChilds() {
@@ -2071,33 +2072,36 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
+        it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums
+
+
         //Список стран
-        it._hotelForm.find(".galileo-country-select").typeahead(
-            {
-                hint: true,
-                highlight: true,
-                minLength: 0,
-                isSelectPicker: true
-            },
-            {
-                name: 'carriers-' + it._o.defaultLang,
-                source: it.dataWork.countriesData.ttAdapter(),
-                valueKey: 'label',
-                display: function (data) {
-                    return data != undefined ? data.label : null;
-                },
-                templates: {
-                    suggestion: function (data) {
-                        return data.label;
-                    }
-                }
-            }
-        ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-            if (datum != undefined) {
-                it._o.hotel.nationalityName = datum.label;
-                it._o.hotel.nationalityCode = datum.code;
-            }
-        });
+        // it._hotelForm.find(".galileo-country-select").typeahead(
+        //     {
+        //         hint: true,
+        //         highlight: true,
+        //         minLength: 0,
+        //         isSelectPicker: true
+        //     },
+        //     {
+        //         name: 'carriers-' + it._o.defaultLang,
+        //         source: it.dataWork.countriesData.ttAdapter(),
+        //         valueKey: 'label',
+        //         display: function (data) {
+        //             return data != undefined ? data.label : null;
+        //         },
+        //         templates: {
+        //             suggestion: function (data) {
+        //                 return data.label;
+        //             }
+        //         }
+        //     }
+        // ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+        //     if (datum != undefined) {
+        //         it._o.hotel.nationalityName = datum.label;
+        //         it._o.hotel.nationalityCode = datum.code;
+        //     }
+        // });
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {

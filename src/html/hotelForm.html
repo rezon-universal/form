@@ -65,13 +65,25 @@
                             {{locale("NATIONALITY")}}
                         </label>
                         <div class="select_nationality">
-                            <div>
+                            <div class="nationality_input">
+                                <div class="nationality_search">
+                                    <ul class="options">
+                                        <li v-for="(item, index) in hotel.nationalitys" v-bind:key="item.id">
+                                            {{ item.label }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+                            <!-- <div>
                                 <input type="text" name="nationality" id="order-@currentPassNmb-country" class="typeahead-selectpicker galileo-country-select nationality_focus" v-model="hotel.nationalityName">
                                 <input class="input_val" type="hidden" name="NationalityCode"  v-model="hotel.nationalityCode">
                                 <input class="input_val" type="hidden" name="NationalityName"  v-model="hotel.nationalityName">
                             </div>
-                            <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityCode==null, 'no-visiblity': hotel.nationalityName==null}" v-on:click="clearNationality"></span>
-                            <div class="error-box"></div>
+                            <span href="#" class="delete" v-bind:class="{'no-visiblity': hotel.nationalityName==null}" v-on:click="clearNationality"></span>
+                            <div class="error-box"></div> -->
                         </div>
                     </div>
                     <span class="button-hide hidden-xs" v-on:click="onClickOutside">
