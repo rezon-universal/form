@@ -2298,10 +2298,6 @@ var rezOnForm = function (form, o) {
         });
 
 
-        $.mask.definitions['~'] = '[0123]';
-        $.mask.definitions['#'] = '[0123456789]';
-        $.mask.definitions['$'] = '[01]';
-
         this._o.projectUrl !== "/" && this.localeBind();
 
         var neededTabs = [];
