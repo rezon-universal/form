@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <national-input v-bind:label='locale("NATIONALITY")' :placeholder='locale("SEARCH")' v-bind:items="hotel.nationalitys" v-bind:name="hotel.nationalityName" v-on:country-change="hotel.nationalityName = $event" v-on:code-change="hotel.nationalityCode = $event"></national-input>
+                    <national-input v-bind:label='locale("NATIONALITY")' :placeholder='locale("SEARCH")' v-bind:items="hotel.nationalitys" v-bind:name="hotel.nationalityName" v-bind:code="hotel.nationalityCode" v-on:country-change="hotel.nationalityName = $event" v-on:code-change="hotel.nationalityCode = $event"></national-input>
                     <span class="button-hide hidden-xs" v-on:click="onClickOutside">
                         <span class="hide-inner">{{locale("HIDE")}}</span>
                     </span>

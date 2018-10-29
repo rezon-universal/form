@@ -1108,10 +1108,6 @@ var rezOnForm = function (form, o) {
             city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
             return false;
         }
-        if ($.trim(nationality.val()) === "" || nationality.val() === "&nbsp;") {
-            nationality.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("BLA-BLA-BLA", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
-            return false;
-        }
         return true;
     }
 
