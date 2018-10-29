@@ -164,8 +164,6 @@ var rezOnForm = function (form, o) {
             quantityChilds: 0,
             rooms: 1,
             nationalitys: [],
-            defaultNationalityName: null,
-            defaultNationalityCode: null,
             nationalityName: null,
             nationalityCode: null,
             get inputChilds() {
@@ -3047,7 +3045,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             label: String,
             items: [String, Array],
             name: String,
-            code: String
+            code: String,
+            placeholder: String
         },
         template:
             '<div class="nationality_hotels">' +
@@ -3061,7 +3060,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     '</div>' +
                     '<div class="nationality_search" v-show="isActive">' +
                         '<div class="search_input">' +
-                            '<input class="nationality_search-input" type="text" v-model="search" placeholder="Search">' +
+                            '<input class="nationality_search-input" type="text" v-model="search" :placeholder="placeholder">' +
+                            '<span class="delete_search" v-show="isSearch" v-on:click="deleteSearch"></span>' +
                         '</div>' +
                         '<ul class="options">' +
                             '<li class="option" v-for="(item, index) in filteredCountry" v-bind:key="item.id" v-on:click="countryOption(item)">{{ item.label }}</li>' +
@@ -3072,9 +3072,10 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         data: function () {
             return {
                 isActive: false,
+                isSearch: false,
                 rotateClass: 'rotateClass',
                 country: null,
-                alphaCode: null,
+                countryCode: null,
                 search: ''
             }
         },
@@ -3085,12 +3086,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             onClickOutside: function () {
                 this.isActive = false;
             },
-            countryOption: function ({ label, alpha3code }) {
+            countryOption: function ({ label, code }) {
                 this.isActive = false;
                 this.country = label;
-                this.alphaCode = alpha3code;
+                this.countryCode = code;
                 this.$emit('country-change', this.country);
-                this.$emit('code-change', this.alphaCode);
+                this.$emit('code-change', this.countryCode);
+            },
+            deleteSearch: function () {
+                this.search = '';
             }
         },
         computed: {
@@ -3099,6 +3103,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 return this.items.filter(function (item) {
                     return item.label.toLowerCase().includes(_this.search.toLowerCase());
                 })
+            }
+        },
+        watch: {
+            search: function (newSearch) {
+                if(newSearch !== '') {
+                    this.isSearch = true;
+                } else {
+                    this.isSearch = false;
+                }
             }
         }
     });
