@@ -2247,10 +2247,6 @@ var rezOnForm = function (form, o) {
         });
 
 
-        $.mask.definitions['~'] = '[0123]';
-        $.mask.definitions['#'] = '[0123456789]';
-        $.mask.definitions['$'] = '[01]';
-
         this._o.projectUrl !== "/" && this.localeBind();
 
         var neededTabs = [];
@@ -2686,7 +2682,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             '<div class="inside">' +
             '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div v-if="item.Code != 0" class="express">' + '{{item.Code}}' + '</div>' +
-            '<span href="#" class="delete" :class="{\'no-visiblity\':item.Name==null}" v-on:click="clearItem()"></span>' +
+            '<span href="#" class="delete" :class="{\'no-visiblity\':item.CountryName==null}" v-on:click="clearItem()"></span>' +
             '<input type="hidden" :name="name" v-model="item.Code"/>' +
             '</div>',
         props: {
