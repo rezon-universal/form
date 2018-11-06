@@ -1369,9 +1369,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .field.date 
 {
+    -webkit-flex-basis: 10%;
+    flex-basis: 10%;
+    min-width: 80px;
+}
+#rezon-forms #hotel-form-shoot .field.date {
     -webkit-flex-basis: 15%;
     flex-basis: 15%;
-    min-width: 80px;
 }
 #rezon-forms .oneway .field.date + .date .book-date,
 #rezon-forms .oneway.extended .field.time + .time 
@@ -1420,9 +1424,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .field.find 
 {
     margin-left: auto;
-    -webkit-flex-basis: 15%;
+    -webkit-flex-basis: 9%;
     -webkit-flex-grow: 0;
     flex-grow: 0;
+    flex-basis: 9%;
+}
+#rezon-forms #hotel-form-shoot .field.find {
+    -webkit-flex-basis: 15%;
     flex-basis: 15%;
 }
 #rezon-forms .field .control-field 
@@ -2095,7 +2103,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .hotel_guests {
     flex-basis: 30%;
 }
-.hotel_guests .select_box {
+#rezon-forms .hotel_guests .select_box {
     width: 100%;
     background-color: #fff;
     box-sizing: border-box;
@@ -2107,33 +2115,33 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     z-index: 1;
     /*display: none;*/
 }
-.hotel_guests .select_box.open {
+#rezon-forms .hotel_guests .select_box.open {
     display: block;
 }
-.guest_flex {
+#rezon-forms .guest_flex {
     display: flex;
     padding: 20px 30px 14px;
 }
-.childs_flex {
+#rezon-forms .childs_flex {
     padding: 5px 30px 14px;
 }
-.childs_block {
+#rezon-forms .childs_block {
     display: flex;
 }
-.child_box:first-child {
+#rezon-forms .child_box:first-child {
     margin-left: 0;
 }
-.child_box:last-child {
+#rezon-forms .child_box:last-child {
     margin-right: 0;
 }
-.child_box {
+#rezon-forms .child_box {
     flex-basis: 30%;
     margin: 0 3%;
 }
-.nationality_hotels {
+#rezon-forms .nationality_hotels {
     padding: 5px 30px 14px;
 }
-.nationality_input {
+#rezon-forms .nationality_input {
     border-radius: 2px;
     box-sizing: border-box !important;
     box-shadow: inset 1px 0px 3px 0px #B8C7E4;
@@ -2144,54 +2152,54 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     display: flex;
     align-items: center;
 }
-.nationality_search {
+#rezon-forms .nationality_search {
     background-color: #fff;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
     border-radius: 2px 2px 5px 2px;
 }
-.nationality_search .options{
+#rezon-forms .nationality_search .options{
     list-style-type: none;
     padding: 0;
     margin-bottom: 0;
     height: 285px;
     overflow-y: scroll;
 }
-.nationality_search .option {
+#rezon-forms .nationality_search .option {
     padding: 6px 10px;
 }
-.nationality_search .option:hover {
+#rezon-forms .nationality_search .option:hover {
     background-color: #ffd900;
 }
-.search_input {
+#rezon-forms .nationality_search .search_input {
     padding: 10px 10px 6px;
     position: relative;
 }
-.nationality_search-input {
+#rezon-forms .nationality_search-input {
     width: 100%;
     height: 30px;
     border: 1px solid #B8C7E4 !important;
     padding: 4px;
     box-sizing: border-box !important;
 }
-.nationality_search .options::-webkit-scrollbar {
+#rezon-forms .nationality_search .options::-webkit-scrollbar {
     width: 8px;
 }
-.nationality_search .options::-webkit-scrollbar-track {
+#rezon-forms .nationality_search .options::-webkit-scrollbar-track {
     box-shadow: inset 0 0 2px grey;
     border-radius: 5px;
 }
-.nationality_search .options::-webkit-scrollbar-thumb {
+#rezon-forms .nationality_search .options::-webkit-scrollbar-thumb {
     background: #ffd600;
     border-radius: 5px;
 }
-.nationality_search .options::-webkit-scrollbar-thumb:hover {
+#rezon-forms .nationality_search .options::-webkit-scrollbar-thumb:hover {
     background: #ffd600;
 }
 #rezon-forms .select_box label.menu-title {
     color: #8087a1;
     opacity: 1;
 }
-.hotel_guests .arrow {
+#rezon-forms .hotel_guests .arrow {
     width: 10px;
     height: 10px;
     border-top: 1px solid #7921D5;
@@ -2204,20 +2212,20 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     opacity: 0.5;
     z-index: 1;
 }
-.hotel_guest {
+#rezon-forms .hotel_guest {
     flex-basis: 30%;
     margin: 0 3%;
 }
-.hotel_guest:first-child {
+#rezon-forms .hotel_guest:first-child {
     margin-left: 0;
 }
-.hotel_guest:last-child {
+#rezon-forms .hotel_guest:last-child {
     margin-right: 0px;
 }
-.select_guest {
+#rezon-forms .select_guest {
     background-color: #ecf1fb;
 }
-.value_guest {
+#rezon-forms .value_guest {
     padding:  5px 10px;
     border-radius: 2px;
     height: 40px;
@@ -2228,28 +2236,28 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     position: relative;
     cursor: pointer;
 }
-.options_guest {
+#rezon-forms .options_guest {
     list-style-type: none;
     padding: 0;
     background-color: #fff;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
 }
-.option_guest {
+#rezon-forms .option_guest {
     padding: 5px 10px;
 }
-.option_guest:hover {
+#rezon-forms .option_guest:hover {
     background-color: #26b6ff;
     cursor: pointer;
 }
-.hotel_guests .arrow.rotateClass {
+#rezon-forms .hotel_guests .arrow.rotateClass {
     top: 20px;
     transform: rotate(45deg);
     opacity: 1;
 }
-.hotel_guests .control-field {
+#rezon-forms .hotel_guests .control-field {
     cursor: pointer;
 }
-.guest_result {
+#rezon-forms .guest_result {
     width: 100%;
     height: 45px;
     display: flex;
@@ -2258,7 +2266,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     box-sizing: border-box !important;
     user-select: none;
 }
-.delete_search {
+#rezon-forms .delete_search {
     width: 17px;
     height: 17px;
     position: absolute;
@@ -2266,16 +2274,16 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     right: 20px;
     opacity: 0.6;
 }
-.delete_search:hover {
+#rezon-forms .delete_search:hover {
     opacity: 1;
 }
-.delete_search:before,
-.delete_search:after {
+#rezon-forms .delete_search:before,
+#rezon-forms .delete_search:after {
     content: "";
     background-color: #546e7a;
     display: block;
 }
-.delete_search:before {
+#rezon-forms .delete_search:before {
     width: 1px;
     height: 100%;
     transform: rotate(45deg);
@@ -2283,7 +2291,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     top: 0px;
     left: 8px;
 }
-.delete_search:after {
+#rezon-forms .delete_search:after {
     width: 100%;
     height: 1px;
     transform: rotate(-135deg);
