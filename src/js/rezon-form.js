@@ -1,4 +1,4 @@
-﻿function DirectionType(value, text) {
+﻿﻿function DirectionType(value, text) {
     this.value = value;
     this.text = text;
 };
@@ -161,9 +161,11 @@ var rezOnForm = function (form, o) {
             city: new HotelCityItem(),
             formExtended: false,
             childs: [],
+            quantityChilds: 0,
             rooms: 1,
-            nationalityName: 'Ukraine',
-            nationalityCode: 'UA',
+            nationalitys: [],
+            nationalityName: null,
+            nationalityCode: null,
             get inputChilds() {
                 return this.childs.join();
             }
@@ -263,6 +265,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_DESC": "2 – 11",
                 "PASS_CAT_CNN_1": "ребенок",
                 "PASS_CAT_CNN_0": "детей",
+                "PASS_AGE_CH": "Возраст детей",
                 "PASS_CAT_CNN_4": "ребенка",
                 "PASS_CAT_YTH": "Молодежь",
                 "PASS_CAT_YTH_DESC": "12 – 25",
@@ -285,6 +288,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "пассажир",
                 "C_PASSENGERS": "пассажиров",
                 "C_PASSEGNERS2": "пассажира",
+                "GUESTS": "Гости",
                 "DAY": "день",
                 "DAYS": "дня",
                 "CLASS": "Класс",
@@ -324,7 +328,7 @@ var rezOnForm = function (form, o) {
                 "CITY": "Город",
                 "CHECK_IN": "Заезд",
                 "CHECK_OUT": "Отъезд",
-                "HOTEL_PLACEHOLDER": "Куда вы хотите поеъать?",
+                "HOTEL_PLACEHOLDER": "Куда вы хотите поехать?",
                 "ROOMS": "Комнат",
                 "NATIONALITY": "Национальность"
             },
@@ -415,6 +419,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_1": "child",
                 "PASS_CAT_CNN_0": "children",
                 "PASS_CAT_CNN_4": "children",
+                "PASS_AGE_CH": "Children's age",
                 "PASS_CAT_YTH": "Youth",
                 "PASS_CAT_YTH_DESC": "12 – 25 yrs",
                 "PASS_CAT_YTH_1": "youth",
@@ -436,6 +441,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "passenger",
                 "C_PASSENGERS": "passengers",
                 "C_PASSEGNERS2": "passengers",
+                "GUESTS": "Guests",
                 "DAY": "day",
                 "DAYS": "days",
                 "CLASS": "Class",
@@ -566,6 +572,7 @@ var rezOnForm = function (form, o) {
                 "PASS_CAT_CNN_1": "дитина",
                 "PASS_CAT_CNN_0": "дітей",
                 "PASS_CAT_CNN_4": "дитини",
+                "PASS_AGE_CH": "Дитячий вік",
                 "PASS_CAT_YTH": "Молодь",
                 "PASS_CAT_YTH_DESC": "12 – 25",
                 "PASS_CAT_YTH_1": "молодіжний",
@@ -587,6 +594,7 @@ var rezOnForm = function (form, o) {
                 "C_PASSENGER": "пасажир",
                 "C_PASSENGERS": "пасажирів",
                 "C_PASSEGNERS2": "пасажира",
+                "GUESTS": "Гості",
                 "DAY": "день",
                 "DAYS": "дня",
                 "CLASS": "Клас",
@@ -1040,7 +1048,7 @@ var rezOnForm = function (form, o) {
             return main.bustickets.searchForm.send(it._busesForm);
         return ret;
     }
-    //Валидация формы поиска автобусов
+    //Валидация формы поиска отелей
     rezOnForm.prototype.validation.hotelForm = function () {
 
         var ret = it.validation.hotelCity();
@@ -1094,6 +1102,7 @@ var rezOnForm = function (form, o) {
     //Validation hotel city
     rezOnForm.prototype.validation.hotelCity = function () {
         var city = it._hotelForm.find("input[name='CityId']").first();
+        var nationality = it._hotelForm.find("input[name='NationalityCode']").first();
 
         if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
             city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
@@ -2057,67 +2066,7 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-        // Отели select
-        it._hotelForm.find('.select_box').click(function () {
-            $(document).bind('click', HandlerClick);
-        });
-
-        function HandlerClick(e) {
-            if (!$(e.target).hasClass("select_box") && $(e.target).parents(".select_box").length === 0) {
-                $('.option_box').removeClass('open');
-                $('.children_age').removeClass('open');
-                $('.value_tag').removeClass('rotate');
-                $('.children_input').removeClass('rotate');
-                $(document).unbind('click', HandlerClick);
-            }
-        }
-
-        $('.num_children .button-hide').click(function () {
-            $(".option_box").removeClass('open');
-            $('.value_tag').removeClass('rotate');
-        });
-
-        $('.num_children .option').click(function () {
-            var text = $(this).text();
-            var value = text.replace(/[^-0-9]/gim, '');
-            $(this).closest('.children_box-item').find('.input_val').val(value);
-
-            var sum = 0;
-            $('.children_box-item .input_val').each(function () {
-                if ($(this).val() != 0) {
-                    sum++;
-                }
-            });
-            $('.quantity_val').text(sum);
-        });
-
-        //Список стран
-        it._hotelForm.find(".galileo-country-select").typeahead(
-            {
-                hint: true,
-                highlight: true,
-                minLength: 0,
-                isSelectPicker: true
-            },
-            {
-                name: 'carriers-' + it._o.defaultLang,
-                source: it.dataWork.countriesData.ttAdapter(),
-                valueKey: 'label',
-                display: function (data) {
-                    return data != undefined ? data.label : null;
-                },
-                templates: {
-                    suggestion: function (data) {
-                        return data.label;
-                    }
-                }
-            }
-        ).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-            if (datum != undefined) {
-                it._o.hotel.nationalityName = datum.label;
-                it._o.hotel.nationalityCode = datum.code;
-            }
-        });
+        it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2490,6 +2439,7 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
         params.childs = [];
         for (var i = 0; i < params.Rooms[0].ChildAges.length; i++)
             params.childs.push(params.Rooms[0].ChildAges[i].toString());
+        params.quantityChilds = params.childs.length;
     }
 
     if (!!params.Rooms[0].NationalityName && params.Rooms[0].NationalityName.trim() !== "")
@@ -3035,6 +2985,142 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         }
     });
 
+    Vue.component('guest-input', {
+        props: {
+            name: String,
+            label: String,
+            items: Number,
+            num: [Number, Array, String],
+            published: Boolean,
+        },
+        template:
+            '<div class="hotel_guest">' +
+                '<label class="menu-title" v-if="published">{{ label }}</label>' +
+                '<div class="select_guest" v-click-outside="onClickOutside">' +
+                    '<div class="value_guest" v-on:click="toggleClass">' +
+                        '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
+                        '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name === \'Child\'">{{ quantity }}</span>' +
+                        '<input class="input_val" type="hidden" :name="name" v-model="num">' +
+                    '</div>' +
+                    '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
+                        '<li class="option_guest" v-if="name === \'quantityChild\'">0</li>' +
+                        '<li class="option_guest" v-for="item in items">{{ item }}</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>',
+        data: function () {
+            return {
+                isActive: false,
+                rotateClass: 'rotateClass',
+                quantity: null
+            }
+        },
+        methods: {
+            toggleClass: function () {
+                this.isActive = !this.isActive
+            },
+            onClickOutside: function () {
+                this.isActive = false;
+            },
+            changeNum: function (e) {
+                this.isActive = false;
+                var number = $(e.target).text();
+                this.quantity = parseInt(number);
+                this.$emit('quantity-change', this.quantity);
+            }
+        }
+    });
+
+    Vue.component('national-input', {
+        props: {
+            label: String,
+            items: [String, Array],
+            name: String,
+            code: String,
+            placeholder: String
+        },
+        template:
+            '<div class="nationality_hotels">' +
+                '<label class="menu-title">{{ label }}</label>' +
+                '<div class="select_nationality" v-click-outside="onClickOutside">' +
+                    '<div class="nationality_input" v-on:click="toggleClass">' +
+                        '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
+                        '<span>{{ name }}</span>' +
+                        '<input type="hidden" name="NationalityCode"  v-model="code">' +
+                        '<input type="hidden" name="NationalityName"  v-model="name">' +
+                    '</div>' +
+                    '<div class="nationality_search" v-show="isActive">' +
+                        '<div class="search_input">' +
+                            '<input class="nationality_search-input" type="text" v-model="search" :placeholder="placeholder">' +
+                            '<span class="delete_search" v-show="isSearch" v-on:click="deleteSearch"></span>' +
+                        '</div>' +
+                        '<ul class="options">' +
+                            '<li class="option" v-for="(item, index) in filteredCountry" v-bind:key="item.id" v-on:click="countryOption(item)">{{ item.label }}</li>' +
+                        '</ul>' +
+                    '</div>' +
+                '</div>' +
+            '</div>',
+        data: function () {
+            return {
+                isActive: false,
+                isSearch: false,
+                rotateClass: 'rotateClass',
+                country: null,
+                countryCode: null,
+                search: ''
+            }
+        },
+        methods: {
+            toggleClass: function () {
+                this.isActive = !this.isActive
+            },
+            onClickOutside: function () {
+                this.isActive = false;
+            },
+            countryOption: function ({ label, code }) {
+                this.isActive = false;
+                this.country = label;
+                this.countryCode = code;
+                this.$emit('country-change', this.country);
+                this.$emit('code-change', this.countryCode);
+            },
+            deleteSearch: function () {
+                this.search = '';
+            }
+        },
+        computed: {
+            filteredCountry: function () {
+                var _this = this;
+                return this.items.filter(function (item) {
+                    return item.label.toLowerCase().includes(_this.search.toLowerCase());
+                })
+            }
+        },
+        watch: {
+            search: function (newSearch) {
+                if(newSearch !== '') {
+                    this.isSearch = true;
+                } else {
+                    this.isSearch = false;
+                }
+            }
+        }
+    });
+
+    Vue.directive('click-outside', {
+        bind: function (el, binding, vnode) {
+            this.event = function (event) {
+                if (!(el == event.target || el.contains(event.target))) {
+                    vnode.context[binding.expression](event);
+                }
+            };
+            document.body.addEventListener('click', this.event);
+        },
+        unbind: function (el) {
+            document.body.removeEventListener('click', this.event);
+        }
+    });
 
     //Datepicker component
     Vue.component('datepicker', {
@@ -3204,6 +3290,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         el: form[0],
         mixins: [mixin],
         //data: options,
+        data: {
+            isActive: false
+        },
         computed: {
             allAirCompanies: function () {
                 var str = [];
@@ -3420,7 +3509,6 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 busesDateBack.setDate(busesDateBack.getDate() + 2);
                 return busesDateBack;
             }
-
         },
         methods: {
             //Avia methods
@@ -3510,24 +3598,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             addBusPassenger: function () {
                 this.buses.passenger.count++;
             },
-            toggleClass: function (e) {
-                $(e.currentTarget).children('.option_box').toggleClass('open');
-                $(e.currentTarget).children('.value_tag').toggleClass('rotate');
-            },
-            toggleClassChild: function (e) {
-                $(e.currentTarget).next().toggleClass('open');
-                $(e.currentTarget).toggleClass('rotate');
-            },
-            fieldOption: function (e) {
-                var num = $(e.target).text();
-                this.hotel.adults = parseInt(num);
-            },
-            fieldRoom: function (e) {
-                var num = $(e.target).text();
-                this.hotel.rooms = parseInt(num);
-            },
-            stopClick: function (e) {
-                e.stopPropagation();
+            clearNationality: function (e) {
+                this.hotel.nationalityName = this.hotel.defaultNationalityName;
+                this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
             },
             passUpdate: function () {
                 var currCount = 0;
@@ -3721,6 +3794,8 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 this.hotel.checkOut = this.hotelDefaultCheckOut;
                 this.hotel.cityFrom = new HotelCityItem();
                 this.hotel.cityTo = new HotelCityItem();
+                this.hotel.nationalityName = this.hotel.defaultNationalityName;
+                this.hotel.nationalityCode = this.hotel.defaultNationalityCode;
                 this.hotel.timeThere = 0;
                 this.hotel.timeBack = 0;
                 this.hotel.dateRange = 0;
@@ -3739,19 +3814,11 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     this.hotel.historyGuid !== null &&
                     this.hotel.historyGuid.trim() !== "";
             },
-
-            childOption: function (e) {
-                var text = $(e.target).text();
-                var value = text.replace(/[^-0-9]/gim, '');
-
-                var child = $(e.currentTarget).closest('.children_box-item').find('.number_val').attr('child');
-                this.hotel.childs[parseInt(child) - 1] = value;
-
-                $(e.currentTarget).closest('.children_box-item').find('.number_val').html(text);
-                $('.children_age').removeClass('open');
-                $('.children_input').removeClass('rotate');
-
-                $('.select_box .input_quantity').val(this.hotel.childs);
+            onClickOutside: function () {
+                this.isActive = false;
+            },
+            toggleClass: function () {
+                this.isActive = !this.isActive
             }
         },
         watch: {
