@@ -21,7 +21,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkIn" name="CheckIn" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkIn" name="CheckIn" input-class="book-date datepicker" :date-from="hotel.checkIn" :date-to="hotel.checkOut"></datepicker>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkOut" name="CheckOut" input-class="book-date datepicker" :date-from="hotel.chechIn" :date-to="hotel.checkOut"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkOut" name="CheckOut" input-class="book-date datepicker" :date-from="hotel.checkIn" :date-to="hotel.checkOut"></datepicker>
                 </div>
             </div>
         </div>
