@@ -3239,6 +3239,14 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                             nextDatePick.focus();
                         }, 100);
                     }
+                    if (comp.name === 'CheckIn' && comp.highlighted.to !== undefined && comp.highlighted.to !== null && !isMobile) {
+                        var el = $(comp.$el);
+                        var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='CheckOut']");
+
+                        setTimeout(function () {
+                            nextDatePick.focus();
+                        }, 100);
+                    }
                 });
             });
 
