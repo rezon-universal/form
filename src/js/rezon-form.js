@@ -2140,7 +2140,6 @@ var rezOnForm = function (form, o) {
                     var sib = field.closest("form").find("input[name='CityId']");
                     if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
                 }
-                console.log(datum)
                 //Hide mobile keyboard
                 $(this).blur();
             }
