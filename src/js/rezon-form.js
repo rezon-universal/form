@@ -2137,8 +2137,10 @@ var rezOnForm = function (form, o) {
                 it.extra.closeField(field);
                 vue.updateCityTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
-                    var sib = field.closest("form").find("input[name='CityId']");
-                    if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+                    var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CheckIn']")
+                    setTimeout(function () {
+                        dp.focus();
+                    }, 100);
                 }
                 //Hide mobile keyboard
                 $(this).blur();
