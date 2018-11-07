@@ -2117,8 +2117,8 @@ var rezOnForm = function (form, o) {
             it.extra.openField(item);
             item.addClass("focused").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-            if ($(this).is(".book-to") && $(this).val() === "") {
-                var city = it._busesForm.find("[name='CityId']").val();
+            if ($(this).is(".book-from") && $(this).val() === "") {
+                var city = it._hotelForm.find("[name='CityId']").val();
                 $.trim(city) !== "" && $(this).typeahead("query", "city_" + city);
             }
         }).click(function () {
@@ -2157,7 +2157,7 @@ var rezOnForm = function (form, o) {
                 rezOnForm.static.recalculateHeightOnOpen(dropdown, offset, totalHeight);
                 typeof (updatingHeight) !== 'undefined' && updatingHeight();
             }
-        }).on("typeahead:dropup", function () {
+        }).on("typeahead:dropup", function (its) {
             if (rezOnForm.static.isInIframe()) {
                 rezOnForm.static.recalculateHeightOnClose();
                 typeof (updatingHeight) !== "undefined" && updatingHeight();
@@ -2171,14 +2171,14 @@ var rezOnForm = function (form, o) {
                 $(this).trigger("typeahead:autocompleted", [$(this).data("lastHist")]);
             }
 
-        }).on("typeahead:queryChanged", function (it) {
+        }).on("typeahead:queryChanged", function (it, query) {
 
         }).on("typeahead:updateHint", function (a, b) {
             if (b) $(this).data("lastHist", b);
             else $(this).removeData("lastHist");
         });
 
-        //Отправка формы поиска автобусов
+        //Отправка формы поиска отелей
         it._hotelForm.submit(function () {
             return it.validation.hotelForm();
         });
