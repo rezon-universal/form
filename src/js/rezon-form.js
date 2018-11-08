@@ -2885,7 +2885,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component("hotelInput", {
         template: ' <div class="inside">' +
-            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" autofocus :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div class="express">' +
             "{{item.Code}}" +
             "</div>" +
