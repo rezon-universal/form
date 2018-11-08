@@ -1114,24 +1114,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-transform: rotate(-135deg);
     width: 15px;
 }
-#rezon-forms .nationality_hotels .typeahead-selectpicker-control.opened:before
+#rezon-forms .typeahead-selectpicker-control.empty.opened:before
 {
-    content: "";
-    position: absolute;
-    top: 16px;
-    right: 12px;
-    width: 10px;
-    height: 10px;
-    border-bottom: 1px solid #7921D5;
-    border-right: 1px solid #7921D5;
-    transform: rotate(-135deg);
-    cursor: pointer;
-    z-index: 1;
-}
-#rezon-forms .nationality_hotels .typeahead-selectpicker-control {
-    opacity: 1;
-}
-#rezon-forms .typeahead-selectpicker-control.empty.opened:before {
     display: none;
 }
 #rezon-forms .typeahead-selectpicker-control.empty:before,
@@ -1389,6 +1373,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     flex-basis: 10%;
     min-width: 80px;
 }
+#rezon-forms #hotel-form-shoot .field.date {
+    -webkit-flex-basis: 15%;
+    flex-basis: 15%;
+}
 #rezon-forms .oneway .field.date + .date .book-date,
 #rezon-forms .oneway.extended .field.time + .time 
 {
@@ -1440,6 +1428,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-flex-grow: 0;
     flex-grow: 0;
     flex-basis: 9%;
+}
+#rezon-forms #hotel-form-shoot .field.find {
+    -webkit-flex-basis: 15%;
+    flex-basis: 15%;
 }
 #rezon-forms .field .control-field 
 {
@@ -2108,188 +2100,204 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 
 /************************Hotels***********************/
-#rezon-forms .num_people .value_tag:before,
-#rezon-forms .num_children .value_tag:before,
-#rezon-forms .num_room .value_tag:before,
-#rezon-forms .children_input:before {
-    content: '';
+#rezon-forms #hotel-form-shoot .hotel_guests {
+    flex-basis: 30%;
+}
+#rezon-forms #hotel-form-shoot .hotel_guests .select_box {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 2px;
     position: absolute;
-    top: 16px;
-    right: 12px;
+    top: 102%;
+    left: 0;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    z-index: 1;
+    /*display: none;*/
+}
+#rezon-forms #hotel-form-shoot .hotel_guests .select_box.open {
+    display: block;
+}
+#rezon-forms #hotel-form-shoot .guest_flex {
+    display: flex;
+    padding: 20px 30px 14px;
+}
+#rezon-forms #hotel-form-shoot .childs_flex {
+    padding: 5px 30px 14px;
+}
+#rezon-forms #hotel-form-shoot .childs_block {
+    display: flex;
+}
+#rezon-forms #hotel-form-shoot .child_box:first-child {
+    margin-left: 0;
+}
+#rezon-forms #hotel-form-shoot .child_box:last-child {
+    margin-right: 0;
+}
+#rezon-forms #hotel-form-shoot .child_box {
+    flex-basis: 30%;
+    margin: 0 3%;
+}
+#rezon-forms #hotel-form-shoot .nationality_hotels {
+    padding: 5px 30px 14px;
+}
+#rezon-forms #hotel-form-shoot .nationality_input {
+    border-radius: 2px;
+    box-sizing: border-box !important;
+    box-shadow: inset 1px 0px 3px 0px #B8C7E4;
+    position: relative;
+    background-color: #ecf1fb;
+    height: 40px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+#rezon-forms #hotel-form-shoot .nationality_search {
+    background-color: #fff;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+    border-radius: 2px 2px 5px 2px;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .options{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    height: 285px;
+    overflow-y: scroll;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .option {
+    padding: 6px 10px;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .option:hover {
+    background-color: #ffd900;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .search_input {
+    padding: 10px 10px 6px;
+    position: relative;
+}
+#rezon-forms #hotel-form-shoot .nationality_search-input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #B8C7E4 !important;
+    padding: 4px;
+    box-sizing: border-box !important;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar {
+    width: 8px;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey;
+    border-radius: 5px;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb {
+    background: #ffd600;
+    border-radius: 5px;
+}
+#rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb:hover {
+    background: #ffd600;
+}
+#rezon-forms #hotel-form-shoot .select_box label.menu-title {
+    color: #8087a1;
+    opacity: 1;
+}
+#rezon-forms #hotel-form-shoot .hotel_guests .arrow {
     width: 10px;
     height: 10px;
     border-top: 1px solid #7921D5;
     border-left: 1px solid #7921D5;
     transform: rotate(-135deg);
-    cursor: pointer;
-    transition: transform 0.2s;
-    z-index: 1;
-    z-index: 1;
-}
-
-#rezon-forms .num_people .value_tag.rotate:before,
-#rezon-forms .num_children .value_tag.rotate:before,
-#rezon-forms .num_room .value_tag.rotate:before,
-#rezon-forms .nationality_hotels .value_tag.rotate:before,
-#rezon-forms .children_input.rotate:before {
-    transform: rotate(45deg);
-}
-
-#rezon-forms .num_people,
-#rezon-forms .num_children,
-#rezon-forms .num_room {
-    flex-basis: 8%;
-}
-
-#rezon-forms .nationality_hotels {
-    flex-basis: 22%;
-}
-
-#rezon-forms .option_box {
+    transition: transform 0.2s linear;
     position: absolute;
-    top: 102%;
-    left: 0;
-    background-color: #fff;
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 0;
-    z-index: 10;
-    max-height: 0;
-    transition: max-height 0.5s ease-out;
-    overflow: hidden;
-    border-radius: 3px;
+    top: 15px;
+    right: 12px;
+    opacity: 0.5;
+    z-index: 1;
 }
-
-    #rezon-forms .option_box.open {
-        max-height: 300px;
-        transition: max-height 0.8s ease-in;
-    }
-
-#rezon-forms .nationality_hotels .option_box.open {
-    overflow-y: auto;
+#rezon-forms #hotel-form-shoot .hotel_guest {
+    flex-basis: 30%;
+    margin: 0 3%;
 }
-
-#rezon-forms .value_tag {
-    min-height: 45px;
-    padding: 0 15px;
-    cursor: pointer;
+#rezon-forms #hotel-form-shoot .hotel_guest:first-child {
+    margin-left: 0;
+}
+#rezon-forms #hotel-form-shoot .hotel_guest:last-child {
+    margin-right: 0px;
+}
+#rezon-forms #hotel-form-shoot .select_guest {
+    background-color: #ecf1fb;
+}
+#rezon-forms #hotel-form-shoot .value_guest {
+    padding:  5px 10px;
+    border-radius: 2px;
+    height: 40px;
+    box-sizing: border-box !important;
+    box-shadow: inset 1px 0px 3px 0px #B8C7E4;
     display: flex;
     align-items: center;
-}
-
-#rezon-forms .nationality_hotels .value_tag {
-    padding: 0;
-}
-
-#rezon-forms .option_box li {
-    padding: 4px 15px;
-    box-sizing: content-box;
-    cursor: pointer;
-}
-
-    #rezon-forms .option_box li:hover {
-        background-color: rgba(38, 182, 255, 0.5);
-    }
-
-    #rezon-forms .option_box li:first-child {
-        padding-top: 5px;
-    }
-
-    #rezon-forms .option_box li:last-child {
-        padding-bottom: 5px;
-    }
-
-#rezon-forms .nationality_select-home {
-    width: 100%;
-    border-radius: 3px;
-    min-height: 45px;
-    box-sizing: border-box;
-    padding: 0 10px;
-}
-
-#rezon-forms .num_children .children_box {
-    position: absolute;
-    top: 102%;
-    left: 0;
-    min-width: 190px;
-    background-color: #fff;
-    border-radius: 3px;
-    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
-    overflow-y: auto;
-}
-
-#rezon-forms .children_box-item {
-    padding: 15px;
-}
-
-    #rezon-forms .children_box-item:first-child {
-        padding-bottom: 0;
-    }
-
-    #rezon-forms .children_box-item:last-of-type {
-        padding-top: 0;
-    }
-
-#rezon-forms .num_children .children-title {
-    color: rgb(138, 144, 163);
-    font-size: 12px;
-    font-weight: normal;
-}
-
-#rezon-forms .children_input {
-    width: 100%;
-    height: 30px;
-    background-color: #e4f4ff;
-    border-radius: 3px;
-}
-
-#rezon-forms .num_children .children_input {
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-    cursor: pointer;
     position: relative;
+    cursor: pointer;
 }
-
-#rezon-forms .children_input:before {
-    top: 10px;
-}
-
-#rezon-forms .num_children .children_age {
+#rezon-forms #hotel-form-shoot .options_guest {
     list-style-type: none;
     padding: 0;
-    margin: 0;
-    background-color: #eceff1;
-    font-size: 12px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out;
-    border-radius: 0 0 3px 3px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
 }
-
-    #rezon-forms .num_children .children_age.open {
-        max-height: 100px;
-        overflow-y: scroll;
-    }
-
-#rezon-forms .children_age li:first-child {
-    padding-top: 4px;
+#rezon-forms #hotel-form-shoot .option_guest {
+    padding: 5px 10px;
 }
-
-#rezon-forms .children_age li:last-child {
-    padding-bottom: 4px;
+#rezon-forms #hotel-form-shoot .option_guest:hover {
+    background-color: #26b6ff;
+    cursor: pointer;
 }
-
-#rezon-forms .btn_children {
-    padding: 0 6px;
+#rezon-forms #hotel-form-shoot .hotel_guests .arrow.rotateClass {
+    top: 20px;
+    transform: rotate(45deg);
+    opacity: 1;
 }
-#rezon-forms .nationality_hotels .typeahead-selectpicker {
-    box-sizing: border-box;
+#rezon-forms #hotel-form-shoot .hotel_guests .control-field {
+    cursor: pointer;
+}
+#rezon-forms #hotel-form-shoot .guest_result {
     width: 100%;
     height: 45px;
-    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box !important;
+    user-select: none;
+}
+#rezon-forms #hotel-form-shoot .delete_search {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    opacity: 0.6;
+}
+#rezon-forms #hotel-form-shoot .delete_search:hover {
+    opacity: 1;
+}
+#rezon-forms #hotel-form-shoot .delete_search:before,
+#rezon-forms #hotel-form-shoot .delete_search:after {
+    content: "";
+    background-color: #546e7a;
+    display: block;
+}
+#rezon-forms #hotel-form-shoot .delete_search:before {
+    width: 1px;
+    height: 100%;
+    transform: rotate(45deg);
+    position: relative;
+    top: 0px;
+    left: 8px;
+}
+#rezon-forms #hotel-form-shoot .delete_search:after {
+    width: 100%;
+    height: 1px;
+    transform: rotate(-135deg);
+    position: relative;
+    top: -9px;
+    left: 0px;
 }
 /************************End Hotels***********************/
 
@@ -2357,10 +2365,32 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         max-width: 50%;
     }
+    #rezon-forms #hotel-form-shoot .field.station {
+        flex-basis: 25%;
+    }
 }
 
+@media screen and (max-width: 991px) {
+    #rezon-forms #hotel-form-shoot .field.station {
+        min-width: inherit;
+    }
+}
+@media screen and (max-width: 767px) {
+    #rezon-forms #hotel-form-shoot .field.station {
+        flex-basis: 50%;
+    }
+    #rezon-forms #hotel-form-shoot .field.date {
+        flex-basis: 25%;
+    }
+    #rezon-forms #hotel-form-shoot .hotel_guests {
+        flex-basis: 50%;
+    }
+    #rezon-forms #hotel-form-shoot .field.find {
+        flex-basis: 50%;
+    }
+}
 
-@media (min-width: 576px) 
+@media (min-width: 576px)
 {
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
@@ -2820,6 +2850,20 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .selectpicker .modal_block {
         padding-top: 60px !important;
         transition: all 0.8s;
+    }
+    #rezon-forms #hotel-form-shoot .field.station,
+    #rezon-forms #hotel-form-shoot .hotel_guests,
+    #rezon-forms #hotel-form-shoot .field.find {
+        flex-basis: 100%;
+    }
+    #rezon-forms #hotel-form-shoot .field.date {
+        flex-basis: 50%;
+    }
+    #rezon-forms #hotel-form-shoot .fields-container .field .menu-title {
+        display: block;
+    }
+    #rezon-forms #hotel-form-shoot .station.from {
+        margin-bottom: 10px;
     }
 }
 
