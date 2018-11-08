@@ -3074,15 +3074,15 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
         },
         methods: {
             toggleClass: function () {
-                this.isActive = !this.isActive
+                this.isActive = !this.isActive;
             },
             onClickOutside: function () {
                 this.isActive = false;
             },
-            countryOption: function ({ label, code }) {
+            countryOption: function (o) {
                 this.isActive = false;
-                this.country = label;
-                this.countryCode = code;
+                this.country = o.label;
+                this.countryCode = o.code;
                 this.$emit('country-change', this.country);
                 this.$emit('code-change', this.countryCode);
             },
