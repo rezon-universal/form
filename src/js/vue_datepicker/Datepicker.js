@@ -448,7 +448,7 @@ var defaultDatepickerSettings = {
             "<span class=\"vdp-datepicker__calendar-button\" :class=\"{'input-group-addon' : bootstrapStyling}\" v-if=\"calendarButton\" @click=\"showCalendar\"><i :class=\"calendarButtonIcon\">" +
                 "<span v-if=\"calendarButtonIcon.length === 0\">&hellip;</span></i>" +
             "</span>"+
-            "<input :type=\"inline ? 'hidden' : 'text'\" :class=\"[ inputClass, { 'form-control' : bootstrapStyling } ]\" :name=\"name\" :id=\"id\" @focus=\"showCalendar\" :value=\"formattedValue\" :placeholder=\"placeholder\" :clear-button=\"clearButton\" :disabled=\"disabledPicker\" :required=\"required\" readonly>"+
+            "<input aria-label='Select date' :type=\"inline ? 'hidden' : 'text'\" :class=\"[ inputClass, { 'form-control' : bootstrapStyling } ]\" :name=\"name\" :id=\"id\" @focus=\"showCalendar\" :value=\"formattedValue\" :placeholder=\"placeholder\" :clear-button=\"clearButton\" :disabled=\"disabledPicker\" :required=\"required\" readonly>"+
             "<span class=\"vdp-datepicker__clear-button\" :class=\"{'input-group-addon' : bootstrapStyling}\" v-if=\"clearButton && selectedDate\" @click=\"clearDate()\">" +
                 "<i :class=\"clearButtonIcon\">" +
                     "<span v-if=\"calendarButtonIcon.length === 0\">&times;</span>" +

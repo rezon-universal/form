@@ -1759,7 +1759,8 @@ $.support.cors = true;
             });
             $input.addClass("tt-input").attr({
                 autocomplete: "off",
-                spellcheck: false
+                spellcheck: false,
+                'aria-label' : "Select field"
             }).css(withHint ? css.input : css.inputWithNoHint);
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
