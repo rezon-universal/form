@@ -2463,7 +2463,7 @@ rezOnForm.staticCountriesData = function (remoteUrl) {
         limit: 1000,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-            url: remoteUrl + '/HelperAsync/LookupCountries?v=3',
+            url: remoteUrl + '/HelperAsync/LookupCountries?v=4',
             filter: function (list) {
                 return list;
             }
