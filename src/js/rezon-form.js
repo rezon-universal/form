@@ -2066,7 +2066,9 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-        it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums
+        setTimeout(function () {
+            it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums;
+        },1000);
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
