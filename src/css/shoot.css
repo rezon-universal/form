@@ -2935,8 +2935,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #railway-form-shoot .field.find
     {
         margin-left: initial;
-        -webkit-flex-basis: 20%;
-        flex-basis: 20%;
+        -webkit-flex-basis: 19%;
+        flex-basis: 19%;
     }
     #rezon-forms #railway-form-shoot .field.hide_s
     {
