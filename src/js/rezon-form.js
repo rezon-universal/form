@@ -2070,6 +2070,9 @@ var rezOnForm = function (form, o) {
             it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums;
         });
 
+        if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575)) {
+            $('#hotel-form-shoot .book-from').attr('autofocus', 'true');
+        }
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2888,7 +2891,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component("hotelInput", {
         template: ' <div class="inside">' +
-            '<input type="text" autofocus :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div class="express">' +
             "{{item.Code}}" +
             "</div>" +
