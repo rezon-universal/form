@@ -2301,6 +2301,31 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 /************************End Hotels***********************/
 
+#rezon-forms #railway-form-shoot .extended .date {
+    flex-basis: 25% !important;
+}
+#rezon-forms #railway-form-shoot .extended .field.clear,
+#rezon-forms #railway-form-shoot .extended .field.find  {
+    flex-basis: 25%;
+}
+#rezon-forms #railway-form-shoot .extended .field.hide_s {
+    text-align-last: left;
+    order: 6;
+}
+#rezon-forms #railway-form-shoot .fields-container.extended .field.date + .date 
+{
+    margin-right: 0;
+}
+#rezon-forms #railway-form-shoot .field.find {
+    margin-left: 0;
+}
+#rezon-forms #railway-form-shoot .roundtrip.extended .field.time + .time {
+    margin-right: 0;
+}
+#rezon-forms #railway-form-shoot .roundtrip.extended .field.find {
+    order: 7;
+}
+
 
 @media (min-width: 576px) and (max-width: 1199px) 
 {
@@ -2366,6 +2391,15 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         max-width: 50%;
     }
     #rezon-forms #hotel-form-shoot .field.station {
+        flex-basis: 25%;
+    }
+    #rezon-forms #railway-form-shoot .date {
+        flex-basis: 50%;
+    }
+    #rezon-forms #railway-form-shoot .range {
+        flex-basis: 25%;
+    }
+    #rezon-forms #railway-form-shoot .field.find {
         flex-basis: 25%;
     }
 }
