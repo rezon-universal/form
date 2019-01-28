@@ -2433,8 +2433,8 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
     if (!!params.Rooms[0].Adults)
         params.adults = params.Rooms[0].Adults;
 
-    if (!!params.HistoryGuid && params.HistoryGuid.trim() !== "")
-        params.historyGuid = params.HistoryGuid;
+    if (!!params.HotelsSearchId && params.HotelsSearchId.trim() !== "")
+        params.historyGuid = params.HotelsSearchId;
 
     if (!!params.Rooms[0].ChildAges) {
         params.childs = [];
@@ -3828,6 +3828,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             toggleClass: function () {
                 this.isActive = !this.isActive
+            },
+            hotelResetSearch: function () {
+                $("#IsNewSearch").val("true");
             }
         },
         watch: {
