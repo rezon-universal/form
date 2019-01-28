@@ -2066,7 +2066,13 @@ var rezOnForm = function (form, o) {
             minLength: 2
         };
 
-        it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums
+        it.dataWork.countriesData.initPromise.done(function() {
+            it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums;
+        });
+
+        if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575)) {
+            $('#hotel-form-shoot .book-from').attr('autofocus', 'true');
+        }
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
@@ -2463,7 +2469,7 @@ rezOnForm.staticCountriesData = function (remoteUrl) {
         limit: 1000,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-            url: remoteUrl + '/HelperAsync/LookupCountries?v=3',
+            url: remoteUrl + '/HelperAsync/LookupCountries?v=4',
             filter: function (list) {
                 return list;
             }
@@ -2885,7 +2891,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component("hotelInput", {
         template: ' <div class="inside">' +
-            '<input type="text" autofocus :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
             '<div class="express">' +
             "{{item.Code}}" +
             "</div>" +
