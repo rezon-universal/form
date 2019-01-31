@@ -2325,6 +2325,19 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms #railway-form-shoot .roundtrip.extended .field.find {
     order: 7;
 }
+#rezon-forms #railway-form-shoot.railway-form-ie .extended .date {
+    flex-basis: 24% !important;
+}
+#rezon-forms #railway-form-shoot.railway-form-ie .extended .field.clear,
+#rezon-forms #railway-form-shoot.railway-form-ie .extended .field.find {
+    flex-basis: 24% !important;
+}
+#rezon-forms #railway-form-shoot.railway-form-ie .fields-container.extended .field.time + .time {
+    flex-basis: 24%;
+}
+#rezon-forms #railway-form-shoot.railway-form-ie .roundtrip .field.find {
+    margin-right: 15px;
+}
 
 
 @media (min-width: 576px) and (max-width: 1199px) 
