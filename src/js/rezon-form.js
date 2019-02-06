@@ -3054,7 +3054,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     '<div class="nationality_input" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
                         '<span>{{ name }}</span>' +
-                        '<input type="hidden" name="NationalityCode"  v-model="code">' +
+                        '<input type="hidden" name="Nationality"  v-model="code">' +
                         '<input type="hidden" name="NationalityName"  v-model="name">' +
                     '</div>' +
                     '<div class="nationality_search" v-show="isActive">' +
