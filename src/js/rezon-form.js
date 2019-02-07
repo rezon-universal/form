@@ -2060,6 +2060,10 @@ var rezOnForm = function (form, o) {
         });
     }
 
+    //Определяем браузер IE и Edge
+    if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+        $('#railway-form-shoot').addClass('railway-form-ie')
+    }
 
     rezOnForm.prototype.hotelBind = function () {
         var typeaheadOptions = {
