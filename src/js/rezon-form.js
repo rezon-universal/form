@@ -1102,7 +1102,7 @@ var rezOnForm = function (form, o) {
     //Validation hotel city
     rezOnForm.prototype.validation.hotelCity = function () {
         var city = it._hotelForm.find("input[name='CityId']").first();
-        var nationality = it._hotelForm.find("input[name='NationalityCode']").first();
+        var nationality = it._hotelForm.find("input[name='Nationality']").first();
 
         if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
             city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
