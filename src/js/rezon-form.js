@@ -1102,7 +1102,7 @@ var rezOnForm = function (form, o) {
     //Validation hotel city
     rezOnForm.prototype.validation.hotelCity = function () {
         var city = it._hotelForm.find("input[name='CityId']").first();
-        var nationality = it._hotelForm.find("input[name='NationalityCode']").first();
+        var nationality = it._hotelForm.find("input[name='Nationality']").first();
 
         if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
             city.closest(".field").addClass("has-error").find(".error-box").text(it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST", it._o.defaultLang)).append($("<div/>").addClass("close")).slideDown(it._o.animationDelay);
@@ -2443,8 +2443,8 @@ rezOnForm.static.prepareHotelSearchParams = function (params) {
     if (!!params.Rooms[0].Adults)
         params.adults = params.Rooms[0].Adults;
 
-    if (!!params.HistoryGuid && params.HistoryGuid.trim() !== "")
-        params.historyGuid = params.HistoryGuid;
+    if (!!params.HotelsSearchId && params.HotelsSearchId.trim() !== "")
+        params.historyGuid = params.HotelsSearchId;
 
     if (!!params.Rooms[0].ChildAges) {
         params.childs = [];
@@ -3058,7 +3058,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     '<div class="nationality_input" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
                         '<span>{{ name }}</span>' +
-                        '<input type="hidden" name="NationalityCode"  v-model="code">' +
+                        '<input type="hidden" name="Nationality"  v-model="code">' +
                         '<input type="hidden" name="NationalityName"  v-model="name">' +
                     '</div>' +
                     '<div class="nationality_search" v-show="isActive">' +
@@ -3838,6 +3838,9 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             toggleClass: function () {
                 this.isActive = !this.isActive
+            },
+            hotelResetSearch: function () {
+                $("#IsNewSearch").val("true");
             }
         },
         watch: {

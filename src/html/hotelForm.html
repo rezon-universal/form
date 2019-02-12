@@ -1,6 +1,6 @@
 <form class="g-hide unload" role="form" id="hotel-form-shoot" autocomplete="off">
-    <input type="hidden" name="HistoryGuid" :value="hotel.historyGuid"/>
-    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
+    <input type="hidden" name="Id" :value="hotel.historyGuid"/>
+    <input type="hidden" name="IsNewSearch" value="false" id="IsNewSearch" />
     <div class="fields-container">
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
@@ -48,15 +48,15 @@
                 </div>
                 <div class="select_box" v-show="isActive">
                     <div class="guest_flex">
-                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="Adults" v-bind:published="true" v-bind:items="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
+                        <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="AdultCount" v-bind:published="true" v-bind:items="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
                         <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="quantityChild" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
-                        <guest-input v-bind:label='locale("ROOMS")' name="Rooms" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
+                        <guest-input v-bind:label='locale("ROOMS")' name="RoomCount" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
                     </div>
                     <div class="childs_flex" v-if="hotel.quantityChilds >= 0, hotel.childs.length = hotel.quantityChilds">
                         <label class="menu-title">{{ locale("PASS_AGE_CH") }}</label>
                         <div class="childs_block">
                             <div class="child_box" v-for="(item, i) in hotel.quantityChilds">
-                                <guest-input name="Child" v-bind:published="false" v-bind:items="12" v-bind:num="hotel.childs [i]" v-on:quantity-change="hotel.childs [i] = $event"></guest-input>
+                                <guest-input name="ChildAges" v-bind:published="false" v-bind:items="12" v-bind:num="hotel.childs [i]" v-on:quantity-change="hotel.childs [i] = $event"></guest-input>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="field find">
-            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+            <button v-on:click="hotelResetSearch" type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
         <div class="field clear ">
             <div class="transp">
