@@ -1053,9 +1053,7 @@ var rezOnForm = function (form, o) {
 
         var ret = it.validation.hotelCity();
         ret = rezOnForm.prototype.validation.dateRange(it._hotelForm) && ret;
-        //TODO!!!
-        if (ret && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined)
-            return main.hotel.searchForm.send(it._hotelForm);
+
         return ret;
     }
 
@@ -2192,7 +2190,50 @@ var rezOnForm = function (form, o) {
 
         //Отправка формы поиска отелей
         it._hotelForm.submit(function () {
-            return it.validation.hotelForm();
+            var ret = it.validation.hotelForm();
+            
+            if (ret && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined)
+                return main.hotel.searchForm.send(it._hotelForm);
+
+            if (!ret) return false;
+
+            var data = {
+                ChildAges: []
+            };
+            $.map(it._hotelForm.serializeArray(), (n) => {
+                if (n['name'] === "ChildAges")
+                    data.ChildAges.push(n['value']);
+                else
+                    data[n['name']] = n['value'];
+            });
+            $.ajax({
+                url: encodeURI(it._hotelForm.attr("action")),
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType: "JSON",
+                contentType: 'application/json',
+                success: function(jsonData) {
+                    if(jsonData && jsonData.Url) {
+                        switch(it._hotelForm.attr("target")) {
+                            case "_blank":
+                                window.open(jsonData.Url);
+                                break;
+                            default:
+                                location.href = jsonData.Url;
+                                break;
+                        }
+                    }
+                },
+                error: function() {
+                    alert('Error');
+                }
+            });
+            return false;
+
+            console.warn('ok')
+
+            return ret;
         });
     }
 
@@ -2895,7 +2936,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
 
     Vue.component("hotelInput", {
         template: ' <div class="inside">' +
-            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="HOTEL_PLACEHOLDER" :placeholder="placeholder"/>' +
+            '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" :placeholder="placeholder"/>' +
             '<div class="express">' +
             "{{item.Code}}" +
             "</div>" +
