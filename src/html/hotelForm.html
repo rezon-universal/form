@@ -44,7 +44,9 @@
             <div class="control-field" v-click-outside="onClickOutside">
                 <div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>
                 <div class="guest_result" v-on:click="toggleClass">
-                    {{ hotel.adults }} взрослых, {{ hotel.quantityChilds }} детей, {{ hotel.rooms }} комнат
+                    <span>{{ hotel.adults }} взрослых</span>
+                    <span v-if="hotel.quantityChilds > 0">, {{ hotel.quantityChilds }} детей</span>
+                    <span>, {{ hotel.rooms }} комнат</span>
                 </div>
                 <div class="select_box" v-show="isActive">
                     <div class="guest_flex">

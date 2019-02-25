@@ -155,7 +155,7 @@ var rezOnForm = function (form, o) {
         hotel: {
             recCity: [],
             historyGuid: "",
-            adults: 1,
+            adults: 2,
             checkIn: null,
             checkOut: null,
             city: new HotelCityItem(),
@@ -2072,6 +2072,49 @@ var rezOnForm = function (form, o) {
             it._o.hotel.nationalitys = it.dataWork.countriesData.index.datums;
         });
 
+        if (rezOnForm.static.isInIframe()) {
+
+            var guest = document.querySelector('.guest_result');
+            guest.addEventListener('click', function() {
+                var field = document.querySelector('.hotel_guests .control-field');
+                var fieldHeight = field.scrollHeight;
+                var fieldTopOffset = field.offsetTop;
+                var bodyHeight = fieldHeight + fieldTopOffset;
+
+                $('body').css({ 'min-height': bodyHeight + 'px' });
+                typeof (updatingHeight) !== 'undefined' && updatingHeight();
+
+                var selectGuest = document.querySelectorAll('.select_guest');
+                selectGuest.forEach(function(item) {
+                    item.addEventListener('click', function() {
+                        var itemHeight = item.scrollHeight;
+                        var bodyHeight = fieldHeight + fieldTopOffset + itemHeight;
+
+                        $('body').css({ 'min-height': bodyHeight + 'px' });
+                        typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                    });
+                });
+                
+                var selectNationality = document.querySelector('.select_nationality');
+                selectNationality.addEventListener('click', function() {
+                    var nationalityHeight = selectNationality.scrollHeight;
+                    var bodyHeight = fieldHeight + fieldTopOffset + nationalityHeight;
+
+                    $('body').css({ 'min-height': bodyHeight + 'px' });
+                    typeof (updatingHeight) !== 'undefined' && updatingHeight();
+                });
+                
+            });
+
+            window.addEventListener('mouseup',function(event) {
+                var select = document.querySelector('.select_box');
+
+                if(event.target != select && event.target.parentNode != select) {
+                    $('body').css({ 'min-height': 'inherit' });
+                }
+            }); 
+        }
+
         if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575)) {
             $('#hotel-form-shoot .book-from').attr('autofocus', 'true');
         }
@@ -3052,7 +3095,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
                         '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
-                        '<span class="number_val" v-if="name === \'Child\'">{{ quantity }}</span>' +
+                        '<span class="number_val" v-if="name === \'ChildAges\'">{{ quantity }}</span>' +
                         '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
                     '<ul class="options_guest" v-show="isActive" v-on:click="changeNum">' +
@@ -3533,12 +3576,12 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
             },
             hotelDefaultCheckIn: function () {
                 var defaultCheckIn = new Date();
-                defaultCheckIn.setDate(defaultCheckIn.getDate() + 7);
+                defaultCheckIn.setDate(defaultCheckIn.getDate() + 14);
                 return defaultCheckIn;
             },
             hotelDefaultCheckOut: function () {
                 var defaultCheckOut = new Date();
-                defaultCheckOut.setDate(defaultCheckOut.getDate() + 14);
+                defaultCheckOut.setDate(defaultCheckOut.getDate() + 21);
                 return defaultCheckOut;
             },
             aviaDefaultDateThere: function () {
