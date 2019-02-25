@@ -3,7 +3,7 @@
     <input type="hidden" name="IsNewSearch" value="false" id="IsNewSearch" />
     <div class="fields-container">
         <div class="field station from">
-            <label data-local="true" data-localtext="FROM" class="menu-title">
+            <label data-local="true" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("CITY")}}
                 <span class="link-right"></span>
@@ -44,7 +44,9 @@
             <div class="control-field" v-click-outside="onClickOutside">
                 <div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>
                 <div class="guest_result" v-on:click="toggleClass">
-                    {{ hotel.adults }} взрослых, {{ hotel.quantityChilds }} детей, {{ hotel.rooms }} комнат
+                    <span>{{ hotel.adults }} взрослых</span>
+                    <span v-if="hotel.quantityChilds > 0">, {{ hotel.quantityChilds }} детей</span>
+                    <span>, {{ hotel.rooms }} комнат</span>
                 </div>
                 <div class="select_box" v-show="isActive">
                     <div class="guest_flex">
