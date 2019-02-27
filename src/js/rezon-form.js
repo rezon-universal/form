@@ -2243,7 +2243,7 @@ var rezOnForm = function (form, o) {
             var data = {
                 ChildAges: []
             };
-            $.map(it._hotelForm.serializeArray(), (n) => {
+            $.map(it._hotelForm.serializeArray(), function (n) {
                 if (n['name'] === "ChildAges")
                     data.ChildAges.push(n['value']);
                 else
