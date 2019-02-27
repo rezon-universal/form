@@ -3094,7 +3094,7 @@ rezOnForm.ModelInitialize = function (form, formObject, callback) {
                 '<div class="select_guest" v-click-outside="onClickOutside">' +
                     '<div class="value_guest" v-on:click="toggleClass">' +
                         '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
-                        '<span class="number_val" v-if="name !== \'Child\'">{{ num }}</span>' +
+                        '<span class="number_val" v-if="name !== \'ChildAges\'">{{ num }}</span>' +
                         '<span class="number_val" v-if="name === \'ChildAges\'">{{ quantity }}</span>' +
                         '<input class="input_val" type="hidden" :name="name" v-model="num">' +
                     '</div>' +
