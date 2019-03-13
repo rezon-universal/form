@@ -56,7 +56,7 @@ window.rezOnFormAddLanguages.push({
         "FIRST_DAY": "0",
         "AIRTICKETS": "Самолетни билети",
         "RAILWAYTICKETS": "Влакови билети",
-        "PLACEHOLDER_AIRPORT2": "Въведи град, летище или IATA код",
+        "PLACEHOLDER_AIRPORT2": "Въведете град или летище",
         "SELECT_AIRPORT": "Избери летище",
         "COUNTRY": "Държава",
         "SELECT_COUNTRY": "Избери държава...",
