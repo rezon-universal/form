@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hotels Form Standalone</title>		
+		
+		<link href="../../../../Content/css/assets/rezon-form.min.css" rel="stylesheet"/>
+		
+		<script src="../../../../Scripts/jquery-2.1.4.min.js"></script>
+		<script src="../../../../Scripts/typeahead.bundle.js"></script>
+		<script src="../../../../Scripts/vue.js"></script>
+		<script src="../../../../Scripts/src/forms/vue_datepicker/Datepicker.js"></script>
+		<script src="../../../../Scripts/assets/rezon-form.min.js"></script>
+    </head>	
+<body>
+    <div class="wings" id="rezon-forms">
+        <div class="rez-forms container">
+            <form class="rezon-form unload hotel-form" role="form" id="hotel-form-shoot" autocomplete="off">
+    <input type="hidden" name="Id" :value="hotel.historyGuid"/>
+    <input type="hidden" name="IsNewSearch" value="false" id="IsNewSearch" />
+    <div class="fields-container">
+        <div class="field station from">
+            <label data-local="true" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CITY")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <hotel-input name="CityId" input-class="book-from" v-model="hotel.city" :placeholder="locale('BUSES_PLACEHOLDER')"></hotel-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div class="field date from">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_IN")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkIn" name="CheckIn" input-class="book-date datepicker" :date-from="hotel.checkIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("CHECK_OUT")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="hotel.checkOut" name="CheckOut" input-class="book-date datepicker" :date-from="hotel.checkIn" :date-to="hotel.checkOut"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field hotel_guests">
+            <label class="menu-title">
+                {{locale("GUESTS")}}
+            </label>
+            <div class="control-field" v-click-outside="onClickOutside">
+                <div class="guest_result" v-on:click="toggleClass">
+                    <div class="arrow" v-bind:class="{ rotateClass:hotel.isActive }"></div>
+                    <span>{{ hotel.adults }} {{ locale("PASS_CAT_ADT") }}</span>
+                    <span v-if="hotel.quantityChilds > 0">, {{ hotel.quantityChilds }} {{locale("PASS_CAT_CNN")}}</span>
+                    <span>, {{ hotel.rooms }} {{locale("ROOMS")}}</span>
+                </div>
+                <div class="select_box" v-show="hotel.isActive">
+                    <div class="box_inside">
+                        <div class="guest_flex">
+                            <guest-input v-bind:label='locale("PASS_CAT_ADT")' name="AdultCount" v-bind:published="true" v-bind:items="4" v-bind:num="hotel.adults" v-on:quantity-change="hotel.adults = $event"></guest-input>
+                            <guest-input v-bind:label='locale("PASS_CAT_CNN")' name="quantityChild" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.quantityChilds" v-on:quantity-change="hotel.quantityChilds = $event"></guest-input>
+                            <guest-input v-bind:label='locale("ROOMS")' name="RoomCount" v-bind:published="true" v-bind:items="3" v-bind:num="hotel.rooms" v-on:quantity-change="hotel.rooms = $event"></guest-input>
+                        </div>
+                        <div class="childs_flex" v-if="hotel.quantityChilds >= 0, hotel.childs.length = hotel.quantityChilds">
+                            <label class="menu-title">{{ locale("PASS_AGE_CH") }}</label>
+                            <div class="childs_block">
+                                <div class="child_box" v-for="(item, i) in hotel.quantityChilds">
+                                    <guest-input v-bind:label='locale("PASS_AGE_CH")' name="ChildAges" v-bind:published="false" v-bind:items="12" v-bind:quantity="hotel.childs[i]" v-bind:num="hotel.childs[i]" v-on:quantity-change="hotel.childs[i] = $event"></guest-input>
+                                </div>
+                            </div>
+                        </div>
+                        <national-input v-bind:label='locale("NATIONALITY")' :placeholder='locale("SEARCH")' v-bind:items="hotel.nationalitys" v-bind:name="hotel.nationalityName" v-bind:code="hotel.nationalityCode" v-on:country-change="hotel.nationalityName = $event" v-on:code-change="hotel.nationalityCode = $event"></national-input>
+                    </div>
+                    <span class="button-hide hidden-xs" v-on:click="onClickOutside">
+                        <span class="hide-inner">{{locale("HIDE")}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="field find">
+            <button v-on:click="hotelResetSearch" type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+        <div class="field clear ">
+            <div class="transp">
+                <span href="#" class="clear_form" v-on:click="clearHotelForm()">
+                    <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+        </div>
+    </div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $("#rezon-forms").rezOnForm({
+				projectUrl: "https://e-bilet.com.ua/",
+				defaultLang: "ru",
+				formType: "hotels",
+				formTarget: "_blank"
+			});
+		});
+	</script>
+</body>
+</html>
