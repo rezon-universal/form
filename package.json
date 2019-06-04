@@ -1,6 +1,6 @@
 {
   "name": "rezon-form",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "RezOn form for external",
   "keywords": [ "rezon-form", "rezonuniversal", "rezon" ],
   "homepage": "https://github.com/rezon-universal/form",
@@ -9,7 +9,7 @@
   "contributors": [
     { "name": "Dima Horror" }
   ],
-  "main": "src/rezon.form.js",
+  "main": "src/js/rezon-form.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/rezon-universal/form.git"
