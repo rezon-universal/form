@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Buses Form Standalone</title>		
+		
+		<link href="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/css/rezon-form.min.css" rel="stylesheet"/>
+		
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/jquery-2.1.4.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/typeahead.bundle.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue_datepicker/Datepicker.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
+    </head>	
+<body>
+    <div class="wings" id="rezon-forms">
+        <div class="rez-forms container">
+            <form class="rezon-form unload buses-form" role="form" id="buses-form-shoot" autocomplete="off">
+    <input type="hidden" name="HistoryGuid" :value="buses.historyGuid"/>
+    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
+    <div class="row">
+        <div class="direct radio-group">
+            <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">
+                <span data-local="true" :data-localtext="type.text">{{locale(type.text)}}</span>
+            </label>
+            <input type="radio" name="book_type" v-bind:value="buses.formType.value" checked/>
+        </div>
+    </div>
+    <div class="fields-container" v-bind:class="[buses.formType.value,{'extended':buses.formExtended}]">
+        <div class="field station from">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("FROM")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <buses-input name="CityIdFrom" input-class="book-from" v-model="buses.cityFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div v-on:click="swapBusDest()" class="swap"><div class="arrows"></div></div>
+        <div class="field station to">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("TO")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <buses-input name="CityIdTo" input-class="book-to" v-model="buses.cityTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div class="field date from">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("THERE")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateThere" name="DateThere" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("BACK")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateBack" name="DateBack" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack" v-if="buses.formType.value==='roundtrip'"></datepicker>
+                    <span class="roundtrip_click" v-on:click="busTypeChanged(1)">{{locale("BACK")}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="field pass">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PASSENGERS")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field bus_pass">
+                <div class="pass_counter pass_counter-top">
+                    <div class="remove_pass" v-on:click="removeBusPassenger()"></div>
+                    <div class="count_pass"><span>{{buses.passenger.count}}</span></div>
+                    <div class="add_pass" v-on:click="addBusPassenger()"></div>
+                    <input type="hidden" :name="buses.passenger.name" v-model="buses.passenger.count" />
+                </div>
+            </div>
+        </div>
+        <div class="field find">
+            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+        <div class="field clear ">
+            <div class="transp">
+                <span href="#" class="clear_form" v-on:click="clearbusForm()">
+                    <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+        </div>
+    </div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $("#rezon-forms").rezOnForm({
+				projectUrl: "https://test.rezonuniversal.com",
+				defaultLang: "ru",
+				formType: "buses",
+				formTarget: "_blank"
+			});
+		});
+	</script>
+</body>
+</html>
