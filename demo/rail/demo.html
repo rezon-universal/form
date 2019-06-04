@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Railway Form Standalone</title>		
+		
+		<link href="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/css/rezon-form.min.css" rel="stylesheet"/>
+		
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/jquery-2.1.4.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/typeahead.bundle.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue_datepicker/Datepicker.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
+    </head>	
+<body>
+    <div class="wings" id="rezon-forms">
+        <div class="rez-forms container">
+            <form class="rezon-form unload rail-form" role="form" id="railway-form-shoot" autocomplete="off">
+    <input type="hidden" name="HistoryGuid" :value="railway.historyGuid"/>
+    <div class="row">
+        <div class="direct radio-group">
+            <label v-for="(type,index) in railway.formTypes" v-bind:class="{active: railway.formType.value === type.value}" v-on:click="railTypeChanged(index)">
+                <span data-local="true" :data-localtext="type.text">{{locale(type.text)}}</span>
+            </label>
+            <input type="radio" name="book_type" v-bind:value="railway.formType.value" checked/>
+        </div>
+    </div>
+    <div class="fields-container" v-bind:class="[railway.formType.value,{'extended':railway.formExtended}]">
+        <div class="field station from">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("FROM")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <railway-input name="tshi_station_from" input-class="book-from" v-model="railway.stationFrom" :placeholder="locale('RAILWAY_PLACEHOLDER')"></railway-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div v-on:click="swapRailDest()" class="swap"><div class="arrows"></div></div>
+        <div class="field station to">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("TO")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <railway-input name="tshi_station_to" input-class="book-to" v-model="railway.stationTo" :placeholder="locale('RAILWAY_PLACEHOLDER')" input-class="book-from"></railway-input>
+                <div class="error-box"></div>
+            </div>
+        </div>
+        <div class="field date from">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("THERE")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="railway.dateThere" name="book_from_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("BACK")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="railway.dateBack" name="book_to_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack" v-if="railway.formType.value==='roundtrip'"></datepicker>
+                    <span class="roundtrip_click" v-on:click="railTypeChanged(1)">{{locale("BACK")}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="field time">
+            <label class="hidden-xs menu-title">{{locale("DEPARTURE_TIME")}}</label>
+            <div class="control-field">
+                <div class="selectpicker book-time">
+                    <div class="options">
+                        <div class="option" v-on:click="railway.timeThere=0">
+                            <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
+                            <input type="radio" name="book_from_time" value="0" v-bind:checked="railway.timeThere == 0"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeThere=1">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
+                            </span>
+                            <input type="radio" name="book_from_time" value="1" v-bind:checked="railway.timeThere == 1"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeThere=2">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
+                            </span>
+                            <input type="radio" name="book_from_time" value="2" v-bind:checked="railway.timeThere == 2"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeThere=3">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
+                            </span>
+                            <input type="radio" name="book_from_time" value="3" v-bind:checked="railway.timeThere == 3"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field time">
+            <label class="hidden-xs menu-title">{{locale("ARRIVAL_TIME")}}</label>
+            <div class="control-field">
+                <div class="selectpicker book-time">
+                    <div class="options">
+                        <div class="option" v-on:click="railway.timeBack=0">
+                            <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
+                            <input type="radio" name="book_to_time" value="0" v-bind:checked="railway.timeBack == 0"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeBack=1">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
+                            </span>
+                            <input type="radio" name="book_to_time" value="1" v-bind:checked="railway.timeBack == 1"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeBack=2">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
+                            </span>
+                            <input type="radio" name="book_to_time" value="2" v-bind:checked="railway.timeBack == 2"/>
+                        </div>
+                        <div class="option" v-on:click="railway.timeBack=3">
+                            <span>
+                                <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
+                            </span>
+                            <input type="radio" name="book_to_time" value="3" v-bind:checked="railway.timeBack == 3"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field range">
+            <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
+                {{locale("SEARCH")}}
+            </label>
+            <div class="control-field">
+                <div class="book-range">
+                    <div class="selectpicker standalone">
+                        <div class="options">
+                            <div class="option" v-on:click="railway.dateRange = 0">
+                                <span data-local="true" data-localtext="BY_EXACT_DATE">{{locale("BY_EXACT_DATE")}}</span>
+                                <input type="radio" name="dateRange" value="0" v-bind:checked="railway.dateRange == 0"/>
+                            </div>
+                            <div class="option" v-on:click="railway.dateRange = 1">
+                                <span>&plusmn;1 <span data-local="true" data-localtext="DAY">{{locale("DAY")}}</span></span>
+                                <input type="radio" name="dateRange" value="1" v-bind:checked="railway.dateRange == 1"/>
+                            </div>
+                            <div class="option" v-on:click="railway.dateRange = 2">
+                                <span>&plusmn;2 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
+                                <input type="radio" name="dateRange" value="2" v-bind:checked="railway.dateRange == 2"/>
+                            </div>
+                            <div class="option" v-on:click="railway.dateRange = 3">
+                                <span>&plusmn;3 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
+                                <input type="radio" name="dateRange" value="3" v-bind:checked="railway.dateRange == 3"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field find">
+            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+        <div class="field hide_s">
+            <div class="transp" v-on:click="changeRailFormExtended()">
+                <div class="hide_settings dashed">
+                    <div class="simple_search">
+                        <span>{{locale("SIMPLE_SEARCH")}}</span>
+                    </div>
+                    <div class="advanced_search">
+                        <span>{{locale("ADVANCED_SEARCH")}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field clear ">
+            <div class="transp">
+                <span href="#" class="clear_form" v-on:click="clearRailForm()">
+                    <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+        </div>
+    </div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $("#rezon-forms").rezOnForm({
+				projectUrl: "https://test.rezonuniversal.com/",
+				defaultLang: "ru",
+				formType: "railway",
+				formTarget: "_blank"
+			});
+		});
+	</script>
+</body>
+</html>
