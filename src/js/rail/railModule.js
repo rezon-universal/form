@@ -299,6 +299,7 @@ module.exports = class railModule extends formModuleBase {
 
         let it = this.it;
         let form = this.form;
+        let options = this.options;
         
         let dw = new dataWork(form, it);
 
@@ -309,7 +310,7 @@ module.exports = class railModule extends formModuleBase {
             var isValid = checker.isValid();
             if (!isValid) return false;
 
-            if (typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(form);
+            if (options.projectUrl === "/" && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(form);
             return true;
         });
 

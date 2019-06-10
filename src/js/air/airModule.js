@@ -633,7 +633,7 @@ module.exports = class airModule extends formModuleBase {
             if (!isValid) return false;
 
             
-            if (typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
+            if (options.projectUrl === "/" && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
             return true;
         });
 
