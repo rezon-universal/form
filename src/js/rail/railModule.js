@@ -310,7 +310,7 @@ module.exports = class railModule extends formModuleBase {
             var isValid = checker.isValid();
             if (!isValid) return false;
 
-            if (options.projectUrl === "/" && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(form);
+            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(form);
             return true;
         });
 

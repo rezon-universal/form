@@ -490,7 +490,7 @@ module.exports = class hotelModule extends formModuleBase {
             if (!isValid) return false;
 
             
-            if (options.projectUrl === "/" && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined) return main.hotel.searchForm.send(form);
+            if (options.projectUrl.startsWith("/") && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined) return main.hotel.searchForm.send(form);
 
 
             var data = {

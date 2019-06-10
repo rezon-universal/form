@@ -359,7 +359,7 @@ module.exports = class busModule extends formModuleBase {
             var isValid = checker.isValid();
             if (!isValid) return false;
 
-            if (options.projectUrl === "/" && typeof main !== 'undefined' && main.bustickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(form);
+            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.bustickets != undefined && main.bustickets.searchForm != undefined && main.bustickets.searchForm.send != undefined) return main.bustickets.searchForm.send(form);
             return true;
         });
 

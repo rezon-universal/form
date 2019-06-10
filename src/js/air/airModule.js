@@ -96,7 +96,6 @@ module.exports = class airModule extends formModuleBase {
     }
     //Датапикер - выбрано значение (ивент)
     datepickerSelected(datepicker) {
-        
         var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
         if (datepicker.name === 'book_from_date' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
@@ -633,7 +632,7 @@ module.exports = class airModule extends formModuleBase {
             if (!isValid) return false;
 
             
-            if (options.projectUrl === "/" && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
+            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
             return true;
         });
 
@@ -753,8 +752,10 @@ module.exports = class airModule extends formModuleBase {
                     if (it._initialized && !it.extra.mobileAndTabletcheck()) {
                         //Меняем фокус
                         if ($(this).is(".book-from")) {
+                            //Фокус на аэропорт прибытия
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
-                        } else if ($(this).is(".book-to") && vue.avia.formType.value === "roundtrip") {
+                        } else if ($(this).is(".book-to")) {
+                            //Фокус на дату вылета
                             var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
                             setTimeout(function () {
                                 dp.focus();
