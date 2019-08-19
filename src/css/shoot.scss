@@ -2087,14 +2087,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background: #fff !important;
     justify-content: start !important;
 }
-#rezon-forms .selectpicker .modal_block:before {
-    content: '';
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 50px;
-    background: #7e57c2;
-}
 #rezon-forms .modal_block.z-100:after {
     content: '';
     border-bottom: 1px solid #fff;
@@ -3105,6 +3097,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #hotel-form-shoot .nationality_hotels.open .options {
         height: 100%;
     }
+    #rezon-forms .selectpicker .modal_block:before {
+        content: '';
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 50px;
+        background: #7e57c2;
+    }
     /*#rezon-forms #hotel-form-shoot .options_guest:before,
     #rezon-forms #hotel-form-shoot .nationality_search:before
     {
@@ -3149,7 +3149,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 #rezon-forms #railway-form-shoot .field.hide_s
 {
-    text-align: center;
+    text-align: left;
 }
 
 
