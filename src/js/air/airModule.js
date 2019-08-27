@@ -756,7 +756,8 @@ module.exports = class airModule extends formModuleBase {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
                             //Фокус на дату вылета
-                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
+                            var dp = $(this).closest(".multy-route, .fields-container").find('.date:first').find("input[name^='book_from_']");
+
                             setTimeout(function () {
                                 dp.focus();
                             }, 100);
@@ -1155,7 +1156,7 @@ module.exports = class airModule extends formModuleBase {
                                         if(defaultDate === dates) {
                                             var boxError = document.createElement('div');
                                             boxError.classList.add('error-box');
-                                            boxError.innerHTML = "Bla Bla Bla Oh Oh Oh";
+                                            boxError.innerHTML = main.locale("DISABLED_DATE");
                                             calendar.appendChild(boxError);
                                         }
                                     });
