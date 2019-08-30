@@ -719,8 +719,14 @@ module.exports = class airModule extends formModuleBase {
                 $(this).select();
             }).blur(function () {
                 $(this).closest('.field.focused').removeClass('focused');
-                if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
                 var item = $(this).closest('.field');
+                if ($.trim($(this).val()) == "") {
+                    $(this).trigger("typeahead:queryChanged");
+                } else {
+                    if(item.hasClass("has-error")) {
+                        item.removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+                    }
+                }
                 it.extra.closeField(item);
 
 
