@@ -1020,6 +1020,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-color: #669900;
 }
+
 #rezon-forms .tt-suggestion 
 {
     cursor: pointer;
@@ -1043,6 +1044,88 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #ffd900;
     color: #333;
 }
+
+
+.bus-module #rezon-forms {
+    .station {
+        .location-region {
+            bottom: 8px;
+            left: 10px;
+            position: absolute;
+            right: 50px;
+            z-index: 10;
+            color: #a5b4bb;
+            font-size: 9px;
+            line-height: 10px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .station.to .location-region {
+        left: 25px;
+        right: 35px;
+    }
+
+    .tt-dropdown-menu {
+        top: 104% !important;
+
+        .city {
+            display: flex;
+            flex-direction: column;
+            padding: 9px 0;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ffd900;
+                color: #333;
+            }
+
+            &-name {
+                color: #666666;
+                font-size: 13px;
+                font-weight: 600;
+                line-height: 100%;
+            }
+
+            &-region {
+                color: #a5b4bb;
+                font-size: 9px;
+                line-height: 10px;
+                margin: 2px 0 0 0;
+            }
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #D1D5DF;
+        }
+
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background-color: #D1D5DF;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border: 1px solid #D1D5DF;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+    }
+
+    .tt-suggestion.tt-cursor .city-region {
+        color: #555;
+    }
+
+    .with-region .book-from,
+    .with-region .book-to {
+        padding-bottom: 8px;
+    }
+}
+
+
 #rezon-forms .tt-dropdown-menu .iata-code
 {
     font-family: "Oxygen Mono";
@@ -2108,6 +2191,21 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
+/************************Bus***********************/
+
+#rezon-forms #bus-form-shoot .field.station {
+    flex-basis: 32%;
+}
+#rezon-forms #bus-form-shoot .field.date {
+    flex-basis: 13%;
+}
+#rezon-forms #bus-form-shoot .field.find {
+    flex-basis: 10%;
+    width: 10%;
+}
+
+/************************End Bus***********************/
+
 
 /************************Hotels***********************/
 #rezon-forms #hotel-form-shoot .hotel_guests {
@@ -2454,6 +2552,22 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #hotel-form-shoot .field.station {
         min-width: inherit;
     }
+    #rezon-forms {
+        #bus-form-shoot {
+            .field {
+                &.station {
+                    flex-basis: 50%;
+                }
+                &.date {
+                    flex-basis: 38%;
+                }
+                &.find {
+                    flex-basis: 24%;
+                    width: 24%;
+                }
+            }
+        }
+    }
 }
 @media screen and (max-width: 767px) {
     #rezon-forms #hotel-form-shoot .field.station {
@@ -2562,6 +2676,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .row 
     {
         padding-top: 0;
+    }
+    .bus-module {
+        #rezon-forms {
+            .station.from .location-region {
+                right: 80px;
+            }
+
+            .station.to .location-region {
+                left: 10px;
+            }
+        }
     }
 
     /*Pop-up*/
@@ -3126,6 +3251,23 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         right: 20px;
         transform: rotate(45deg);
     }*/
+
+    #rezon-forms {
+        #bus-form-shoot {
+            .field {
+                &.station {
+                    flex-basis: 100%;
+                }
+                &.date {
+                    flex-basis: 50%;
+                }
+                &.find {
+                    flex-basis: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 
