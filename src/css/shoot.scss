@@ -2636,9 +2636,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 @media (max-width: 575px) 
 {
+
     #rezon-forms 
     {
         padding: 10px 10px 10px;
+        input {
+            font-size: 16px !important;
+        }
     }
     #rezon-forms .column 
     {
