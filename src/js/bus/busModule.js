@@ -294,7 +294,7 @@ module.exports = class busModule extends formModuleBase {
                     }
                 },
                 'buses.BackDate': function (value) {
-                    if (value < this.buses.Date) {
+                    if (value < this.buses.Date) {                        
                         this.buses.Date = value;
                     }
                     if (value > this.dates.busesMaxDate) {
@@ -310,8 +310,14 @@ module.exports = class busModule extends formModuleBase {
                 this.dates.busesMinDate = this.busesMinDate;
                 this.dates.busesMaxDate = this.busesMaxDate;
               
-                if (!this.buses.Date) this.buses.Date = this.busesDefaultDate;
-                if (!this.buses.BackDate) this.buses.BackDate = this.busesDefaultBackDate;
+                if (!this.buses.Date)
+                {
+                    this.buses.Date = this.busesDefaultDate;
+                }
+                if (!this.buses.BackDate && this.buses.formType === "roundtrip")
+                {
+                    this.buses.BackDate = this.busesDefaultBackDate;
+                }
                 else if (this.buses.BackDate < this.buses.Date)
                     this.buses.BackDate = this.buses.Date;
 
@@ -349,14 +355,14 @@ module.exports = class busModule extends formModuleBase {
         }
 
         //Отправка формы поиска автобусов
-        // form.submit(function () {
-        //     var checker = new validator($(this), it);
-        //     var isValid = checker.isValid();
-        //     if (!isValid) return false;
+        form.submit(function () {
+            var checker = new validator($(this), it);
+            var isValid = checker.isValid();
+            if (!isValid) return false;
 
-        //     if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.bus != undefined && main.bus.searchForm != undefined && main.bus.searchForm.send != undefined) return main.bus.searchForm.send(form);
-        //     return true;
-        // });
+            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.bus != undefined && main.bus.searchForm != undefined && main.bus.searchForm.send != undefined) return main.bus.searchForm.send(form);
+            return true;
+        });
 
         var typeaheadOptions = {
             minLength: 2

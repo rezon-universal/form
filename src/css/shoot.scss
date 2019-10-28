@@ -2204,6 +2204,15 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     width: 10%;
 }
 
+
+#rezon-forms #bus-form-shoot.bus-form-new .field.date{
+    flex-basis: 20%;
+}
+#rezon-forms #bus-form-shoot.bus-form-new .field.find {
+    flex-basis: 16%;
+    width: 16%;
+}
+
 /************************End Bus***********************/
 
 
@@ -2567,6 +2576,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 }
             }
         }
+    }
+
+    #rezon-forms #bus-form-shoot.bus-form-new .field.date{
+        flex-basis: 50%;
+    }
+    #rezon-forms #bus-form-shoot.bus-form-new .field.find {
+        flex-basis: 50%;
+        width: 50%;
     }
 }
 @media screen and (max-width: 767px) {
@@ -3271,6 +3288,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 }
             }
         }
+    }
+
+    #rezon-forms #bus-form-shoot.bus-form-new .field.date{
+        flex-basis: 100%;
+    }
+    #rezon-forms #bus-form-shoot.bus-form-new .field.find {
+        flex-basis: 100%;
+        width: 100%;
     }
 }
 

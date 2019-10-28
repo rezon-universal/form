@@ -3,7 +3,8 @@
 const localizator = require('./localizations');
 const airFormModule = require('./air/airModule');
 const railFormModule = require('./rail/railModule');
-const busFormModule = require('./buses/busModule');
+const oldBusFormModule = require('./buses/busModule');
+const busFormModule = require('./bus/busModule');
 const hotelFormModule = require('./hotels/hotelModule');
 
 
@@ -14,7 +15,7 @@ var rezOnForm = function () {
         animationDelay: 300,
         projectUrl: "/",
         defaultLang: "ru",
-        formType: "avia", //avia|railway|buses|hotels
+        formType: "avia", //avia|railway|bus|hotels
         formTarget: "_blank"
     };
     rezOnForm.prototype._initialized = false;
@@ -108,9 +109,9 @@ var rezOnForm = function () {
             $('body').removeClass('m-no-scroll');
             field.removeClass('opened');
             field.find('.link-left, .link-right').addClass('hidden');
-            if (isMobile) {
+            //if (isMobile) {
 
-            }
+            //}
         }
         return false;
     };
@@ -143,6 +144,8 @@ var rezOnForm = function () {
             case "rail":
             case "railway":
                 return new railFormModule(this._form, this._o, this);
+            case "buses_old":
+                return new oldBusFormModule(this._form, this._o, this);
             case "bus":
             case "buses":
                 return new busFormModule(this._form, this._o, this);
