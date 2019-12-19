@@ -1167,9 +1167,14 @@ module.exports = class airModule extends formModuleBase {
                                         }
                                     });
                                 }
-
-                                BoxError(it._o.avia.disabledDatesFrom, defaultDateFrom, calendarFrom);
-                                BoxError(it._o.avia.disabledDatesTo, defaultDateTo, calendarTo);  
+                                
+                                if(!!calendarFrom) {
+                                    BoxError(it._o.avia.disabledDatesFrom, defaultDateFrom, calendarFrom);
+                                }
+                                
+                                if(!!calendarTo) {
+                                    BoxError(it._o.avia.disabledDatesTo, defaultDateTo, calendarTo);  
+                                }
                             }
                         });
                     } else {
