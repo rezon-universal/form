@@ -165,6 +165,9 @@ module.exports = class busModule extends formModuleBase {
                 },
                 checkItem: function (event) {
                     if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                        this.item.CountryName = '';
+                        this.item.Id = '';
+                        this.item.RegionName = '';
                         this.arrRegion = null;
                         this.$emit('input', this.item);
                     }

@@ -65,7 +65,7 @@ module.exports = class busModule extends formModuleBase {
         
         Vue.component('busesInput', {
             template: ' <div class="inside">' +
-                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" data-localPlaceholder="BUSES_PLACEHOLDER" :placeholder="placeholder"/>' +
+                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="BUSES_PLACEHOLDER" :placeholder="placeholder"/>' +
                 '<div class="express">' +
                 '{{item.Code}}' +
                 '</div>' +
@@ -151,7 +151,9 @@ module.exports = class busModule extends formModuleBase {
                 },
                 checkItem: function (event) {
                     if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
-                        this.item.Code = '';
+                        this.item.CountryCode = '';
+                        this.item.CountryName = '';
+                        this.item.Id = '';
                         this.$emit('input', this.item);
                     }
                 }
