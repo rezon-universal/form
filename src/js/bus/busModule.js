@@ -68,7 +68,7 @@ module.exports = class busModule extends formModuleBase {
         var local = this;
         
         Vue.component('busesInput', {
-            template: ' <div class="inside" :class="{\'with-region\' : item.RegionName !== null && item.RegionName !== undefined}">' +
+            template: ' <div class="inside" v-if="item" :class="{\'with-region\' : item.RegionName !== null && item.RegionName !== undefined}">' +
                 '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="BUSES_PLACEHOLDER" :placeholder="placeholder"/>' +
                 '<div class="express">' +
                 '{{item.Code}}' +
@@ -160,7 +160,7 @@ module.exports = class busModule extends formModuleBase {
                         //Update typeahead
                         var el = comp.$el;
                         var selector = comp.inputClass;
-                        $(el).find('.' + selector).typeahead('val', '');
+                        $(el).find('.' + selector).typeahead('val', '').focus();
                     });
                 },
                 checkItem: function (event) {
@@ -353,7 +353,7 @@ module.exports = class busModule extends formModuleBase {
         let dw = new dataWork(form, it);
 
         //При переходе по истории пассажиры приходят не как объекты, а как кол-во
-        if(typeof(it._o.buses.ticketCount) !== 'undefined') {
+        if (typeof(it._o.buses.ticketCount) !== 'undefined') {
             it._o.buses.passenger.count = it._o.buses.ticketCount;
         }
 
@@ -430,12 +430,6 @@ module.exports = class busModule extends formModuleBase {
             }
         }).click(function () {
             $(this).select();
-        }).blur(function () {
-            $(this).closest('.field.focused').removeClass('focused');
-            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-            var item = $(this).closest('.field');
-            it.extra.closeField(item);
-            return false;
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 var field = $(this).closest('.field.station');

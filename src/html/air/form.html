@@ -15,7 +15,7 @@
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <airport-input name="from_iata"
@@ -31,7 +31,7 @@
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <airport-input name="to_iata"
@@ -191,7 +191,7 @@
                 <label class="menu-title">
                     <span class="link-left"></span>
                     {{locale("FROM")}}
-                    <span class="link-right"></span>
+                    <span class="link-right v-hide"></span>
                 </label>
                 <div class="control-field">
                     <airport-input :name="'from_iata'+(index+2)" v-model="route.aviFrom" input-class="book-from" :placeholder="locale('PLACEHOLDER_AIRPORT2')"></airport-input>
@@ -202,7 +202,7 @@
                 <label class="menu-title">
                     <span class="link-left"></span>
                     {{locale("TO")}}
-                    <span class="link-right"></span>
+                    <span class="link-right v-hide"></span>
                 </label>
                 <div class="control-field">
                     <airport-input :name="'to_iata'+(index+2)" v-model="route.aviTo" input-class="book-to" :placeholder="locale('PLACEHOLDER_AIRPORT2')"></airport-input>

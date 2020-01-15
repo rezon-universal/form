@@ -14,7 +14,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <buses-input name="CityIdFrom" input-class="book-from" v-model="buses.cityFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
@@ -26,7 +26,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <buses-input name="CityIdTo" input-class="book-to" v-model="buses.cityTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
@@ -65,7 +65,7 @@
                 <span class="link-right"></span>
             </label>
             <div class="control-field bus_pass">
-                <div class="pass_counter pass_counter-top">
+                <div class="pass_counter pass_counter-top" v-if="buses.passenger">
                     <div class="remove_pass" v-on:click="removeBusPassenger()"></div>
                     <div class="count_pass"><span>{{buses.passenger.count}}</span></div>
                     <div class="add_pass" v-on:click="addBusPassenger()"></div>

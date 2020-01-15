@@ -158,8 +158,10 @@
     display: none;
     position: relative;
 }
-#rezon-forms .link-left:before 
-{
+#rezon-forms .link-right.v-hide{
+    visibility: hidden;
+}
+#rezon-forms .link-left:before {
     background: none;
     border-bottom: 1px solid #fff;
     border-right: 1px solid #fff;
@@ -2742,11 +2744,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         height: 100%;
     }
-    #rezon-forms .fields-container .field.airport.opened .delete,
-    #rezon-forms .fields-container .field.station.opened .delete
-    {
-        display: none;
-    }
+
     #rezon-forms .tt-dropdown-menu,
     #rezon-forms .carriers-finder 
     {
@@ -3038,14 +3036,41 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .iata 
     {
-        right: 36px;
+        right: 4px;
         text-align: center;
         width: 33px;
     }
+
+    #rezon-forms .fields-container .field.opened .iata{
+        right: 35px;
+    }
+
     #rezon-forms .fields-container:not(.route) .from .iata 
     {
         bottom: 20px;
     }
+    #rezon-forms .fields-container .field.airport .delete,
+    #rezon-forms .fields-container .field.station .delete {
+        display: none;
+    }
+    #rezon-forms .fields-container .field.airport.opened .delete,
+    #rezon-forms .fields-container .field.station.opened .delete {
+        display: block;
+    }
+
+    
+    #rezon-forms .field.station .tt-input {
+        padding-right: 30px;
+    }
+    #rezon-forms .field.station .inside:before{
+        right: 30px;
+    }
+    #rezon-forms .field.airport.opened .tt-input,
+    #rezon-forms .field.station.opened .tt-input {
+        padding-right: 60px;
+    }
+
+
     #rezon-forms .fields-container:not(.route) .to .iata 
     {
         bottom: 6px;
@@ -3053,7 +3078,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms .swap 
     {
         margin-bottom: -17px;
-        margin-left: -74px;
+        margin-left: -44px;
         transform: rotate(90deg);
         -webkit-transform: rotate(90deg);
         z-index: 3;
@@ -3073,8 +3098,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         box-shadow: none;
         position: relative;
     }
-    #rezon-forms #railway-form-shoot .fields-container .field.range 
-    {
+    #rezon-forms #railway-form-shoot .fields-container .field.range {
         -webkit-flex-basis: 50%;
         flex-basis: 50%;
     }
@@ -3153,6 +3177,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         bottom: 0;
         padding: 50px 0 0 0;
     }
+
     #rezon-forms #hotel-form-shoot .option_guest,
     #rezon-forms #hotel-form-shoot .nationality_search .option
     {

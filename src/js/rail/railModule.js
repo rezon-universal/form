@@ -69,7 +69,7 @@ module.exports = class railModule extends formModuleBase {
                 '<div class="inside">' +
                 '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" data-localPlaceholder="RAILWAY_PLACEHOLDER" :placeholder="placeholder"/>' +
                 '<div v-if="item.Code != 0" class="express">' + '{{item.Code}}' + '</div>' +
-                '<span href="#" class="delete" :class="{\'no-visiblity\':item.CountryName==null}" v-on:click="clearItem()"></span>' +
+                '<span class="delete" :class="{\'no-visiblity\':item.CountryName==null}" v-on:click="clearItem()"></span>' +
                 '<input type="hidden" :name="name" v-model="item.Code"/>' +
                 '</div>',
             props: {
@@ -146,7 +146,7 @@ module.exports = class railModule extends formModuleBase {
                         //Update typeahead
                         var el = comp.$el;
                         var selector = comp.inputClass;
-                        $(el).find('.' + selector).typeahead('val', '');
+                        $(el).find('.' + selector).typeahead('val', '').focus();
                     });
                 },
                 checkItem: function (event) {
@@ -389,12 +389,6 @@ module.exports = class railModule extends formModuleBase {
             }
         }).click(function () {
             $(this).select();
-        }).blur(function () {
-            $(this).closest('.field.focused').removeClass('focused');
-            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-            var item = $(this).closest('.field');
-            it.extra.closeField(item);
-            return false;
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 var field = $(this).closest('.field.station');

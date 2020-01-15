@@ -204,7 +204,7 @@ module.exports = class airModule extends formModuleBase {
                         //Update typeahead
                         var el = comp.$el;
                         var selector = comp.inputClass;
-                        $(el).find('.' + selector).typeahead('val', '');
+                        $(el).find('.' + selector).typeahead('val', '').focus();
                         comp.bridgeClearMapPoint();
                     });
                 },
@@ -717,35 +717,6 @@ module.exports = class airModule extends formModuleBase {
                 }
             }).click(function () {
                 $(this).select();
-            }).blur(function () {
-                $(this).closest('.field.focused').removeClass('focused');
-                var item = $(this).closest('.field');
-                if ($.trim($(this).val()) == "") {
-                    $(this).trigger("typeahead:queryChanged");
-                } else {
-                    if(item.hasClass("has-error")) {
-                        item.removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
-                    }
-                }
-                it.extra.closeField(item);
-
-
-                if ($(this).val() !== "" && $(this).data("lastHist")) {
-                    var _this = $(this);
-                    var lastHint = $(this).data("lastHist");
-                    var iata = item.find(".inside input[type='hidden']");
-                    Vue.nextTick(function () {
-                        if ($.trim(iata.val()) === "" && lastHint) {
-                            //Обновляем последним запомненным только если клиент ничего не выбрал из выпадашки
-                            _this.trigger("typeahead:autocompleted", [lastHint]);
-                        }
-                    });
-                }
-                
-                if (it.extra.isInIframe()) {
-                    it.extra.recalculateHeightOnClose();
-                }
-                return false;
             }).on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
@@ -795,6 +766,26 @@ module.exports = class airModule extends formModuleBase {
                     it.extra.recalculateHeightOnClose();
                 }
                 var item = $(this).closest(".field");
+                if ($.trim($(this).val()) === "") {
+                    $(this).trigger("typeahead:queryChanged");
+                } else {
+                    if(item.hasClass("has-error")) {
+                        item.removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
+                    }
+                }
+
+                if ($(this).val() !== "" && $(this).data("lastHist")) {
+                    var _this = $(this);
+                    var lastHint = $(this).data("lastHist");
+                    var iata = item.find(".inside input[type='hidden']");
+                    Vue.nextTick(function () {
+                        if ($.trim(iata.val()) === "" && lastHint) {
+                            //Обновляем последним запомненным только если клиент ничего не выбрал из выпадашки
+                            _this.trigger("typeahead:autocompleted", [lastHint]);
+                        }
+                    });
+                }
+
                 it.extra.closeField(item);
             }).on("typeahead:queryChanged", function (it, query) {
 

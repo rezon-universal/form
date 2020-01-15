@@ -18,26 +18,24 @@
 <body>
     <div class="wings" id="rezon-forms">
         <div class="rez-forms container">
-            <form class="rezon-form unload buses-form" role="form" id="buses-form-shoot" autocomplete="off">
-    <input type="hidden" name="HistoryGuid" :value="buses.historyGuid"/>
-    <input type="hidden" name="hidIgnore" value="false" id="hidIgnore" />
-    <div class="row">
+            <form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off">
+    <div class="row hidden">
         <div class="direct radio-group">
             <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">
                 <span data-local="true" :data-localtext="type.text">{{locale(type.text)}}</span>
             </label>
-            <input type="radio" name="book_type" v-bind:value="buses.formType.value" checked/>
+            <input type="radio" name="IsRoundTrip" v-bind:value="buses.formType.value" checked/>
         </div>
     </div>
-    <div class="fields-container" v-bind:class="[buses.formType.value,{'extended':buses.formExtended}]">
-        <div class="field station from">
+    <div class="fields-container" v-bind:class="[buses.formType.value]">
+    <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
                 <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
-                <buses-input name="CityIdFrom" input-class="book-from" v-model="buses.cityFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
+                <buses-input name="LocationFromId" input-class="book-from" v-model="buses.LocationFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
                 <div class="error-box"></div>
             </div>
         </div>
@@ -49,11 +47,11 @@
                 <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
-                <buses-input name="CityIdTo" input-class="book-to" v-model="buses.cityTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
+                <buses-input name="LocationToId" input-class="book-to" v-model="buses.LocationTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
                 <div class="error-box"></div>
             </div>
         </div>
-        <div class="field date from">
+        <div class="field date from ">
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("THERE")}}
@@ -61,11 +59,11 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateThere" name="DateThere" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.Date" name="Date" input-class="book-date datepicker" :date-from="buses.Date" :date-to="buses.BackDate"></datepicker>
                 </div>
             </div>
         </div>
-        <div class="field date to">
+        <div class="field date to hidden">
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("BACK")}}
@@ -73,23 +71,8 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.dateBack" name="DateBack" input-class="book-date datepicker" :date-from="buses.dateThere" :date-to="buses.dateBack" v-if="buses.formType.value==='roundtrip'"></datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="buses.BackDate" name="BackDate" input-class="book-date datepicker" :date-from="buses.Date" :date-to="buses.BackDate"></datepicker>
                     <span class="roundtrip_click" v-on:click="busTypeChanged(1)">{{locale("BACK")}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="field pass">
-            <label class="menu-title">
-                <span class="link-left"></span>
-                {{locale("PASSENGERS")}}
-                <span class="link-right"></span>
-            </label>
-            <div class="control-field bus_pass">
-                <div class="pass_counter pass_counter-top" v-if="buses.passenger">
-                    <div class="remove_pass" v-on:click="removeBusPassenger()"></div>
-                    <div class="count_pass"><span>{{buses.passenger.count}}</span></div>
-                    <div class="add_pass" v-on:click="addBusPassenger()"></div>
-                    <input type="hidden" :name="buses.passenger.name" v-model="buses.passenger.count" />
                 </div>
             </div>
         </div>
@@ -112,7 +95,7 @@
 		    $("#rezon-forms").rezOnForm({
 				projectUrl: "https://test.rezonuniversal.com/",
 				defaultLang: "ru",
-				formType: "buses",
+				formType: "bus",
 				formTarget: "_blank"
 			});
 		});

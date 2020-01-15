@@ -13,7 +13,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <railway-input name="tshi_station_from" input-class="book-from" v-model="railway.stationFrom" :placeholder="locale('RAILWAY_PLACEHOLDER')"></railway-input>
@@ -25,7 +25,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <railway-input name="tshi_station_to" input-class="book-to" v-model="railway.stationTo" :placeholder="locale('RAILWAY_PLACEHOLDER')" input-class="book-from"></railway-input>

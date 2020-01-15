@@ -12,7 +12,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <buses-input name="LocationFromId" input-class="book-from" v-model="buses.LocationFrom" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>
@@ -24,7 +24,7 @@
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("TO")}}
-                <span class="link-right"></span>
+                <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
                 <buses-input name="LocationToId" input-class="book-to" v-model="buses.LocationTo" :placeholder="locale('BUSES_PLACEHOLDER')"></buses-input>

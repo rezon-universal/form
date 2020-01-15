@@ -146,7 +146,7 @@ module.exports = class busModule extends formModuleBase {
                         //Update typeahead
                         var el = comp.$el;
                         var selector = comp.inputClass;
-                        $(el).find('.' + selector).typeahead('val', '');
+                        $(el).find('.' + selector).typeahead('val', '').focus();
                     });
                 },
                 checkItem: function (event) {
@@ -425,12 +425,6 @@ module.exports = class busModule extends formModuleBase {
             }
         }).click(function () {
             $(this).select();
-        }).blur(function () {
-            $(this).closest('.field.focused').removeClass('focused');
-            if ($.trim($(this).val()) == "") $(this).trigger("typeahead:queryChanged");
-            var item = $(this).closest('.field');
-            it.extra.closeField(item);
-            return false;
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
                 var field = $(this).closest('.field.station');
