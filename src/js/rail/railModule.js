@@ -115,15 +115,17 @@ module.exports = class railModule extends formModuleBase {
             watch: {
                 value: {
                     handler: function (newValue) {
-                        this.item = newValue;
+                        if (this.item !== newValue) {
+                            this.item = newValue;
 
-                        var comp = this;
-                        Vue.nextTick(function () {
-                            //Update typeahead
-                            var el = comp.$el;
-                            var selector = comp.inputClass;
-                            $(el).find('.' + selector).typeahead('val', newValue.Name);
-                        });
+                            var comp = this;
+                            Vue.nextTick(function () {
+                                //Update typeahead
+                                var el = comp.$el;
+                                var selector = comp.inputClass;
+                                $(el).find('.' + selector).typeahead('val', newValue.Name);
+                            });
+                        }
                     },
                     deep: true
                 }
@@ -150,7 +152,7 @@ module.exports = class railModule extends formModuleBase {
                     });
                 },
                 checkItem: function (event) {
-                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
                         this.item.Code = '';
                         this.$emit('input', this.item);
                     }
@@ -387,6 +389,8 @@ module.exports = class railModule extends formModuleBase {
                 var fromStation = form.find("[name='tshi_station_from']").val();
                 $.trim(fromStation) !== "" && $(this).typeahead('query', "fromstation_" + fromStation);
             }
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
         }).click(function () {
             $(this).select();
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
@@ -427,6 +431,10 @@ module.exports = class railModule extends formModuleBase {
                 it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeight);
             }
         }).on("typeahead:dropup", function (its) {
+            
+            //Просто очистили поле ввода - схлопнулась выпадашка, но мы по прежнему в фокусе
+            if ($(this).is(":focus")) return;
+
             if (it.extra.isInIframe()) {
                 it.extra.recalculateHeightOnClose();
             }

@@ -286,7 +286,7 @@
 
 /* line 955, stdin */ #rezon-forms .twitter-typeahead:before { content: ''; display: block; left: -60px; width: 60px; opacity: 0; bottom: 0; height: 2px; background: #00b0ff; position: absolute; /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */ background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, #00b0ff), to(rgba(0, 0, 0, 0))); background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #00b0ff 50%, rgba(0, 0, 0, 0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
-/* line 971, stdin */ #rezon-forms .focused .twitter-typeahead.loading:before { -webkit-animation: slide 1s infinite; animation: slide 1s infinite; -webkit-animation-timing-function: linear; animation-timing-function: linear; z-index: 3; }
+/* line 971, stdin */ #rezon-forms .focused .twitter-typeahead.loading:before { -webkit-animation: slide 0.7s infinite; animation: slide 0.7s infinite; -webkit-animation-timing-function: inherit; animation-timing-function: inherit; z-index: 3; }
 
 @-webkit-keyframes slide { 0% { left: 0%;
     opacity: 0; }
@@ -300,655 +300,655 @@
   100% { left: 80%;
     opacity: 0; } }
 
-/* line 983, stdin */ #rezon-forms .twitter-typeahead .item-child { height: 100% !important; }
+/* line 982, stdin */ #rezon-forms .twitter-typeahead .item-child { height: 100% !important; }
 
-/* line 987, stdin */ #rezon-forms .twitter-typeahead .item-child-first { height: 50% !important; margin-top: -5px !important; }
+/* line 986, stdin */ #rezon-forms .twitter-typeahead .item-child-first { height: 50% !important; margin-top: -5px !important; }
 
-/* line 992, stdin */ #rezon-forms .twitter-typeahead .item-child, #rezon-forms .twitter-typeahead .item-child-first { border-left: 1px solid #a5a5a5; border-bottom: 1px solid #a5a5a5; bottom: 50%; float: left; height: 28px; margin-left: 2px; position: absolute; width: 10px; }
+/* line 991, stdin */ #rezon-forms .twitter-typeahead .item-child, #rezon-forms .twitter-typeahead .item-child-first { border-left: 1px solid #a5a5a5; border-bottom: 1px solid #a5a5a5; bottom: 50%; float: left; height: 28px; margin-left: 2px; position: absolute; width: 10px; }
 
-/* line 1004, stdin */ #rezon-forms .twitter-typeahead .item-text { margin-left: 18px; display: block; }
+/* line 1003, stdin */ #rezon-forms .twitter-typeahead .item-text { margin-left: 18px; display: block; }
 
-/* line 1009, stdin */ #rezon-forms .tt-dropdown-menu { background-color: #FFFFFF; border-radius: 0 0 2px 2px; -webkit-box-sizing: border-box; box-sizing: border-box; left: 0; min-height: 57px; right: 0; width: 100%; max-height: 255px; overflow-y: auto; }
+/* line 1008, stdin */ #rezon-forms .tt-dropdown-menu { background-color: #FFFFFF; border-radius: 0 0 2px 2px; -webkit-box-sizing: border-box; box-sizing: border-box; left: 0; min-height: 57px; right: 0; width: 100%; max-height: 255px; overflow-y: auto; }
 
-/* line 1021, stdin */ #railway-form-shoot .tt-dropdown-menu { border-color: #669900; }
+/* line 1020, stdin */ #railway-form-shoot .tt-dropdown-menu { border-color: #669900; }
 
-/* line 1026, stdin */ #rezon-forms .tt-suggestion { cursor: pointer; font-size: 14px; line-height: 30px; padding: 0 38px 0 15px; position: relative; }
+/* line 1025, stdin */ #rezon-forms .tt-suggestion { cursor: pointer; font-size: 14px; line-height: 30px; padding: 0 38px 0 15px; position: relative; }
 
-/* line 1034, stdin */ #rezon-forms .tt-suggestion > p { margin: 0; padding: 0; }
+/* line 1033, stdin */ #rezon-forms .tt-suggestion > p { margin: 0; padding: 0; }
 
-/* line 1039, stdin */ #rezon-forms .templ-message { font-size: 14px; padding: 3px 15px 3px 15px; }
+/* line 1038, stdin */ #rezon-forms .templ-message { font-size: 14px; padding: 3px 15px 3px 15px; }
 
-/* line 1044, stdin */ #rezon-forms .tt-suggestion.tt-cursor { background-color: #ffd900; color: #333; }
+/* line 1043, stdin */ #rezon-forms .tt-suggestion.tt-cursor { background-color: #ffd900; color: #333; }
 
-/* line 1053, stdin */ .bus-module #rezon-forms .station .location-region { bottom: 8px; left: 10px; position: absolute; right: 50px; z-index: 10; color: #a5b4bb; font-size: 9px; line-height: 10px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* line 1052, stdin */ .bus-module #rezon-forms .station .location-region { bottom: 8px; left: 10px; position: absolute; right: 50px; z-index: 10; color: #a5b4bb; font-size: 9px; line-height: 10px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* line 1069, stdin */ .bus-module #rezon-forms .station.to .location-region { left: 25px; right: 35px; }
+/* line 1068, stdin */ .bus-module #rezon-forms .station.to .location-region { left: 25px; right: 35px; }
 
-/* line 1074, stdin */ .bus-module #rezon-forms .tt-dropdown-menu { top: 104% !important; }
+/* line 1073, stdin */ .bus-module #rezon-forms .tt-dropdown-menu { top: 104% !important; }
 
-/* line 1077, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; padding: 9px 0; cursor: pointer; }
+/* line 1076, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; padding: 9px 0; cursor: pointer; }
 
-/* line 1083, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city:hover { background-color: #ffd900; color: #333; }
+/* line 1082, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city:hover { background-color: #ffd900; color: #333; }
 
-/* line 1088, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city-name { color: #666666; font-size: 13px; font-weight: 600; line-height: 100%; }
+/* line 1087, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city-name { color: #666666; font-size: 13px; font-weight: 600; line-height: 100%; }
 
-/* line 1095, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city-region { color: #a5b4bb; font-size: 9px; line-height: 10px; margin: 2px 0 0 0; }
+/* line 1094, stdin */ .bus-module #rezon-forms .tt-dropdown-menu .city-region { color: #a5b4bb; font-size: 9px; line-height: 10px; margin: 2px 0 0 0; }
 
-/* line 1103, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar-track { background-color: #D1D5DF; }
+/* line 1102, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar-track { background-color: #D1D5DF; }
 
-/* line 1107, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar { width: 12px; height: 12px; background-color: #D1D5DF; }
+/* line 1106, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar { width: 12px; height: 12px; background-color: #D1D5DF; }
 
-/* line 1113, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar-thumb { border: 1px solid #D1D5DF; border-radius: 3px; background-color: #fff; }
+/* line 1112, stdin */ .bus-module #rezon-forms .tt-dropdown-menu::-webkit-scrollbar-thumb { border: 1px solid #D1D5DF; border-radius: 3px; background-color: #fff; }
 
-/* line 1120, stdin */ .bus-module #rezon-forms .tt-suggestion.tt-cursor .city-region { color: #555; }
+/* line 1119, stdin */ .bus-module #rezon-forms .tt-suggestion.tt-cursor .city-region { color: #555; }
 
-/* line 1124, stdin */ .bus-module #rezon-forms .with-region .book-from, .bus-module #rezon-forms .with-region .book-to { padding-bottom: 8px; }
+/* line 1123, stdin */ .bus-module #rezon-forms .with-region .book-from, .bus-module #rezon-forms .with-region .book-to { padding-bottom: 8px; }
 
-/* line 1131, stdin */ #rezon-forms .tt-dropdown-menu .iata-code { font-family: "Oxygen Mono"; font-size: 11px; color: #90a4ae; letter-spacing: 0.1em; position: absolute; right: 10px; top: 0; }
+/* line 1130, stdin */ #rezon-forms .tt-dropdown-menu .iata-code { font-family: "Oxygen Mono"; font-size: 11px; color: #90a4ae; letter-spacing: 0.1em; position: absolute; right: 10px; top: 0; }
 
-/* line 1141, stdin */ #rezon-forms .tt-dropdown-menu .express-code { color: #CDCDCD; font-size: 9px; position: absolute; right: 10px; top: 6px; }
+/* line 1140, stdin */ #rezon-forms .tt-dropdown-menu .express-code { color: #CDCDCD; font-size: 9px; position: absolute; right: 10px; top: 6px; }
 
-/* line 1149, stdin */ #rezon-forms .tt-dropdown-menu span.country-separator { background: #f0f1f4; border-top: 1px solid #cdd2dc; color: #666666; display: block; font-size: 12px; line-height: 15px; padding: 0 19px 1px 10px; }
+/* line 1148, stdin */ #rezon-forms .tt-dropdown-menu span.country-separator { background: #f0f1f4; border-top: 1px solid #cdd2dc; color: #666666; display: block; font-size: 12px; line-height: 15px; padding: 0 19px 1px 10px; }
 
-/* line 1159, stdin */ #rezon-forms .typeahead-selectpicker { border: 1px solid #bdc6d7; border-radius: 4px; position: relative; clear: both; padding: 5px 10px; font-size: 14px; }
+/* line 1158, stdin */ #rezon-forms .typeahead-selectpicker { border: 1px solid #bdc6d7; border-radius: 4px; position: relative; clear: both; padding: 5px 10px; font-size: 14px; }
 
-/* line 1168, stdin */ #rezon-forms .typeahead-selectpicker-control { background: none; cursor: pointer; display: block; height: 40px; margin: 0; opacity: 0.4; position: absolute; right: 0; top: 0; width: 30px; z-index: 1; }
+/* line 1167, stdin */ #rezon-forms .typeahead-selectpicker-control { background: none; cursor: pointer; display: block; height: 40px; margin: 0; opacity: 0.4; position: absolute; right: 0; top: 0; width: 30px; z-index: 1; }
 
-/* line 1182, stdin */ #rezon-forms .field.airport .twitter-typeahead .typeahead-selectpicker-control { display: none; }
+/* line 1181, stdin */ #rezon-forms .field.airport .twitter-typeahead .typeahead-selectpicker-control { display: none; }
 
-/* line 1186, stdin */ #rezon-forms .typeahead-selectpicker-control.opened:before { background: none; border-bottom: 1px solid #546e7a; border-right: 1px solid #546e7a; content: ""; display: block; height: 15px; margin: 0; position: absolute; right: 15px; top: 16px; transform: rotate(-135deg); -webkit-transform: rotate(-135deg); width: 15px; }
+/* line 1185, stdin */ #rezon-forms .typeahead-selectpicker-control.opened:before { background: none; border-bottom: 1px solid #546e7a; border-right: 1px solid #546e7a; content: ""; display: block; height: 15px; margin: 0; position: absolute; right: 15px; top: 16px; transform: rotate(-135deg); -webkit-transform: rotate(-135deg); width: 15px; }
 
-/* line 1202, stdin */ #rezon-forms .typeahead-selectpicker-control.empty.opened:before { display: none; }
+/* line 1201, stdin */ #rezon-forms .typeahead-selectpicker-control.empty.opened:before { display: none; }
 
-/* line 1206, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:before, #rezon-forms .typeahead-selectpicker-control.empty:after { background: #546e7a; border: none; content: ""; display: block; height: 1px; left: -2px; position: absolute; width: 21px; top: 20px; opacity: 0.4; }
+/* line 1205, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:before, #rezon-forms .typeahead-selectpicker-control.empty:after { background: #546e7a; border: none; content: ""; display: block; height: 1px; left: -2px; position: absolute; width: 21px; top: 20px; opacity: 0.4; }
 
-/* line 1220, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:hover::before, #rezon-forms .typeahead-selectpicker-control.empty:hover::after { opacity: 1; }
+/* line 1219, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:hover::before, #rezon-forms .typeahead-selectpicker-control.empty:hover::after { opacity: 1; }
 
-/* line 1224, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:before { transform: rotate(45deg); -webkit-transform: rotate(45deg); }
+/* line 1223, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:before { transform: rotate(45deg); -webkit-transform: rotate(45deg); }
 
-/* line 1229, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:after { transform: rotate(-45deg); -webkit-transform: rotate(-45deg); }
+/* line 1228, stdin */ #rezon-forms .typeahead-selectpicker-control.empty:after { transform: rotate(-45deg); -webkit-transform: rotate(-45deg); }
 
-/* line 1234, stdin */ #rezon-forms .typeahead-selectpicker-control:hover, #rezon-forms .typeahead-selectpicker-control:active { opacity: 1; }
+/* line 1233, stdin */ #rezon-forms .typeahead-selectpicker-control:hover, #rezon-forms .typeahead-selectpicker-control:active { opacity: 1; }
 
 /* ---------- end twitter-typeahead ---------- */
 /*REDESING*/
-/* line 1243, stdin */ #rezon-forms .fields-container { display: -webkit-flex; -webkit-align-items: flex-end; -webkit-flex-wrap: wrap; -webkit-align-content: space-around; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; -ms-flex-wrap: wrap; flex-wrap: wrap; -ms-flex-line-pack: distribute; align-content: space-around; }
+/* line 1242, stdin */ #rezon-forms .fields-container { display: -webkit-flex; -webkit-align-items: flex-end; -webkit-flex-wrap: wrap; -webkit-align-content: space-around; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; -ms-flex-wrap: wrap; flex-wrap: wrap; -ms-flex-line-pack: distribute; align-content: space-around; }
 
-/* line 1257, stdin */ #rezon-forms .field { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; padding: 1px; margin-bottom: 10px; line-height: 16px; font-size: 14px; }
+/* line 1256, stdin */ #rezon-forms .field { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; padding: 1px; margin-bottom: 10px; line-height: 16px; font-size: 14px; }
 
-/* line 1267, stdin */ #rezon-forms .swap { background: #26b6ff; border-radius: 20px; -webkit-box-sizing: content-box; box-sizing: content-box; color: #fff; cursor: pointer; float: left; font-size: 19px; height: 33px; margin: 0 -16px 17px -17px; position: relative; text-align: center; text-decoration: none; white-space: nowrap; width: 33px; z-index: 2; -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; }
+/* line 1266, stdin */ #rezon-forms .swap { background: #26b6ff; border-radius: 20px; -webkit-box-sizing: content-box; box-sizing: content-box; color: #fff; cursor: pointer; float: left; font-size: 19px; height: 33px; margin: 0 -16px 17px -17px; position: relative; text-align: center; text-decoration: none; white-space: nowrap; width: 33px; z-index: 2; -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; }
 
-/* line 1291, stdin */ #rezon-forms .swap:before { background: #26b6ff; bottom: -4px; border-radius: 25px; content: ""; display: block; left: -4px; opacity: 0.5; position: absolute; right: -4px; top: -4px; }
+/* line 1290, stdin */ #rezon-forms .swap:before { background: #26b6ff; bottom: -4px; border-radius: 25px; content: ""; display: block; left: -4px; opacity: 0.5; position: absolute; right: -4px; top: -4px; }
 
-/* line 1304, stdin */ #rezon-forms .arrows { border-bottom: 1px solid #fff; border-top: 1px solid #fff; -webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5); box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5); margin: 11px auto 0; height: 9px; position: relative; width: 13px; }
+/* line 1303, stdin */ #rezon-forms .arrows { border-bottom: 1px solid #fff; border-top: 1px solid #fff; -webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5); box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5); margin: 11px auto 0; height: 9px; position: relative; width: 13px; }
 
-/* line 1314, stdin */ #rezon-forms .arrows:before, #rezon-forms .arrows:after { border-bottom: 1px solid white; border-right: 1px solid white; -webkit-box-shadow: inset -1px -1px 0 rgba(255, 255, 255, 0.5); box-shadow: inset -1px -1px 0 rgba(255, 255, 255, 0.5); content: ""; color: white; display: block; height: 6px; opacity: 1; position: absolute; width: 6px; }
+/* line 1313, stdin */ #rezon-forms .arrows:before, #rezon-forms .arrows:after { border-bottom: 1px solid white; border-right: 1px solid white; -webkit-box-shadow: inset -1px -1px 0 rgba(255, 255, 255, 0.5); box-shadow: inset -1px -1px 0 rgba(255, 255, 255, 0.5); content: ""; color: white; display: block; height: 6px; opacity: 1; position: absolute; width: 6px; }
 
-/* line 1328, stdin */ #rezon-forms .arrows:before { left: 0; top: -3px; transform: rotate(135deg); -webkit-transform: rotate(135deg); }
+/* line 1327, stdin */ #rezon-forms .arrows:before { left: 0; top: -3px; transform: rotate(135deg); -webkit-transform: rotate(135deg); }
 
-/* line 1335, stdin */ #rezon-forms .arrows:after { bottom: -3px; right: 0; transform: rotate(-45deg); -webkit-transform: rotate(-45deg); }
+/* line 1334, stdin */ #rezon-forms .arrows:after { bottom: -3px; right: 0; transform: rotate(-45deg); -webkit-transform: rotate(-45deg); }
 
-/* line 1342, stdin */ #rezon-forms .fields-container.route .swap { display: none; }
+/* line 1341, stdin */ #rezon-forms .fields-container.route .swap { display: none; }
 
-/* line 1346, stdin */ #rezon-forms .transp { background: rgba(255, 255, 255, 0.15); border-radius: 2px; color: white; cursor: pointer; display: block; height: 45px; line-height: 45px; padding: 0 3px; white-space: nowrap; }
+/* line 1345, stdin */ #rezon-forms .transp { background: rgba(255, 255, 255, 0.15); border-radius: 2px; color: white; cursor: pointer; display: block; height: 45px; line-height: 45px; padding: 0 3px; white-space: nowrap; }
 
-/* line 1358, stdin */ #rezon-forms .transp:hover { background: rgba(255, 255, 255, 0.3); }
+/* line 1357, stdin */ #rezon-forms .transp:hover { background: rgba(255, 255, 255, 0.3); }
 
-/* line 1362, stdin */ #rezon-forms .transp a span, #rezon-forms .transp a:hover span, #rezon-forms .transp a:visited span { color: #fff; }
+/* line 1361, stdin */ #rezon-forms .transp a span, #rezon-forms .transp a:hover span, #rezon-forms .transp a:visited span { color: #fff; }
 
-/* line 1369, stdin */ #rezon-forms .transp div span, #rezon-forms .transp .arrow { cursor: pointer; }
+/* line 1368, stdin */ #rezon-forms .transp div span, #rezon-forms .transp .arrow { cursor: pointer; }
 
-/* line 1374, stdin */ #rezon-forms .transp a span { border: none; display: block; }
+/* line 1373, stdin */ #rezon-forms .transp a span { border: none; display: block; }
 
-/* line 1379, stdin */ #rezon-forms .search { background: #ffd600; border: none; border-radius: 2px; color: #7c4900; font-weight: 600; font-size: 14px; height: 45px; line-height: 16px; padding: 6px 24px; text-shadow: 0 1px 0 #ffffff; width: 100%; }
+/* line 1378, stdin */ #rezon-forms .search { background: #ffd600; border: none; border-radius: 2px; color: #7c4900; font-weight: 600; font-size: 14px; height: 45px; line-height: 16px; padding: 6px 24px; text-shadow: 0 1px 0 #ffffff; width: 100%; }
 
-/* line 1393, stdin */ #rezon-forms .search:hover, #rezon-forms .search:focus { background: #ffb300; -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4); outline: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); }
+/* line 1392, stdin */ #rezon-forms .search:hover, #rezon-forms .search:focus { background: #ffb300; -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4); outline: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); }
 
-/* line 1401, stdin */ #rezon-forms .search:active { background: #ffff00; -webkit-box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4); }
+/* line 1400, stdin */ #rezon-forms .search:active { background: #ffff00; -webkit-box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4); }
 
-/* line 1406, stdin */ #rezon-forms .search.disabled #rezon-forms .search.disabled:hover, #rezon-forms .search:disabled, #rezon-forms .search:disabled:hover, #rezon-forms .search[disabled], #rezon-forms .search[disabled]:hover { background: #ffecb3; color: #a1887f; text-shadow: none; }
+/* line 1405, stdin */ #rezon-forms .search.disabled #rezon-forms .search.disabled:hover, #rezon-forms .search:disabled, #rezon-forms .search:disabled:hover, #rezon-forms .search[disabled], #rezon-forms .search[disabled]:hover { background: #ffecb3; color: #a1887f; text-shadow: none; }
 
-/* line 1417, stdin */ #rezon-forms .field .twitter-typeahead { height: 100%; }
+/* line 1416, stdin */ #rezon-forms .field .twitter-typeahead { height: 100%; }
 
-/* line 1421, stdin */ #rezon-forms .book-from, #rezon-forms .book-to { background: transparent; -webkit-box-sizing: border-box; box-sizing: border-box; font-size: 14px; font-weight: 600; height: 100%; padding: 0 60px 0 10px; width: 100%; }
+/* line 1420, stdin */ #rezon-forms .book-from, #rezon-forms .book-to { background: transparent; -webkit-box-sizing: border-box; box-sizing: border-box; font-size: 14px; font-weight: 600; height: 100%; padding: 0 60px 0 10px; width: 100%; }
 
-/* line 1432, stdin */ #rezon-forms .field.airport, #rezon-forms .field.station { -ms-flex-preferred-size: 25%; flex-basis: 25%; min-width: 240px; position: relative; }
+/* line 1431, stdin */ #rezon-forms .field.airport, #rezon-forms .field.station { -ms-flex-preferred-size: 25%; flex-basis: 25%; min-width: 240px; position: relative; }
 
-/* line 1440, stdin */ #rezon-forms .field.hide_s { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+/* line 1439, stdin */ #rezon-forms .field.hide_s { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
 
-/* line 1445, stdin */ #rezon-forms .field.extended-form { -ms-flex-preferred-size: 25%; flex-basis: 25%; display: none; }
+/* line 1444, stdin */ #rezon-forms .field.extended-form { -ms-flex-preferred-size: 25%; flex-basis: 25%; display: none; }
 
-/* line 1451, stdin */ #rezon-forms .field.hide_s .transp { display: inline-block; }
+/* line 1450, stdin */ #rezon-forms .field.hide_s .transp { display: inline-block; }
 
-/* line 1455, stdin */ #rezon-forms .field.date { -ms-flex-preferred-size: 10%; flex-basis: 10%; min-width: 80px; }
+/* line 1454, stdin */ #rezon-forms .field.date { -ms-flex-preferred-size: 10%; flex-basis: 10%; min-width: 80px; }
 
-/* line 1461, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
+/* line 1460, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
 
-/* line 1465, stdin */ #rezon-forms .oneway .field.date + .date .book-date, #rezon-forms .oneway.extended .field.time + .time { display: none; }
+/* line 1464, stdin */ #rezon-forms .oneway .field.date + .date .book-date, #rezon-forms .oneway.extended .field.time + .time { display: none; }
 
-/* line 1470, stdin */ #rezon-forms .oneway .field.date + .date .date-wrapper { text-align: center; }
+/* line 1469, stdin */ #rezon-forms .oneway .field.date + .date .date-wrapper { text-align: center; }
 
-/* line 1474, stdin */ #rezon-forms .field.date .roundtrip_click { display: none; }
+/* line 1473, stdin */ #rezon-forms .field.date .roundtrip_click { display: none; }
 
-/* line 1478, stdin */ #rezon-forms .oneway .field.date .roundtrip_click { display: block; line-height: 45px; text-align: center; cursor: pointer; font-size: 14px; }
+/* line 1477, stdin */ #rezon-forms .oneway .field.date .roundtrip_click { display: block; line-height: 45px; text-align: center; cursor: pointer; font-size: 14px; }
 
-/* line 1486, stdin */ #rezon-forms .field.pass { -webkit-flex-basis: 15%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 15%; flex-basis: 15%; min-width: 122px; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+/* line 1485, stdin */ #rezon-forms .field.pass { -webkit-flex-basis: 15%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 15%; flex-basis: 15%; min-width: 122px; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
 
-/* line 1495, stdin */ #rezon-forms .fields-container .pass:after { -webkit-flex-basis: 100%; -webkit-order: 1; -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 0px; height: 0px; overflow: hidden; -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; content: ""; display: table; background: blue; }
+/* line 1494, stdin */ #rezon-forms .fields-container .pass:after { -webkit-flex-basis: 100%; -webkit-order: 1; -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 0px; height: 0px; overflow: hidden; -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; content: ""; display: table; background: blue; }
 
-/* line 1509, stdin */ #rezon-forms .field.find { margin-left: auto; -webkit-flex-basis: 9%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; -ms-flex-preferred-size: 9%; flex-basis: 9%; }
+/* line 1508, stdin */ #rezon-forms .field.find { margin-left: auto; -webkit-flex-basis: 9%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; -ms-flex-preferred-size: 9%; flex-basis: 9%; }
 
-/* line 1517, stdin */ #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
+/* line 1516, stdin */ #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
 
-/* line 1521, stdin */ #rezon-forms .field .control-field { background: #fff; border-radius: 2px; min-height: 45px; position: relative; }
+/* line 1520, stdin */ #rezon-forms .field .control-field { background: #fff; border-radius: 2px; min-height: 45px; position: relative; }
 
-/* line 1528, stdin */ #rezon-forms .field .control-field .inside { height: 45px; position: relative; }
+/* line 1527, stdin */ #rezon-forms .field .control-field .inside { height: 45px; position: relative; }
 
-/* line 1533, stdin */ #rezon-forms .field.airport .inside:before, #rezon-forms .field.station .inside:before { content: ''; right: 60px; position: absolute; width: 20px; top: 0; bottom: 0; -webkit-box-shadow: inset -20px 0 10px -10px #fff; box-shadow: inset -20px 0 10px -10px #fff; z-index: 2; }
+/* line 1532, stdin */ #rezon-forms .field.airport .inside:before, #rezon-forms .field.station .inside:before { content: ''; right: 60px; position: absolute; width: 20px; top: 0; bottom: 0; -webkit-box-shadow: inset -20px 0 10px -10px #fff; box-shadow: inset -20px 0 10px -10px #fff; z-index: 2; }
 
-/* line 1545, stdin */ #rezon-forms .field.time { -ms-flex-preferred-size: 25%; flex-basis: 25%; max-width: 25%; }
+/* line 1544, stdin */ #rezon-forms .field.time { -ms-flex-preferred-size: 25%; flex-basis: 25%; max-width: 25%; }
 
-/* line 1551, stdin */ #rezon-forms .field .selected-value { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; padding-right: 25px; }
+/* line 1550, stdin */ #rezon-forms .field .selected-value { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; padding-right: 25px; }
 
-/* line 1558, stdin */ #rezon-forms .field .book-time span { font-size: 14px; border: none; margin: 0; }
+/* line 1557, stdin */ #rezon-forms .field .book-time span { font-size: 14px; border: none; margin: 0; }
 
-/* line 1564, stdin */ #rezon-forms .field .book-time .options_from-time .option, #rezon-forms .field .book-time-to .option { padding: 0; }
+/* line 1563, stdin */ #rezon-forms .field .book-time .options_from-time .option, #rezon-forms .field .book-time-to .option { padding: 0; }
 
-/* line 1568, stdin */ #rezon-forms .field .book-time .options_from-time span, #rezon-forms .field .book-time-to span { width: 100%; height: 100%; display: block; padding: 0 12px; }
+/* line 1567, stdin */ #rezon-forms .field .book-time .options_from-time span, #rezon-forms .field .book-time-to span { width: 100%; height: 100%; display: block; padding: 0 12px; }
 
-/* line 1575, stdin */ #rezon-forms .field.class { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
+/* line 1574, stdin */ #rezon-forms .field.class { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
 
-/* line 1580, stdin */ #rezon-forms .field.carrier { -ms-flex-preferred-size: 25%; flex-basis: 25%; max-width: 25%; }
+/* line 1579, stdin */ #rezon-forms .field.carrier { -ms-flex-preferred-size: 25%; flex-basis: 25%; max-width: 25%; }
 
-/* line 1586, stdin */ #rezon-forms .field.carrier .inside { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 25px 0 10px; }
+/* line 1585, stdin */ #rezon-forms .field.carrier .inside { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 25px 0 10px; }
 
-/* line 1593, stdin */ #rezon-forms .field.carrier .carriers { border: none; font-size: 14px; line-height: 16px; }
+/* line 1592, stdin */ #rezon-forms .field.carrier .carriers { border: none; font-size: 14px; line-height: 16px; }
 
-/* line 1599, stdin */ #rezon-forms .field.hide_s, #rezon-forms .field.clear { height: 100%; }
+/* line 1598, stdin */ #rezon-forms .field.hide_s, #rezon-forms .field.clear { height: 100%; }
 
-/* line 1603, stdin */ #rezon-forms .extended .field.hide_s .advanced_search, #rezon-forms .field.hide_s .simple_search { display: none; }
+/* line 1602, stdin */ #rezon-forms .extended .field.hide_s .advanced_search, #rezon-forms .field.hide_s .simple_search { display: none; }
 
-/* line 1608, stdin */ #rezon-forms .extended .field.hide_s .simple_search { display: inline-block; line-height: 120%; }
+/* line 1607, stdin */ #rezon-forms .extended .field.hide_s .simple_search { display: inline-block; line-height: 120%; }
 
-/* line 1613, stdin */ #rezon-forms :not(.extended) .advanced_search { display: inline-block; }
+/* line 1612, stdin */ #rezon-forms :not(.extended) .advanced_search { display: inline-block; }
 
-/* line 1617, stdin */ #rezon-forms .hide_settings div { position: relative; padding-right: 20px; }
+/* line 1616, stdin */ #rezon-forms .hide_settings div { position: relative; padding-right: 20px; }
 
-/* line 1622, stdin */ #rezon-forms .hide_settings div:before { border-bottom: 1px solid white; border-right: 1px solid white; content: ""; color: white; display: block; height: 11px; right: 0; opacity: 0.4; position: absolute; top: 14px; transform: rotate(45deg); -webkit-transform: rotate(45deg); width: 11px; }
+/* line 1621, stdin */ #rezon-forms .hide_settings div:before { border-bottom: 1px solid white; border-right: 1px solid white; content: ""; color: white; display: block; height: 11px; right: 0; opacity: 0.4; position: absolute; top: 14px; transform: rotate(45deg); -webkit-transform: rotate(45deg); width: 11px; }
 
-/* line 1638, stdin */ #rezon-forms .hide_settings:hover div:before { opacity: 1; }
+/* line 1637, stdin */ #rezon-forms .hide_settings:hover div:before { opacity: 1; }
 
-/* line 1642, stdin */ #rezon-forms .extended .hide_settings div:before { top: 6px; transform: rotate(-135deg); -webkit-transform: rotate(-135deg); }
+/* line 1641, stdin */ #rezon-forms .extended .hide_settings div:before { top: 6px; transform: rotate(-135deg); -webkit-transform: rotate(-135deg); }
 
-/* line 1648, stdin */ #rezon-forms .direct { border-radius: 2px; display: table; margin: 0 auto 12px; border: 1px solid rgba(255, 255, 255, 0.4); }
+/* line 1647, stdin */ #rezon-forms .direct { border-radius: 2px; display: table; margin: 0 auto 12px; border: 1px solid rgba(255, 255, 255, 0.4); }
 
-/* line 1655, stdin */ #rezon-forms .clear_form { display: block; text-align: center; }
+/* line 1654, stdin */ #rezon-forms .clear_form { display: block; text-align: center; }
 
 /*Extended search*/
-/* line 1662, stdin */ #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.extended .field.range, #rezon-forms .fields-container.extended .field.time, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.clear { display: block; }
+/* line 1661, stdin */ #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.extended .field.range, #rezon-forms .fields-container.extended .field.time, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.clear { display: block; }
 
-/* line 1671, stdin */ #rezon-forms .fields-container .field.carrier, #rezon-forms .fields-container .field.class, #rezon-forms .fields-container .field.range, #rezon-forms .fields-container .field.time, #rezon-forms .fields-container .field.only-direct, #rezon-forms .fields-container .field.clear { display: none; }
+/* line 1670, stdin */ #rezon-forms .fields-container .field.carrier, #rezon-forms .fields-container .field.class, #rezon-forms .fields-container .field.range, #rezon-forms .fields-container .field.time, #rezon-forms .fields-container .field.only-direct, #rezon-forms .fields-container .field.clear { display: none; }
 
-/* line 1680, stdin */ #rezon-forms .fields-container.extended .field.date + .date { margin-right: 20%; }
+/* line 1679, stdin */ #rezon-forms .fields-container.extended .field.date + .date { margin-right: 20%; }
 
-/* line 1684, stdin */ #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 25%; -webkit-order: 4; -webkit-flex-grow: 0; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
+/* line 1683, stdin */ #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 25%; -webkit-order: 4; -webkit-flex-grow: 0; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
 
-/* line 1696, stdin */ #rezon-forms .fields-container.extended.route .field.range { display: none; }
+/* line 1695, stdin */ #rezon-forms .fields-container.extended.route .field.range { display: none; }
 
-/* line 1700, stdin */ #rezon-forms .fields-container.extended .field.time + .time { -webkit-flex-basis: 25%; margin-right: 40%; -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+/* line 1699, stdin */ #rezon-forms .fields-container.extended .field.time + .time { -webkit-flex-basis: 25%; margin-right: 40%; -ms-flex-preferred-size: 25%; flex-basis: 25%; }
 
-/* line 1708, stdin */ #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s { -webkit-order: 4; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+/* line 1707, stdin */ #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.hide_s { -webkit-order: 4; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
 
-/* line 1718, stdin */ #rezon-forms .fields-container.extended .field.extended-form { -webkit-order: 4; -webkit-flex-grow: 0; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
+/* line 1717, stdin */ #rezon-forms .fields-container.extended .field.extended-form { -webkit-order: 4; -webkit-flex-grow: 0; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
 
-/* line 1726, stdin */ #rezon-forms .fields-container.extended .field.clear { -webkit-flex-basis: 15%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 15%; flex-basis: 15%; }
+/* line 1725, stdin */ #rezon-forms .fields-container.extended .field.clear { -webkit-flex-basis: 15%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 15%; flex-basis: 15%; }
 
-/* line 1734, stdin */ #rezon-forms .fields-container.extended .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
+/* line 1733, stdin */ #rezon-forms .fields-container.extended .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
 
 /* ---------- ! ---------- */
 /* ---------- multy-route ---------- */
-/* line 1743, stdin */ #rezon-forms .fields-container.route .multy-route { display: -webkit-inline-flex; -webkit-align-items: flex-end; -webkit-flex-wrap: wrap; display: -webkit-inline-box; display: -ms-inline-flexbox; display: inline-flex; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; -ms-flex-wrap: wrap; flex-wrap: wrap; width: 100%; margin-top: 15px; }
+/* line 1742, stdin */ #rezon-forms .fields-container.route .multy-route { display: -webkit-inline-flex; -webkit-align-items: flex-end; -webkit-flex-wrap: wrap; display: -webkit-inline-box; display: -ms-inline-flexbox; display: inline-flex; -webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; -ms-flex-wrap: wrap; flex-wrap: wrap; width: 100%; margin-top: 15px; }
 
-/* line 1755, stdin */ #rezon-forms .route .add_segment { -ms-flex-preferred-size: 15%; flex-basis: 15%; cursor: pointer; }
+/* line 1754, stdin */ #rezon-forms .route .add_segment { -ms-flex-preferred-size: 15%; flex-basis: 15%; cursor: pointer; }
 
-/* line 1762, stdin */ #rezon-forms .route .multy-route .add_segment { -webkit-flex-basis: 100%; display: block; -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+/* line 1761, stdin */ #rezon-forms .route .multy-route .add_segment { -webkit-flex-basis: 100%; display: block; -ms-flex-preferred-size: 100%; flex-basis: 100%; }
 
-/* line 1769, stdin */ #rezon-forms .fields-container.route .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
+/* line 1768, stdin */ #rezon-forms .fields-container.route .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
 
-/* line 1774, stdin */ #rezon-forms .fields-container.route .field.pass { -webkit-order: 4; -webkit-flex-grow: 0; -webkit-flex-basis: 20%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; -ms-flex-preferred-size: 20%; flex-basis: 20%; }
+/* line 1773, stdin */ #rezon-forms .fields-container.route .field.pass { -webkit-order: 4; -webkit-flex-grow: 0; -webkit-flex-basis: 20%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; -ms-flex-preferred-size: 20%; flex-basis: 20%; }
 
-/* line 1784, stdin */ #rezon-forms .fields-container.route.extended .field.pass { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+/* line 1783, stdin */ #rezon-forms .fields-container.route.extended .field.pass { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
 
-/* line 1789, stdin */ #rezon-forms .fields-container.route .hide_s, #rezon-forms .fields-container.route .extended-form { -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; }
+/* line 1788, stdin */ #rezon-forms .fields-container.route .hide_s, #rezon-forms .fields-container.route .extended-form { -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; }
 
-/* line 1795, stdin */ #rezon-forms .fields-container.route .time + .time, #rezon-forms .fields-container.route .date + .date, #rezon-forms .fields-container .multy-route { display: none; }
+/* line 1794, stdin */ #rezon-forms .fields-container.route .time + .time, #rezon-forms .fields-container.route .date + .date, #rezon-forms .fields-container .multy-route { display: none; }
 
-/* line 1801, stdin */ #rezon-forms .fields-container .multy-route.last .delete-leg { -webkit-flex-basis: 10%; -webkit-flex-grow: 1; display: block; -ms-flex-preferred-size: 10%; flex-basis: 10%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; text-align: center; }
+/* line 1800, stdin */ #rezon-forms .fields-container .multy-route.last .delete-leg { -webkit-flex-basis: 10%; -webkit-flex-grow: 1; display: block; -ms-flex-preferred-size: 10%; flex-basis: 10%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; text-align: center; }
 
-/* line 1811, stdin */ #rezon-forms .pass .pass_types { padding: 15px 0; }
+/* line 1810, stdin */ #rezon-forms .pass .pass_types { padding: 15px 0; }
 
-/* line 1815, stdin */ #rezon-forms .pass .pass_type { padding: 10px 20px; }
+/* line 1814, stdin */ #rezon-forms .pass .pass_type { padding: 10px 20px; }
 
-/* line 1819, stdin */ #rezon-forms .pass .pass_counter { margin: -4px 0 0 0; text-align: center; }
+/* line 1818, stdin */ #rezon-forms .pass .pass_counter { margin: -4px 0 0 0; text-align: center; }
 
-/* line 1824, stdin */ #rezon-forms .pass_counter-top { margin: 0 !important; }
+/* line 1823, stdin */ #rezon-forms .pass_counter-top { margin: 0 !important; }
 
-/* line 1827, stdin */ #rezon-forms .pass .pass_inf { margin: 0 155px 0 0; white-space: nowrap; }
+/* line 1826, stdin */ #rezon-forms .pass .pass_inf { margin: 0 155px 0 0; white-space: nowrap; }
 
-/* line 1832, stdin */ #rezon-forms .pass .remove_pass, #rezon-forms .pass .add_pass { background: #eceff1; border-radius: 2px; cursor: pointer; float: left; height: 45px; position: relative; width: 70px; -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; }
+/* line 1831, stdin */ #rezon-forms .pass .remove_pass, #rezon-forms .pass .add_pass { background: #eceff1; border-radius: 2px; cursor: pointer; float: left; height: 45px; position: relative; width: 70px; -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; }
 
-/* line 1850, stdin */ #rezon-forms .pass .bus_pass .remove_pass, #rezon-forms .pass .bus_pass .add_pass { width: 50%; float: none; }
+/* line 1849, stdin */ #rezon-forms .pass .bus_pass .remove_pass, #rezon-forms .pass .bus_pass .add_pass { width: 50%; float: none; }
 
-/* line 1855, stdin */ #rezon-forms .bus_pass .pass_counter { display: -webkit-box; display: -ms-flexbox; display: flex; }
+/* line 1854, stdin */ #rezon-forms .bus_pass .pass_counter { display: -webkit-box; display: -ms-flexbox; display: flex; }
 
-/* line 1858, stdin */ #rezon-forms .pass .bus_pass .count_pass { border-radius: 50%; float: none; top: 5px; width: 42px; height: 42px; }
+/* line 1857, stdin */ #rezon-forms .pass .bus_pass .count_pass { border-radius: 50%; float: none; top: 5px; width: 42px; height: 42px; }
 
-/* line 1865, stdin */ #rezon-forms .pass .remove_pass:hover, #rezon-forms .pass .add_pass:hover { background: #b2e7ff; }
+/* line 1864, stdin */ #rezon-forms .pass .remove_pass:hover, #rezon-forms .pass .add_pass:hover { background: #b2e7ff; }
 
-/* line 1870, stdin */ #rezon-forms .pass .remove_pass:before, #rezon-forms .pass .add_pass:before, #rezon-forms .pass .add_pass:after { background: #546e7a; -webkit-box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5); box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5); content: ""; display: block; height: 1px; position: absolute; width: 15px; top: 49%; }
+/* line 1869, stdin */ #rezon-forms .pass .remove_pass:before, #rezon-forms .pass .add_pass:before, #rezon-forms .pass .add_pass:after { background: #546e7a; -webkit-box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5); box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5); content: ""; display: block; height: 1px; position: absolute; width: 15px; top: 49%; }
 
-/* line 1883, stdin */ #rezon-forms .pass .remove_pass:before { left: 16px; }
+/* line 1882, stdin */ #rezon-forms .pass .remove_pass:before { left: 16px; }
 
-/* line 1887, stdin */ #rezon-forms .pass .add_pass:before, #rezon-forms .pass .add_pass:after { right: 16px; }
+/* line 1886, stdin */ #rezon-forms .pass .add_pass:before, #rezon-forms .pass .add_pass:after { right: 16px; }
 
-/* line 1892, stdin */ #rezon-forms .pass .add_pass:after { transform: rotate(-90deg); -webkit-transform: rotate(-90deg); }
+/* line 1891, stdin */ #rezon-forms .pass .add_pass:after { transform: rotate(-90deg); -webkit-transform: rotate(-90deg); }
 
-/* line 1897, stdin */ #rezon-forms .pass .count_pass { border-radius: 30px; border-color: #00b0ff; background: #b0bec5; color: white; float: left; line-height: 42px; margin: -3px -21px; position: relative; top: 4px; text-align: center; width: 42px; z-index: 1; }
+/* line 1896, stdin */ #rezon-forms .pass .count_pass { border-radius: 30px; border-color: #00b0ff; background: #b0bec5; color: white; float: left; line-height: 42px; margin: -3px -21px; position: relative; top: 4px; text-align: center; width: 42px; z-index: 1; }
 
-/* line 1912, stdin */ #rezon-forms .pass .pass_counter:hover .count_pass, #rezon-forms .pass .active .count_pass { background: #00b0ff; }
+/* line 1911, stdin */ #rezon-forms .pass .pass_counter:hover .count_pass, #rezon-forms .pass .active .count_pass { background: #00b0ff; }
 
-/* line 1917, stdin */ #rezon-forms .carrier .carriers-finder { background: white; width: 100%; }
+/* line 1916, stdin */ #rezon-forms .carrier .carriers-finder { background: white; width: 100%; }
 
-/* line 1922, stdin */ #rezon-forms .carrier .carrier_name { display: block; border-bottom: 1px solid #cfd8dc; font-size: 14px; line-height: 45px; margin: 0; padding: 0 10px; position: relative; }
+/* line 1921, stdin */ #rezon-forms .carrier .carrier_name { display: block; border-bottom: 1px solid #cfd8dc; font-size: 14px; line-height: 45px; margin: 0; padding: 0 10px; position: relative; }
 
-/* line 1932, stdin */ #rezon-forms .carrier .carrier_name .removes { color: #99dfff; font-size: 32px; }
+/* line 1931, stdin */ #rezon-forms .carrier .carrier_name .removes { color: #99dfff; font-size: 32px; }
 
-/* line 1937, stdin */ #rezon-forms .carrier .twitter-typeahead { height: 40px; }
+/* line 1936, stdin */ #rezon-forms .carrier .twitter-typeahead { height: 40px; }
 
-/* line 1941, stdin */ #rezon-forms .carrier .tt-input { height: 40px; line-height: 40px; border: none; font-size: 14px; }
+/* line 1940, stdin */ #rezon-forms .carrier .tt-input { height: 40px; line-height: 40px; border: none; font-size: 14px; }
 
-/* line 1948, stdin */ #rezon-forms .carrier .tt-dropdown-menu { border: none; height: 300px; font-size: 14px; line-height: 40px; }
+/* line 1947, stdin */ #rezon-forms .carrier .tt-dropdown-menu { border: none; height: 300px; font-size: 14px; line-height: 40px; }
 
 /* --------- start vdp-datepicker ---------- */
-/* line 1958, stdin */ #rezon-forms .rtl { direction: rtl; }
+/* line 1957, stdin */ #rezon-forms .rtl { direction: rtl; }
 
-/* line 1962, stdin */ #rezon-forms .vdp-datepicker { position: relative; text-align: left; }
+/* line 1961, stdin */ #rezon-forms .vdp-datepicker { position: relative; text-align: left; }
 
-/* line 1967, stdin */ #rezon-forms .vdp-datepicker * { -webkit-box-sizing: border-box; box-sizing: border-box; }
+/* line 1966, stdin */ #rezon-forms .vdp-datepicker * { -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-/* line 1971, stdin */ #rezon-forms .vdp-datepicker__calendar { background: #fff; border-radius: 2px; position: absolute; width: 300px; z-index: 100; }
+/* line 1970, stdin */ #rezon-forms .vdp-datepicker__calendar { background: #fff; border-radius: 2px; position: absolute; width: 300px; z-index: 100; }
 
-/* line 1979, stdin */ #rezon-forms .vdp-datepicker__calendar header { display: block; line-height: 45px; }
+/* line 1978, stdin */ #rezon-forms .vdp-datepicker__calendar header { display: block; line-height: 45px; }
 
-/* line 1984, stdin */ #rezon-forms .vdp-datepicker__calendar .up, #rezon-forms .vdp-datepicker__calendar .current { margin: 0 50px; text-align: center; }
+/* line 1983, stdin */ #rezon-forms .vdp-datepicker__calendar .up, #rezon-forms .vdp-datepicker__calendar .current { margin: 0 50px; text-align: center; }
 
-/* line 1990, stdin */ #rezon-forms .vdp-datepicker__calendar .prev, #rezon-forms .vdp-datepicker__calendar .next { position: relative; text-indent: -10000px; width: 50px; }
+/* line 1989, stdin */ #rezon-forms .vdp-datepicker__calendar .prev, #rezon-forms .vdp-datepicker__calendar .next { position: relative; text-indent: -10000px; width: 50px; }
 
-/* line 1997, stdin */ #rezon-forms .vdp-datepicker__calendar .prev { float: left; }
+/* line 1996, stdin */ #rezon-forms .vdp-datepicker__calendar .prev { float: left; }
 
-/* line 2001, stdin */ #rezon-forms .vdp-datepicker__calendar .next { float: right; }
+/* line 2000, stdin */ #rezon-forms .vdp-datepicker__calendar .next { float: right; }
 
-/* line 2005, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:after, #rezon-forms .vdp-datepicker__calendar .next:after { content: ''; height: 15px; position: absolute; left: 50%; top: 30%; transform: rotate(45deg); -webkit-transform: rotate(45deg); width: 15px; }
+/* line 2004, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:after, #rezon-forms .vdp-datepicker__calendar .next:after { content: ''; height: 15px; position: absolute; left: 50%; top: 30%; transform: rotate(45deg); -webkit-transform: rotate(45deg); width: 15px; }
 
-/* line 2017, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:after { border-left: 1px solid #26b6ff; border-bottom: 1px solid #26b6ff; margin-left: -2px; }
+/* line 2016, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:after { border-left: 1px solid #26b6ff; border-bottom: 1px solid #26b6ff; margin-left: -2px; }
 
-/* line 2023, stdin */ #rezon-forms .vdp-datepicker__calendar .prev.disabled:after { border-left: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+/* line 2022, stdin */ #rezon-forms .vdp-datepicker__calendar .prev.disabled:after { border-left: 1px solid #ddd; border-bottom: 1px solid #ddd; }
 
-/* line 2028, stdin */ #rezon-forms .vdp-datepicker__calendar .next:after { border-top: 1px solid #26b6ff; border-right: 1px solid #26b6ff; margin-left: -13px; }
+/* line 2027, stdin */ #rezon-forms .vdp-datepicker__calendar .next:after { border-top: 1px solid #26b6ff; border-right: 1px solid #26b6ff; margin-left: -13px; }
 
-/* line 2034, stdin */ #rezon-forms .vdp-datepicker__calendar .next.disabled:after { border-top: 1px solid #ddd; border-right: 1px solid #ddd; }
+/* line 2033, stdin */ #rezon-forms .vdp-datepicker__calendar .next.disabled:after { border-top: 1px solid #ddd; border-right: 1px solid #ddd; }
 
-/* line 2039, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:not(.disabled), #rezon-forms .vdp-datepicker__calendar .next:not(.disabled), #rezon-forms .vdp-datepicker__calendar .up:not(.disabled) { cursor: pointer; }
+/* line 2038, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:not(.disabled), #rezon-forms .vdp-datepicker__calendar .next:not(.disabled), #rezon-forms .vdp-datepicker__calendar .up:not(.disabled) { cursor: pointer; }
 
-/* line 2045, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:not(.disabled):hover, #rezon-forms .vdp-datepicker__calendar .next:not(.disabled):hover, #rezon-forms .vdp-datepicker__calendar .up:not(.disabled):hover { background: #eee; }
+/* line 2044, stdin */ #rezon-forms .vdp-datepicker__calendar .prev:not(.disabled):hover, #rezon-forms .vdp-datepicker__calendar .next:not(.disabled):hover, #rezon-forms .vdp-datepicker__calendar .up:not(.disabled):hover { background: #eee; }
 
-/* line 2051, stdin */ #rezon-forms .vdp-datepicker__calendar .up span { border-bottom: 1px dashed rgba(0, 0, 0, 0.4); }
+/* line 2050, stdin */ #rezon-forms .vdp-datepicker__calendar .up span { border-bottom: 1px dashed rgba(0, 0, 0, 0.4); }
 
-/* line 2055, stdin */ #rezon-forms .vdp-datepicker__calendar .disabled { color: #ddd; cursor: default; }
+/* line 2054, stdin */ #rezon-forms .vdp-datepicker__calendar .disabled { color: #ddd; cursor: default; }
 
-/* line 2060, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.selected.disabled, #rezon-forms .vdp-datepicker__calendar .cell.selected.disabled:hover { background: #fff; color: #ddd; border: 1px solid #ddd; }
+/* line 2059, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.selected.disabled, #rezon-forms .vdp-datepicker__calendar .cell.selected.disabled:hover { background: #fff; color: #ddd; border: 1px solid #ddd; }
 
-/* line 2067, stdin */ #rezon-forms .vdp-datepicker__calendar .flex-rtl { display: -webkit-flex; -webkit-flex-wrap: wrap; display: -webkit-box; display: -ms-flexbox; display: flex; width: inherit; -ms-flex-wrap: wrap; flex-wrap: wrap; }
+/* line 2066, stdin */ #rezon-forms .vdp-datepicker__calendar .flex-rtl { display: -webkit-flex; -webkit-flex-wrap: wrap; display: -webkit-box; display: -ms-flexbox; display: flex; width: inherit; -ms-flex-wrap: wrap; flex-wrap: wrap; }
 
-/* line 2076, stdin */ #rezon-forms .vdp-datepicker__calendar .cell { display: inline-block; width: 14.285714285714286%; height: 40px; line-height: 40px; text-align: center; vertical-align: middle; margin: 1px 0; }
+/* line 2075, stdin */ #rezon-forms .vdp-datepicker__calendar .cell { display: inline-block; width: 14.285714285714286%; height: 40px; line-height: 40px; text-align: center; vertical-align: middle; margin: 1px 0; }
 
-/* line 2086, stdin */ #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year { cursor: pointer; }
+/* line 2085, stdin */ #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year { cursor: pointer; }
 
-/* line 2092, stdin */ #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover { background: rgba(38, 182, 255, 0.5); }
+/* line 2091, stdin */ #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover, #rezon-forms .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover { background: rgba(38, 182, 255, 0.5); }
 
-/* line 2098, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.selected, #rezon-forms .vdp-datepicker__calendar .cell.selected:hover, #rezon-forms .vdp-datepicker__calendar .cell.selected.highlighted { background: #26b6ff; color: white; }
+/* line 2097, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.selected, #rezon-forms .vdp-datepicker__calendar .cell.selected:hover, #rezon-forms .vdp-datepicker__calendar .cell.selected.highlighted { background: #26b6ff; color: white; }
 
-/* line 2105, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.highlighted { background: #e9ebf2; }
+/* line 2104, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.highlighted { background: #e9ebf2; }
 
-/* line 2109, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.grey { color: #888; }
+/* line 2108, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.grey { color: #888; }
 
-/* line 2113, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.grey:hover { background: inherit; }
+/* line 2112, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.grey:hover { background: inherit; }
 
-/* line 2117, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.day-header { color: #9e9e9e; cursor: inherit; font-size: 75%; white-space: nowrap; }
+/* line 2116, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.day-header { color: #9e9e9e; cursor: inherit; font-size: 75%; white-space: nowrap; }
 
-/* line 2124, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.day-header:hover { background: inherit; }
+/* line 2123, stdin */ #rezon-forms .vdp-datepicker__calendar .cell.day-header:hover { background: inherit; }
 
-/* line 2128, stdin */ #rezon-forms .vdp-datepicker__calendar .month, #rezon-forms .vdp-datepicker__calendar .year { width: 33.333%; }
+/* line 2127, stdin */ #rezon-forms .vdp-datepicker__calendar .month, #rezon-forms .vdp-datepicker__calendar .year { width: 33.333%; }
 
-/* line 2133, stdin */ #rezon-forms .vdp-datepicker__clear-button, #rezon-forms .vdp-datepicker__calendar-button { cursor: pointer; font-style: normal; }
+/* line 2132, stdin */ #rezon-forms .vdp-datepicker__clear-button, #rezon-forms .vdp-datepicker__calendar-button { cursor: pointer; font-style: normal; }
 
 /* ---------- end vdp-datepicker ---------- */
-/* line 2142, stdin */ #rezon-forms .tt-dropdown-menu, #rezon-forms .vdp-datepicker__calendar, #rezon-forms .select-age, #rezon-forms .selectpicker.opened .options, #rezon-forms .carriers-finder { -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); }
+/* line 2141, stdin */ #rezon-forms .tt-dropdown-menu, #rezon-forms .vdp-datepicker__calendar, #rezon-forms .select-age, #rezon-forms .selectpicker.opened .options, #rezon-forms .carriers-finder { -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); }
 
-/* line 2150, stdin */ #rezon-forms .server-label { font-weight: normal; left: 50%; margin: -14px 0 0 -50px; position: absolute; z-index: 1; }
+/* line 2149, stdin */ #rezon-forms .server-label { font-weight: normal; left: 50%; margin: -14px 0 0 -50px; position: absolute; z-index: 1; }
 
-/* line 2160, stdin */ #rezon-forms .hidden { display: none !important; }
+/* line 2159, stdin */ #rezon-forms .hidden { display: none !important; }
 
-/* line 2164, stdin */ #rezon-forms .pull-right { float: right !important; }
+/* line 2163, stdin */ #rezon-forms .pull-right { float: right !important; }
 
 /*--------------Modal Block--------------*/
-/* line 2171, stdin */ #rezon-forms .selectpicker .modal_block { background: #fff !important; -webkit-box-pack: start !important; -ms-flex-pack: start !important; justify-content: start !important; }
+/* line 2170, stdin */ #rezon-forms .selectpicker .modal_block { background: #fff !important; -webkit-box-pack: start !important; -ms-flex-pack: start !important; justify-content: start !important; }
 
-/* line 2175, stdin */ #rezon-forms .modal_block.z-100:after { content: ''; border-bottom: 1px solid #fff; position: fixed; top: 25px; width: 20px; right: 20px; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
+/* line 2174, stdin */ #rezon-forms .modal_block.z-100:after { content: ''; border-bottom: 1px solid #fff; position: fixed; top: 25px; width: 20px; right: 20px; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
 
-/* line 2184, stdin */ #rezon-forms .selectpicker .modal_block .option:before { content: ''; border-bottom: 1px solid #fff; position: fixed; top: 25px; width: 20px; right: 20px; -webkit-transform: rotate(-45deg); transform: rotate(-45deg); opacity: 0.5; }
+/* line 2183, stdin */ #rezon-forms .selectpicker .modal_block .option:before { content: ''; border-bottom: 1px solid #fff; position: fixed; top: 25px; width: 20px; right: 20px; -webkit-transform: rotate(-45deg); transform: rotate(-45deg); opacity: 0.5; }
 
 /************************Bus***********************/
-/* line 2198, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 32%; flex-basis: 32%; }
+/* line 2197, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 32%; flex-basis: 32%; }
 
-/* line 2201, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 13%; flex-basis: 13%; }
+/* line 2200, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 13%; flex-basis: 13%; }
 
-/* line 2204, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 10%; flex-basis: 10%; width: 10%; }
+/* line 2203, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 10%; flex-basis: 10%; width: 10%; }
 
-/* line 2210, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
+/* line 2209, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
 
-/* line 2213, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 16%; flex-basis: 16%; width: 16%; }
+/* line 2212, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 16%; flex-basis: 16%; width: 16%; }
 
 /************************End Bus***********************/
 /************************Hotels***********************/
-/* line 2222, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests { -ms-flex-preferred-size: 30%; flex-basis: 30%; }
+/* line 2221, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests { -ms-flex-preferred-size: 30%; flex-basis: 30%; }
 
-/* line 2225, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { background: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); -webkit-box-sizing: border-box; box-sizing: border-box; border-radius: 2px; left: 0; position: absolute; width: 100%; top: 102%; z-index: 1; }
+/* line 2224, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { background: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); -webkit-box-sizing: border-box; box-sizing: border-box; border-radius: 2px; left: 0; position: absolute; width: 100%; top: 102%; z-index: 1; }
 
-/* line 2237, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box .box_inside { padding: 30px; }
+/* line 2236, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box .box_inside { padding: 30px; }
 
-/* line 2241, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box.open { display: block; }
+/* line 2240, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box.open { display: block; }
 
-/* line 2244, stdin */ #rezon-forms #hotel-form-shoot .guest_flex { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
+/* line 2243, stdin */ #rezon-forms #hotel-form-shoot .guest_flex { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
 
-/* line 2248, stdin */ #rezon-forms #hotel-form-shoot .childs_flex { margin: 15px 0 0 0; }
+/* line 2247, stdin */ #rezon-forms #hotel-form-shoot .childs_flex { margin: 15px 0 0 0; }
 
-/* line 2251, stdin */ #rezon-forms #hotel-form-shoot .childs_block { -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; display: -webkit-box; display: -ms-flexbox; display: flex; margin: 0 -5px; }
+/* line 2250, stdin */ #rezon-forms #hotel-form-shoot .childs_block { -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; display: -webkit-box; display: -ms-flexbox; display: flex; margin: 0 -5px; }
 
-/* line 2257, stdin */ #rezon-forms #hotel-form-shoot .child_box { max-width: 50%; padding: 0 5px; width: 100%; }
+/* line 2256, stdin */ #rezon-forms #hotel-form-shoot .child_box { max-width: 50%; padding: 0 5px; width: 100%; }
 
-/* line 2263, stdin */ #rezon-forms #hotel-form-shoot .nationality_hotels { margin: 15px 0 0 0; }
+/* line 2262, stdin */ #rezon-forms #hotel-form-shoot .nationality_hotels { margin: 15px 0 0 0; }
 
-/* line 2267, stdin */ #rezon-forms #hotel-form-shoot .nationality_input { background: #fff; border-radius: 2px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; height: 45px; line-height: 45px; overflow: hidden; padding: 0 30px 0 10px; position: relative; }
+/* line 2266, stdin */ #rezon-forms #hotel-form-shoot .nationality_input { background: #fff; border-radius: 2px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; height: 45px; line-height: 45px; overflow: hidden; padding: 0 30px 0 10px; position: relative; }
 
-/* line 2278, stdin */ #rezon-forms #hotel-form-shoot .nationality_search { background-color: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); border-radius: 2px 2px 5px 2px; }
+/* line 2277, stdin */ #rezon-forms #hotel-form-shoot .nationality_search { background-color: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); border-radius: 2px 2px 5px 2px; }
 
-/* line 2283, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options { list-style-type: none; padding: 0; margin-bottom: 0; height: 285px; overflow-y: scroll; }
+/* line 2282, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options { list-style-type: none; padding: 0; margin-bottom: 0; height: 285px; overflow-y: scroll; }
 
-/* line 2290, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .option { padding: 6px 10px; }
+/* line 2289, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .option { padding: 6px 10px; }
 
-/* line 2293, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .option:hover { background-color: #ffd900; }
+/* line 2292, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .option:hover { background-color: #ffd900; }
 
-/* line 2296, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .search_input { padding: 10px 10px 6px; position: relative; }
+/* line 2295, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .search_input { padding: 10px 10px 6px; position: relative; }
 
-/* line 2300, stdin */ #rezon-forms #hotel-form-shoot .nationality_search-input { width: 100%; height: 30px; border: 1px solid #B8C7E4 !important; padding: 4px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; }
+/* line 2299, stdin */ #rezon-forms #hotel-form-shoot .nationality_search-input { width: 100%; height: 30px; border: 1px solid #B8C7E4 !important; padding: 4px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; }
 
-/* line 2307, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar { width: 8px; }
+/* line 2306, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar { width: 8px; }
 
-/* line 2310, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px grey; box-shadow: inset 0 0 2px grey; border-radius: 5px; }
+/* line 2309, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px grey; box-shadow: inset 0 0 2px grey; border-radius: 5px; }
 
-/* line 2314, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb { background: #ffd600; border-radius: 5px; }
+/* line 2313, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb { background: #ffd600; border-radius: 5px; }
 
-/* line 2318, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb:hover { background: #ffd600; }
+/* line 2317, stdin */ #rezon-forms #hotel-form-shoot .nationality_search .options::-webkit-scrollbar-thumb:hover { background: #ffd600; }
 
-/* line 2321, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title { color: #8087a1; opacity: 1; }
+/* line 2320, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title { color: #8087a1; opacity: 1; }
 
-/* line 2325, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title.has-error { color: #e94b34; }
+/* line 2324, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title.has-error { color: #e94b34; }
 
-/* line 2328, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .arrow { width: 10px; height: 10px; border-top: 1px solid #7921D5; border-left: 1px solid #7921D5; -webkit-transform: rotate(-135deg); transform: rotate(-135deg); -webkit-transition: -webkit-transform 0.2s linear; transition: -webkit-transform 0.2s linear; transition: transform 0.2s linear; transition: transform 0.2s linear, -webkit-transform 0.2s linear; position: absolute; top: 15px; right: 12px; opacity: 0.5; z-index: 1; }
+/* line 2327, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .arrow { width: 10px; height: 10px; border-top: 1px solid #7921D5; border-left: 1px solid #7921D5; -webkit-transform: rotate(-135deg); transform: rotate(-135deg); -webkit-transition: -webkit-transform 0.2s linear; transition: -webkit-transform 0.2s linear; transition: transform 0.2s linear; transition: transform 0.2s linear, -webkit-transform 0.2s linear; position: absolute; top: 15px; right: 12px; opacity: 0.5; z-index: 1; }
 
-/* line 2341, stdin */ #rezon-forms #hotel-form-shoot .guest_flex { margin: 0 -5px; }
+/* line 2340, stdin */ #rezon-forms #hotel-form-shoot .guest_flex { margin: 0 -5px; }
 
-/* line 2345, stdin */ #rezon-forms #hotel-form-shoot .guest_flex .hotel_guest { width: 100%; padding: 0 5px; }
+/* line 2344, stdin */ #rezon-forms #hotel-form-shoot .guest_flex .hotel_guest { width: 100%; padding: 0 5px; }
 
-/* line 2350, stdin */ #rezon-forms .hotel_guests .value_guest { background: #fff; border-radius: 2px; cursor: pointer; height: 45px; line-height: 45px; padding: 0 30px 0 10px; position: relative; }
+/* line 2349, stdin */ #rezon-forms .hotel_guests .value_guest { background: #fff; border-radius: 2px; cursor: pointer; height: 45px; line-height: 45px; padding: 0 30px 0 10px; position: relative; }
 
-/* line 2360, stdin */ #rezon-forms .hotel_guests .has-error .value_guest { border-color: #e94b34; background-color: #ffe2df !important; }
+/* line 2359, stdin */ #rezon-forms .hotel_guests .has-error .value_guest { border-color: #e94b34; background-color: #ffe2df !important; }
 
-/* line 2364, stdin */ #rezon-forms #hotel-form-shoot .options_guest { list-style-type: none; padding: 0; background-color: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); }
+/* line 2363, stdin */ #rezon-forms #hotel-form-shoot .options_guest { list-style-type: none; padding: 0; background-color: #fff; -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4); }
 
-/* line 2370, stdin */ #rezon-forms #hotel-form-shoot .option_guest { padding: 5px 10px; }
+/* line 2369, stdin */ #rezon-forms #hotel-form-shoot .option_guest { padding: 5px 10px; }
 
-/* line 2373, stdin */ #rezon-forms #hotel-form-shoot .option_guest:hover { background-color: #26b6ff; cursor: pointer; }
+/* line 2372, stdin */ #rezon-forms #hotel-form-shoot .option_guest:hover { background-color: #26b6ff; cursor: pointer; }
 
-/* line 2377, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .arrow.rotateClass { top: 20px; -webkit-transform: rotate(45deg); transform: rotate(45deg); opacity: 1; }
+/* line 2376, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .arrow.rotateClass { top: 20px; -webkit-transform: rotate(45deg); transform: rotate(45deg); opacity: 1; }
 
-/* line 2382, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .control-field { cursor: pointer; }
+/* line 2381, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .control-field { cursor: pointer; }
 
-/* line 2385, stdin */ #rezon-forms #hotel-form-shoot .guest_result { width: 100%; height: 45px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; padding: 0 10px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+/* line 2384, stdin */ #rezon-forms #hotel-form-shoot .guest_result { width: 100%; height: 45px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; padding: 0 10px; -webkit-box-sizing: border-box !important; box-sizing: border-box !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
-/* line 2394, stdin */ #rezon-forms #hotel-form-shoot .delete_search { width: 17px; height: 17px; position: absolute; top: 17px; right: 20px; opacity: 0.6; }
+/* line 2393, stdin */ #rezon-forms #hotel-form-shoot .delete_search { width: 17px; height: 17px; position: absolute; top: 17px; right: 20px; opacity: 0.6; }
 
-/* line 2402, stdin */ #rezon-forms #hotel-form-shoot .delete_search:hover { opacity: 1; }
+/* line 2401, stdin */ #rezon-forms #hotel-form-shoot .delete_search:hover { opacity: 1; }
 
-/* line 2405, stdin */ #rezon-forms #hotel-form-shoot .delete_search:before, #rezon-forms #hotel-form-shoot .delete_search:after { content: ""; background-color: #546e7a; display: block; }
+/* line 2404, stdin */ #rezon-forms #hotel-form-shoot .delete_search:before, #rezon-forms #hotel-form-shoot .delete_search:after { content: ""; background-color: #546e7a; display: block; }
 
-/* line 2411, stdin */ #rezon-forms #hotel-form-shoot .delete_search:before { width: 1px; height: 100%; -webkit-transform: rotate(45deg); transform: rotate(45deg); position: relative; top: 0px; left: 8px; }
+/* line 2410, stdin */ #rezon-forms #hotel-form-shoot .delete_search:before { width: 1px; height: 100%; -webkit-transform: rotate(45deg); transform: rotate(45deg); position: relative; top: 0px; left: 8px; }
 
-/* line 2419, stdin */ #rezon-forms #hotel-form-shoot .delete_search:after { width: 100%; height: 1px; -webkit-transform: rotate(-135deg); transform: rotate(-135deg); position: relative; top: -9px; left: 0px; }
+/* line 2418, stdin */ #rezon-forms #hotel-form-shoot .delete_search:after { width: 100%; height: 1px; -webkit-transform: rotate(-135deg); transform: rotate(-135deg); position: relative; top: -9px; left: 0px; }
 
 /************************End Hotels***********************/
-/* line 2429, stdin */ #rezon-forms #railway-form-shoot .extended .date { -ms-flex-preferred-size: 25% !important; flex-basis: 25% !important; }
+/* line 2428, stdin */ #rezon-forms #railway-form-shoot .extended .date { -ms-flex-preferred-size: 25% !important; flex-basis: 25% !important; }
 
-/* line 2432, stdin */ #rezon-forms #railway-form-shoot .extended .field.clear, #rezon-forms #railway-form-shoot .extended .field.find { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+/* line 2431, stdin */ #rezon-forms #railway-form-shoot .extended .field.clear, #rezon-forms #railway-form-shoot .extended .field.find { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
 
-/* line 2436, stdin */ #rezon-forms #railway-form-shoot .extended .field.hide_s { -moz-text-align-last: left; text-align-last: left; -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
+/* line 2435, stdin */ #rezon-forms #railway-form-shoot .extended .field.hide_s { -moz-text-align-last: left; text-align-last: left; -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
 
-/* line 2440, stdin */ #rezon-forms #railway-form-shoot .fields-container.extended .field.date + .date { margin-right: 0; }
+/* line 2439, stdin */ #rezon-forms #railway-form-shoot .fields-container.extended .field.date + .date { margin-right: 0; }
 
-/* line 2444, stdin */ #rezon-forms #railway-form-shoot .field.find { margin-left: 0; }
+/* line 2443, stdin */ #rezon-forms #railway-form-shoot .field.find { margin-left: 0; }
 
-/* line 2447, stdin */ #rezon-forms #railway-form-shoot .roundtrip.extended .field.time + .time { margin-right: 0; }
+/* line 2446, stdin */ #rezon-forms #railway-form-shoot .roundtrip.extended .field.time + .time { margin-right: 0; }
 
-/* line 2450, stdin */ #rezon-forms #railway-form-shoot .roundtrip.extended .field.find { -webkit-box-ordinal-group: 8; -ms-flex-order: 7; order: 7; }
+/* line 2449, stdin */ #rezon-forms #railway-form-shoot .roundtrip.extended .field.find { -webkit-box-ordinal-group: 8; -ms-flex-order: 7; order: 7; }
 
-/* line 2453, stdin */ #rezon-forms #railway-form-shoot.form-ie .extended .date { -ms-flex-preferred-size: 24% !important; flex-basis: 24% !important; }
+/* line 2452, stdin */ #rezon-forms #railway-form-shoot.form-ie .extended .date { -ms-flex-preferred-size: 24% !important; flex-basis: 24% !important; }
 
-/* line 2456, stdin */ #rezon-forms #railway-form-shoot.form-ie .extended .field.clear, #rezon-forms #railway-form-shoot.form-ie .extended .field.find { -ms-flex-preferred-size: 24% !important; flex-basis: 24% !important; }
+/* line 2455, stdin */ #rezon-forms #railway-form-shoot.form-ie .extended .field.clear, #rezon-forms #railway-form-shoot.form-ie .extended .field.find { -ms-flex-preferred-size: 24% !important; flex-basis: 24% !important; }
 
-/* line 2460, stdin */ #rezon-forms #railway-form-shoot.form-ie .fields-container.extended .field.time + .time { -ms-flex-preferred-size: 24%; flex-basis: 24%; }
+/* line 2459, stdin */ #rezon-forms #railway-form-shoot.form-ie .fields-container.extended .field.time + .time { -ms-flex-preferred-size: 24%; flex-basis: 24%; }
 
-/* line 2463, stdin */ #rezon-forms #railway-form-shoot.form-ie .roundtrip .field.find { margin-right: 15px; }
+/* line 2462, stdin */ #rezon-forms #railway-form-shoot.form-ie .roundtrip .field.find { margin-right: 15px; }
 
-/* line 2467, stdin */ #hotel-form-shoot .hotel_guest .arrow-mobile, #hotel-form-shoot .hotel_guest .close-mobile { display: none; }
+/* line 2466, stdin */ #hotel-form-shoot .hotel_guest .arrow-mobile, #hotel-form-shoot .hotel_guest .close-mobile { display: none; }
 
-/* line 2472, stdin */ #rezon-forms .noselect { -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */ }
+/* line 2471, stdin */ #rezon-forms .noselect { -webkit-touch-callout: none; /* iOS Safari */ -webkit-user-select: none; /* Safari */ /* Konqueror HTML */ -moz-user-select: none; /* Firefox */ -ms-user-select: none; /* Internet Explorer/Edge */ user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
-/* line 2481, stdin */ #avia-form-shoot .date.opened .vdp-datepicker__calendar .error-box { display: block; }
+/* line 2480, stdin */ #avia-form-shoot .date.opened .vdp-datepicker__calendar .error-box { display: block; }
 
-/* line 3346, stdin */ #rezon-forms #railway-form-shoot .field.hide_s { text-align: left; }
+/* line 3345, stdin */ #rezon-forms #railway-form-shoot .field.hide_s { text-align: left; }
 
-/* line 3410, stdin */ #rezon-forms .visible-xs-block, #rezon-forms .visible-xs-inline, #rezon-forms .visible-xs-inline-block, #rezon-forms .visible-sm-block, #rezon-forms .visible-sm-inline, #rezon-forms .visible-sm-inline-block, #rezon-forms .visible-md-block, #rezon-forms .visible-md-inline, #rezon-forms .visible-md-inline-block, #rezon-forms .visible-lg-block, #rezon-forms .visible-lg-inline, #rezon-forms .visible-lg-inline-block { display: none !important; }
+/* line 3409, stdin */ #rezon-forms .visible-xs-block, #rezon-forms .visible-xs-inline, #rezon-forms .visible-xs-inline-block, #rezon-forms .visible-sm-block, #rezon-forms .visible-sm-inline, #rezon-forms .visible-sm-inline-block, #rezon-forms .visible-md-block, #rezon-forms .visible-md-inline, #rezon-forms .visible-md-inline-block, #rezon-forms .visible-lg-block, #rezon-forms .visible-lg-inline, #rezon-forms .visible-lg-inline-block { display: none !important; }
 
 /* недостающий апдейт по бутстрапу */
-/* line 3426, stdin */ #rezon-forms .visible-xs, #rezon-forms .visible-sm, #rezon-forms .visible-md, #rezon-forms .visible-lg { display: none !important; }
+/* line 3425, stdin */ #rezon-forms .visible-xs, #rezon-forms .visible-sm, #rezon-forms .visible-md, #rezon-forms .visible-lg { display: none !important; }
 
-/* line 3433, stdin */ #rezon-forms .visible-xs-block, #rezon-forms .visible-xs-inline, #rezon-forms .visible-xs-inline-block, #rezon-forms .visible-sm-block, #rezon-forms .visible-sm-inline, #rezon-forms .visible-sm-inline-block, #rezon-forms .visible-md-block, #rezon-forms .visible-md-inline, #rezon-forms .visible-md-inline-block, #rezon-forms .visible-lg-block, #rezon-forms .visible-lg-inline, #rezon-forms .visible-lg-inline-block { display: none !important; }
+/* line 3432, stdin */ #rezon-forms .visible-xs-block, #rezon-forms .visible-xs-inline, #rezon-forms .visible-xs-inline-block, #rezon-forms .visible-sm-block, #rezon-forms .visible-sm-inline, #rezon-forms .visible-sm-inline-block, #rezon-forms .visible-md-block, #rezon-forms .visible-md-inline, #rezon-forms .visible-md-inline-block, #rezon-forms .visible-lg-block, #rezon-forms .visible-lg-inline, #rezon-forms .visible-lg-inline-block { display: none !important; }
 
 /*----------------*/
 
-@media (min-width: 576px) and (max-width: 1199px) { /* line 2487, stdin */ #rezon-forms .fields-container .field.find { -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; }
-  /* line 2492, stdin */ #rezon-forms .fields-container .field.airport, #rezon-forms .fields-container .field.station, #rezon-forms .fields-container .field.pass, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2505, stdin */ #rezon-forms .fields-container .field.date, #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container .field.time, #rezon-forms .fields-container .field.only-direct { -webkit-flex-basis: 25%; -webkit-flex-grow: 0; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
-  /* line 2515, stdin */ #rezon-forms .fields-container.extended .field.time + .time, #rezon-forms .fields-container.extended .field.date + .date { margin-right: 0; } /* line 3354, stdin */ #rezon-forms #railway-form-shoot .field.hide_s, #rezon-forms #railway-form-shoot .field.clear { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
-  /* line 3360, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { min-width: 300px; } }
+@media (min-width: 576px) and (max-width: 1199px) { /* line 2486, stdin */ #rezon-forms .fields-container .field.find { -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; }
+  /* line 2491, stdin */ #rezon-forms .fields-container .field.airport, #rezon-forms .fields-container .field.station, #rezon-forms .fields-container .field.pass, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2504, stdin */ #rezon-forms .fields-container .field.date, #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container .field.time, #rezon-forms .fields-container .field.only-direct { -webkit-flex-basis: 25%; -webkit-flex-grow: 0; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
+  /* line 2514, stdin */ #rezon-forms .fields-container.extended .field.time + .time, #rezon-forms .fields-container.extended .field.date + .date { margin-right: 0; } /* line 3353, stdin */ #rezon-forms #railway-form-shoot .field.hide_s, #rezon-forms #railway-form-shoot .field.clear { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+  /* line 3359, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { min-width: 300px; } }
 
-@media screen and (max-width: 1199px) { /* line 2525, stdin */ #rezon-forms .fields-container.route .multy-route.last .delete-leg { -webkit-flex-basis: 25%; -webkit-flex-grow: 0; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
-  /* line 2533, stdin */ #rezon-forms .route .add_segment, #rezon-forms .fields-container.oneway.extended .field.class, #rezon-forms .route .multy-route.last .add_segment, #rezon-forms .fields-container.route.extended .multy-route.last .delete-leg { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2544, stdin */ #rezon-forms .field.carrier { max-width: 50%; }
-  /* line 2548, stdin */ #rezon-forms #hotel-form-shoot .field.station { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
-  /* line 2551, stdin */ #rezon-forms #railway-form-shoot .date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2554, stdin */ #rezon-forms #railway-form-shoot .range { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
-  /* line 2557, stdin */ #rezon-forms #railway-form-shoot .field.find { -ms-flex-preferred-size: 25%; flex-basis: 25%; } }
+@media screen and (max-width: 1199px) { /* line 2524, stdin */ #rezon-forms .fields-container.route .multy-route.last .delete-leg { -webkit-flex-basis: 25%; -webkit-flex-grow: 0; -ms-flex-preferred-size: 25%; flex-basis: 25%; -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
+  /* line 2532, stdin */ #rezon-forms .route .add_segment, #rezon-forms .fields-container.oneway.extended .field.class, #rezon-forms .route .multy-route.last .add_segment, #rezon-forms .fields-container.route.extended .multy-route.last .delete-leg { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2543, stdin */ #rezon-forms .field.carrier { max-width: 50%; }
+  /* line 2547, stdin */ #rezon-forms #hotel-form-shoot .field.station { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+  /* line 2550, stdin */ #rezon-forms #railway-form-shoot .date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2553, stdin */ #rezon-forms #railway-form-shoot .range { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+  /* line 2556, stdin */ #rezon-forms #railway-form-shoot .field.find { -ms-flex-preferred-size: 25%; flex-basis: 25%; } }
 
-@media screen and (max-width: 991px) { /* line 2563, stdin */ #rezon-forms #hotel-form-shoot .field.station { min-width: inherit; }
-  /* line 2569, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2572, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 38%; flex-basis: 38%; }
-  /* line 2575, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 24%; flex-basis: 24%; width: 24%; }
-  /* line 2583, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2586, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 50%; flex-basis: 50%; width: 50%; } }
+@media screen and (max-width: 991px) { /* line 2562, stdin */ #rezon-forms #hotel-form-shoot .field.station { min-width: inherit; }
+  /* line 2568, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2571, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 38%; flex-basis: 38%; }
+  /* line 2574, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 24%; flex-basis: 24%; width: 24%; }
+  /* line 2582, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2585, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 50%; flex-basis: 50%; width: 50%; } }
 
-@media screen and (max-width: 767px) { /* line 2592, stdin */ #rezon-forms #hotel-form-shoot .field.station { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2595, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
-  /* line 2598, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2601, stdin */ #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 50%; flex-basis: 50%; } }
+@media screen and (max-width: 767px) { /* line 2591, stdin */ #rezon-forms #hotel-form-shoot .field.station { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2594, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 25%; flex-basis: 25%; }
+  /* line 2597, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2600, stdin */ #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 50%; flex-basis: 50%; } }
 
-@media (min-width: 576px) { /* line 2608, stdin */ #rezon-forms .book-from:focus, #rezon-forms .book-to:focus, #rezon-forms .book-date:focus { -webkit-box-shadow: 0 0 8px 2px #00b0ff; box-shadow: 0 0 8px 2px #00b0ff; outline: none; z-index: 1; }
-  /* line 2616, stdin */ #rezon-forms .fields-container .field.hide_s .transp { text-align: left; background: none; }
-  /* line 2621, stdin */ #rezon-forms .fields-container:not(.route) .airport.from .iata { right: 50px; }
-  /* line 2625, stdin */ #rezon-forms .fields-container:not(.route) .airport.from .delete, #rezon-forms .station.from .delete { right: 15px; }
-  /* line 2630, stdin */ #rezon-forms .book-to { padding-left: 25px; }
-  /* line 2634, stdin */ #rezon-forms .fields-container.route .multy-route { margin-top: 30px; }
-  /* line 2638, stdin */ #rezon-forms .error-box { position: absolute; }
-  /* line 2642, stdin */ #rezon-forms .fields-container .field.station.to .express { left: 22px; }
-  /* line 2646, stdin */ #rezon-forms #hotel-form-shoot .value_guest, #rezon-forms #hotel-form-shoot .nationality_input { background: #ecf1fb; -webkit-box-shadow: inset 1px 0px 3px 0px #B8C7E4; box-shadow: inset 1px 0px 3px 0px #B8C7E4; cursor: pointer; position: relative; } }
+@media (min-width: 576px) { /* line 2607, stdin */ #rezon-forms .book-from:focus, #rezon-forms .book-to:focus, #rezon-forms .book-date:focus { -webkit-box-shadow: 0 0 8px 2px #00b0ff; box-shadow: 0 0 8px 2px #00b0ff; outline: none; z-index: 1; }
+  /* line 2615, stdin */ #rezon-forms .fields-container .field.hide_s .transp { text-align: left; background: none; }
+  /* line 2620, stdin */ #rezon-forms .fields-container:not(.route) .airport.from .iata { right: 50px; }
+  /* line 2624, stdin */ #rezon-forms .fields-container:not(.route) .airport.from .delete, #rezon-forms .station.from .delete { right: 15px; }
+  /* line 2629, stdin */ #rezon-forms .book-to { padding-left: 25px; }
+  /* line 2633, stdin */ #rezon-forms .fields-container.route .multy-route { margin-top: 30px; }
+  /* line 2637, stdin */ #rezon-forms .error-box { position: absolute; }
+  /* line 2641, stdin */ #rezon-forms .fields-container .field.station.to .express { left: 22px; }
+  /* line 2645, stdin */ #rezon-forms #hotel-form-shoot .value_guest, #rezon-forms #hotel-form-shoot .nationality_input { background: #ecf1fb; -webkit-box-shadow: inset 1px 0px 3px 0px #B8C7E4; box-shadow: inset 1px 0px 3px 0px #B8C7E4; cursor: pointer; position: relative; } }
 
-@media (max-width: 575px) { /* line 2659, stdin */ #rezon-forms { padding: 10px 10px 10px; }
-  /* line 2662, stdin */ #rezon-forms input { font-size: 16px !important; }
-  /* line 2666, stdin */ #rezon-forms .column { width: 100%; }
-  /* line 2670, stdin */ #rezon-forms .selectpicker-before { float: none; line-height: 22px; }
-  /* line 2675, stdin */ #rezon-forms .selectpicker.standalone { margin: 0; float: none; }
-  /* line 2680, stdin */ #rezon-forms .transp, #rezon-forms .field.hide_s .transp { display: block; text-align: center; }
-  /* line 2685, stdin */ #rezon-forms .tt-suggestion { line-height: 40px; padding: 0 38px 0 10px; }
-  /* line 2690, stdin */ #rezon-forms .column.from.calendar-dropdown + .column.to, #rezon-forms .column.from.calendar-dropdown + .swap + .column.to { display: none; }
-  /* line 2695, stdin */ #rezon-forms .dates-item { top: -9px; }
-  /* line 2699, stdin */ #rezon-forms .row { padding-top: 0; }
-  /* line 2705, stdin */ .bus-module #rezon-forms .station.from .location-region { right: 80px; }
-  /* line 2709, stdin */ .bus-module #rezon-forms .station.to .location-region { left: 10px; }
+@media (max-width: 575px) { /* line 2658, stdin */ #rezon-forms { padding: 10px 10px 10px; }
+  /* line 2661, stdin */ #rezon-forms input { font-size: 16px !important; }
+  /* line 2665, stdin */ #rezon-forms .column { width: 100%; }
+  /* line 2669, stdin */ #rezon-forms .selectpicker-before { float: none; line-height: 22px; }
+  /* line 2674, stdin */ #rezon-forms .selectpicker.standalone { margin: 0; float: none; }
+  /* line 2679, stdin */ #rezon-forms .transp, #rezon-forms .field.hide_s .transp { display: block; text-align: center; }
+  /* line 2684, stdin */ #rezon-forms .tt-suggestion { line-height: 40px; padding: 0 38px 0 10px; }
+  /* line 2689, stdin */ #rezon-forms .column.from.calendar-dropdown + .column.to, #rezon-forms .column.from.calendar-dropdown + .swap + .column.to { display: none; }
+  /* line 2694, stdin */ #rezon-forms .dates-item { top: -9px; }
+  /* line 2698, stdin */ #rezon-forms .row { padding-top: 0; }
+  /* line 2704, stdin */ .bus-module #rezon-forms .station.from .location-region { right: 80px; }
+  /* line 2708, stdin */ .bus-module #rezon-forms .station.to .location-region { left: 10px; }
   /*Pop-up*/
-  /* line 2716, stdin */ #rezon-forms .fields-container .field.opened { -webkit-align-items: center; -webkit-justify-content: center; position: fixed; z-index: 10; left: 0; right: 0; overflow: scroll; top: 0; background: white; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 100%; max-height: 100% !important; bottom: 0; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; z-index: 200; }
-  /* line 2737, stdin */ #rezon-forms .fields-container .field.airport.opened, #rezon-forms .fields-container .field.station.opened { background: white; }
-  /* line 2742, stdin */ #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead { height: 100%; }
-  /* line 2748, stdin */ #rezon-forms .tt-dropdown-menu, #rezon-forms .carriers-finder { -webkit-box-shadow: none; box-shadow: none; padding: 0; }
-  /* line 2754, stdin */ #rezon-forms .airport.opened .tt-dropdown-menu, #rezon-forms .station.opened .tt-dropdown-menu { top: 100%; width: 100%; }
-  /* line 2760, stdin */ #rezon-forms .field.opened .menu-title { background: #7e57c2; color: white; display: block; font-size: 14px; height: 50px; line-height: 50px; opacity: 1; text-align: center; }
-  /* line 2771, stdin */ #rezon-forms .field.opened .link-left, #rezon-forms .field.opened .link-right { display: block; height: 50px; width: 50px; }
-  /* line 2778, stdin */ #rezon-forms .field.opened .link-left { float: left; }
-  /* line 2782, stdin */ #rezon-forms .field.opened .link-right { float: right; }
-  /* line 2786, stdin */ #rezon-forms .pass.opened .switch-box { display: none; }
-  /* line 2790, stdin */ #rezon-forms .pass.opened .select-age { width: 100%; top: 0; -webkit-box-shadow: none; box-shadow: none; }
-  /* line 2796, stdin */ #rezon-forms .carrier.opened .carriers-finder { height: 100%; width: 100%; top: 0; }
-  /* line 2802, stdin */ #rezon-forms .carrier.opened .carriers .item { display: none; }
-  /* line 2806, stdin */ #rezon-forms .date.opened .date-wrapper { height: 100%; position: fixed; width: 100%; }
-  /* line 2812, stdin */ #rezon-forms .date.opened .dates-item-row { padding: 0; overflow: scroll; height: 100vh; }
-  /* line 2818, stdin */ #rezon-forms .date.opened .dates-item { border: none; -webkit-box-shadow: none; box-shadow: none; }
-  /* line 2823, stdin */ #rezon-forms .date.opened .dates-item .datepickerContainer { display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: center; -webkit-align-items: center; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
-  /* line 2835, stdin */ .m-no-scroll { position: fixed; width: 100%; }
-  /* line 2840, stdin */ #rezon-forms .fields-container .field .menu-title { display: none; }
-  /* line 2844, stdin */ #rezon-forms .fields-container .field.opened .menu-title { display: block; }
-  /* line 2848, stdin */ #rezon-forms .opened .book-from, #rezon-forms .opened .book-to { height: 45px; }
-  /* line 2853, stdin */ #rezon-forms .book-from:focus, #rezon-forms .book-to:focus, #rezon-forms .book-date:focus { outline: none; }
-  /* line 2859, stdin */ #rezon-forms .field.opened label.menu-title { margin: 0; }
-  /* line 2863, stdin */ #rezon-forms .direct { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
-  /* line 2868, stdin */ #rezon-forms .direct label { -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2872, stdin */ #rezon-forms .field.date, #rezon-forms .field.pass { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2881, stdin */ #rezon-forms .field.airport, #rezon-forms .field.find, #rezon-forms .field.station { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
-  /* line 2888, stdin */ #rezon-forms .field.class .selectpicker, #rezon-forms .field.find button { width: 100%; }
-  /* line 2893, stdin */ #rezon-forms .fields-container .field.class { display: block; }
-  /* line 2897, stdin */ #rezon-forms .field.hide_s, #rezon-forms .field.extended-form { -webkit-order: 2; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 3; -ms-flex-order: 2; order: 2; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2906, stdin */ #rezon-forms .field.class { -webkit-order: 1; -webkit-flex-grow: 1; -webkit-flex-basis: 50%; -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; display: block; }
-  /* line 2917, stdin */ #rezon-forms .field.carrier { max-width: 100%; }
-  /* line 2921, stdin */ #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 100%; -webkit-order: 5; -webkit-flex-grow: 1; -ms-flex-preferred-size: 100%; flex-basis: 100%; -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2933, stdin */ #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear, #rezon-forms .fields-container.extended .field.extended-form { -webkit-flex-basis: 50%; -webkit-order: 5; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2947, stdin */ #rezon-forms .fields-container .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
+  /* line 2715, stdin */ #rezon-forms .fields-container .field.opened { -webkit-align-items: center; -webkit-justify-content: center; position: fixed; z-index: 10; left: 0; right: 0; overflow: scroll; top: 0; background: white; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 100%; max-height: 100% !important; bottom: 0; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; z-index: 200; }
+  /* line 2736, stdin */ #rezon-forms .fields-container .field.airport.opened, #rezon-forms .fields-container .field.station.opened { background: white; }
+  /* line 2741, stdin */ #rezon-forms .fields-container .field.airport.opened .twitter-typeahead, #rezon-forms .fields-container .field.station.opened .twitter-typeahead { height: 100%; }
+  /* line 2747, stdin */ #rezon-forms .tt-dropdown-menu, #rezon-forms .carriers-finder { -webkit-box-shadow: none; box-shadow: none; padding: 0; }
+  /* line 2753, stdin */ #rezon-forms .airport.opened .tt-dropdown-menu, #rezon-forms .station.opened .tt-dropdown-menu { top: 100%; width: 100%; }
+  /* line 2759, stdin */ #rezon-forms .field.opened .menu-title { background: #7e57c2; color: white; display: block; font-size: 14px; height: 50px; line-height: 50px; opacity: 1; text-align: center; }
+  /* line 2770, stdin */ #rezon-forms .field.opened .link-left, #rezon-forms .field.opened .link-right { display: block; height: 50px; width: 50px; }
+  /* line 2777, stdin */ #rezon-forms .field.opened .link-left { float: left; }
+  /* line 2781, stdin */ #rezon-forms .field.opened .link-right { float: right; }
+  /* line 2785, stdin */ #rezon-forms .pass.opened .switch-box { display: none; }
+  /* line 2789, stdin */ #rezon-forms .pass.opened .select-age { width: 100%; top: 0; -webkit-box-shadow: none; box-shadow: none; }
+  /* line 2795, stdin */ #rezon-forms .carrier.opened .carriers-finder { height: 100%; width: 100%; top: 0; }
+  /* line 2801, stdin */ #rezon-forms .carrier.opened .carriers .item { display: none; }
+  /* line 2805, stdin */ #rezon-forms .date.opened .date-wrapper { height: 100%; position: fixed; width: 100%; }
+  /* line 2811, stdin */ #rezon-forms .date.opened .dates-item-row { padding: 0; overflow: scroll; height: 100vh; }
+  /* line 2817, stdin */ #rezon-forms .date.opened .dates-item { border: none; -webkit-box-shadow: none; box-shadow: none; }
+  /* line 2822, stdin */ #rezon-forms .date.opened .dates-item .datepickerContainer { display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: center; -webkit-align-items: center; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+  /* line 2834, stdin */ .m-no-scroll { position: fixed; width: 100%; }
+  /* line 2839, stdin */ #rezon-forms .fields-container .field .menu-title { display: none; }
+  /* line 2843, stdin */ #rezon-forms .fields-container .field.opened .menu-title { display: block; }
+  /* line 2847, stdin */ #rezon-forms .opened .book-from, #rezon-forms .opened .book-to { height: 45px; }
+  /* line 2852, stdin */ #rezon-forms .book-from:focus, #rezon-forms .book-to:focus, #rezon-forms .book-date:focus { outline: none; }
+  /* line 2858, stdin */ #rezon-forms .field.opened label.menu-title { margin: 0; }
+  /* line 2862, stdin */ #rezon-forms .direct { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
+  /* line 2867, stdin */ #rezon-forms .direct label { -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2871, stdin */ #rezon-forms .field.date, #rezon-forms .field.pass { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2880, stdin */ #rezon-forms .field.airport, #rezon-forms .field.find, #rezon-forms .field.station { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+  /* line 2887, stdin */ #rezon-forms .field.class .selectpicker, #rezon-forms .field.find button { width: 100%; }
+  /* line 2892, stdin */ #rezon-forms .fields-container .field.class { display: block; }
+  /* line 2896, stdin */ #rezon-forms .field.hide_s, #rezon-forms .field.extended-form { -webkit-order: 2; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 3; -ms-flex-order: 2; order: 2; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2905, stdin */ #rezon-forms .field.class { -webkit-order: 1; -webkit-flex-grow: 1; -webkit-flex-basis: 50%; -webkit-box-ordinal-group: 2; -ms-flex-order: 1; order: 1; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; -ms-flex-preferred-size: 50%; flex-basis: 50%; display: block; }
+  /* line 2916, stdin */ #rezon-forms .field.carrier { max-width: 100%; }
+  /* line 2920, stdin */ #rezon-forms .fields-container.extended .field.carrier, #rezon-forms .fields-container.extended .field.only-direct, #rezon-forms .fields-container.extended .field.range { -webkit-flex-basis: 100%; -webkit-order: 5; -webkit-flex-grow: 1; -ms-flex-preferred-size: 100%; flex-basis: 100%; -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2932, stdin */ #rezon-forms .fields-container.extended .field.class, #rezon-forms .fields-container.route .field.class, #rezon-forms .fields-container.extended .field.hide_s, #rezon-forms .fields-container.extended .field.clear, #rezon-forms .fields-container.extended .field.extended-form { -webkit-flex-basis: 50%; -webkit-order: 5; -webkit-flex-grow: 1; -webkit-box-ordinal-group: 6; -ms-flex-order: 5; order: 5; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2946, stdin */ #rezon-forms .fields-container .field.find { -webkit-box-ordinal-group: 7; -ms-flex-order: 6; order: 6; }
   /*Extended serach mobile*/
-  /* line 2953, stdin */ #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.route .field.pass { -webkit-order: 4; -webkit-flex-basis: 50%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2962, stdin */ #rezon-forms .fields-container.extended .field.date + .date { -webkit-order: 2; margin-right: 0; -webkit-box-ordinal-group: 3; -ms-flex-order: 2; order: 2; }
-  /* line 2968, stdin */ #rezon-forms .fields-container.extended .field.time { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 2973, stdin */ #rezon-forms .fields-container.extended .field.time + .time { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -webkit-order: 3; margin-right: 0; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; -webkit-box-ordinal-group: 4; -ms-flex-order: 3; order: 3; }
-  /* line 2984, stdin */ #rezon-forms .fields-container.multy.extended .time, #rezon-forms .fields-container.multy.extended .date { -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
-  /* line 2990, stdin */ #rezon-forms .fields-container.route .date { -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
-  /* line 2995, stdin */ #rezon-forms .fields-container.route .time { display: none; }
-  /* line 2999, stdin */ #rezon-forms .fields-container .time, #rezon-forms .fields-container .class { max-width: 50%; }
-  /* line 3004, stdin */ #rezon-forms .selectpicker .options { -webkit-align-items: center; -webkit-justify-content: center; position: fixed; /* z-index: 2; */ left: 0; right: 0; overflow: hidden; top: 0; padding: 10px; display: none; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 100%; max-height: 100% !important; bottom: 0; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; background: rgba(0, 0, 0, 0.4); }
-  /* line 3026, stdin */ #rezon-forms .selectpicker .option { width: 100%; text-align: center; background: white; }
-  /* line 3032, stdin */ #rezon-forms .airport.from, #rezon-forms .station.from { margin-bottom: 0; }
-  /* line 3037, stdin */ #rezon-forms .iata { right: 4px; text-align: center; width: 33px; }
-  /* line 3044, stdin */ #rezon-forms .fields-container .field.opened .iata { right: 35px; }
-  /* line 3048, stdin */ #rezon-forms .fields-container:not(.route) .from .iata { bottom: 20px; }
-  /* line 3052, stdin */ #rezon-forms .fields-container .field.airport .delete, #rezon-forms .fields-container .field.station .delete { display: none; }
-  /* line 3056, stdin */ #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete { display: block; }
-  /* line 3062, stdin */ #rezon-forms .field.station .tt-input { padding-right: 30px; }
-  /* line 3065, stdin */ #rezon-forms .field.station .inside:before { right: 30px; }
-  /* line 3068, stdin */ #rezon-forms .field.airport.opened .tt-input, #rezon-forms .field.station.opened .tt-input { padding-right: 60px; }
-  /* line 3074, stdin */ #rezon-forms .fields-container:not(.route) .to .iata { bottom: 6px; }
-  /* line 3078, stdin */ #rezon-forms .swap { margin-bottom: -17px; margin-left: -44px; transform: rotate(90deg); -webkit-transform: rotate(90deg); z-index: 3; }
-  /* line 3086, stdin */ #rezon-forms .fields-container.route .multy-route.last .delete-leg { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 3091, stdin */ #rezon-forms .field.date.opened .book-date { display: none; }
-  /* line 3095, stdin */ #rezon-forms .field.date .vdp-datepicker__calendar { width: 100%; -webkit-box-shadow: none; box-shadow: none; position: relative; }
-  /* line 3101, stdin */ #rezon-forms #railway-form-shoot .fields-container .field.range { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 3105, stdin */ #rezon-forms .rez-forms { padding: 0 10px; }
-  /* line 3109, stdin */ #rezon-forms .selectpicker .modal_block { padding-top: 60px !important; -webkit-transition: all 0.8s; transition: all 0.8s; }
-  /* line 3113, stdin */ #rezon-forms #hotel-form-shoot .field.station, #rezon-forms #hotel-form-shoot .hotel_guests, #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
-  /* line 3118, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 3121, stdin */ #rezon-forms #hotel-form-shoot .fields-container .field .menu-title { display: block; }
-  /* line 3124, stdin */ #rezon-forms #hotel-form-shoot .station.from { margin-bottom: 10px; }
-  /* line 3130, stdin */ #rezon-forms #hotel-form-shoot .fields-container .field.hotel_guests > .menu-title, #rezon-forms #hotel-form-shoot .guest_result, #rezon-forms #hotel-form-shoot .hotel_guests .arrow.rotateClass { display: none; }
-  /* line 3136, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .control-field { background: none; }
-  /* line 3140, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { background: none; -webkit-box-shadow: none; box-shadow: none; display: block !important; position: relative; }
-  /* line 3147, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box .box_inside { padding: 0; }
-  /* line 3151, stdin */ #rezon-forms #hotel-form-shoot .guest_flex, #rezon-forms #hotel-form-shoot .childs_flex, #rezon-forms #hotel-form-shoot .nationality_hotels { margin-bottom: 10px; margin-top: 0; padding: 0; }
-  /* line 3159, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title { color: #fff; opacity: 0.5; }
-  /* line 3164, stdin */ #rezon-forms #hotel-form-shoot .options_guest, #rezon-forms #hotel-form-shoot .nationality_search { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; left: 0; margin: 0; overflow-y: scroll; position: fixed; right: 0; text-align: center; top: 0; z-index: 100; bottom: 0; padding: 50px 0 0 0; }
-  /* line 3181, stdin */ #rezon-forms #hotel-form-shoot .option_guest, #rezon-forms #hotel-form-shoot .nationality_search .option { padding: 0 10px; line-height: 45px; }
-  /* line 3187, stdin */ #hotel-form-shoot .field .inside:before { display: none; }
-  /* line 3190, stdin */ #hotel-form-shoot .hotel_guest.open .menu-title, #hotel-form-shoot .childs_flex.open .menu-title, #hotel-form-shoot .nationality_hotels.open .menu-title { position: fixed; top: 16px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 101; font-size: 14px; opacity: 1 !important; }
-  /* line 3201, stdin */ #hotel-form-shoot .nationality_hotels.open .menu-title { width: 100%; height: 50px; top: 0; text-align: center; padding-top: 16px; }
-  /* line 3208, stdin */ #hotel-form-shoot .childs_flex .hotel_guest.open .menu-title { display: block !important; }
-  /* line 3211, stdin */ #hotel-form-shoot .hotel_guest.open .options_guest:before, #hotel-form-shoot .nationality_hotels.open .nationality_search:before { content: ''; background-color: #7e57c2; width: 100%; height: 50px; display: block; position: fixed; top: 0; left: 0; }
-  /* line 3222, stdin */ #hotel-form-shoot .hotel_guest.open .arrow-mobile, #hotel-form-shoot .nationality_hotels.open .arrow-mobile { display: block; width: 15px; height: 15px; position: fixed; top: 16px; left: 25px; z-index: 101; -webkit-transform: rotate(45deg); transform: rotate(45deg); border-left: 1px solid #fff; border-bottom: 1px solid #fff; }
-  /* line 3235, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile, #hotel-form-shoot .nationality_hotels.open .close-mobile { display: block; position: fixed; top: 15px; right: 15px; width: 20px; height: 20px; z-index: 101; }
-  /* line 3245, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::before, #hotel-form-shoot .hotel_guest.open .close-mobile::after, #hotel-form-shoot .nationality_hotels.open .close-mobile::before, #hotel-form-shoot .nationality_hotels.open .close-mobile::after { content: ''; width: 1px; height: 100%; background-color: #fff; display: block; position: relative; }
-  /* line 3256, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::before, #hotel-form-shoot .nationality_hotels.open .close-mobile::before { -webkit-transform: rotate(45deg); transform: rotate(45deg); top: 0; right: -10px; }
-  /* line 3262, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::after, #hotel-form-shoot .nationality_hotels.open .close-mobile::after { -webkit-transform: rotate(-45deg); transform: rotate(-45deg); top: -20px; right: -10px; }
-  /* line 3268, stdin */ #rezon-forms #hotel-form-shoot .nationality_hotels.open .options { height: 100%; }
-  /* line 3271, stdin */ #rezon-forms .selectpicker .modal_block:before { content: ''; position: fixed; top: 0; width: 100%; height: 50px; background: #7e57c2; }
+  /* line 2952, stdin */ #rezon-forms .fields-container.extended .field.pass, #rezon-forms .fields-container.route .field.pass { -webkit-order: 4; -webkit-flex-basis: 50%; -webkit-box-ordinal-group: 5; -ms-flex-order: 4; order: 4; -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2961, stdin */ #rezon-forms .fields-container.extended .field.date + .date { -webkit-order: 2; margin-right: 0; -webkit-box-ordinal-group: 3; -ms-flex-order: 2; order: 2; }
+  /* line 2967, stdin */ #rezon-forms .fields-container.extended .field.time { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 2972, stdin */ #rezon-forms .fields-container.extended .field.time + .time { -webkit-flex-basis: 50%; -webkit-flex-grow: 1; -webkit-order: 3; margin-right: 0; -ms-flex-preferred-size: 50%; flex-basis: 50%; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; -webkit-box-ordinal-group: 4; -ms-flex-order: 3; order: 3; }
+  /* line 2983, stdin */ #rezon-forms .fields-container.multy.extended .time, #rezon-forms .fields-container.multy.extended .date { -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; }
+  /* line 2989, stdin */ #rezon-forms .fields-container.route .date { -webkit-box-flex: 0; -ms-flex-positive: 0; flex-grow: 0; }
+  /* line 2994, stdin */ #rezon-forms .fields-container.route .time { display: none; }
+  /* line 2998, stdin */ #rezon-forms .fields-container .time, #rezon-forms .fields-container .class { max-width: 50%; }
+  /* line 3003, stdin */ #rezon-forms .selectpicker .options { -webkit-align-items: center; -webkit-justify-content: center; position: fixed; /* z-index: 2; */ left: 0; right: 0; overflow: hidden; top: 0; padding: 10px; display: none; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 100%; max-height: 100% !important; bottom: 0; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; background: rgba(0, 0, 0, 0.4); }
+  /* line 3025, stdin */ #rezon-forms .selectpicker .option { width: 100%; text-align: center; background: white; }
+  /* line 3031, stdin */ #rezon-forms .airport.from, #rezon-forms .station.from { margin-bottom: 0; }
+  /* line 3036, stdin */ #rezon-forms .iata { right: 4px; text-align: center; width: 33px; }
+  /* line 3043, stdin */ #rezon-forms .fields-container .field.opened .iata { right: 35px; }
+  /* line 3047, stdin */ #rezon-forms .fields-container:not(.route) .from .iata { bottom: 20px; }
+  /* line 3051, stdin */ #rezon-forms .fields-container .field.airport .delete, #rezon-forms .fields-container .field.station .delete { display: none; }
+  /* line 3055, stdin */ #rezon-forms .fields-container .field.airport.opened .delete, #rezon-forms .fields-container .field.station.opened .delete { display: block; }
+  /* line 3061, stdin */ #rezon-forms .field.station .tt-input { padding-right: 30px; }
+  /* line 3064, stdin */ #rezon-forms .field.station .inside:before { right: 30px; }
+  /* line 3067, stdin */ #rezon-forms .field.airport.opened .tt-input, #rezon-forms .field.station.opened .tt-input { padding-right: 60px; }
+  /* line 3073, stdin */ #rezon-forms .fields-container:not(.route) .to .iata { bottom: 6px; }
+  /* line 3077, stdin */ #rezon-forms .swap { margin-bottom: -17px; margin-left: -44px; transform: rotate(90deg); -webkit-transform: rotate(90deg); z-index: 3; }
+  /* line 3085, stdin */ #rezon-forms .fields-container.route .multy-route.last .delete-leg { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 3090, stdin */ #rezon-forms .field.date.opened .book-date { display: none; }
+  /* line 3094, stdin */ #rezon-forms .field.date .vdp-datepicker__calendar { width: 100%; -webkit-box-shadow: none; box-shadow: none; position: relative; }
+  /* line 3100, stdin */ #rezon-forms #railway-form-shoot .fields-container .field.range { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 3104, stdin */ #rezon-forms .rez-forms { padding: 0 10px; }
+  /* line 3108, stdin */ #rezon-forms .selectpicker .modal_block { padding-top: 60px !important; -webkit-transition: all 0.8s; transition: all 0.8s; }
+  /* line 3112, stdin */ #rezon-forms #hotel-form-shoot .field.station, #rezon-forms #hotel-form-shoot .hotel_guests, #rezon-forms #hotel-form-shoot .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+  /* line 3117, stdin */ #rezon-forms #hotel-form-shoot .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 3120, stdin */ #rezon-forms #hotel-form-shoot .fields-container .field .menu-title { display: block; }
+  /* line 3123, stdin */ #rezon-forms #hotel-form-shoot .station.from { margin-bottom: 10px; }
+  /* line 3129, stdin */ #rezon-forms #hotel-form-shoot .fields-container .field.hotel_guests > .menu-title, #rezon-forms #hotel-form-shoot .guest_result, #rezon-forms #hotel-form-shoot .hotel_guests .arrow.rotateClass { display: none; }
+  /* line 3135, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .control-field { background: none; }
+  /* line 3139, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box { background: none; -webkit-box-shadow: none; box-shadow: none; display: block !important; position: relative; }
+  /* line 3146, stdin */ #rezon-forms #hotel-form-shoot .hotel_guests .select_box .box_inside { padding: 0; }
+  /* line 3150, stdin */ #rezon-forms #hotel-form-shoot .guest_flex, #rezon-forms #hotel-form-shoot .childs_flex, #rezon-forms #hotel-form-shoot .nationality_hotels { margin-bottom: 10px; margin-top: 0; padding: 0; }
+  /* line 3158, stdin */ #rezon-forms #hotel-form-shoot .select_box label.menu-title { color: #fff; opacity: 0.5; }
+  /* line 3163, stdin */ #rezon-forms #hotel-form-shoot .options_guest, #rezon-forms #hotel-form-shoot .nationality_search { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; left: 0; margin: 0; overflow-y: scroll; position: fixed; right: 0; text-align: center; top: 0; z-index: 100; bottom: 0; padding: 50px 0 0 0; }
+  /* line 3180, stdin */ #rezon-forms #hotel-form-shoot .option_guest, #rezon-forms #hotel-form-shoot .nationality_search .option { padding: 0 10px; line-height: 45px; }
+  /* line 3186, stdin */ #hotel-form-shoot .field .inside:before { display: none; }
+  /* line 3189, stdin */ #hotel-form-shoot .hotel_guest.open .menu-title, #hotel-form-shoot .childs_flex.open .menu-title, #hotel-form-shoot .nationality_hotels.open .menu-title { position: fixed; top: 16px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 101; font-size: 14px; opacity: 1 !important; }
+  /* line 3200, stdin */ #hotel-form-shoot .nationality_hotels.open .menu-title { width: 100%; height: 50px; top: 0; text-align: center; padding-top: 16px; }
+  /* line 3207, stdin */ #hotel-form-shoot .childs_flex .hotel_guest.open .menu-title { display: block !important; }
+  /* line 3210, stdin */ #hotel-form-shoot .hotel_guest.open .options_guest:before, #hotel-form-shoot .nationality_hotels.open .nationality_search:before { content: ''; background-color: #7e57c2; width: 100%; height: 50px; display: block; position: fixed; top: 0; left: 0; }
+  /* line 3221, stdin */ #hotel-form-shoot .hotel_guest.open .arrow-mobile, #hotel-form-shoot .nationality_hotels.open .arrow-mobile { display: block; width: 15px; height: 15px; position: fixed; top: 16px; left: 25px; z-index: 101; -webkit-transform: rotate(45deg); transform: rotate(45deg); border-left: 1px solid #fff; border-bottom: 1px solid #fff; }
+  /* line 3234, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile, #hotel-form-shoot .nationality_hotels.open .close-mobile { display: block; position: fixed; top: 15px; right: 15px; width: 20px; height: 20px; z-index: 101; }
+  /* line 3244, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::before, #hotel-form-shoot .hotel_guest.open .close-mobile::after, #hotel-form-shoot .nationality_hotels.open .close-mobile::before, #hotel-form-shoot .nationality_hotels.open .close-mobile::after { content: ''; width: 1px; height: 100%; background-color: #fff; display: block; position: relative; }
+  /* line 3255, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::before, #hotel-form-shoot .nationality_hotels.open .close-mobile::before { -webkit-transform: rotate(45deg); transform: rotate(45deg); top: 0; right: -10px; }
+  /* line 3261, stdin */ #hotel-form-shoot .hotel_guest.open .close-mobile::after, #hotel-form-shoot .nationality_hotels.open .close-mobile::after { -webkit-transform: rotate(-45deg); transform: rotate(-45deg); top: -20px; right: -10px; }
+  /* line 3267, stdin */ #rezon-forms #hotel-form-shoot .nationality_hotels.open .options { height: 100%; }
+  /* line 3270, stdin */ #rezon-forms .selectpicker .modal_block:before { content: ''; position: fixed; top: 0; width: 100%; height: 50px; background: #7e57c2; }
   /*#rezon-forms #hotel-form-shoot .options_guest:before, #rezon-forms #hotel-form-shoot .nationality_search:before { content: ''; position: fixed; top: 0; width: 100%; height: 50px; background: #7e57c2; } #rezon-forms #hotel-form-shoot .options_guest:after, #rezon-forms #hotel-form-shoot .nationality_search:after { content: ''; border-bottom: 1px solid #fff; position: fixed; top: 25px; width: 20px; right: 20px; transform: rotate(45deg); }*/
-  /* line 3304, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
-  /* line 3307, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
-  /* line 3310, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 100%; }
-  /* line 3318, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
-  /* line 3321, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 100%; } }
+  /* line 3303, stdin */ #rezon-forms #bus-form-shoot .field.station { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+  /* line 3306, stdin */ #rezon-forms #bus-form-shoot .field.date { -ms-flex-preferred-size: 50%; flex-basis: 50%; }
+  /* line 3309, stdin */ #rezon-forms #bus-form-shoot .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 100%; }
+  /* line 3317, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.date { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+  /* line 3320, stdin */ #rezon-forms #bus-form-shoot.bus-form-new .field.find { -ms-flex-preferred-size: 100%; flex-basis: 100%; width: 100%; } }
 
-@media (min-width: 576px) and (max-width: 767px) { /* line 3330, stdin */ #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col + .datepicker-col { display: none; }
-  /* line 3334, stdin */ #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col .datepickerGoNext.no-visiblity { visibility: visible; }
-  /* line 3338, stdin */ #rezon-forms .rez-forms { padding: 0 10px; } }
+@media (min-width: 576px) and (max-width: 767px) { /* line 3329, stdin */ #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col + .datepicker-col { display: none; }
+  /* line 3333, stdin */ #rezon-forms .datepickerContainer .datepicker-col + .datepicker-col .datepickerGoNext.no-visiblity { visibility: visible; }
+  /* line 3337, stdin */ #rezon-forms .rez-forms { padding: 0 10px; } }
 
-@media (min-width: 1200px) { /* line 3368, stdin */ #rezon-forms .fields-container .multy-route.last .delete-leg, #rezon-forms .route .multy-route .add_segment { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
-  /* line 3374, stdin */ #rezon-forms .fields-container.extended .field.date { -ms-flex-preferred-size: 10%; flex-basis: 10%; }
-  /* line 3379, stdin */ #rezon-forms .fields-container.extended.route .field.time, #rezon-forms .route .add_segment, #rezon-forms .fields-container.extended .delete-leg { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
-  /* line 3386, stdin */ #rezon-forms .route.extended .multy-route .add_segment { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
-  /* line 3391, stdin */ #rezon-forms #railway-form-shoot .field.date { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
-  /* line 3396, stdin */ #rezon-forms #railway-form-shoot .field.find { margin-left: initial; -ms-flex-preferred-size: 19%; flex-basis: 19%; }
-  /* line 3402, stdin */ #rezon-forms #railway-form-shoot .field.hide_s { -ms-flex-preferred-size: 15%; flex-basis: 15%; } /* line 3563, stdin */ #rezon-forms .visible-lg { display: block !important; }
-  /* line 3567, stdin */ #rezon-forms table.visible-lg { display: table !important; }
-  /* line 3571, stdin */ #rezon-forms tr.visible-lg { display: table-row !important; }
-  /* line 3575, stdin */ #rezon-forms th.visible-lg, #rezon-forms td.visible-lg { display: table-cell !important; } /* line 3582, stdin */ #rezon-forms .visible-lg-block { display: block !important; } /* line 3588, stdin */ #rezon-forms .visible-lg-inline { display: inline !important; } /* line 3594, stdin */ #rezon-forms .visible-lg-inline-block { display: inline-block !important; } /* line 3618, stdin */ #rezon-forms .hidden-lg { display: none !important; } }
+@media (min-width: 1200px) { /* line 3367, stdin */ #rezon-forms .fields-container .multy-route.last .delete-leg, #rezon-forms .route .multy-route .add_segment { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
+  /* line 3373, stdin */ #rezon-forms .fields-container.extended .field.date { -ms-flex-preferred-size: 10%; flex-basis: 10%; }
+  /* line 3378, stdin */ #rezon-forms .fields-container.extended.route .field.time, #rezon-forms .route .add_segment, #rezon-forms .fields-container.extended .delete-leg { -ms-flex-preferred-size: 20%; flex-basis: 20%; }
+  /* line 3385, stdin */ #rezon-forms .route.extended .multy-route .add_segment { -ms-flex-preferred-size: 100%; flex-basis: 100%; }
+  /* line 3390, stdin */ #rezon-forms #railway-form-shoot .field.date { -ms-flex-preferred-size: 15%; flex-basis: 15%; }
+  /* line 3395, stdin */ #rezon-forms #railway-form-shoot .field.find { margin-left: initial; -ms-flex-preferred-size: 19%; flex-basis: 19%; }
+  /* line 3401, stdin */ #rezon-forms #railway-form-shoot .field.hide_s { -ms-flex-preferred-size: 15%; flex-basis: 15%; } /* line 3562, stdin */ #rezon-forms .visible-lg { display: block !important; }
+  /* line 3566, stdin */ #rezon-forms table.visible-lg { display: table !important; }
+  /* line 3570, stdin */ #rezon-forms tr.visible-lg { display: table-row !important; }
+  /* line 3574, stdin */ #rezon-forms th.visible-lg, #rezon-forms td.visible-lg { display: table-cell !important; } /* line 3581, stdin */ #rezon-forms .visible-lg-block { display: block !important; } /* line 3587, stdin */ #rezon-forms .visible-lg-inline { display: inline !important; } /* line 3593, stdin */ #rezon-forms .visible-lg-inline-block { display: inline-block !important; } /* line 3617, stdin */ #rezon-forms .hidden-lg { display: none !important; } }
 
-@media (max-width: 767px) { /* line 3449, stdin */ #rezon-forms .visible-xs { display: block !important; }
-  /* line 3453, stdin */ #rezon-forms table.visible-xs { display: table !important; }
-  /* line 3457, stdin */ #rezon-forms tr.visible-xs { display: table-row !important; }
-  /* line 3461, stdin */ #rezon-forms th.visible-xs, #rezon-forms td.visible-xs { display: table-cell !important; } /* line 3468, stdin */ #rezon-forms .visible-xs-block { display: block !important; } /* line 3474, stdin */ #rezon-forms .visible-xs-inline { display: inline !important; }
-  /* line 3477, stdin */ #rezon-forms .fields-container .field.date .vdp-datepicker__calendar { left: 0; } /* line 3483, stdin */ #rezon-forms .visible-xs-inline-block { display: inline-block !important; } /* line 3600, stdin */ #rezon-forms .hidden-xs { display: none !important; } }
+@media (max-width: 767px) { /* line 3448, stdin */ #rezon-forms .visible-xs { display: block !important; }
+  /* line 3452, stdin */ #rezon-forms table.visible-xs { display: table !important; }
+  /* line 3456, stdin */ #rezon-forms tr.visible-xs { display: table-row !important; }
+  /* line 3460, stdin */ #rezon-forms th.visible-xs, #rezon-forms td.visible-xs { display: table-cell !important; } /* line 3467, stdin */ #rezon-forms .visible-xs-block { display: block !important; } /* line 3473, stdin */ #rezon-forms .visible-xs-inline { display: inline !important; }
+  /* line 3476, stdin */ #rezon-forms .fields-container .field.date .vdp-datepicker__calendar { left: 0; } /* line 3482, stdin */ #rezon-forms .visible-xs-inline-block { display: inline-block !important; } /* line 3599, stdin */ #rezon-forms .hidden-xs { display: none !important; } }
 
-@media (min-width: 768px) and (max-width: 991px) { /* line 3489, stdin */ #rezon-forms .visible-sm { display: block !important; }
-  /* line 3493, stdin */ #rezon-forms table.visible-sm { display: table !important; }
-  /* line 3497, stdin */ #rezon-forms tr.visible-sm { display: table-row !important; }
-  /* line 3501, stdin */ #rezon-forms th.visible-sm, #rezon-forms td.visible-sm { display: table-cell !important; } /* line 3508, stdin */ #rezon-forms .visible-sm-block { display: block !important; } /* line 3514, stdin */ #rezon-forms .visible-sm-inline { display: inline !important; } /* line 3520, stdin */ #rezon-forms .visible-sm-inline-block { display: inline-block !important; } /* line 3606, stdin */ #rezon-forms .hidden-sm { display: none !important; } }
+@media (min-width: 768px) and (max-width: 991px) { /* line 3488, stdin */ #rezon-forms .visible-sm { display: block !important; }
+  /* line 3492, stdin */ #rezon-forms table.visible-sm { display: table !important; }
+  /* line 3496, stdin */ #rezon-forms tr.visible-sm { display: table-row !important; }
+  /* line 3500, stdin */ #rezon-forms th.visible-sm, #rezon-forms td.visible-sm { display: table-cell !important; } /* line 3507, stdin */ #rezon-forms .visible-sm-block { display: block !important; } /* line 3513, stdin */ #rezon-forms .visible-sm-inline { display: inline !important; } /* line 3519, stdin */ #rezon-forms .visible-sm-inline-block { display: inline-block !important; } /* line 3605, stdin */ #rezon-forms .hidden-sm { display: none !important; } }
 
-@media (min-width: 992px) and (max-width: 1199px) { /* line 3526, stdin */ #rezon-forms .visible-md { display: block !important; }
-  /* line 3530, stdin */ #rezon-forms table.visible-md { display: table !important; }
-  /* line 3534, stdin */ #rezon-forms tr.visible-md { display: table-row !important; }
-  /* line 3538, stdin */ #rezon-forms th.visible-md, #rezon-forms td.visible-md { display: table-cell !important; } /* line 3545, stdin */ #rezon-forms .visible-md-block { display: block !important; } /* line 3551, stdin */ #rezon-forms .visible-md-inline { display: inline !important; } /* line 3557, stdin */ #rezon-forms .visible-md-inline-block { display: inline-block !important; } /* line 3612, stdin */ #rezon-forms .hidden-md { display: none !important; } }
+@media (min-width: 992px) and (max-width: 1199px) { /* line 3525, stdin */ #rezon-forms .visible-md { display: block !important; }
+  /* line 3529, stdin */ #rezon-forms table.visible-md { display: table !important; }
+  /* line 3533, stdin */ #rezon-forms tr.visible-md { display: table-row !important; }
+  /* line 3537, stdin */ #rezon-forms th.visible-md, #rezon-forms td.visible-md { display: table-cell !important; } /* line 3544, stdin */ #rezon-forms .visible-md-block { display: block !important; } /* line 3550, stdin */ #rezon-forms .visible-md-inline { display: inline !important; } /* line 3556, stdin */ #rezon-forms .visible-md-inline-block { display: inline-block !important; } /* line 3611, stdin */ #rezon-forms .hidden-md { display: none !important; } }
 
 /*# sourceMappingURL=rezon-form.min.css.map*/

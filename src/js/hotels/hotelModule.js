@@ -156,7 +156,7 @@ module.exports = class hotelModule extends formModuleBase {
                     });
                 },
                 checkItem: function (event) {
-                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
                         this.item.Code = "";
                         this.$emit("input", this.item);
                     }
@@ -647,6 +647,8 @@ module.exports = class hotelModule extends formModuleBase {
                 var city = form.find("[name='CityId']").val();
                 $.trim(city) !== "" && $(this).typeahead("query", "city_" + city);
             }
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
         }).click(function () {
             $(this).select();
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
@@ -679,6 +681,9 @@ module.exports = class hotelModule extends formModuleBase {
                 it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeight);
             }
         }).on("typeahead:dropup", function (its) {
+            //Просто очистили поле ввода - схлопнулась выпадашка, но мы по прежнему в фокусе
+            if ($(this).is(":focus")) return;
+
             if (it.extra.isInIframe()) {
                 it.extra.recalculateHeightOnClose();
             }

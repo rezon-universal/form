@@ -968,10 +968,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background: -webkit-linear-gradient(to right, rgba(0,0,0,0) 0%, #00b0ff 50%, rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, rgba(0,0,0,0) 0%, #00b0ff 50%, rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
-#rezon-forms .focused .twitter-typeahead.loading:before
-{
-    animation: slide 1s infinite;
-    animation-timing-function: linear;
+#rezon-forms .focused .twitter-typeahead.loading:before {
+    animation: slide 0.7s infinite;
+    animation-timing-function: inherit;
     z-index: 3;
 }
 @keyframes slide {

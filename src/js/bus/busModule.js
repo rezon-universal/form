@@ -122,15 +122,17 @@ module.exports = class busModule extends formModuleBase {
             watch: {
                 value: {
                     handler: function (newValue) {
-                        this.item = newValue;
+                        if (this.item !== newValue) {
+                            this.item = newValue;
 
-                        var comp = this;
-                        Vue.nextTick(function () {
-                            //Update typeahead
-                            var el = comp.$el;
-                            var selector = comp.inputClass;
-                            $(el).find('.' + selector).typeahead('val', newValue.Name);
-                        });
+                            var comp = this;
+                            Vue.nextTick(function () {
+                                //Update typeahead
+                                var el = comp.$el;
+                                var selector = comp.inputClass;
+                                $(el).find('.' + selector).typeahead('val', newValue.Name);
+                            });
+                        }
                     },
                     deep: true
                 }
@@ -164,7 +166,7 @@ module.exports = class busModule extends formModuleBase {
                     });
                 },
                 checkItem: function (event) {
-                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
                         this.item.CountryName = '';
                         this.item.Id = '';
                         this.item.RegionName = '';
@@ -428,7 +430,10 @@ module.exports = class busModule extends formModuleBase {
                 var fromCity = form.find("[name='CityIdFrom']").val();
                 $.trim(fromCity) !== "" && $(this).typeahead('query', "fromCity_" + fromCity);
             }
-        }).click(function () {
+        }).blur(function () {
+            $(this).closest('.field.focused').removeClass('focused');
+        })
+        .click(function () {
             $(this).select();
         }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
             if (datum != undefined) {
@@ -468,11 +473,15 @@ module.exports = class busModule extends formModuleBase {
                 it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeight);
             }
         }).on("typeahead:dropup", function (its) {
+            
+            //Просто очистили поле ввода - схлопнулась выпадашка, но мы по прежнему в фокусе
+            if ($(this).is(":focus")) return;
+
             if (it.extra.isInIframe()) {
                 it.extra.recalculateHeightOnClose();
             }
 
-            //TODO First selected
+            
             var item = $(this).closest(".field");
             it.extra.closeField(item);
             if (item.find(".inside input[type='hidden']").val() === "" && $(this).val().length > 1 && $(this).data("lastHist")) {

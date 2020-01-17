@@ -3,13 +3,17 @@
         this.form = form;
         this.it = it;
 
+        //Obsolete, to remove
         this.airportFinderData = this.airportFinderData();
         this.airportFinderData.initialize();
+
+        this.airportsCitiesFinderDataTimer = undefined;
 
         this.carriersData = this.carriersData();
         this.carriersData.initialize();
     }
 
+    //Obsolete, to remove
     airportFinderData() {
         return new Bloodhound({
             datumTokenizer: function (datum) {
@@ -27,6 +31,25 @@
                 }
             }
         });
+    }
+    airportsCitiesFinderData(query, asyncResults) {
+        this.airportsCitiesFinderDataTimer && clearTimeout(this.airportsCitiesFinderDataTimer);
+
+        let url = this.it.extra.remoteUrl() + '/HelperAsync/Lookup?query=';
+        if (window.ab === 'b') {
+            url = this.it.extra.remoteUrl() + '/HelperAsync/Lookup2?query=';
+        }
+        
+        this.airportsCitiesFinderDataTimer = setTimeout(function() {
+            $.ajax({
+                url : url + encodeURIComponent(query),
+                dataType: 'json',
+                success: function(data) {
+                    asyncResults(data);
+                }
+            });
+        }, 200);
+
     }
     carriersData() {
         return new Bloodhound({

@@ -164,15 +164,15 @@ module.exports = class airModule extends formModuleBase {
             watch: {
                 value: {
                     handler: function (newValue) {
-                        this.item = newValue;
-
-                        var comp = this;
-                        Vue.nextTick(function () {
-                            //Update typeahead
-                            var el = comp.$el;
-                            var selector = comp.inputClass;
-                            $(el).find('.' + selector).typeahead('val', newValue.Airport);
-                        });
+                        if (this.item !== newValue) {
+                            var comp = this;
+                            Vue.nextTick(function () {
+                                //Update typeahead
+                                var el = comp.$el;
+                                var selector = comp.inputClass;
+                                $(el).find('.' + selector).typeahead('val', newValue.Airport);
+                            });
+                        }
                     },
                     deep: true
                 }
@@ -196,6 +196,7 @@ module.exports = class airModule extends formModuleBase {
                     }
                 },
                 clearItem: function () {
+                    
                     this.item = new AirportItem();
                     this.$emit('input', this.item);
                     
@@ -209,7 +210,7 @@ module.exports = class airModule extends formModuleBase {
                     });
                 },
                 checkItem: function (event) {
-                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                    if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
                         this.item.CountryCode = '';
                         this.item.CountryName = '';
                         this.item.IataCode = '';
@@ -653,10 +654,13 @@ module.exports = class airModule extends formModuleBase {
             if (it.extra.mobileAndTabletcheck()) {
                 typeaheadOptions.minLength = 0;
             }
+            //let airportsSource = dw.airportFinderData.ttAdapter();
+            let airportsSource = dw.airportsCitiesFinderData.bind(dw);
+
             el.typeahead(typeaheadOptions, {
                 name: "airports-" + options.defaultLang,
                 displayKey: 'value',
-                source: dw.airportFinderData.ttAdapter(),
+                source: airportsSource,
                 display: function (data) {
                     return data != undefined ? data.Name : null;
                 },
@@ -702,7 +706,7 @@ module.exports = class airModule extends formModuleBase {
                         return ret;
                     }
                 }
-            }).focus(function () {
+            }).focus(function () { 
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
                 item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
@@ -715,7 +719,10 @@ module.exports = class airModule extends formModuleBase {
                         dp.typeahead('query', "from_iata_" + dp.closest(".fields-container").find("[name='from_iata']").val());
                     });
                 }
-            }).click(function () {
+            }).blur(function () {
+                $(this).closest('.field.focused').removeClass('focused');
+            })
+            .click(function () {
                 $(this).select();
             }).on("typeahead:selected typeahead:autocompleted", function (e, datum, e2) {
                 if (datum != undefined) {
@@ -749,6 +756,7 @@ module.exports = class airModule extends formModuleBase {
                     $(this).blur();
                 }
             }).on("typeahead:dropdown", function (its) {
+
                 var item = $(this).closest('.field');
                 it.extra.openField(item);
 
@@ -762,6 +770,10 @@ module.exports = class airModule extends formModuleBase {
                     it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeight);
                 }
             }).on("typeahead:dropup", function (its) {
+
+                //Просто очистили поле ввода - схлопнулась выпадашка, но мы по прежнему в фокусе
+                if ($(this).is(":focus")) return;
+
                 if (it.extra.isInIframe()) {
                     it.extra.recalculateHeightOnClose();
                 }
@@ -769,10 +781,11 @@ module.exports = class airModule extends formModuleBase {
                 if ($.trim($(this).val()) === "") {
                     $(this).trigger("typeahead:queryChanged");
                 } else {
-                    if(item.hasClass("has-error")) {
+                    if (item.hasClass("has-error")) {
                         item.removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
                     }
                 }
+
 
                 if ($(this).val() !== "" && $(this).data("lastHist")) {
                     var _this = $(this);
@@ -788,7 +801,6 @@ module.exports = class airModule extends formModuleBase {
 
                 it.extra.closeField(item);
             }).on("typeahead:queryChanged", function (it, query) {
-
             }).on("typeahead:updateHint", function (a, b) {
                 if (b) $(this).data("lastHist", b);
                 else $(this).removeData("lastHist");
