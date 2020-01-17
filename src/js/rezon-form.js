@@ -432,8 +432,7 @@ var rezOnForm = function () {
             });
 
             $(".selectpicker").each(function () {
-                if ($(this).attr("tabindex") != "-1") {
-                    $(this).attr("tabindex", "-1");
+                $(this).on("redraw", function() {
                     var radio = $(this).find("input:radio:checked");
                     if (radio.length == 0) radio = $(this).find("input:radio:first");
 
@@ -441,6 +440,10 @@ var rezOnForm = function () {
                     if (selectedValue.length === 0) selectedValue = $("<div/>").prependTo($(this)).addClass("selected-value clear_after");
 
                     selectedValue.html("").append($("<span/>").html(radio.prev("span:first").html()));
+                });
+                if ($(this).attr("tabindex") !== "-1") {
+                    $(this).attr("tabindex", "-1");
+                    $(this).trigger("redraw");
                 }
             });
         }

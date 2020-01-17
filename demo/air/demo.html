@@ -22,12 +22,23 @@
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <div class="row">
-        <div class="direct radio-group">
+        <div class="direct radio-group form-test-version-a">
             <label v-for="(type,index) in avia.formTypes" v-bind:class="{active: avia.formType.value === type.value}" v-on:click="typeChanged(index)">
                 <span>{{locale(type.text)}}</span>
             </label>
-            <input type="radio" name="book_type" v-bind:value="avia.formType.value" checked/>
-
+            <input type="radio" name="book_type" v-bind:value="avia.formType.value" checked />
+        </div>
+        <div class="field form-test-version-b">
+            <span>
+                <span class="selectpicker select-route-type">
+                    <div class="options">
+                        <div class="option" v-for="(type,index) in avia.formTypes" v-on:click="typeChanged(index)">
+                            <span>{{locale(type.text)}}</span>
+                            <input type="radio" name="form_type" :value="type.value" v-bind:checked="avia.formType.value === type.value" />
+                        </div>
+                    </div>
+                </span>
+            </span>
         </div>
     </div>
     <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
@@ -70,16 +81,16 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                     <datepicker :placeholder="locale('SELECT_DATE')"
-                                 :disabled-dates="avia.disabledDatesFrom"
-                                 :language="defaultLang"
-                                 v-model="avia.defaultDateThere"
-                                 name="book_from_date"
-                                 input-class="book-date datepicker"
-                                 :date-from="avia.defaultDateThere"
-                                 :date-to="avia.defaultDateBack"
-                                 initial-view="month">
-                     </datepicker>
+                    <datepicker :placeholder="locale('SELECT_DATE')"
+                                :disabled-dates="avia.disabledDatesFrom"
+                                :language="defaultLang"
+                                v-model="avia.defaultDateThere"
+                                name="book_from_date"
+                                input-class="book-date datepicker"
+                                :date-from="avia.defaultDateThere"
+                                :date-to="avia.defaultDateBack"
+                                initial-view="month">
+                    </datepicker>
                 </div>
             </div>
         </div>
@@ -94,6 +105,9 @@
                     <datepicker :placeholder="locale('SELECT_DATE')"
                                 :disabled-dates="avia.disabledDatesTo"
                                 :language="defaultLang"
+                                :button-in-top-message="locale('WITHOUT_RETURN_TICKET')"
+                                v-on:button-in-top="typeChanged(0)"
+                                
                                 v-model="avia.defaultDateBack"
                                 name="book_to_date"
                                 input-class="book-date datepicker"
@@ -102,7 +116,7 @@
                                 v-if="avia.formType.value==='roundtrip'"
                                 initial-view="day">
                     </datepicker>
-                     <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
+                    <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
                 </div>
             </div>
         </div>
@@ -134,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}"> 
+                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}">
                             <label v-for="msg in avia.passengers.messages">{{locale(msg)}}</label>
                         </div>
                         <span class="button-hide hidden-xs">
@@ -162,11 +176,11 @@
                         </div>
                         <div class="option" v-on:click="clickTimeFrom">
                             <span data-from-time="1">{{locale("IN_THE_MORNING")}} [00:01-10:00]</span>
-                            <input type="radio" name="book_from_time" value="1" v-bind:checked="avia.aviFromTime == 1"/>
+                            <input type="radio" name="book_from_time" value="1" v-bind:checked="avia.aviFromTime == 1" />
                         </div>
                         <div class="option" v-on:click="clickTimeFrom">
                             <span data-from-time="2">{{locale("IN_THE_AFTERNOON")}} [10:01-16:00]</span>
-                            <input type="radio" name="book_from_time" value="2" v-bind:checked="avia.aviFromTime == 2"/>
+                            <input type="radio" name="book_from_time" value="2" v-bind:checked="avia.aviFromTime == 2" />
                         </div>
                         <div class="option" v-on:click="clickTimeFrom">
                             <span data-from-time="3">{{locale("IN_THE_EVENING")}} [16:01-23:59]</span>
@@ -177,35 +191,35 @@
             </div>
         </div>
         <div class="field time">
-        <label class="hidden-xs menu-title">{{locale("TIME_FLY_BACK")}}</label>
-        <div class="control-field">
-            <div class="selectpicker book-time book-time-to">
-                <div class="options">
-                    <div class="option" v-on:click="clickTimeTo">
-                        <span data-to-time="0">{{locale("AT_ANY_TIME")}}</span>
-                        <input type="radio" name="book_to_time" value="0" v-bind:checked="avia.aviToTime == 0"/>
-                    </div>
-                    <div class="option" v-on:click="clickTimeTo">
-                        <span data-to-time="1">{{locale("IN_THE_MORNING")}} [00:01-10:00]</span>
-                        <input type="radio" name="book_to_time" value="1" v-bind:checked="avia.aviToTime == 1"/>
-                    </div>
-                    <div class="option" v-on:click="clickTimeTo">
-                        <span data-to-time="2">{{locale("IN_THE_AFTERNOON")}} [10:01-16:00]</span>
-                        <input type="radio" name="book_to_time" value="2" v-bind:checked="avia.aviToTime == 2"/>
-                    </div>
-                    <div class="option" v-on:click="clickTimeTo">
-                        <span data-to-time="3">{{locale("IN_THE_EVENING")}} [16:01-23:59]</span>
-                        <input type="radio" name="book_to_time" value="3" v-bind:checked="avia.aviToTime == 3"/>
+            <label class="hidden-xs menu-title">{{locale("TIME_FLY_BACK")}}</label>
+            <div class="control-field">
+                <div class="selectpicker book-time book-time-to">
+                    <div class="options">
+                        <div class="option" v-on:click="clickTimeTo">
+                            <span data-to-time="0">{{locale("AT_ANY_TIME")}}</span>
+                            <input type="radio" name="book_to_time" value="0" v-bind:checked="avia.aviToTime == 0" />
+                        </div>
+                        <div class="option" v-on:click="clickTimeTo">
+                            <span data-to-time="1">{{locale("IN_THE_MORNING")}} [00:01-10:00]</span>
+                            <input type="radio" name="book_to_time" value="1" v-bind:checked="avia.aviToTime == 1" />
+                        </div>
+                        <div class="option" v-on:click="clickTimeTo">
+                            <span data-to-time="2">{{locale("IN_THE_AFTERNOON")}} [10:01-16:00]</span>
+                            <input type="radio" name="book_to_time" value="2" v-bind:checked="avia.aviToTime == 2" />
+                        </div>
+                        <div class="option" v-on:click="clickTimeTo">
+                            <span data-to-time="3">{{locale("IN_THE_EVENING")}} [16:01-23:59]</span>
+                            <input type="radio" name="book_to_time" value="3" v-bind:checked="avia.aviToTime == 3" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="field add_segment" v-on:click="addSegment()" v-show="avia.multyRoutes.length==0 && avia.formType.value=='route'">
-        <div class="add transp">
-            <a><span>+ {{locale("CONTINUE_ROUTE")}}</span></a>
+            <div class="add transp">
+                <a><span>+ {{locale("CONTINUE_ROUTE")}}</span></a>
+            </div>
         </div>
-    </div>      
         <div class="multy-route" v-if="avia.formType.value=='route'" v-bind:class="{last : index==avia.multyRoutes.length-1}" v-for="(route,index) in avia.multyRoutes">
             <div class="field airport">
                 <label class="menu-title">
@@ -230,7 +244,7 @@
                 </div>
             </div>
             <div class="field date">
-                 <label class="menu-title">
+                <label class="menu-title">
                     <span class="link-left"></span>
                     {{locale("SORTIE")}}
                     <span class="link-right"></span>
@@ -248,25 +262,25 @@
                         <div class="options">
                             <div class="option" v-on:click="route.aviFromTime=0">
                                 <span>{{locale("AT_ANY_TIME")}}</span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="0" v-bind:checked="route.aviFromTime == 0"/>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="0" v-bind:checked="route.aviFromTime == 0" />
                             </div>
                             <div class="option" v-on:click="route.aviFromTime=1">
                                 <span>
-                                <span>{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
-                            </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="1" v-bind:checked="route.aviFromTime == 1"/>
+                                    <span>{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
+                                </span>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="1" v-bind:checked="route.aviFromTime == 1" />
                             </div>
                             <div class="option" v-on:click="route.aviFromTime=2">
                                 <span>
-                                <span>{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
-                            </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="2" v-bind:checked="route.aviFromTime == 2"/>
+                                    <span>{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
+                                </span>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="2" v-bind:checked="route.aviFromTime == 2" />
                             </div>
                             <div class="option" v-on:click="route.aviFromTime=3">
                                 <span>
-                                <span>{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
-                            </span>
-                                <input type="radio" :name="'book_from_time'+(index+2)" value="3" v-bind:checked="route.aviFromTime == 3"/>
+                                    <span>{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
+                                </span>
+                                <input type="radio" :name="'book_from_time'+(index+2)" value="3" v-bind:checked="route.aviFromTime == 3" />
                             </div>
                         </div>
                     </div>
@@ -293,29 +307,29 @@
                 <div class="book-class">
                     <div class="selectpicker standalone">
                         <div class="options">
-                            <div class="option"  v-on:click="avia.bookClass=0">
+                            <div class="option" v-on:click="avia.bookClass=0">
                                 <span>{{locale("FORM_CLASS_ANY")}}</span>
                                 <input type="radio" name="book_class" value="0" v-bind:checked="avia.bookClass==0" />
                             </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(1) > -1"  v-on:click="avia.bookClass=1">
+                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(1) > -1" v-on:click="avia.bookClass=1">
                                 <span>{{locale("FORM_CLASS_E")}}</span>
-                                <input type="radio" name="book_class" value="1" v-bind:checked="avia.bookClass==1"/>
+                                <input type="radio" name="book_class" value="1" v-bind:checked="avia.bookClass==1" />
                             </div>
                             <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(4) > -1" v-on:click="avia.bookClass=4">
                                 <span>{{locale("FORM_CLASS_W")}}</span>
-                                <input type="radio" name="book_class" value="4" v-bind:checked="avia.bookClass==4"/>
+                                <input type="radio" name="book_class" value="4" v-bind:checked="avia.bookClass==4" />
                             </div>
                             <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(2) > -1" v-on:click="avia.bookClass=2">
                                 <span>{{locale("FORM_CLASS_B")}}</span>
-                                <input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2"/>
+                                <input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2" />
                             </div>
                             <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
                                 <span>{{locale("FORM_CLASS_F")}}</span>
-                                <input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3"/>
+                                <input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3" />
                             </div>
                             <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(5) > -1" v-on:click="avia.bookClass=5">
                                 <span>{{locale("FORM_CLASS_P")}}</span>
-                                <input type="radio" name="book_class" value="5" v-bind:checked="avia.bookClass==5"/>
+                                <input type="radio" name="book_class" value="5" v-bind:checked="avia.bookClass==5" />
                             </div>
                         </div>
                     </div>
@@ -326,7 +340,7 @@
             <div class="direct_flight transp">
                 <label class="checkbox-wrapper" :class="{active:avia.onlyDirect}">
                     <div class="check_bull"></div>
-                    <input type="checkbox" name="onlyDirect" v-model="avia.onlyDirect" :value="avia.onlyDirect?'True':''"/>
+                    <input type="checkbox" name="onlyDirect" v-model="avia.onlyDirect" :value="avia.onlyDirect?'True':''" />
                     <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
                 </label>
             </div>
@@ -347,11 +361,11 @@
                     <div class="carriers-finder g-hide">
                         <div class="carriers-finder-inside">
                             <div v-for="(item, index) in avia.airCompanies">
-                                <input type="hidden" :name="'selectedAirCompany'+(index+1)" v-model="avia.airCompanies[index].code"/>
+                                <input type="hidden" :name="'selectedAirCompany'+(index+1)" v-model="avia.airCompanies[index].code" />
                                 <label class="clearfix carrier_name"><span class="pull-left">{{item.label}}</span><span class="delete" v-on:click="removeCarrier(index)"></span></label>
                             </div>
                             <div v-show="avia.airCompanies.length<avia.maxAirCompaniesCount">
-                                <input type="text" class="typeahead-selectpicker galileo-aircompany-select" :placeholder="locale('ANY_AVIACOMPANY')"/>
+                                <input type="text" class="typeahead-selectpicker galileo-aircompany-select" :placeholder="locale('ANY_AVIACOMPANY')" />
                             </div>
                         </div>
                         <span href="#" class="button-hide hidden-xs">
@@ -375,15 +389,15 @@
                             </div>
                             <div class="option" v-on:click="avia.intervalCount = 1">
                                 <span>&plusmn;1 <span>{{locale("DAY")}}</span></span>
-                                <input type="radio" name="dateRange" value="1" v-bind:checked="avia.intervalCount == 1"/>
+                                <input type="radio" name="dateRange" value="1" v-bind:checked="avia.intervalCount == 1" />
                             </div>
                             <div class="option" v-on:click="avia.intervalCount = 2">
                                 <span>&plusmn;2 <span>{{locale("DAYS")}}</span></span>
-                                <input type="radio" name="dateRange" value="2" v-bind:checked="avia.intervalCount == 2"/>
+                                <input type="radio" name="dateRange" value="2" v-bind:checked="avia.intervalCount == 2" />
                             </div>
                             <div class="option" v-on:click="avia.intervalCount = 3">
                                 <span>&plusmn;3 <span>{{locale("DAYS")}}</span></span>
-                                <input type="radio" name="dateRange" value="3" v-bind:checked="avia.intervalCount == 3"/>
+                                <input type="radio" name="dateRange" value="3" v-bind:checked="avia.intervalCount == 3" />
                             </div>
 
                         </div>
@@ -391,7 +405,7 @@
                 </div>
             </div>
         </div>
-        <div class="field hide_s">
+        <div class="field hide_s form-test-version-a">
             <div class="transp" v-on:click="changeAviaFormExtended()">
                 <div class="hide_settings dashed">
                     <div class="simple_search">
@@ -399,17 +413,51 @@
                     </div>
                     <div class="advanced_search">
                         <span>{{locale("ADVANCED_SEARCH")}}</span>
-                    </div>               
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field hide_s form-test-version-b">
+            <div class="transp" v-on:click="changeAviaFormExtended()">
+                <div class="hide_settings dashed">
+                    <div class="simple_search">
+                        <span>{{locale("SIMPLE_SEARCH")}}</span>
+                    </div>
+                    <div class="advanced_search">
+                        <span>{{locale("ADVANCED_SEARCH")}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field hide_s form-test-version-c">
+            <div class="transp" v-if="avia.formType.value !== 'route'">
+                <a href="#" class="extended-form-link"  v-on:click.prevent="typeChanged(2)">
+                    <span>{{locale(avia.formTypes[2].text)}}</span>
+                </a>
+            </div>
+            <div class="transp"  v-if="avia.formType.value === 'route'">
+                <a href="#" class="extended-form-link"  v-on:click.prevent="typeChanged(1)">
+                    <span>{{locale("BACK_TO_SIMPLE_ROUTE")}}</span>
+                </a>
+            </div>
+            <div class="transp" v-on:click="changeAviaFormExtended()">
+                <div class="hide_settings dashed">
+                    <div class="simple_search">
+                        <span>{{locale("HIDE_ADVANCED_SETTINGS")}}</span>
+                    </div>
+                    <div class="advanced_search">
+                        <span>{{locale("ADVANCED_SETTINGS")}}</span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="field extended-form" v-if="avia.formExtended">
-        	<div class="transp">
-        		<a href="/DEFAULT_LANGUAGE/AirTickets/ExtendedHistory" class="extended-form-link">
-                	<span>{{locale("OPEN_AVIA_ADDITIONAL_FORM")}}</span>
+            <div class="transp">
+                <a href="/DEFAULT_LANGUAGE/AirTickets/ExtendedHistory" class="extended-form-link">
+                    <span>{{locale("OPEN_AVIA_ADDITIONAL_FORM")}}</span>
                 </a>
-        	</div>
-         </div>       
+            </div>
+        </div>
         <div class="field clear">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearForm()">

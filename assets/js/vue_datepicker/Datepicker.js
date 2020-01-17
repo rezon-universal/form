@@ -457,6 +457,9 @@ var defaultDatepickerSettings = {
         "</div>" +
         //<!-- Day View -->
         "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showDayView\" v-bind:style=\"calendarStyle\">" +
+            "<header v-if='buttonInTopMessage'>" +
+                "<div class='botton-in-header'><a href='#' v-on:click.prevent='clickOnButtonInHeader'>{{ buttonInTopMessage }}</a></div>" +
+            "</header>"+
             "<header>" +
                 "<span @click=\"isRtl ? previousMonth() : nextMonth()\" class=\"next\" v-bind:class=\"{ 'disabled' : isRtl ? previousMonthDisabled(pageDate) : nextMonthDisabled(pageDate) }\">&gt;</span>" +
                 "<span @click=\"isRtl ? nextMonth() : previousMonth()\" class=\"prev\" v-bind:class=\"{ 'disabled' : isRtl ? nextMonthDisabled(pageDate) : previousMonthDisabled(pageDate) }\">&lt;</span>" +
@@ -472,6 +475,9 @@ var defaultDatepickerSettings = {
         // <!-- Month View -->
         "<template v-if=\"!dayViewOnly\">"+
             "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showMonthView\" v-bind:style=\"calendarStyle\">"+
+                "<header v-if='buttonInTopMessage'>" +
+                    "<div class='botton-in-header'><a href='#' v-on:click.prevent='clickOnButtonInHeader'>{{ buttonInTopMessage }}</a></div>" +
+                "</header>"+
                 "<header>" +
                     "<span @click=\"nextYear\" class=\"next\" v-bind:class=\"{ 'disabled' : nextYearDisabled(pageDate) }\">&gt;</span>" +
                     "<span @click=\"previousYear\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousYearDisabled(pageDate) }\">&lt;</span>" +
@@ -483,6 +489,9 @@ var defaultDatepickerSettings = {
         // <!-- Year View -->
         "<template v-if=\"!dayViewOnly\">" +
             "<div :class=\"[calendarClass, 'vdp-datepicker__calendar']\" v-show=\"showYearView\" v-bind:style=\"calendarStyle\">" +
+                "<header v-if='buttonInTopMessage'>" +
+                    "<div class='botton-in-header'><a href='#' v-on:click.prevent='clickOnButtonInHeader'>{{ buttonInTopMessage }}</a></div>" +
+                "</header>"+
                 "<header>" +
                     "<span @click=\"nextDecade\" class=\"next\" v-bind:class=\"{ 'disabled' : nextMonthDisabled(pageDate) }\">&gt;</span>" +
                     "<span @click=\"previousDecade\" class=\"prev\" v-bind:class=\"{ 'disabled' : previousDecadeDisabled(pageDate) }\">&lt;</span>" +
@@ -558,6 +567,9 @@ var defaultDatepickerSettings = {
         dayViewOnly: {
             type: Boolean,
             default: false
+        },
+        buttonInTopMessage : {
+            type: String
         }
     },
     data: function() {
@@ -1162,6 +1174,11 @@ var defaultDatepickerSettings = {
                 this.close();
                 document.removeEventListener('click', this.clickOutside, false);
             }
+        },
+        clickOnButtonInHeader: function() {
+            this.$emit('button-in-top');
+            this.resetDefaultDate();
+            this.close();
         },
         dayClasses: function (day) {
             return {

@@ -380,6 +380,11 @@ module.exports = class airModule extends formModuleBase {
                         this.avia.multyRoutes = [];
                     }
                     $(document).trigger("RouteTypeChange.MapBridge", [this.avia.formType]);
+                    
+                    Vue.nextTick(function () {
+                        $(document).find(".select-route-type").trigger("redraw");
+                    });
+                    
                 },
                 clearForm: function () {
                     this.avia.aviFrom = new AirportItem();

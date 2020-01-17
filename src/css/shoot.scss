@@ -16,6 +16,7 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
 #rezon-forms a,
 #rezon-forms a:visited 
 {
@@ -138,6 +139,7 @@
     border-radius: 1px;
     color: #ffab00;
 }
+
 #rezon-forms label.menu-title 
 {
     color: #fff;
@@ -1613,6 +1615,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     display: inline-block;
 }
+#rezon-forms :not(.extended) .advanced_search:hover 
+{
+    opacity: 1;
+}
 #rezon-forms .hide_settings div 
 {
     position: relative;
@@ -2135,6 +2141,27 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     cursor: pointer;
     font-style: normal;
 }
+#rezon-forms .vdp-datepicker .botton-in-header {
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+#rezon-forms .vdp-datepicker .botton-in-header a {
+    display: block;
+    width: 100%;
+    border: 1px solid #00b0ff;
+    color: #0079af;
+    text-align: center;
+    text-decoration: none;
+    line-height: 40px;
+    transition: 250ms linear;
+    background: white;
+}
+#rezon-forms .vdp-datepicker .botton-in-header a:hover,
+#rezon-forms .vdp-datepicker .botton-in-header a:active{
+    background: #00b0ff;
+    color: white;
+}
 /* ---------- end vdp-datepicker ---------- */
 
 
@@ -2480,40 +2507,76 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #avia-form-shoot .date.opened .vdp-datepicker__calendar .error-box {
     display: block;
 }
+#rezon-forms .field .select-route-type .selected-value {
+    padding: 5px 20px 5px 0;
+    width: auto;
+    display: inline-block;
+    line-height: 30px;
+    color: white;
+    position: relative;
+    overflow: visible;
 
-@media (min-width: 576px) and (max-width: 1199px) 
-{
-    #rezon-forms .fields-container .field.find 
-    {
+    span {
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+    }
+
+    :after {
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+        content: "";
+        color: white;
+        display: block;
+        height: 11px;
+        right: 0;
+        position: absolute;
+        top: 10px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        width: 11px;
+        opacity: .6;
+    }
+    &:hover{
+        :after{
+            opacity: 1;
+        }
+    }
+}
+
+
+#rezon-forms .field .select-route-type .options{
+    min-width: 260px;
+}
+
+@media (min-width: 576px) and (max-width: 1199px) {
+    #rezon-forms .fields-container .field.find {
         -webkit-order: 1;
         order: 1;
     }
+
     #rezon-forms .fields-container .field.airport,
     #rezon-forms .fields-container .field.station,
     #rezon-forms .fields-container .field.pass,
     #rezon-forms .fields-container.extended .field.only-direct,
     #rezon-forms .fields-container.extended .field.carrier,
-    #rezon-forms .fields-container.extended .field.range 
-    {
+    #rezon-forms .fields-container.extended .field.range {
         -webkit-flex-basis: 50%;
         -webkit-flex-grow: 1;
-
         flex-basis: 50%;
         flex-grow: 1;
     }
+
     #rezon-forms .fields-container .field.date,
     #rezon-forms .fields-container.extended .field.pass,
     #rezon-forms .fields-container .field.time,
-    #rezon-forms .fields-container .field.only-direct
-    {
+    #rezon-forms .fields-container .field.only-direct {
         -webkit-flex-basis: 25%;
         -webkit-flex-grow: 0;
         flex-basis: 25%;
         flex-grow: 0;
     }
+
     #rezon-forms .fields-container.extended .field.time + .time,
-    #rezon-forms .fields-container.extended .field.date + .date 
-    {
+    #rezon-forms .fields-container.extended .field.date + .date {
         margin-right: 0;
     }
 }
@@ -3619,3 +3682,70 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
 }
 /*----------------*/
+
+
+/*for a/b testing. Remove after tests */
+#rezon-forms {
+    .form-test-version-b,
+    .form-test-version-c {
+        display: none;
+    }
+
+    .botton-in-header {
+        display: none !important;
+    }
+
+    &.show-b {
+        .form-test-version-b {
+            display: block;
+        }
+
+        .botton-in-header {
+            display: block !important;
+        }
+
+        .form-test-version-a,
+        .form-test-version-c {
+            display: none;
+        }
+
+        .advanced_search {
+            opacity: .8;
+        }
+
+        .hide_settings div:before {
+            display: none;
+        }
+    }
+
+    &.show-c {
+        .form-test-version-c {
+            display: block;
+        }
+
+        .botton-in-header {
+            display: block !important;
+        }
+
+        .form-test-version-a,
+        .form-test-version-b {
+            display: none;
+        }
+
+        .advanced_search {
+            opacity: .8;
+            margin-left: 20px;
+        }
+
+        .hide_settings div:before {
+            display: none;
+        }
+
+        @media (max-width: 575px) {
+            .transp + .transp {
+                margin-top: 10px;
+                background: none;
+            }
+        }
+    }
+}
