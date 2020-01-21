@@ -33,8 +33,10 @@
                 <span class="selectpicker select-route-type">
                     <div class="options">
                         <div class="option" v-for="(type,index) in avia.formTypes" v-on:click="typeChanged(index)">
-                            <span>{{locale(type.text)}}</span>
-                            <input type="radio" name="form_type" :value="type.value" v-bind:checked="avia.formType.value === type.value" />
+                            <template>
+                                <span>{{locale(type.text)}}</span>
+                                <input type="radio" name="form_type" :value="type.value" v-bind:checked="avia.formType.value === type.value" />
+                            </template>
                         </div>
                     </div>
                 </span>
@@ -148,7 +150,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}">
+                        <div class="pricePTCOnly" v-show="avia.passengers.showPricePTCOnly">
+                            <label class="checkbox-wrapper" :class="{active:avia.passengers.pricePTCOnly}" style="background-color: rgb(236, 239, 241); color: black;">
+                                <div class="check_bull"></div>
+                                <input type="checkbox" name="pricePTCOnly" v-model="avia.passengers.pricePTCOnly" :value="avia.passengers.pricePTCOnly?'True':''"/>
+                                <span>{{locale("ONLY_SELECTED_PTC")}}</span>
+                            </label>
+                        </div>
+                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}"> 
                             <label v-for="msg in avia.passengers.messages">{{locale(msg)}}</label>
                         </div>
                         <span class="button-hide hidden-xs">

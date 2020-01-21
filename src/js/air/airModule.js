@@ -305,6 +305,26 @@ module.exports = class airModule extends formModuleBase {
                                 zeroNumber = "PASS_CAT_SNN_0";
                                 fourNumber = "PASS_CAT_SNN_0";
                                 break;
+                            case "psgLbrCnt":
+                                oneNumber = "PASS_CAT_LBR_1";
+                                zeroNumber = "PASS_CAT_LBR_0";
+                                break;
+                            case "psgSeaCnt":
+                                oneNumber = "PASS_CAT_SEA_1";
+                                zeroNumber = fourNumber = "PASS_CAT_SEA_0";
+                                break;
+                            case "psgStuCnt":
+                                oneNumber = "PASS_CAT_STU_1";
+                                zeroNumber = fourNumber = "PASS_CAT_STU_0";
+                                break;
+                            case "psgEmiCnt":
+                                oneNumber = "PASS_CAT_EMI_1";
+                                zeroNumber = fourNumber = "PASS_CAT_EMI_0";
+                                break;
+                            case "psgVfrCnt":
+                                oneNumber = "PASS_CAT_VFR_1";
+                                zeroNumber = fourNumber = "PASS_CAT_VFR_0";
+                                break;
                         }
                     } else {
                         oneNumber = "C_PASSENGER";
@@ -450,8 +470,8 @@ module.exports = class airModule extends formModuleBase {
                     var infantCnt = 0;
                     this.avia.passengers.messages = [];
                     this.avia.passengers.hasError = false;
-                    var adultsCat = ["psgAdultsCnt", "psgOldCnt", "psgYouthCnt"];
-                    var infantsCat = ["psgInfantsCnt", "psgInfantsNSCnt"];
+                    var adultsCat = this.avia.passengers.adultsCat;
+                    var infantsCat = this.avia.passengers.infantsCat;
                     this.avia.passengers.types.forEach(function (value) {
                         currCount += value.count;
                         if (adultsCat.indexOf(value.name) >= 0) {
