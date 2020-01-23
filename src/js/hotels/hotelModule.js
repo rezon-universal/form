@@ -30,7 +30,8 @@ module.exports = class hotelModule extends formModuleBase {
                 get inputChilds() {
                     return this.childs.join();
                 },
-                isActive: false
+                isActive: false,
+                Reservations: false
             }
         };
     }
@@ -71,7 +72,7 @@ module.exports = class hotelModule extends formModuleBase {
 
         Vue.component("hotelInput", {
             template: ' <div class="inside">' +
-                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" :placeholder="placeholder"/>' +
+                '<input type="text" :class="inputClasses" v-model="item.Name" data-local="true" @keyup="checkItem" :placeholder="placeholder"/>' +
                 '<div class="express">' +
                 "{{item.Code}}" +
                 "</div>" +
@@ -158,6 +159,8 @@ module.exports = class hotelModule extends formModuleBase {
                 checkItem: function (event) {
                     if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
                         this.item.Code = "";
+                        this.item.CountryName = '';
+                        this.item.Id = '';
                         this.$emit("input", this.item);
                     }
                 }
@@ -239,27 +242,29 @@ module.exports = class hotelModule extends formModuleBase {
 
         Vue.component('national-input', {
             props: {
-                label: String,
                 items: [String, Array],
                 name: String,
                 code: String,
-                placeholder: String
+                placeholder: String,
+                label: String,
             },
             template:
-                '<div class="nationality_hotels"v-bind:class="{ open: isActive }">' +
+                '<div class="nationality_hotels" v-bind:class="{ open: isActive }">' +
                     '<div class="arrow-mobile"></div>' +
                     '<div class="close-mobile"></div>' +
-                    '<label class="menu-title">{{ label }}</label>' +
                     '<div class="select_nationality" v-click-outside="onClickOutside">' +
                         '<div class="nationality_input" v-on:click="toggleClass">' +
                             '<div class="arrow" v-bind:class="{ rotateClass:isActive }"></div>' +
-                            '<span>{{ name }}</span>' +
+                            '<span>' +
+                                '<span class="text-nowrap" v-if="name === null">{{ placeholder }}</span>' +
+                                '{{ name }}' +
+                            '</span>' +
                             '<input type="hidden" name="Nationality"  v-model="code">' +
                             '<input type="hidden" name="NationalityName"  v-model="name">' +
                         '</div>' +
-                        '<div class="nationality_search" v-show="isActive">' +
+                        '<div class="nationality_search">' +
                             '<div class="search_input">' +
-                                '<input class="nationality_search-input" type="text" v-model="search" :placeholder="placeholder">' +
+                                '<input class="nationality_search-input" type="text" v-model="search" :placeholder="label">' +
                                 '<span class="delete_search" v-show="isSearch" v-on:click="deleteSearch"></span>' +
                             '</div>' +
                             '<ul class="options">' +
@@ -304,6 +309,19 @@ module.exports = class hotelModule extends formModuleBase {
                     })
                 }
             },
+            mounted() {
+                document.getElementById('hotel-form-shoot').addEventListener('keydown', (event) => {
+                    if(event.keyCode === 9) {
+                        if(event.target.name === 'CheckOut') {
+                            this.isActive = true;
+                            document.querySelector('.search_input .nationality_search-input').focus();
+                        } else {
+                            this.isActive = false;
+                        }
+                    }
+                })
+                    
+            },
             watch: {
                 search: function (newSearch) {
                     if(newSearch !== '') {
@@ -333,7 +351,7 @@ module.exports = class hotelModule extends formModuleBase {
                 },
                 hotelMaxDate: function () {
                     var maxDate = new Date(this.today.getTime());
-                    maxDate.setDate(maxDate.getDate() + 180);
+                    maxDate.setDate(maxDate.getDate() + 365);
                     return maxDate;
                 },
                 hotelDefaultCheckIn: function () {
@@ -349,12 +367,24 @@ module.exports = class hotelModule extends formModuleBase {
             },
             methods: {
                 locale: this.it.extra.locale,
+                declensionWords: main.extra.declensionWords,
 
+                removeError: function(el, elemError) {
+                    let item = this.$el.querySelector(el);
+                    if(item.classList.contains('has-error')) {
+                        item.classList.remove('has-error');
+                        let boxError = item.querySelector(elemError);
+                        boxError.style.display = 'none';
+                        while(boxError.firstChild) {
+                            boxError.removeChild(boxError.firstChild);
+                        }
+                    }
+                },
                 changeHotelFormExtended: function () {
                     this.hotel.formExtended = !this.hotel.formExtended;
                 },
                 updateHotelCityTypeAhead: function (name, data) {
-                    var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryCode);
+                    var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryName);
                     vue.$emit("hotelCityUpdate", name, cityItem);
                 },
                 clearHotelForm: function () {
@@ -393,7 +423,7 @@ module.exports = class hotelModule extends formModuleBase {
                 },
                 
                 updateCityTypeAhead: function (name, data) {
-                    var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryCode, data.CountryName);
+                    var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryName);
                     vue.$emit("cityUpdate", name, cityItem);
                 }
             },
@@ -413,12 +443,6 @@ module.exports = class hotelModule extends formModuleBase {
                         tempDate.setDate(this.hotel.checkIn.getDate() + 1);
                         this.hotel.checkOut = tempDate;
                     }
-
-                    tempDate = new Date(this.hotel.checkIn);
-                    tempDate.setDate(this.hotel.checkIn.getDate() + 30);
-
-                    if (tempDate < this.hotel.checkOut)
-                        this.hotel.checkOut = tempDate;
                 },
                 'hotel.checkOut': function (value) {
                     var tempDate = new Date(this.dates.hotelMinDate);
@@ -435,12 +459,22 @@ module.exports = class hotelModule extends formModuleBase {
                         tempDate.setDate(this.hotel.checkOut.getDate() - 1);
                         this.hotel.checkIn = tempDate;
                     }
+                   
+                    let checkInDate = new Date(this.hotel.checkIn);
+                    if(checkInDate.setDate(this.hotel.checkIn.getDate() + 30) < this.hotel.checkOut) {
+                        this.hotel.Reservations = true;
+                        let errorBox = $("input[name='CheckOut']").first();
+                        errorBox.closest(".date.to").addClass("has-error").find(".error-box").text(this.locale("RESERVATIONS_LONGER")).append($("<div/>").addClass("close")).slideDown();
+                    } else {
+                        this.hotel.Reservations = false;
+                        this.removeError(".date.to", ".error-box");
+                    }
 
-                    tempDate = new Date(this.hotel.checkOut);
-                    tempDate.setDate(this.hotel.checkOut.getDate() - 30);
-
-                    if (tempDate > this.hotel.checkIn)
-                        this.hotel.checkIn = tempDate;
+                },
+                'hotel.nationalityName': function(value) {
+                    if(value !== null || value !== '') {
+                        this.removeError(".nationality", ".error-box");
+                    }
                 }
             },
             created: function () {
@@ -488,45 +522,8 @@ module.exports = class hotelModule extends formModuleBase {
             var checker = new validator($(this), it);
             var isValid = checker.isValid();
             if (!isValid) return false;
-
             
             if (options.projectUrl.startsWith("/") && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined) return main.hotel.searchForm.send(form);
-
-
-            var data = {
-                ChildAges: []
-            };
-            $.map(form.serializeArray(), function (n) {
-                if (n['name'] === "ChildAges")
-                    data.ChildAges.push(n['value']);
-                else
-                    data[n['name']] = n['value'];
-            });
-            
-            $.ajax({
-                url: encodeURI(form.attr("action")),
-                cache: false,
-                type: "POST",
-                data: JSON.stringify(data),
-                dataType: "JSON",
-                contentType: 'application/json',
-                success: function(jsonData) {
-                    if(jsonData && jsonData.Url) {
-                        switch(form.attr("target")) {
-                            case "_blank":
-                                window.open(jsonData.Url);
-                                break;
-                            default:
-                                location.href = jsonData.Url;
-                                break;
-                        }
-                    }
-                },
-                error: function() {
-                    alert('Error');
-                }
-            });
-            return false;
 
         });
 
@@ -615,20 +612,20 @@ module.exports = class hotelModule extends formModuleBase {
                 ].join("\n"),
                 suggestion: function (data) {
                     var ret = [];
-                    if (!!data.countryCode) {
+                    if (!!data.CountryName) {
                         ret.push(
                             {
-                                key: $("<span class='country-separator'><small>" + data.countryCode + "</small><span>"),
+                                key: $("<span class='country-separator'><small>" + data.CountryName + "</small><span>"),
                                 value: undefined
                             });
                     }
-                    for (var iHotel = 0; iHotel < data.hotels.length; iHotel++) {
+                    for (var iHotel = 0; iHotel < data.length; iHotel++) {
                         ret.push({
-                            key: data.hotels[iHotel].CityName + " <small class='express-code'>" + data.hotels[iHotel].CountryCode + "</small>",
+                            key: data[iHotel].Name + " <small class='express-code'>" + data[iHotel].CountryName + "</small>",
                             value: {
-                                Id: data.hotels[iHotel].Id,
-                                Name: data.hotels[iHotel].CityName,
-                                CountryCode: data.hotels[iHotel].CountryCode
+                                Id: data[iHotel].Id,
+                                Name: data[iHotel].Name,
+                                CountryName: data[iHotel].CountryName
                             }
                         });
                     }

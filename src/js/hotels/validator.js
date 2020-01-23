@@ -19,18 +19,27 @@ module.exports = class validator extends validatorBase {
         }
         return ret;
     }
-    validateCities() {
+    validateInput() {
         var city = this.form.find("input[name='CityId']").first();
         var nationality = this.form.find("input[name='Nationality']").first();
+        var errorBox = this.form.find("input[name='CheckOut']").first();
 
         if ($.trim(city.val()) === "" || city.val() === "&nbsp;") {
-            city.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("SELECT_HOTEL_CITY_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
+            city.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("BUSES_PLACEHOLDER")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
+            return false;
+        }
+        if ($.trim(nationality.val()) === "" || nationality.val() === "&nbsp;" || nationality.val() === null) {
+            nationality.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("ENTER_NATIONALITY")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
+            return false;
+        }
+        if(this.it._o.hotel.Reservations) {
+            errorBox.closest(".date.to").addClass("has-error").find(".error-box").text(this.it.extra.locale("RESERVATIONS_LONGER")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
             return false;
         }
         return true;
     }
     isValid() {
-        var ret = this.validateCities();
+        var ret = this.validateInput();
         ret = this.validateChilds() && ret;
         ret = this.dateRange() && ret;
         

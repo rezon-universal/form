@@ -1,7 +1,7 @@
 ﻿module.exports = class HotelCityItem {
-    constructor(id, name, countryCode) {
+    constructor(id, name, countryName) {
         this.Id = id;
         this.Name = name;
-        this.CountryCode = countryCode;
+        this.CountryName = countryName;
     }
 };

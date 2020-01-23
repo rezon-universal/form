@@ -127,5 +127,6 @@
     "SEARCH": "Căutare",
     "OR": "sau",
     "STATE": "Statul",
-    "FORM_CLASS_W": "Economic premium"
+    "FORM_CLASS_W": "Economic premium",
+    "ENTER_NATIONALITY": "Introduceți naționalitatea"
 }
