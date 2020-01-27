@@ -470,8 +470,8 @@ module.exports = class airModule extends formModuleBase {
                     var infantCnt = 0;
                     this.avia.passengers.messages = [];
                     this.avia.passengers.hasError = false;
-                    var adultsCat = this.avia.passengers.adultsCat;
-                    var infantsCat = this.avia.passengers.infantsCat;
+                    var adultsCat = this.avia.passengers.adultsCat || ["psgAdultsCnt", "psgOldCnt", "psgYouthCnt"];
+                    var infantsCat = this.avia.passengers.infantsCat || ["psgInfantsCnt", "psgInfantsNSCnt"]; 
                     this.avia.passengers.types.forEach(function (value) {
                         currCount += value.count;
                         if (adultsCat.indexOf(value.name) >= 0) {

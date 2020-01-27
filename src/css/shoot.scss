@@ -1,10 +1,27 @@
 ﻿@charset "utf-8";
 
-#rezon-forms 
-{
+#rezon-forms {
     background-color: #4a148c;
     font-size: 100%;
     padding: 60px 20px 50px;
+
+    .avia-form {
+        .advanced_search {
+            opacity: .8;
+            margin-left: 20px;
+        }
+    }
+
+    .hide_settings div:before {
+        display: none;
+    }
+
+    @media (max-width: 575px) {
+        .transp + .transp {
+            margin-top: 10px;
+            background: none;
+        }
+    }
 }
 #rezon-forms form 
 {
@@ -26,13 +43,7 @@
 {
     text-decoration: none;
 }
-#rezon-forms a:hover,
-#rezon-forms a:hover span,
-#rezon-forms a:focus span 
-{
-    border-bottom-color: rgba(255,0,0,0.4);
-	color: #f00;
-}
+
 #rezon-forms a:focus 
 {
 	color: #f00;
@@ -55,14 +66,24 @@
 {
     color: white;
 }
-#rezon-forms .dashed span
-{
-    border-bottom: 1px dashed rgba(255,255,255,0.4);
+#rezon-forms {
+    .dashed {
+        span {
+            color: #fff;
+            border-bottom: 1px dashed rgba(255,255,255,0.4);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            span {
+                color: #fff;
+                border-bottom: 1px dashed rgba(255,255,255, 0.8);
+            }
+        }
+    }
 }
-#rezon-forms a span 
-{
-    border-bottom-color: rgba(255,255,255,0.4);
-}
+
 #rezon-forms input,
 #rezon-forms button 
 {
@@ -1372,11 +1393,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     cursor: pointer;
 }
-#rezon-forms .transp a span 
-{
-    border: none;
-    display: block;
-}
+
 #rezon-forms .search 
 {
     background: #ffd600;
@@ -3235,6 +3252,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         -webkit-flex-basis: 50%;
         flex-basis: 50%;
     }
+
+
+
     #rezon-forms .rez-forms 
     {
         padding: 0 10px;
@@ -3756,69 +3776,3 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 /*----------------*/
 
-
-/*for a/b testing. Remove after tests */
-#rezon-forms {
-    .form-test-version-b,
-    .form-test-version-c {
-        display: none;
-    }
-
-    .botton-in-header {
-        display: none !important;
-    }
-
-    &.show-b {
-        .form-test-version-b {
-            display: block;
-        }
-
-        .botton-in-header {
-            display: block !important;
-        }
-
-        .form-test-version-a,
-        .form-test-version-c {
-            display: none;
-        }
-
-        .advanced_search {
-            opacity: .8;
-        }
-
-        .hide_settings div:before {
-            display: none;
-        }
-    }
-
-    &.show-c {
-        .form-test-version-c {
-            display: block;
-        }
-
-        .botton-in-header {
-            display: block !important;
-        }
-
-        .form-test-version-a,
-        .form-test-version-b {
-            display: none;
-        }
-
-        .advanced_search {
-            opacity: .8;
-            margin-left: 20px;
-        }
-
-        .hide_settings div:before {
-            display: none;
-        }
-
-        @media (max-width: 575px) {
-            .transp + .transp {
-                margin-top: 10px;
-                background: none;
-            }
-        }
-    }
-}

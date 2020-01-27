@@ -21,28 +21,8 @@
             <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off">
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
-    <div class="row">
-        <div class="direct radio-group form-test-version-a">
-            <label v-for="(type,index) in avia.formTypes" v-bind:class="{active: avia.formType.value === type.value}" v-on:click="typeChanged(index)">
-                <span>{{locale(type.text)}}</span>
-            </label>
-            <input type="radio" name="book_type" v-bind:value="avia.formType.value" checked />
-        </div>
-        <div class="field form-test-version-b">
-            <span>
-                <span class="selectpicker select-route-type">
-                    <div class="options">
-                        <div class="option" v-for="(type,index) in avia.formTypes" v-on:click="typeChanged(index)">
-                            <template>
-                                <span>{{locale(type.text)}}</span>
-                                <input type="radio" name="form_type" :value="type.value" v-bind:checked="avia.formType.value === type.value" />
-                            </template>
-                        </div>
-                    </div>
-                </span>
-            </span>
-        </div>
-    </div>
+    <input type="hidden" name="book_type" v-model="avia.formType.value" />
+
     <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
         <div class="field airport from">
             <label class="menu-title">
@@ -414,38 +394,12 @@
                 </div>
             </div>
         </div>
-        <div class="field hide_s form-test-version-a">
-            <div class="transp" v-on:click="changeAviaFormExtended()">
-                <div class="hide_settings dashed">
-                    <div class="simple_search">
-                        <span>{{locale("SIMPLE_SEARCH")}}</span>
-                    </div>
-                    <div class="advanced_search">
-                        <span>{{locale("ADVANCED_SEARCH")}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field hide_s form-test-version-b">
-            <div class="transp" v-on:click="changeAviaFormExtended()">
-                <div class="hide_settings dashed">
-                    <div class="simple_search">
-                        <span>{{locale("SIMPLE_SEARCH")}}</span>
-                    </div>
-                    <div class="advanced_search">
-                        <span>{{locale("ADVANCED_SEARCH")}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field hide_s form-test-version-c">
-            <div class="transp" v-if="avia.formType.value !== 'route'">
-                <a href="#" class="extended-form-link"  v-on:click.prevent="typeChanged(2)">
-                    <span>{{locale(avia.formTypes[2].text)}}</span>
-                </a>
-            </div>
+        <div class="field hide_s">
+            <a href="#" class="transp dashed" v-if="avia.formType.value !== 'route'" v-on:click.prevent="typeChanged(2)">
+                <span>{{locale(avia.formTypes[2].text)}}</span>
+            </a>
             <div class="transp"  v-if="avia.formType.value === 'route'">
-                <a href="#" class="extended-form-link"  v-on:click.prevent="typeChanged(1)">
+                <a href="#" class="extended-form-link dashed"  v-on:click.prevent="typeChanged(1)">
                     <span>{{locale("BACK_TO_SIMPLE_ROUTE")}}</span>
                 </a>
             </div>
