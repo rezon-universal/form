@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="field range">
+        <div class="field range" v-show="railway.enabledDateRange && railway.enabledDateRange > 0 ">
             <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
                 {{locale("SEARCH")}}
             </label>
@@ -154,15 +154,15 @@
                                 <span data-local="true" data-localtext="BY_EXACT_DATE">{{locale("BY_EXACT_DATE")}}</span>
                                 <input type="radio" name="dateRange" value="0" v-bind:checked="railway.dateRange == 0" />
                             </div>
-                            <div class="option" v-on:click="railway.dateRange = 1">
+                            <div class="option" v-show="railway.enabledDateRange && railway.enabledDateRange >= 1" v-on:click="railway.dateRange = 1">
                                 <span>&plusmn;1 <span data-local="true" data-localtext="DAY">{{locale("DAY")}}</span></span>
                                 <input type="radio" name="dateRange" value="1" v-bind:checked="railway.dateRange == 1" />
                             </div>
-                            <div class="option" v-on:click="railway.dateRange = 2">
+                            <div class="option" v-show="railway.enabledDateRange && railway.enabledDateRange >= 2" v-on:click="railway.dateRange = 2">
                                 <span>&plusmn;2 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="2" v-bind:checked="railway.dateRange == 2" />
                             </div>
-                            <div class="option" v-on:click="railway.dateRange = 3">
+                            <div class="option" v-show="railway.enabledDateRange && railway.enabledDateRange >= 3" v-on:click="railway.dateRange = 3">
                                 <span>&plusmn;3 <span data-local="true" data-localtext="DAYS">{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="3" v-bind:checked="railway.dateRange == 3" />
                             </div>

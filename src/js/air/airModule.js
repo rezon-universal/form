@@ -39,6 +39,7 @@ module.exports = class airModule extends formModuleBase {
                 onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
                 enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
                 enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes, 
+                enabledDateRange: 3,
                 defaultDateThere: null, // dd.MM.yyyy
                 defaultDateBack: null, // dd.MM.yyyy
                 plusDaysShift: 1, // -1 - 10

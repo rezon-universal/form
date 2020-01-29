@@ -33,7 +33,8 @@ module.exports = class railModule extends formModuleBase {
                 formTypes: routeTypes,
                 formType: routeTypes[0],
                 formExtended: false,
-                maxSearchDayDepth: 44
+                maxSearchDayDepth: 44,
+                enabledDateRange : 3
             }
         };
     }

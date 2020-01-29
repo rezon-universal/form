@@ -89,7 +89,6 @@
                                 :language="defaultLang"
                                 :button-in-top-message="locale('WITHOUT_RETURN_TICKET')"
                                 v-on:button-in-top="typeChanged(0)"
-                                
                                 v-model="avia.defaultDateBack"
                                 name="book_to_date"
                                 input-class="book-date datepicker"
@@ -133,11 +132,11 @@
                         <div class="pricePTCOnly" v-show="avia.passengers.showPricePTCOnly">
                             <label class="checkbox-wrapper" :class="{active:avia.passengers.pricePTCOnly}" style="background-color: rgb(236, 239, 241); color: black;">
                                 <div class="check_bull"></div>
-                                <input type="checkbox" name="pricePTCOnly" v-model="avia.passengers.pricePTCOnly" :value="avia.passengers.pricePTCOnly?'True':''"/>
+                                <input type="checkbox" name="pricePTCOnly" v-model="avia.passengers.pricePTCOnly" :value="avia.passengers.pricePTCOnly?'True':''" />
                                 <span>{{locale("ONLY_SELECTED_PTC")}}</span>
                             </label>
                         </div>
-                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}"> 
+                        <div class="error-box" :style="{ display: avia.passengers.messages.length>0?'block':'none'}">
                             <label v-for="msg in avia.passengers.messages">{{locale(msg)}}</label>
                         </div>
                         <span class="button-hide hidden-xs">
@@ -364,7 +363,7 @@
                 </div>
             </div>
         </div>
-        <div class="field range">
+        <div class="field range" v-show="avia.enabledDateRange && avia.enabledDateRange > 0 ">
             <label class="hidden-xs menu-title">
                 {{locale("SEARCH")}}
             </label>
@@ -376,19 +375,18 @@
                                 <span>{{locale("BY_EXACT_DATE")}}</span>
                                 <input type="radio" name="dateRange" value="0" v-bind:checked="avia.intervalCount == 0" />
                             </div>
-                            <div class="option" v-on:click="avia.intervalCount = 1">
+                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 1" v-on:click="avia.intervalCount = 1">
                                 <span>&plusmn;1 <span>{{locale("DAY")}}</span></span>
                                 <input type="radio" name="dateRange" value="1" v-bind:checked="avia.intervalCount == 1" />
                             </div>
-                            <div class="option" v-on:click="avia.intervalCount = 2">
+                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 2" v-on:click="avia.intervalCount = 2">
                                 <span>&plusmn;2 <span>{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="2" v-bind:checked="avia.intervalCount == 2" />
                             </div>
-                            <div class="option" v-on:click="avia.intervalCount = 3">
+                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 3" v-on:click="avia.intervalCount = 3">
                                 <span>&plusmn;3 <span>{{locale("DAYS")}}</span></span>
                                 <input type="radio" name="dateRange" value="3" v-bind:checked="avia.intervalCount == 3" />
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -398,8 +396,8 @@
             <a href="#" class="transp dashed" v-if="avia.formType.value !== 'route'" v-on:click.prevent="typeChanged(2)">
                 <span>{{locale(avia.formTypes[2].text)}}</span>
             </a>
-            <div class="transp"  v-if="avia.formType.value === 'route'">
-                <a href="#" class="extended-form-link dashed"  v-on:click.prevent="typeChanged(1)">
+            <div class="transp" v-if="avia.formType.value === 'route'">
+                <a href="#" class="extended-form-link dashed" v-on:click.prevent="typeChanged(1)">
                     <span>{{locale("BACK_TO_SIMPLE_ROUTE")}}</span>
                 </a>
             </div>
