@@ -166,6 +166,8 @@ module.exports = class airModule extends formModuleBase {
                 value: {
                     handler: function (newValue) {
                         if (this.item !== newValue) {
+                            this.item = newValue;
+
                             var comp = this;
                             Vue.nextTick(function () {
                                 //Update typeahead
