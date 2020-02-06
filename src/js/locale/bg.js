@@ -153,6 +153,6 @@
     "CHECK_OUT": "Освобождаване",
     "HOTEL_PLACEHOLDER": "На къде сте тръгнали?",
     "ROOMS": "Стаи",
-    "NATIONALITY": "Националност",
+    "NATIONALITY": "Гражданство",
     "ENTER_NATIONALITY": "Въведете гражданство"
 }

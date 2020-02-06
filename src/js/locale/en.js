@@ -176,8 +176,8 @@
     "ROOMS": "rooms",
     "ROOMS_1": "room",
     "ROOMS_2": "rooms",
-    "NATIONALITY": "Nationality",
-    "ENTER_NATIONALITY": "Enter nationality",
+    "NATIONALITY": "Сitizenship",
+    "ENTER_NATIONALITY": "Enter citizenship",
     "RESERVATIONS_LONGER": "Reservations longer than 30 nights are not possible.",
     "CHILD_TEXT": "We set 12 by default as the age of your children, but if you enter their true age, you may be able to find a better price."
 }
