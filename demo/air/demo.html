@@ -18,7 +18,8 @@
 <body>
     <div class="wings" id="rezon-forms">
         <div class="rez-forms container">
-            <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off">
+            <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off" 
+      :target="(avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip' && avia.hotelSearch) ? '_blank' : ''">
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <input type="hidden" name="book_type" v-model="avia.formType.value" />
@@ -151,7 +152,7 @@
             </div>
         </div>
         <div class="field find">
-            <button type="submit" class="search">{{locale("FIND")}}</button>
+            <button type="submit" class="search" v-on:click="avia.initByUser = true">{{locale("FIND")}}</button>
         </div>
         <div class="field time">
             <label class="hidden-xs menu-title">{{locale("TIME_FLY_THERE")}}</label>
@@ -426,6 +427,15 @@
                 </span>
             </div>
         </div>
+    
+        <div class="field hotel_search" v-if="avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip'" style="order: 10; margin-left: auto">
+            <label class="checkbox-wrapper" :class="{active:avia.hotelSearch}">
+                <div class="check_bull"></div>
+                <input id="hotelSearch" type="checkbox" name="hotelSearch" v-model="avia.hotelSearch" :value="avia.hotelSearch ? 'True' : ''" />
+                <span>{{locale("AIR_HOTEL_SEARCH")}}</span>
+            </label>
+        </div>
+        <input type="hidden" id="initByUser" v-model="avia.initByUser" :value="avia.initByUser ? 'true' : ''" />
     </div>
 </form>
 

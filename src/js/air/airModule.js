@@ -70,7 +70,10 @@ module.exports = class airModule extends formModuleBase {
                 maxAirCompaniesCount: 3,
                 intervalCount: 0,
                 onlyDirect: false,
-                historyGuid: ''
+                historyGuid: '',
+                isHotelSearchEnabled: false,
+                hotelSearch: routeTypes[1].value === 'roundtrip',
+                initByUser: false
                 //end temp
             }
         };
