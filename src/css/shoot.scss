@@ -1070,7 +1070,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-.bus-module #rezon-forms {
+#rezon-forms #bus-form-shoot  {
     .station {
         .location-region {
             bottom: 8px;
@@ -2850,8 +2850,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         padding-top: 0;
     }
-    .bus-module {
-        #rezon-forms {
+    
+    #rezon-forms {
+        #bus-form-shoot {
             .station.from .location-region {
                 right: 80px;
             }
@@ -2861,6 +2862,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             }
         }
     }
+    
 
     /*Pop-up*/
     #rezon-forms .fields-container .field.opened 
