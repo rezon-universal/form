@@ -1,4 +1,4 @@
-<form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off">
+<form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off" v-on:submit="submitHandler">
     <div class="row hidden">
         <div class="direct radio-group">
             <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">

@@ -78,7 +78,7 @@ var rezOnForm = function () {
             $('html,body').stop();
         }
     };
-    rezOnForm.prototype.extra.openField = function (el) {
+    rezOnForm.prototype.extra.openField = function (el, scroll) {
         if (el === undefined || el === null) return false;
         var field = el.closest('.field');
         if (field.length > 0) {
@@ -94,7 +94,7 @@ var rezOnForm = function () {
                 $(window).scrollTop($(window).scrollTop() + 1).scrollTop($(window).scrollTop() - 1);
             }
 
-            $('body').addClass('m-no-scroll');
+            $('body').addClass('m-no-scroll').data("scroll-y", scroll);
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
         }
@@ -106,7 +106,7 @@ var rezOnForm = function () {
         if (field.length > 0) {
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
 
-            $('body').removeClass('m-no-scroll');
+            document.documentElement.scrollTop = $('body').removeClass('m-no-scroll').data("scroll-y");
             field.removeClass('opened');
             field.find('.link-left, .link-right').addClass('hidden');
             //if (isMobile) {

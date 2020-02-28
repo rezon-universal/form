@@ -20,7 +20,6 @@ function BusLocation(location) {
     this.CountryName = location.CountryName;
 }
 
-
 const formModuleBase = require('./../formModuleBase');
 module.exports = class busModule extends formModuleBase {
     //Получить настройки по-умолчанию
@@ -284,6 +283,32 @@ module.exports = class busModule extends formModuleBase {
                 },
                 busTypeChanged: function (index) {
                     this.buses.formType = this.buses.formTypes[index];
+                },
+                async submitHandler(e) {
+                    let checker = new validator(local.form, local.it);
+                    let isValid = checker.isValid();
+                    if (!isValid) return false;
+
+                    let options = {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric'
+                    }
+
+                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.buses.Date);
+
+                    const formData = {
+                        LocationFromId: this.buses.LocationFrom.Id,
+                        LocationToId: this.buses.LocationTo.Id,
+                        Date: dateFrom,
+                    }
+
+                    if(local.options.projectUrl.startsWith("/") && typeof window.main !== 'undefined' && window.main.bus != undefined && window.main.bus.searchForm != undefined) {
+                        e.preventDefault();
+                        return window.main.busesSearch.newSearch(formData);
+                    }
+
+                    return true;
                 }
             },
             watch: {
@@ -358,21 +383,9 @@ module.exports = class busModule extends formModuleBase {
         if (typeof(it._o.buses.ticketCount) !== 'undefined') {
             it._o.buses.passenger.count = it._o.buses.ticketCount;
         }
-
-        //Отправка формы поиска автобусов
-        form.submit(function () {
-            var checker = new validator($(this), it);
-            var isValid = checker.isValid();
-            if (!isValid) return false;
-
-            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.bus != undefined && main.bus.searchForm != undefined && main.bus.searchForm.send != undefined) return main.bus.searchForm.send(form);
-            return true;
-        });
-
         var typeaheadOptions = {
             minLength: 2
         };
-
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
         if (it.extra.mobileAndTabletcheck()) {
             typeaheadOptions.minLength = 0;
@@ -423,7 +436,7 @@ module.exports = class busModule extends formModuleBase {
         }).focus(function () {
             var item = $(this).closest('.field');
 
-            it.extra.openField(item);
+            it.extra.openField(item, document.documentElement.scrollTop);
             item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             if ($(this).is(".book-to") && $(this).val() === "") {
