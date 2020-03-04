@@ -2559,7 +2559,15 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms #railway-form-shoot.form-ie .roundtrip .field.find {
     margin-right: 15px;
 }
-
+#rezon-forms #bus-form-shoot.form-ie .field.find {
+    flex-basis: 15%;
+    width: 15%;
+    margin-left: inherit;
+}
+#rezon-forms #hotel-form-shoot.form-ie .field.find {
+    flex-basis: 9%;
+    width: 9%;
+}
 #hotel-form-shoot .hotel_guest .arrow-mobile,
 #hotel-form-shoot .hotel_guest .close-mobile {
     display: none;
