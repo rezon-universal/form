@@ -289,18 +289,10 @@ module.exports = class busModule extends formModuleBase {
                     let isValid = checker.isValid();
                     if (!isValid) return false;
 
-                    let options = {
-                        day: 'numeric',
-                        month: 'numeric',
-                        year: 'numeric'
-                    }
-
-                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.buses.Date);
-
                     const formData = {
                         LocationFromId: this.buses.LocationFrom.Id,
                         LocationToId: this.buses.LocationTo.Id,
-                        Date: dateFrom,
+                        Date: this.buses.Date,
                     }
 
                     if(local.options.projectUrl.startsWith("/") && typeof window.main !== 'undefined' && window.main.bus != undefined && window.main.bus.searchForm != undefined) {
