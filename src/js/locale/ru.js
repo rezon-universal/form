@@ -120,6 +120,7 @@
     "PASS_CAT_VFR_DESC": "VFR",
     "PASS_CAT_VFR_1": "visit friends/relatives",
     "PASS_CAT_VFR_0": "visit friends/relatives",
+    "ADD_PASSENGER_TYPE": "Добавить тип пасажира",
     "SPECIFY_PASSENGERS": "Укажите пассажиров...",
     "FORM_CLASS_ANY": "Любой",
     "FORM_CLASS_E": "Эконом",

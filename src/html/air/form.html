@@ -97,11 +97,16 @@
                     </div>
                     <div class="select-age g-hide" tabindex="-1">
                         <div class="pass_types">
-                            <div class="pass_type" v-for="(type,index) in avia.passengers.types" v-show="!type.hidden && avia.enabledPassengerTypes && avia.enabledPassengerTypes.indexOf(type.name) > -1" :class="{'has-error':type.hasError,'active':type.count>0}">
+                            <div class="pass_type" 
+                                v-for="(type, index) in avia.passengers.types" 
+                                v-show="!type.hidden && avia.enabledPassengerTypes && avia.enabledPassengerTypes.indexOf(type.name) > -1" 
+                                :class="{'has-error':type.hasError,'active':type.count>0}"
+                            >
                                 <div class="pass_counter pull-right">
                                     <div class="remove_pass" v-on:click="removePassenger(type.name)"></div>
                                     <div class="count_pass"><span>{{type.count}}</span></div>
                                     <div class="add_pass" v-on:click="addPassenger(type.name)"></div>
+                                    <div class="pas-delete" v-if="index > 5" v-on:click="deleteAdditionalPassenger(type, index)"></div>
                                     <input type="hidden" :name="type.name" v-model="type.count" />
                                 </div>
                                 <div class="pass_inf">
@@ -109,9 +114,27 @@
                                     <div class="age">{{locale(type.desc)}}</div>
                                 </div>
                             </div>
+                            <div class="select-box" v-click-outside="onClickOutside" v-if="avia.passengers.additionalTypes && avia.passengers.additionalTypes.length > 0 && filterAdditional().length > 0">
+                                <div class="select-type" v-on:click="toggleClass">
+                                    <span>{{locale("ADD_PASSENGER_TYPE")}}</span>
+                                    <div class="arrow" :class="{ rotate:isActive }"></div>
+                                </div>
+                                <div class="types-block" v-show="isActive">
+                                    <div class="pass_type" 
+                                        v-for="(type, index) in avia.passengers.additionalTypes" 
+                                        :key="index" 
+                                        v-if="!type.hidden && avia.enabledPassengerTypes.indexOf(type.name) > -1"
+                                        v-on:click="addAdditionalPassenger(type, index)"
+                                    >
+                                        <span class="category">{{locale(type.text)}}</span>
+                                        <span class="age">{{locale(type.desc)}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="pricePTCOnly" v-show="avia.passengers.showPricePTCOnly">
-                            <label class="checkbox-wrapper" :class="{active:avia.passengers.pricePTCOnly}" style="background-color: rgb(236, 239, 241); color: black;">
+                            <label class="checkbox-wrapper" :class="{active:avia.passengers.pricePTCOnly}">
                                 <div class="check_bull"></div>
                                 <input type="checkbox" name="pricePTCOnly" v-model="avia.passengers.pricePTCOnly" :value="avia.passengers.pricePTCOnly?'True':''" />
                                 <span>{{locale("ONLY_SELECTED_PTC")}}</span>

@@ -12,13 +12,20 @@ let routeTypes = [
     , new DirectionType('roundtrip', 'ROUND_TRIP')
     , new DirectionType('route', 'MULTY_ROUTE')
 ];
-let passengerTypes = [
+let defaultPassItems = [
     new PassItem('psgAdultsCnt', 'PASS_CAT_ADT', 'PASS_CAT_ADT_DESC', 1),
     new PassItem('psgKidsCnt', 'PASS_CAT_CNN', 'PASS_CAT_CNN_DESC'),
     new PassItem('psgInfantsNSCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_NS_DESC'),
     new PassItem('psgOldCnt', 'PASS_CAT_SNN', 'PASS_CAT_SNN_DESC'),
     new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
     new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC')
+];
+let additionalPassItems = [
+    new PassItem("psgLbrCnt", "LBR", "PASS_CAT_LBR", "PASS_CAT_LBR_DESC"),
+    new PassItem("psgSeaCnt", "SEA", "PASS_CAT_SEA", "PASS_CAT_SEA_DESC"),
+    new PassItem("psgStuCnt", "STU", "PASS_CAT_STU", "PASS_CAT_STU_DESC"),
+    new PassItem("psgEmiCnt", "EMI", "PASS_CAT_EMI", "PASS_CAT_EMI_DESC"),
+    new PassItem("psgVfrCnt", "VFR", "PASS_CAT_VFR", "PASS_CAT_VFR_DESC")
 ];
 
 const formModuleBase = require('./../formModuleBase');
@@ -56,7 +63,8 @@ module.exports = class airModule extends formModuleBase {
                 aviTo: new AirportItem(),
                 aviToTime: 0,
                 passengers: {
-                    types: passengerTypes,
+                    types: defaultPassItems,
+                    additionalTypes: additionalPassItems,
                     hasError: false,
                     messages: []
                 },
@@ -241,11 +249,30 @@ module.exports = class airModule extends formModuleBase {
             }
         });
 
+        Vue.directive('click-outside', {
+            bind: function (el, binding, vnode) {
+                el.event = function (event) {
+                    if (!(el == event.target || el.contains(event.target))) {
+                        vnode.context[binding.expression](event);
+                    }
+                };
+                
+                window.addEventListener('click', el.event);
+            },
+            unbind: function (el) {
+                window.removeEventListener('click', el.event);
+            }
+        });
+
         var formBind = new Vue({
             el: bindTo[0],
             mixins: [{
                 data: this.options
             }],
+            data: () => ({
+                Items: [],
+                isActive: false
+            }),
             computed: {
                 allAirCompanies: function () {
                     var str = [];
@@ -391,6 +418,33 @@ module.exports = class airModule extends formModuleBase {
             },
             methods: {
                 locale: this.it.extra.locale,
+                onClickOutside: function () {
+                    this.isActive = false;
+                },
+                toggleClass: function () {
+                    this.isActive = !this.isActive;
+                },
+                addAdditionalPassenger(type, index) {
+                    this.avia.passengers.types.push(type);
+                    this.avia.passengers.additionalTypes.splice(index, 1);
+                    this.isActive = false;
+                },
+                deleteAdditionalPassenger(passenger, index) {
+                    this.avia.passengers.types.splice(index, 1);
+                    passenger.count = 0;
+                    this.avia.passengers.additionalTypes.push(passenger);
+                },
+                filterAdditional() {
+                    let filterTypes = []
+
+                    this.avia.passengers.additionalTypes.filter(additional => {
+                        if(this.avia.enabledPassengerTypes.indexOf(additional.name) > -1) {
+                            filterTypes.push(additional)
+                        }
+                    })
+
+                    return filterTypes;
+                },
 
                 //Avia methods
                 typeChanged: function (index) {
@@ -634,6 +688,20 @@ module.exports = class airModule extends formModuleBase {
             },
             mounted: function () {
                 var el = this.$el;
+                let filterTypes = [];
+                this.avia.passengers.additionalTypes = this.filterAdditional();
+
+                this.avia.passengers.additionalTypes.forEach(type => {
+                    if(type.count > 0) {
+                        this.avia.passengers.types.push(type);
+                    }
+                    if(type.count === 0) {
+                        filterTypes.push(type);
+                    }
+                })
+
+                this.avia.passengers.additionalTypes = filterTypes;
+
                 Vue.nextTick(function () {
                     !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
                     local.it.extra.updateIframeHeight();

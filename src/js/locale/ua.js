@@ -121,6 +121,7 @@
     "PASS_CAT_VFR_1": "visit friends/relatives",
     "PASS_CAT_VFR_0": "visit friends/relatives",
     "SPECIFY_PASSENGERS": "Вкажіть пасажирів...",
+    "ADD_PASSENGER_TYPE": "Додати тип пасажира",
     "FORM_CLASS_ANY": "Будь який",
     "FORM_CLASS_E": "Економ",
     "FORM_CLASS_B": "Бізнес",

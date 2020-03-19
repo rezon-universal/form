@@ -1841,15 +1841,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms .pass .pass_types 
 {
     padding: 15px 0;
+    min-width: 275px;
 }
 #rezon-forms .pass .pass_type 
 {
-    padding: 10px 20px;
+    padding: 10px 30px 10px 20px;
 }
 #rezon-forms .pass .pass_counter 
 {
     margin: -4px 0 0 0;
     text-align: center;
+    position: relative;
 }
 #rezon-forms .pass_counter-top {
     margin: 0 !important;
@@ -1938,6 +1940,108 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     text-align: center;
     width: 42px;
     z-index: 1;
+}
+.passengers .pass_type {
+    .pas-delete {
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        top: 50%;
+        right: -20px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        opacity: 0.6;
+        &:hover {
+            opacity: 1;
+        }
+        &::before,
+        &::after {
+            content: '';
+            width: 1px;
+            height: 100%;
+            background: #000;
+            position: absolute;
+        }
+        &::before {
+            transform: rotate(45deg);
+        }
+        &::after {
+            transform: rotate(-45deg);
+        }
+    }
+}
+.select-box {
+    position: relative;
+    width: 90%;
+    margin: 20px auto 10px;
+    .select-type {
+        display: flex;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 5px 15px 0 rgba(95, 112, 164, 0.2);
+        border: 1px solid #dedede;
+        border-radius: 3px;
+        padding: 12px;
+        position: relative;
+        cursor: pointer;
+        z-index: 2;
+        font-size: 13px;
+        box-sizing: border-box !important;
+        user-select: none;
+        &:hover .arrow {
+            opacity: 1;
+        }
+        .arrow {
+            width: 10px;
+            height: 10px;
+            border-left: 2px solid #546e7a;
+            border-bottom: 2px solid #546e7a;
+            margin-left: auto;
+            transform: rotate(-45deg);
+            opacity: 0.5;
+            &.rotate {
+                position: relative;
+                top: 5px;
+                transform: rotate(135deg);
+            }
+        }
+    }
+    .types-block {
+        background-color: #fff;
+        box-shadow: 0 5px 15px 0 rgba(95, 112, 164, 0.2);
+        border-left: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+        border-bottom: 1px solid #dedede;
+        overflow-y: auto;
+        width: 99%;
+        max-height: 130px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        .pass_type {
+            cursor: pointer;
+            padding: 10px 0;
+            display: flex;
+            &:hover {
+                background: #b2e7ff;
+            }
+            .age {
+                margin-left: auto;
+            }
+        }
+    }
+}
+#rezon-forms .select-age .pricePTCOnly {
+    .checkbox-wrapper {
+        color: #333;
+    }
+
+    .check_bull {
+        border: 1px solid #8a90a3;
+        zoom: 0.8;
+        margin: 5px 5px 5px 10px;
+    }
 }
 #rezon-forms .pass .pass_counter:hover .count_pass,
 #rezon-forms .pass .active .count_pass
