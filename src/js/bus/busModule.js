@@ -428,7 +428,7 @@ module.exports = class busModule extends formModuleBase {
         }).focus(function () {
             var item = $(this).closest('.field');
 
-            it.extra.openField(item, document.documentElement.scrollTop);
+            it.extra.openField(item);
             item.addClass('focused').removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             item.closest(".fields-container").find(".field.has-error").removeClass("has-error").find(".error-box").slideUp(it._o.animationDelay);
             if ($(this).is(".book-to") && $(this).val() === "") {
