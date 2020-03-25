@@ -20,13 +20,7 @@ let defaultPassItems = [
     new PassItem('psgYouthCnt', 'PASS_CAT_YTH', 'PASS_CAT_YTH_DESC'),
     new PassItem('psgInfantsCnt', 'PASS_CAT_INF', 'PASS_CAT_INF_WS_DESC')
 ];
-let additionalPassItems = [
-    new PassItem("psgLbrCnt", "LBR", "PASS_CAT_LBR", "PASS_CAT_LBR_DESC"),
-    new PassItem("psgSeaCnt", "SEA", "PASS_CAT_SEA", "PASS_CAT_SEA_DESC"),
-    new PassItem("psgStuCnt", "STU", "PASS_CAT_STU", "PASS_CAT_STU_DESC"),
-    new PassItem("psgEmiCnt", "EMI", "PASS_CAT_EMI", "PASS_CAT_EMI_DESC"),
-    new PassItem("psgVfrCnt", "VFR", "PASS_CAT_VFR", "PASS_CAT_VFR_DESC")
-];
+let additionalPassItems = [];
 
 const formModuleBase = require('./../formModuleBase');
 module.exports = class airModule extends formModuleBase {
@@ -338,26 +332,10 @@ module.exports = class airModule extends formModuleBase {
                                 zeroNumber = "PASS_CAT_SNN_0";
                                 fourNumber = "PASS_CAT_SNN_0";
                                 break;
-                            case "psgLbrCnt":
-                                oneNumber = "PASS_CAT_LBR_1";
-                                zeroNumber = "PASS_CAT_LBR_0";
-                                break;
-                            case "psgSeaCnt":
-                                oneNumber = "PASS_CAT_SEA_1";
-                                zeroNumber = fourNumber = "PASS_CAT_SEA_0";
-                                break;
-                            case "psgStuCnt":
-                                oneNumber = "PASS_CAT_STU_1";
-                                zeroNumber = fourNumber = "PASS_CAT_STU_0";
-                                break;
-                            case "psgEmiCnt":
-                                oneNumber = "PASS_CAT_EMI_1";
-                                zeroNumber = fourNumber = "PASS_CAT_EMI_0";
-                                break;
-                            case "psgVfrCnt":
-                                oneNumber = "PASS_CAT_VFR_1";
-                                zeroNumber = fourNumber = "PASS_CAT_VFR_0";
-                                break;
+                            default:
+                                oneNumber = "C_PASSENGER";
+                                zeroNumber = "C_PASSENGERS";
+                                fourNumber = "C_PASSEGNERS2";        
                         }
                     } else {
                         oneNumber = "C_PASSENGER";
