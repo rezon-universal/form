@@ -367,7 +367,25 @@ module.exports = class hotelModule extends formModuleBase {
             },
             methods: {
                 locale: this.it.extra.locale,
-                declensionWords: main.extra.declensionWords,
+                declensionWords(count, enableIntWord, one_number, zero_number, four_number) {
+                    if (count == 0 || (count >= 5 && count <= 20)) {
+                        //вариантов
+                        return (enableIntWord ? count + " " : "") + zero_number;
+                    } else {
+                        switch (count % 10) {
+                            case 1:
+                                //вариант
+                                return (enableIntWord ? count + " " : "") + one_number;
+                            case 2:
+                            case 3:
+                            case 4:
+                                //варианта
+                                return (enableIntWord ? count + " " : "") + four_number;
+                            default:
+                                return (enableIntWord ? count + " " : "") + zero_number;
+                        }
+                    }
+                },
 
                 removeError: function(el, elemError) {
                     let item = this.$el.querySelector(el);
