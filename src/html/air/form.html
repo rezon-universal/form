@@ -114,7 +114,10 @@
                                     <div class="age">{{locale(type.desc)}}</div>
                                 </div>
                             </div>
-                            <div class="select-box" v-click-outside="onClickOutside" v-if="avia.passengers.additionalTypes && avia.passengers.additionalTypes.length > 0 && filterAdditional().length > 0">
+                            <div class="select-box" 
+                                v-click-outside="onClickOutside" 
+                                v-if="avia.passengers.additionalTypes && avia.passengers.additionalTypes.length > 0 && filterAdditional().length > 0"
+                            >
                                 <div class="select-type" v-on:click="toggleClass">
                                     <span>{{locale("ADD_PASSENGER_TYPE")}}</span>
                                     <div class="arrow" :class="{ rotate:isActive }"></div>

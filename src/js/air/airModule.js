@@ -59,6 +59,7 @@ module.exports = class airModule extends formModuleBase {
                 passengers: {
                     types: defaultPassItems,
                     additionalTypes: additionalPassItems,
+                    storageTypes: [],
                     hasError: false,
                     messages: []
                 },
@@ -406,11 +407,21 @@ module.exports = class airModule extends formModuleBase {
                     this.avia.passengers.types.push(type);
                     this.avia.passengers.additionalTypes.splice(index, 1);
                     this.isActive = false;
+
+                    this.avia.passengers.storageTypes.push(type);
+                    localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
                 },
                 deleteAdditionalPassenger(passenger, index) {
                     this.avia.passengers.types.splice(index, 1);
                     passenger.count = 0;
                     this.avia.passengers.additionalTypes.push(passenger);
+
+                    this.avia.passengers.storageTypes.forEach((type, index) => {
+                        if(type.standartPTC === passenger.standartPTC) {
+                            this.avia.passengers.storageTypes.splice(index, 1);
+                        }
+                    })
+                    localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
                 },
                 filterAdditional() {
                     let filterTypes = []
@@ -640,6 +651,9 @@ module.exports = class airModule extends formModuleBase {
                         this.avia.defaultDateBack = this.dates.airMinDate;
                     }
                 },
+                'avia.passengers.pricePTCOnly': function(value) {
+                    localStorage.setItem('pricePTCOnly', JSON.stringify(value));
+                }
                
             },
             created: function () {
@@ -685,6 +699,23 @@ module.exports = class airModule extends formModuleBase {
                     local.it.extra.updateIframeHeight();
                     $('.unload').removeClass('unload');
                 });
+
+                if(localStorage.getItem("AdditionalPassenger") !== null) {
+                    let history = JSON.parse(localStorage.getItem("AdditionalPassenger"));
+                    for (let item of history) {    
+                        this.avia.passengers.types.push(item);
+                        this.avia.passengers.storageTypes.push(item);
+
+                        this.avia.passengers.additionalTypes.forEach((type, index) => {
+                            if(item.standartPTC === type.standartPTC) {
+                                this.avia.passengers.additionalTypes.splice(index, 1);
+                            }
+                        })
+                    }
+                }
+                if(localStorage.getItem("pricePTCOnly") !== null) {
+                    this.avia.passengers.pricePTCOnly = JSON.parse(localStorage.getItem("pricePTCOnly"));
+                }
             },
             updated: function () {
                 Vue.nextTick(function () {
