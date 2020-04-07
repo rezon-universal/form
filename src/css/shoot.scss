@@ -1,5 +1,7 @@
 ﻿@charset "utf-8";
 
+@import './insurances/insurances';
+
 #rezon-forms {
     background-color: #4a148c;
     font-size: 100%;
@@ -2833,6 +2835,16 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 }
             }
         }
+        #insurances-form-shoot {
+            .field {
+                &.from {
+                    flex-basis: 100%;
+                }
+                &.date {
+                    flex-basis: 40%;
+                }
+            }
+        }
     }
 
     #rezon-forms #bus-form-shoot.bus-form-new .field.date{
@@ -2852,6 +2864,21 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms #hotel-form-shoot .hotel_guests {
         flex-basis: 40%;
+    }
+    #rezon-forms {
+        #insurances-form-shoot {
+            .field {
+                &.from {
+                    flex-basis: 100%;
+                }
+                &.date {
+                    flex-basis: 100%;
+                }
+                &.find {
+                    flex-basis: 100%;
+                }
+            }
+        }
     }
 }
 @media screen and (max-width: 767px) {
@@ -2971,6 +2998,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
             .station.to .location-region {
                 left: 10px;
+            }
+        }
+        #insurances-form-shoot {
+            width: 100%;
+            .field {
+                &.from {
+                    margin-bottom: 10px;
+                }
             }
         }
     }

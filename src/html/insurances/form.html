@@ -1,0 +1,63 @@
+<form class="rezon-form unload insurance-form" role="form" id="insurances-form-shoot" autocomplete="off" v-on:submit.prevent="submitHandler">
+    <div class="fields-container">
+        <div class="field station from">
+            <label data-local="true" data-localtext="FROM" class="menu-title">
+                <span class="link-left"></span>
+                {{locale("COUNTRY")}}
+                <span class="link-right v-hide"></span>
+            </label>
+            <div class="control-field">
+                <insurances-input 
+                    name="CountryCode" 
+                    input-class="book-from" 
+                    v-model="insurances.Location" 
+                    :placeholder="locale('SPECIFY_COUNTRY')">
+                </insurances-input>
+                <div class="error-box"></div>
+            </div>
+        </div>       
+        <div class="field date from ">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PERIOD_FROM")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper noselect">
+                    <datepicker 
+                        :placeholder="locale('SELECT_DATE')" 
+                        :language="defaultLang" 
+                        v-model="insurances.DateFrom" 
+                        name="DateFrom" 
+                        input-class="book-date datepicker" 
+                        :date-from="insurances.DateFrom" 
+                        :date-to="insurances.DateTo"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="field date to">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("PERIOD_TO")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <div class="date-wrapper">
+                    <datepicker 
+                        :placeholder="locale('SELECT_DATE')" 
+                        :language="defaultLang" 
+                        v-model="insurances.DateTo" 
+                        name="DateTo" 
+                        input-class="book-date datepicker" 
+                        :date-from="insurances.DateFrom" 
+                        :date-to="insurances.DateTo"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="field find">
+            <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
+        </div>
+    </div>
+</form>

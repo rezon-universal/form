@@ -6,7 +6,7 @@ const railFormModule = require('./rail/railModule');
 const oldBusFormModule = require('./buses/busModule');
 const busFormModule = require('./bus/busModule');
 const hotelFormModule = require('./hotels/hotelModule');
-
+const insurancesFormModule = require('./insurances/insurancesModule');
 
 var rezOnForm = function () {
     
@@ -161,6 +161,9 @@ var rezOnForm = function () {
             case "hotels":
             case "hotel":
                 return new hotelFormModule(this._form, this._o, this);
+            case "insurances":
+            case "insurance":
+                return new insurancesFormModule(this._form, this._o, this);
             default:
                 throw new Error(`Form type ${this._o.formType} is not defined.`);
         }
