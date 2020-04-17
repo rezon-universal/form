@@ -443,6 +443,39 @@ module.exports = class hotelModule extends formModuleBase {
                 updateCityTypeAhead: function (name, data) {
                     var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryName);
                     vue.$emit("cityUpdate", name, cityItem);
+                },
+                async submitHandler(e) {
+                    let checker = new validator(local.form, local.it);
+                    let isValid = checker.isValid();
+                    if (!isValid) {
+                        e.preventDefault();
+                        return;
+                    } else {
+                        let options = {
+                            day: 'numeric',
+                            month: 'numeric',
+                            year: 'numeric'
+                        };
+    
+                        let checkIn = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkIn);
+                        let checkOut = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkOut);
+    
+    
+                        const formData = {
+                            CityId: this.hotel.city.Id,
+                            CheckIn: checkIn,
+                            CheckOut: checkOut,
+                            AdultCount: this.hotel.adults,
+                            RoomCount: this.hotel.rooms,
+                            ChildAges: this.hotel.childs,
+                            Nationality: this.hotel.nationalityCode,
+                        }
+    
+                        if(local.options.projectUrl.startsWith("/") && typeof window.main != undefined && window.main.hotel != undefined) {
+                            e.preventDefault();
+                            return window.main.hotel.searchResult.sendForm(formData);
+                        }
+                    }
                 }
             },
             watch: {
@@ -533,18 +566,6 @@ module.exports = class hotelModule extends formModuleBase {
         
         let dw = new dataWork(form, it);
 
-
-        
-        //Отправка формы поиска отелей
-        form.submit(function () {
-            var checker = new validator($(this), it);
-            var isValid = checker.isValid();
-            if (!isValid) return false;
-            
-            if (options.projectUrl.startsWith("/") && typeof main !== "undefined" && main.hotel != undefined && main.hotel.searchForm != undefined && main.hotel.searchForm.send != undefined) return main.hotel.searchForm.send(form);
-
-        });
-
         var typeaheadOptions = {
             minLength: 2
         };
@@ -605,7 +626,7 @@ module.exports = class hotelModule extends formModuleBase {
             }); 
         }
 
-        if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575)) {
+        if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575) && ($('#hotel-form-shoot .book-from').val() === '')) {
             $('#hotel-form-shoot .book-from').attr('autofocus', 'true');
         }
 

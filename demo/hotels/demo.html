@@ -18,7 +18,7 @@
 <body>
     <div class="wings" id="rezon-forms">
         <div class="rez-forms container">
-            <form class="rezon-form unload hotel-form" role="form" id="hotel-form-shoot" autocomplete="off">
+            <form class="rezon-form unload hotel-form" role="form" id="hotel-form-shoot" autocomplete="off" v-on:submit="submitHandler">
     <input type="hidden" name="Id" :value="hotel.historyGuid"/>
     <input type="hidden" name="IsNewSearch" value="false" id="IsNewSearch" />
     <div class="fields-container">
