@@ -762,7 +762,6 @@ module.exports = class airModule extends formModuleBase {
             if (it.extra.mobileAndTabletcheck()) {
                 typeaheadOptions.minLength = 0;
             }
-            //let airportsSource = dw.airportFinderData.ttAdapter();
             let airportsSource = dw.airportsCitiesFinderData.bind(dw);
 
             el.typeahead(typeaheadOptions, {
