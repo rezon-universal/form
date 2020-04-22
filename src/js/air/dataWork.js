@@ -12,7 +12,7 @@
     airportsCitiesFinderData(query, asyncResults) {
         this.airportsCitiesFinderDataTimer && clearTimeout(this.airportsCitiesFinderDataTimer);
 
-        let url = this.it.extra.remoteUrl() + '/HelperAsync/LookupCities?query=';
+        let url = this.it.extra.remoteUrl() + '/HelperAsync/Lookup?query=';
         
         this.airportsCitiesFinderDataTimer = setTimeout(function() {
             $.ajax({
