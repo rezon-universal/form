@@ -2736,6 +2736,29 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     min-width: 260px;
 }
 
+#rezon-forms {
+    #insurances-form-shoot {
+        .from {
+            .express {
+                font-size: 13px;
+                top: 50%;
+                left: inherit;
+                right: 50px;
+                transform: translateY(-50%);
+            }
+            .delete {
+                right: 0;
+            }
+        }
+        .book-from {
+            padding: 0 40px 0 10px;
+        }
+        .field.station .inside:before {
+            right: 32px;
+        }
+    }
+}
+
 @media (min-width: 576px) and (max-width: 1199px) {
     #rezon-forms .fields-container .field.find {
         -webkit-order: 1;

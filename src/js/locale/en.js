@@ -239,6 +239,6 @@
     "CHILD_TEXT": "We set 12 by default as the age of your children, but if you enter their true age, you may be able to find a better price.",
     "PERIOD_FROM": "Period from",
     "PERIOD_TO": "Period to",
-    "SPECIFY_COUNTRY": "Specify a country or region",
+    "SPECIFY_COUNTRY": "Specify a country",
     "AIR_HOTEL_SEARCH": "Search hotels for same dates"
 }

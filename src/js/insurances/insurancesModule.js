@@ -29,7 +29,14 @@ module.exports = class insurancesModule extends formModuleBase {
     }
     //Получение ссылки на внешнюю форму, куда отправлять данные
     getFormRemoteUrl() {
-        return this.it.extra.remoteUrl() + "/Insurances/History";
+        return this.it.extra.remoteUrl() + "/Insurances/ModuleSearch";
+    }
+    //Получить подсвеченные даты в датапикере
+    datepickerGetHighlight(datepicker) {
+        return {
+            from: datepicker.dateFrom,
+            to: datepicker.dateTo
+        };
     }
     //Установка запрещенных дат в датапикере
     datepickerGetDisabled(datepicker) {
@@ -37,6 +44,19 @@ module.exports = class insurancesModule extends formModuleBase {
             to: datepicker.minDate !== undefined ? datepicker.minDate : vue.dates.insurancesMinDate,
             from: datepicker.maxDate !== undefined ? datepicker.maxDate : vue.dates.insurancesMaxDate
         };
+    }
+    //Датапикер - выбрано значение (ивент)
+    datepickerSelected(datepicker) {
+        console.log(datepicker)
+        var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+        if (datepicker.name === 'DateFrom' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
+            var el = $(datepicker.$el);
+            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='DateTo']");
+
+            setTimeout(function () {
+                nextDatePick.focus();
+            }, 100);
+        }
     }
 
     //Подключение Vue
@@ -133,8 +153,7 @@ module.exports = class insurancesModule extends formModuleBase {
                 },
                 checkItem: function (event) {
                     if (event.key !== "Enter" && event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Shift" && event.key !== "Tab") {
-                        this.item.Name = '';
-                        this.arrRegion = null;
+                        this.item.CountryCode = '';
                         this.$emit('input', this.item);
                     }
                 }
@@ -355,6 +374,11 @@ module.exports = class insurancesModule extends formModuleBase {
                     if (name === "CountryCode") {
                         var sib = field.closest("form").find("input[name='CountryCode']");
                         if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
+
+                        var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateFrom']")
+                        setTimeout(function () {
+                            dp.focus();
+                        }, 100);
                     }
                 }
                 //Hide mobile keyboard
