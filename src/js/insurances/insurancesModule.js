@@ -2,13 +2,8 @@
 const dataWork = require('./dataWork');
 const ApiService = require('../../insurances/servises/api.service.js').default;
 
-function InsuranceLocation(location) {
-    if (!location) return;   
-    
-    this.Name = location.Name;
-    this.CountryCode = location.CountryCode;
-}
-
+const InsuranceLocation = require('./InsuranceLocation');
+const InsurancesFormSaverData = require('./InsurancesFormSaverData');
 
 const formModuleBase = require('../formModuleBase');
 module.exports = class insurancesModule extends formModuleBase {
@@ -47,7 +42,6 @@ module.exports = class insurancesModule extends formModuleBase {
     }
     //Датапикер - выбрано значение (ивент)
     datepickerSelected(datepicker) {
-        console.log(datepicker)
         var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
         if (datepicker.name === 'DateFrom' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
@@ -221,6 +215,9 @@ module.exports = class insurancesModule extends formModuleBase {
                     let checker = new validator(local.form, local.it);
                     let isValid = checker.isValid();
                     if (!isValid) return false;
+                                        
+                    let data = local.getCurrentFormData();
+                    local.formSaver.saveNewItem(data);
 
                     let options = {
                         day: 'numeric',
@@ -230,6 +227,8 @@ module.exports = class insurancesModule extends formModuleBase {
 
                     let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom);
                     let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo);
+
+                    //TODO Remove access to MAIN.js file!!
 
                     main.extra.startWait();
 
@@ -244,6 +243,9 @@ module.exports = class insurancesModule extends formModuleBase {
                     const fbData = await apiService.createData(formData);
 
                     await window.main.insurancesSearch.newSearch(fbData);
+                },
+                selectHistoryItem : function(history) {
+                    local.formSaver.selectItem(history);
                 }
             },
             watch: {
@@ -420,5 +422,12 @@ module.exports = class insurancesModule extends formModuleBase {
             if (b) $(this).data("lastHist", b);
             else $(this).removeData("lastHist");
         });
+    }
+    //Получение текущего объекта с формой
+    getCurrentFormData() {
+        return new InsurancesFormSaverData(this);
+    }
+    getCurrentFormDataName() {
+        return 'InsurancesFormSaverData';
     }
 }

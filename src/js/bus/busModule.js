@@ -1,24 +1,16 @@
 ﻿const PassItem = require('./PassItem');
 const DirectionType = require('./DirectionType');
+const BusLocation = require('./BusLocation');
 const validator = require('./validator');
 const dataWork = require('./dataWork');
+
+const BusFormSaverData = require('./BusFormSaverData');
 
 let routeTypes = [
     new DirectionType('oneway', 'ONE_WAY')
     , new DirectionType('roundtrip', 'ROUND_TRIP')
 ];
 
-function BusLocation(location) {
-    if (!location)
-        return;
-    
-    this.Id = location.Id;
-    this.TypeShortName = location.TypeShortName;
-    this.TypeName = location.TypeName;
-    this.Name = location.Name;
-    this.RegionName = location.RegionName;
-    this.CountryName = location.CountryName;
-}
 
 const formModuleBase = require('./../formModuleBase');
 module.exports = class busModule extends formModuleBase {
@@ -284,10 +276,13 @@ module.exports = class busModule extends formModuleBase {
                 busTypeChanged: function (index) {
                     this.buses.formType = this.buses.formTypes[index];
                 },
-                async submitHandler(e) {
+                submitHandler(e) {
                     let checker = new validator(local.form, local.it);
                     let isValid = checker.isValid();
                     if (!isValid) return false;
+                    
+                    let data = local.getCurrentFormData();
+                    local.formSaver.saveNewItem(data);
 
                     const formData = {
                         LocationFromId: this.buses.LocationFrom.Id,
@@ -301,6 +296,9 @@ module.exports = class busModule extends formModuleBase {
                     }
 
                     return true;
+                },
+                selectHistoryItem : function(history) {
+                    local.formSaver.selectItem(history);
                 }
             },
             watch: {
@@ -500,5 +498,12 @@ module.exports = class busModule extends formModuleBase {
             if (b) $(this).data("lastHist", b);
             else $(this).removeData("lastHist");
         });
+    }
+    //Получение текущего объекта с формой
+    getCurrentFormData() {
+        return new BusFormSaverData(this);
+    }
+    getCurrentFormDataName() {
+        return 'BusFormSaverData';
     }
 }

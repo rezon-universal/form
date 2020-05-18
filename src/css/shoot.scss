@@ -244,8 +244,10 @@
     color: transparent;
     text-shadow: none;
 }
-#rezon-forms .check_bull 
-{
+#rezon-forms .unload .earlier {
+    display: none;
+}
+#rezon-forms .check_bull {
     background: #fff;
     border-radius: 2px;
     display: inline-block;
@@ -2737,6 +2739,165 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 #rezon-forms {
+
+    .earlier {
+        align-items: center;
+        display: flex;
+        margin: 30px 0 -50px;
+        order: 2;
+        padding: 12px 0;
+        position: relative;
+        width: 100%;
+
+        &::before {
+            background-color: #6c1dc1;
+            background: rgb(220,231,255);
+            background: linear-gradient(90deg, #7334d2 0, #3e1c7a 100%);
+            content: "";
+            display: block;
+            width: 100vw;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -50vw;
+            margin: 0 0 0 50%;
+        }
+
+        &-title {
+            color: #fff;
+            font-size: 12px;
+            position: relative;
+            margin-right: 6px;
+            white-space: nowrap;
+            opacity: 0.5;
+        }
+
+        &-box {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        &-item {
+            display: flex;
+            cursor: pointer;
+            color: #fff;
+            font-size: 13px;
+            align-items: center;
+            padding: 20px 12px 10px;
+            position: relative;
+            box-sizing: border-box;
+            text-decoration: none;
+
+            &::before {
+                content: '';
+                width: 1px;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.2);
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            &::after {
+                content: '';
+                height: 3px;
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+                position: absolute;
+                bottom: 5px;
+                left: 12px;
+                right: 12px;
+            }
+
+            &:first-of-type::before {
+                display: none;
+            }
+
+            &:hover,
+            &:focus {
+                box-shadow: inset 0 0 0 1px #ffd600;
+                border-radius: 3px;
+                box-sizing: border-box;
+
+                span {
+                    color: #ffd600;
+                }
+
+                .point-date {
+                    color: #ffffff;
+                }
+
+                .point-item,
+                .arrow {
+                    color: #ffd600;
+                }
+            }
+
+            .arrow {
+                display: flex;
+                flex-direction: column;
+                margin: 0 4px;
+                font-size: 16px;
+                line-height: 6px;
+                height: 100%;
+                max-height: 10px;
+                justify-content: flex-end;
+                padding-bottom: 5px;
+
+                &.oneway {
+                    padding-bottom: 9px;
+                }
+            }
+        }
+
+        .point {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            /*max-width: 42.5%;*/
+            /*min-width: 10px;*/
+            min-width: 25px;
+            max-width: 120px;
+
+            &-item {
+                font-size: 13px;
+                line-height: 14px;
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &-date {
+                font-size: 10px;
+                opacity: 0.7;
+                white-space: nowrap;
+                position: absolute;
+                top: -15px;
+                left: 0;
+            }
+
+            &.to {
+                .point-date {
+                    left: auto;
+                    right: 0;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+#rezon-forms #hotel-form-shoot .earlier .point {
+    max-width: 200px;
+}
+
+#rezon-forms {
     #insurances-form-shoot {
         .from {
             .express {
@@ -2914,6 +3075,23 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #hotel-form-shoot .field.find {
         flex-basis: 25%;
     }
+
+    #rezon-forms {
+        .earlier {
+            order: 7;
+            flex-direction: column;
+            left: -50vw;
+            margin-left: 50%;
+            width: 100vw;
+
+            &-title {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
 }
 
 @media (min-width: 576px)
@@ -3012,7 +3190,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         padding-top: 0;
     }
-    
+
     #rezon-forms {
         #bus-form-shoot {
             .station.from .location-region {
@@ -3023,11 +3201,67 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 left: 10px;
             }
         }
+
         #insurances-form-shoot {
             width: 100%;
+
             .field {
                 &.from {
                     margin-bottom: 10px;
+                }
+            }
+        }
+
+
+        .earlier {
+            &-item {
+                flex-wrap: wrap;
+                max-width: 180px;
+                position: relative;
+
+                &:nth-child(n+3) {
+                    display: none;
+                }
+            }
+
+            .point {
+                position: inherit;
+                height: inherit;
+
+                &-item {
+                    font-size: 12px;
+                }
+
+                .point-date {
+                    font-size: 10px;
+                    top: -14px;
+                }
+
+                &.from {
+                    max-width: 70%;
+                    width: auto;
+                }
+
+                &.to {
+                    flex-basis: 100%;
+                    min-width: 100%;
+                    width: 100%;
+
+                    .point-date {
+                        left: 40px;
+                        top: -28px;
+                        text-align: left;
+                        right: auto;
+                    }
+                }
+            }
+
+            .arrow {
+                height: inherit;
+                padding-bottom: 2px;
+
+                &.oneway {
+                    padding-bottom: 4px;
                 }
             }
         }

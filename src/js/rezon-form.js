@@ -3,7 +3,6 @@
 const localizator = require('./localizations');
 const airFormModule = require('./air/airModule');
 const railFormModule = require('./rail/railModule');
-const oldBusFormModule = require('./buses/busModule');
 const busFormModule = require('./bus/busModule');
 const hotelFormModule = require('./hotels/hotelModule');
 const insurancesFormModule = require('./insurances/insurancesModule');
@@ -16,7 +15,9 @@ var rezOnForm = function () {
         projectUrl: "/",
         defaultLang: "ru",
         formType: "avia", //avia|railway|bus|hotels
-        formTarget: "_blank"
+        formTarget: "_blank",
+
+        historyData : []
     };
     rezOnForm.prototype._initialized = false;
     //-----------------------------------------
@@ -153,8 +154,6 @@ var rezOnForm = function () {
             case "rail":
             case "railway":
                 return new railFormModule(this._form, this._o, this);
-            case "buses_old":
-                return new oldBusFormModule(this._form, this._o, this);
             case "bus":
             case "buses":
                 return new busFormModule(this._form, this._o, this);
@@ -545,6 +544,7 @@ var rezOnForm = function () {
 
             it.bindJQuery();
             it._currentModule.bind();
+            it._currentModule.bindFormSaver();
 
             
             if (it._o.projectUrl !== "/")
@@ -555,19 +555,6 @@ var rezOnForm = function () {
             }
             it._initialized = true;
         });
-
-        //if (this._o.avia) for (var optionKey in this._o.avia) {
-        //    if (this._aviaForm.attr("data-" + optionKey)) this._o.avia[optionKey] = this._aviaForm.attr("data-" + optionKey);
-        //}
-        //if (this._o.railway) for (var optionKey in this._o.railway) {
-        //    if (this._railwayForm.attr("data-" + optionKey)) this._o.railway[optionKey] = this._railwayForm.attr("data-" + optionKey);
-        //}
-        //if (this._o.buses) for (var optionKey in this._o.buses) {
-        //    if (this._busesForm.attr("data-" + optionKey)) this._o.buses[optionKey] = this._busesForm.attr("data-" + optionKey);
-        //}
-        //if (this._o.hotel) for (var optionKey in this._o.hotel) {
-        //    if (this._hotelForm.attr("data-" + optionKey)) this._o.hotel[optionKey] = this._hotelForm.attr("data-" + optionKey);
-        //}
 
     };
 };

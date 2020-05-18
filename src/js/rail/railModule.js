@@ -3,6 +3,8 @@ const StationItem = require('./StationItem');
 const validator = require('./validator');
 const dataWork = require('./dataWork');
 
+const RailFormSaverData = require('./RailFormSaverData');
+
 let routeTypes = [
     new DirectionType('oneway', 'ONE_WAY')
     , new DirectionType('roundtrip', 'ROUND_TRIP')
@@ -240,6 +242,9 @@ module.exports = class railModule extends formModuleBase {
                         this.railway.historyGuid !== null &&
                         this.railway.historyGuid.trim() !== '';
                 },
+                selectHistoryItem : function(history) {
+                    local.formSaver.selectItem(history);
+                }
             },
             watch: {
                 'railway.dateThere': function (value) {
@@ -299,7 +304,7 @@ module.exports = class railModule extends formModuleBase {
     }
     //Инициализация модуля, вызывается после подключения Vue
     bind() {
-
+        let local = this;
         let it = this.it;
         let form = this.form;
         let options = this.options;
@@ -312,6 +317,11 @@ module.exports = class railModule extends formModuleBase {
             var checker = new validator($(this), it);
             var isValid = checker.isValid();
             if (!isValid) return false;
+
+            let data = local.getCurrentFormData();
+            local.formSaver.saveNewItem(data);
+   
+
 
             if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.traintickets != undefined && main.traintickets.searchForm != undefined && main.traintickets.searchForm.send != undefined) return main.traintickets.searchForm.send(form);
             return true;
@@ -453,5 +463,12 @@ module.exports = class railModule extends formModuleBase {
             else $(this).removeData("lastHist");
         });
 
+    }
+    //Получение текущего объекта с формой
+    getCurrentFormData() {
+        return new RailFormSaverData(this);
+    }
+    getCurrentFormDataName() {
+        return 'RailFormSaverData';
     }
 }

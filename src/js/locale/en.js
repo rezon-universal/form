@@ -240,5 +240,6 @@
     "PERIOD_FROM": "Period from",
     "PERIOD_TO": "Period to",
     "SPECIFY_COUNTRY": "Specify a country",
-    "AIR_HOTEL_SEARCH": "Search hotels for same dates"
+    "AIR_HOTEL_SEARCH": "Search hotels for same dates",
+    "SEARCHED": "Previously you searched"
 }

@@ -18,17 +18,17 @@
 <body>
     <div class="wings" id="rezon-forms">
         <div class="rez-forms container">
-            <form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off" v-on:submit="submitHandler">
+            <form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off" v-on:submit.prevent="submitHandler">
     <div class="row hidden">
         <div class="direct radio-group">
             <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">
                 <span data-local="true" :data-localtext="type.text">{{locale(type.text)}}</span>
             </label>
-            <input type="radio" name="IsRoundTrip" v-bind:value="buses.formType.value" checked/>
+            <input type="radio" name="IsRoundTrip" v-bind:value="buses.formType.value" checked />
         </div>
     </div>
     <div class="fields-container" v-bind:class="[buses.formType.value]">
-    <div class="field station from">
+        <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("FROM")}}
@@ -87,6 +87,26 @@
             </div>
         </div>
     </div>
+    <div class="earlier" v-if="historyData && historyData.length > 0">
+        <div class="earlier-title">{{locale("SEARCHED")}}</div>
+        <div class="earlier-box">
+            <a href="#" class="earlier-item" v-for="history in historyData.slice(0, 3)" v-on:click.prevent="selectHistoryItem(history)">
+                <div class="point from">
+                    <div class="point-date">{{ history.formatDate(history.parseDateTime(history.date)) }}</div>
+                    <div class="point-item">{{ history.locationFrom.Name }}</div>
+                </div>
+                <div class="arrow" :class="history.formType.value === 'oneway' ? 'oneway' : ''">
+                    <span>&rarr;</span>
+                    <span v-if="history.formType.value !== 'oneway'">&larr;</span>
+                </div>
+                <div class="point to">
+                    <div class="point-date" v-if="history.formType.value !== 'oneway'">{{ history.formatDate(history.parseDateTime(history.dateBack)) }}</div>
+                    <div class="point-item">{{ history.locationTo.Name }}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
 </form>
         </div>
     </div>

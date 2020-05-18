@@ -2,6 +2,8 @@
 const validator = require('./validator');
 const dataWork = require('./dataWork');
 
+const HotelFormSaverData = require('./HotelFormSaverData');
+
 const formModuleBase = require('./../formModuleBase');
 module.exports = class hotelModule extends formModuleBase {
 
@@ -451,6 +453,10 @@ module.exports = class hotelModule extends formModuleBase {
                         e.preventDefault();
                         return;
                     } else {
+
+                        let data = local.getCurrentFormData();
+                        local.formSaver.saveNewItem(data);
+
                         let options = {
                             day: 'numeric',
                             month: 'numeric',
@@ -476,6 +482,9 @@ module.exports = class hotelModule extends formModuleBase {
                             return window.main.hotel.searchResult.sendForm(formData);
                         }
                     }
+                },
+                selectHistoryItem : function(history) {
+                    local.formSaver.selectItem(history);
                 }
             },
             watch: {
@@ -738,5 +747,12 @@ module.exports = class hotelModule extends formModuleBase {
             else $(this).removeData("lastHist");
         });
 
+    }
+    //Получение текущего объекта с формой
+    getCurrentFormData() {
+        return new HotelFormSaverData(this);
+    }
+    getCurrentFormDataName() {
+        return 'HotelFormSaverData';
     }
 }

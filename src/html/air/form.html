@@ -443,6 +443,26 @@
             </label>
         </div>
         <input type="hidden" id="initByUser" v-model="avia.initByUser" :value="avia.initByUser ? 'true' : ''" />
+
         </template>
+    </div>
+    <div class="earlier" v-if="historyData && historyData.length > 0">
+        <div class="earlier-title">{{locale("SEARCHED")}}</div>
+        <div class="earlier-box">
+            <a href="#" class="earlier-item" v-for="history in historyData.slice(0, 3)" v-on:click.prevent="selectHistoryItem(history)">
+                <div class="point from">
+                    <div class="point-date">{{ history.formatDate(history.parseDateTime(history.dateThere)) }}</div>
+                    <div class="point-item">{{ history.formatAirport(history.aviFrom.Airport) }}</div>
+                </div>
+                <div class="arrow" :class="history.formType.value === 'oneway' ? 'oneway' : ''">
+                    <span>&rarr;</span>
+                    <span v-if="history.formType.value !== 'oneway'">&larr;</span>
+                </div>
+                <div class="point to">
+                    <div class="point-date" v-if="history.formType.value !== 'oneway'">{{ history.formatDate(history.parseDateTime(history.dateBack)) }}</div>
+                    <div class="point-item">{{ history.formatAirport(history.aviTo.Airport) }}</div>
+                </div>
+            </a>
+        </div>
     </div>
 </form>

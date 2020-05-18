@@ -154,5 +154,6 @@
     "HOTEL_PLACEHOLDER": "На къде сте тръгнали?",
     "ROOMS": "Стаи",
     "NATIONALITY": "Гражданство",
-    "ENTER_NATIONALITY": "Въведете гражданство"
+    "ENTER_NATIONALITY": "Въведете гражданство",
+    "SEARCHED": "Преди сте търсили"
 }

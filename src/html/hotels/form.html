@@ -154,4 +154,19 @@
             </div>
         </div>
     </div>
+    <div class="earlier" v-if="historyData && historyData.length > 0">
+        <div class="earlier-title">{{locale("SEARCHED")}}</div>
+        <div class="earlier-box">
+            <a href="#" class="earlier-item" v-for="history in historyData.slice(0, 3)" v-on:click.prevent="selectHistoryItem(history)">
+                <div class="point">
+                    <div class="point-date">{{ history.formatDate(history.parseDateTime(history.checkIn)) }} &mdash; {{ history.formatDate(history.parseDateTime(history.checkOut)) }}</div>
+                    <div class="point-item" :title="history.city.CountryName">
+                        {{history.city.Name}}, 
+                        {{  declensionWords(history.adults, true, locale("PASS_CAT_ADT_1"), locale("PASS_CAT_ADT_0"), locale("PASS_CAT_ADT_0")) }}, 
+                        {{  declensionWords(history.rooms, true, locale("ROOMS_1"), locale("ROOMS"), locale("ROOMS_2")) }}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 </form>

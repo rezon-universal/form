@@ -7,6 +7,9 @@ const EmptyRouteItem = require('./EmptyRouteItem');
 const validator = require('./validator');
 const dataWork = require('./dataWork');
 
+const AirFormSaverData = require('./AirFormSaverData');
+
+
 let routeTypes = [
     new DirectionType('oneway', 'ONE_WAY')
     , new DirectionType('roundtrip', 'ROUND_TRIP')
@@ -409,7 +412,7 @@ module.exports = class airModule extends formModuleBase {
                     this.isActive = false;
 
                     this.avia.passengers.storageTypes.push(type);
-                    localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
+                    typeof(localStorage) !== 'undefined' && localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
                 },
                 deleteAdditionalPassenger(passenger, index) {
                     this.avia.passengers.types.splice(index, 1);
@@ -421,7 +424,7 @@ module.exports = class airModule extends formModuleBase {
                             this.avia.passengers.storageTypes.splice(index, 1);
                         }
                     })
-                    localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
+                    typeof(localStorage) !== 'undefined' && localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
                 },
                 filterAdditional() {
                     let filterTypes = []
@@ -622,6 +625,9 @@ module.exports = class airModule extends formModuleBase {
                 clickTimeTo: function(e) {
                     this.avia.aviToTime = parseInt(e.target.dataset.toTime);
                 },
+                selectHistoryItem : function(history) {
+                    local.formSaver.selectItem(history);
+                }
             },
             watch: {
                 'avia.defaultDateThere': function (value) {
@@ -652,9 +658,8 @@ module.exports = class airModule extends formModuleBase {
                     }
                 },
                 'avia.passengers.pricePTCOnly': function(value) {
-                    localStorage.setItem('pricePTCOnly', JSON.stringify(value));
+                    typeof(localStorage) !== 'undefined' && localStorage.setItem('pricePTCOnly', JSON.stringify(value));
                 }
-               
             },
             created: function () {
                 //Global variable
@@ -700,7 +705,7 @@ module.exports = class airModule extends formModuleBase {
                     $('.unload').removeClass('unload');
                 });
 
-                if(localStorage.getItem("AdditionalPassenger") !== null) {
+                if (typeof(localStorage) !== 'undefined' && localStorage.getItem("AdditionalPassenger") !== null) {
                     let history = JSON.parse(localStorage.getItem("AdditionalPassenger"));
                     for (let item of history) {    
                         this.avia.passengers.types.push(item);
@@ -713,7 +718,7 @@ module.exports = class airModule extends formModuleBase {
                         })
                     }
                 }
-                if(localStorage.getItem("pricePTCOnly") !== null) {
+                if (typeof(localStorage) !== 'undefined' && localStorage.getItem("pricePTCOnly") !== null) {
                     this.avia.passengers.pricePTCOnly = JSON.parse(localStorage.getItem("pricePTCOnly"));
                 }
             },
@@ -726,10 +731,11 @@ module.exports = class airModule extends formModuleBase {
     }
     //Инициализация модуля, вызывается после подключения Vue
     bind() {
+        let module = this;
         let form = this.form;
         let it = this.it;
         let options = this.options;
-
+        
         let dw = new dataWork(form, it);
 
         this.initializeDefaultAirportsIfNeed();
@@ -740,6 +746,8 @@ module.exports = class airModule extends formModuleBase {
             var isValid = checker.isValid();
             if (!isValid) return false;
 
+            let data = module.getCurrentFormData();
+            module.formSaver.saveNewItem(data);
             
             if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
             return true;
@@ -1334,5 +1342,12 @@ module.exports = class airModule extends formModuleBase {
                 });
             });
         }
+    }
+    //Получение текущего объекта с формой
+    getCurrentFormData() {
+        return new AirFormSaverData(this);
+    }
+    getCurrentFormDataName() {
+        return 'AirFormSaverData';
     }
 }

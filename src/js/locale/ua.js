@@ -165,5 +165,6 @@
     "PERIOD_FROM": "Період з",
     "PERIOD_TO": "Період до",
     "SPECIFY_COUNTRY": "Вкажіть країну",
-    "AIR_HOTEL_SEARCH": "Шукати готелі на ті ж дати"
+    "AIR_HOTEL_SEARCH": "Шукати готелі на ті ж дати",
+    "SEARCHED": "Раніше ви шукали"
 }

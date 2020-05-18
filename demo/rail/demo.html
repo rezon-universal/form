@@ -21,7 +21,7 @@
             <form class="rezon-form unload rail-form" role="form" id="railway-form-shoot" autocomplete="off">
     <input type="hidden" name="HistoryGuid" :value="railway.historyGuid" />
     <input type="hidden" name="book_type" v-bind:value="railway.formType.value" />
-    
+
     <div class="fields-container" v-bind:class="[railway.formType.value,{'extended':railway.formExtended}]">
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
@@ -192,6 +192,25 @@
                     <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
                 </span>
             </div>
+        </div>
+    </div>
+    <div class="earlier" v-if="historyData && historyData.length > 0">
+        <div class="earlier-title">{{locale("SEARCHED")}}</div>
+        <div class="earlier-box">
+            <a href="#" class="earlier-item" v-for="history in historyData.slice(0, 3)" v-on:click.prevent="selectHistoryItem(history)">
+                <div class="point from">
+                    <div class="point-date">{{ history.formatDate(history.parseDateTime(history.dateThere)) }}</div>
+                    <div class="point-item">{{ history.formatStation(history.stationFrom.Name) }}</div>
+                </div>
+                <div class="arrow" :class="history.formType.value === 'oneway' ? 'oneway' : ''">
+                    <span>&rarr;</span>
+                    <span v-if="history.formType.value !== 'oneway'">&larr;</span>
+                </div>
+                <div class="point to">
+                    <div class="point-date" v-if="history.formType.value !== 'oneway'">{{ history.formatDate(history.parseDateTime(history.dateBack)) }}</div>
+                    <div class="point-item">{{ history.formatStation(history.stationTo.Name) }}</div>
+                </div>
+            </a>
         </div>
     </div>
 </form>
