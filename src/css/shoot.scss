@@ -5,7 +5,7 @@
 #rezon-forms {
     background-color: #4a148c;
     font-size: 100%;
-    padding: 60px 20px 50px;
+    padding: 60px 20px 0;
 
     .avia-form {
         .advanced_search {
@@ -1279,6 +1279,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     align-items: flex-end;
     flex-wrap: wrap;
     align-content: space-around;
+    margin-bottom: 40px;
 }
 #rezon-forms .field 
 {
@@ -2743,7 +2744,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     .earlier {
         align-items: center;
         display: flex;
-        margin: 30px 0 -50px;
         order: 2;
         padding: 12px 0;
         position: relative;
@@ -2751,7 +2751,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
         &::before {
             background-color: #6c1dc1;
-            background: rgb(220,231,255);
             background: linear-gradient(90deg, #7334d2 0, #3e1c7a 100%);
             content: "";
             display: block;
@@ -2891,6 +2890,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             }
         }
     }
+
+    .banner {
+        margin: 40px 0;
+
+        &:empty {
+            display: none;
+        }
+    }
 }
 
 #rezon-forms #hotel-form-shoot .earlier .point {
@@ -2957,8 +2964,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 @media screen and (max-width: 1199px) 
 {
-    body #rezon-forms {
-        padding: 60px 20px 50px;
+    #rezon-forms {
+        padding: 50px 15px 0;
     }
     #rezon-forms .fields-container.route .multy-route.last .delete-leg 
     {
@@ -3049,15 +3056,24 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #hotel-form-shoot .hotel_guests {
         flex-basis: 40%;
     }
+
     #rezon-forms {
+        padding: 40px 10px 0;
+
+        .fields-container {
+            margin-bottom: 20px;
+        }
+
         #insurances-form-shoot {
             .field {
                 &.from {
                     flex-basis: 100%;
                 }
+
                 &.date {
                     flex-basis: 100%;
                 }
+
                 &.find {
                     flex-basis: 100%;
                 }
@@ -3090,8 +3106,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 margin-bottom: 10px;
             }
         }
+        .banner {
+            margin: 20px 0;
+        }
     }
-
 }
 
 @media (min-width: 576px)
@@ -3148,7 +3166,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
     #rezon-forms 
     {
-        padding: 10px 10px 10px;
+        padding: 30px 5px 0;
         input {
             font-size: 16px !important;
         }
