@@ -627,6 +627,11 @@ module.exports = class airModule extends formModuleBase {
                 },
                 selectHistoryItem : function(history) {
                     local.formSaver.selectItem(history);
+                },
+                selectDateToCalendar : function() {
+                    Vue.nextTick(function () {
+                        $('[name="book_to_date"]').focus();
+                    });
                 }
             },
             watch: {

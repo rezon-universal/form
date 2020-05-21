@@ -98,7 +98,7 @@
                                 v-if="avia.formType.value==='roundtrip'"
                                 initial-view="day">
                     </datepicker>
-                    <span class="roundtrip_click" v-on:click="typeChanged(1)">{{locale("BACK")}}</span>
+                    <span class="roundtrip_click" v-on:click="typeChanged(1); selectDateToCalendar();">{{locale("BACK")}}</span>
                 </div>
             </div>
         </div>

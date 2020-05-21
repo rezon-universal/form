@@ -76,7 +76,7 @@
                                 :date-from="railway.dateThere"
                                 :date-to="railway.dateBack"
                                 v-if="railway.formType.value==='roundtrip'"></datepicker>
-                    <span class="roundtrip_click" v-on:click="railTypeChanged(1)">{{locale("BACK")}}</span>
+                    <span class="roundtrip_click" v-on:click="railTypeChanged(1); selectDateToCalendar();">{{locale("BACK")}}</span>
                 </div>
             </div>
         </div>

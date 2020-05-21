@@ -2924,6 +2924,23 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         .field.station .inside:before {
             right: 32px;
         }
+        .earlier .point-date {
+            position: relative;
+            margin-top: -15px;
+            top: 0;
+        }
+        
+        
+        max-width: 800px;
+        width: auto;
+        
+        .field.station {
+            flex-grow: 0;
+        }        
+        .field.find {
+            flex-grow: 1;
+            flex-basis: 10%;
+        }
     }
 }
 
@@ -3026,16 +3043,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 }
             }
         }
-        #insurances-form-shoot {
-            .field {
-                &.from {
-                    flex-basis: 100%;
-                }
-                &.date {
-                    flex-basis: 40%;
-                }
-            }
-        }
     }
 
     #rezon-forms #bus-form-shoot.bus-form-new .field.date{
@@ -3071,11 +3078,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 }
 
                 &.date {
-                    flex-basis: 100%;
-                }
-
-                &.find {
-                    flex-basis: 100%;
+                    flex-basis: 40%;
                 }
             }
         }
@@ -3221,11 +3224,18 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         }
 
         #insurances-form-shoot {
-            width: 100%;
-
             .field {
                 &.from {
+                    flex-basis: 100%;
                     margin-bottom: 10px;
+                }
+
+                &.date {
+                    flex-basis: 100%;
+                }
+
+                &.find {
+                    flex-basis: 100%;
                 }
             }
         }
