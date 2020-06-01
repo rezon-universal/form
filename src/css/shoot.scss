@@ -1,7 +1,5 @@
 ﻿@charset "utf-8";
 
-@import './insurances/insurances';
-
 #rezon-forms {
     background-color: #4a148c;
     font-size: 100%;
@@ -595,12 +593,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-#rezon-forms #railway-form-shoot .field.focused .inside,
-#rezon-forms #railway-form-shoot .field.focused .calendar,
-#rezon-forms #railway-form-shoot .field.opened .inside 
-{
-    border-color: #669900;
-}
 #rezon-forms .item.has-error .inside 
 {
     -webkit-transition: all 0.5s ease;
@@ -660,10 +652,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     box-shadow: 0 5px 5px rgb(121, 135, 153);
 	font-size: 13px;
 	z-index: 10;
-}
-#rezon-forms #railway-form-shoot .avia-airport-finder 
-{
-    border-color: #669900;
 }
 #rezon-forms .avia-airport-finder .avia-airport-finder-inner 
 {
@@ -755,10 +743,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #eceff1;
     border-radius: 2px;
 	color: #333333;
-}
-#rezon-forms #railway-form-shoot .selectpicker.opened .selected-value 
-{
-    border-color: #669900;
 }
 #rezon-forms .selectpicker.opened .selected-value span 
 {
@@ -943,20 +927,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     visibility: hidden;
 }
-#railway-form-shoot .column:first-child 
-{
-    margin: 0 10% 0 0;
-}
-#railway-form-shoot .column 
-{
-    position: relative;
-    float: left;
-    width: 45%;
-}
-#railway-form-shoot .search 
-{
-    margin: 16px 0 0;
-}
 #rezon-forms .left 
 {
 	float: left;
@@ -1044,10 +1014,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     max-height: 255px;
     overflow-y: auto;
 }
-#railway-form-shoot .tt-dropdown-menu 
-{
-    border-color: #669900;
-}
 
 #rezon-forms .tt-suggestion 
 {
@@ -1072,87 +1038,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background-color: #ffd900;
     color: #333;
 }
-
-
-#rezon-forms #bus-form-shoot  {
-    .station {
-        .location-region {
-            bottom: 8px;
-            left: 10px;
-            position: absolute;
-            right: 50px;
-            z-index: 10;
-            color: #a5b4bb;
-            font-size: 9px;
-            line-height: 10px;
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-
-    .station.to .location-region {
-        left: 25px;
-        right: 35px;
-    }
-
-    .tt-dropdown-menu {
-        top: 104% !important;
-
-        .city {
-            display: flex;
-            flex-direction: column;
-            padding: 9px 0;
-            cursor: pointer;
-
-            &:hover {
-                background-color: #ffd900;
-                color: #333;
-            }
-
-            &-name {
-                color: #666666;
-                font-size: 13px;
-                font-weight: 600;
-                line-height: 100%;
-            }
-
-            &-region {
-                color: #a5b4bb;
-                font-size: 9px;
-                line-height: 10px;
-                margin: 2px 0 0 0;
-            }
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: #D1D5DF;
-        }
-
-        &::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-            background-color: #D1D5DF;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border: 1px solid #D1D5DF;
-            border-radius: 3px;
-            background-color: #fff;
-        }
-    }
-
-    .tt-suggestion.tt-cursor .city-region {
-        color: #555;
-    }
-
-    .with-region .book-from,
-    .with-region .book-to {
-        padding-bottom: 8px;
-    }
-}
-
 
 #rezon-forms .tt-dropdown-menu .iata-code
 {
@@ -1266,20 +1151,18 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 
 /*REDESING*/
-#rezon-forms .fields-container 
-{
+#rezon-forms .fields-container {
     display: -webkit-flex;
     -webkit-flex-direction: row;
     -webkit-align-items: flex-end;
     -webkit-flex-wrap: wrap;
     -webkit-align-content: space-around;
-
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     flex-wrap: wrap;
     align-content: space-around;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 #rezon-forms .field 
 {
@@ -1453,16 +1336,12 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     width: 100%;
 }
 #rezon-forms .field.airport,
-#rezon-forms .field.station 
-{
+#rezon-forms .field.station {
     -webkit-flex-basis: 25%;
     flex-basis: 25%;
+    max-width: 25%;
     min-width: 240px;
     position: relative;
-}
-#rezon-forms #hotel-form-shoot .field.station {
-    flex-basis: 23%;
-    min-width: 230px;
 }
 #rezon-forms .field.hide_s 
 {
@@ -1479,19 +1358,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     display: inline-block;
 }
-#rezon-forms .field.date 
-{
+#rezon-forms .field.date {
     -webkit-flex-basis: 10%;
     flex-basis: 10%;
+    max-width: 10%;
     min-width: 80px;
-}
-#rezon-forms #hotel-form-shoot .field.date {
-    flex-basis: 11%;
-}
-#rezon-forms #hotel-form-shoot .field.nationality {
-    flex-basis: 20%;
-    min-width: 180px;
-    position: relative;
 }
 #rezon-forms .oneway .field.date + .date .book-date,
 #rezon-forms .oneway.extended .field.time + .time 
@@ -1537,17 +1408,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
   display: table;
   background: blue;
 }
-#rezon-forms .field.find 
-{
-    margin-left: auto;
+#rezon-forms .field.find {
     -webkit-flex-basis: 9%;
     -webkit-flex-grow: 0;
     flex-grow: 0;
     flex-basis: 9%;
-}
-#rezon-forms #hotel-form-shoot .field.find {
-    flex-basis: 10%;
-    width: 10%;
+    margin-left: auto;
+    min-width: 100px;
 }
 #rezon-forms .field .control-field 
 {
@@ -1718,15 +1585,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #rezon-forms .fields-container.extended .field.pass,
 #rezon-forms .fields-container.extended .field.class,
-#rezon-forms .fields-container.extended .field.range 
-{
+#rezon-forms .fields-container.extended .field.range {
     -webkit-flex-basis: 25%;
     -webkit-order: 4;
     -webkit-flex-grow: 0;
-
-    order: 4;
     flex-basis: 25%;
-    flex-grow:0;
+    flex-grow: 0;
+    max-width: 25%;
+    order: 4;
 }
 #rezon-forms .fields-container.extended.route .field.range 
 {
@@ -1750,13 +1616,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     order: 4;
     flex-grow: 1;
 }
-#rezon-forms .fields-container.extended .field.extended-form 
-{
+#rezon-forms .fields-container.extended .field.extended-form {
     -webkit-order: 4;
     -webkit-flex-grow: 0;
 
     order: 4;
     flex-grow:0;
+    text-align: center;
 }
 #rezon-forms .fields-container.extended .field.clear 
 {
@@ -1806,8 +1672,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     -webkit-order: 6;
     order: 6;
 }
-#rezon-forms .fields-container.route .field.pass 
-{
+#rezon-forms .route .field.pass {
     -webkit-order: 4;
     -webkit-flex-grow:0;
     -webkit-flex-basis: 20%;
@@ -1815,6 +1680,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     order: 4;
     flex-grow: 0;
     flex-basis: 20%;
+    max-width: 20%;
 }
 #rezon-forms .fields-container.route.extended .field.pass 
 {
@@ -2355,53 +2221,154 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 /************************Bus***********************/
 
-#rezon-forms #bus-form-shoot .field.station {
-    flex-basis: 32%;
-}
-#rezon-forms #bus-form-shoot .field.date {
-    flex-basis: 13%;
-}
-#rezon-forms #bus-form-shoot .field.find {
-    flex-basis: 10%;
-    width: 10%;
-}
 
+#rezon-forms #bus-form-shoot {
+    .station {
+        .location-region {
+            bottom: 8px;
+            left: 10px;
+            position: absolute;
+            right: 50px;
+            z-index: 10;
+            color: #a5b4bb;
+            font-size: 9px;
+            line-height: 10px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
 
-#rezon-forms #bus-form-shoot.bus-form-new .field.date{
-    flex-basis: 20%;
-}
-#rezon-forms #bus-form-shoot.bus-form-new .field.find {
-    flex-basis: 16%;
-    width: 16%;
+    .station.to .location-region {
+        left: 25px;
+        right: 35px;
+    }
+
+    .tt-dropdown-menu {
+        top: 104% !important;
+
+        .city {
+            display: flex;
+            flex-direction: column;
+            padding: 9px 0;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ffd900;
+                color: #333;
+            }
+
+            &-name {
+                color: #666666;
+                font-size: 13px;
+                font-weight: 600;
+                line-height: 100%;
+            }
+
+            &-region {
+                color: #a5b4bb;
+                font-size: 9px;
+                line-height: 10px;
+                margin: 2px 0 0 0;
+            }
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #D1D5DF;
+        }
+
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background-color: #D1D5DF;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border: 1px solid #D1D5DF;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+    }
+
+    .tt-suggestion.tt-cursor .city-region {
+        color: #555;
+    }
+
+    .with-region .book-from,
+    .with-region .book-to {
+        padding-bottom: 8px;
+    }
+
+    .station {
+        flex-basis: 32%;
+        max-width: 32%;
+    }
+
+    .date,
+    .find {
+        flex-basis: 12%;
+        max-width: 12%;
+    }
 }
 
 /************************End Bus***********************/
 
 
 /************************Hotels***********************/
-#rezon-forms #hotel-form-shoot .hotel_guests {
-    flex-basis: 25%;
-    width: 25%;
+#rezon-forms #hotel-form-shoot {
+     .station {
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+
+    .hotel_guest .arrow-mobile,
+    .hotel_guest .close-mobile {
+        display: none;
+    }
+
+    .date {
+        flex-basis: 10%;
+        max-width: 10%;
+    }
+
+    .nationality {
+        flex-basis: 20%;
+        max-width: 20%;
+        position: relative;
+    }
+
+    .hotel_guests {
+        flex-basis: 25%;
+        max-width: 25%;
+        
+        .select_box {
+            background: #fff;
+            box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+            box-sizing: border-box;
+            border-radius: 2px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            top: 102%;
+            z-index: 1;
+
+            &.open {
+                display: block;
+            }
+
+            .box_inside {
+                padding: 30px;
+            }
+        }
+    }
+
+    .find {
+        flex-basis: 10%;
+        max-width: 10%;
+    }
 }
-#rezon-forms #hotel-form-shoot .hotel_guests .select_box
-{
-    background: #fff;
-    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
-    box-sizing: border-box;
-    border-radius: 2px;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    top: 102%;
-    z-index: 1;
-}
-#rezon-forms #hotel-form-shoot .hotel_guests .select_box .box_inside
-{
-    padding: 30px;
-}
-#rezon-forms #hotel-form-shoot .hotel_guests .select_box.open {
-    display: block;
-}
+
 #rezon-forms #hotel-form-shoot .guest_flex {
     display: flex;
     justify-content: space-between;
@@ -2409,20 +2376,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 #rezon-forms #hotel-form-shoot .childs_flex {
     margin: 15px 0 0 0;
 }
-#rezon-forms #hotel-form-shoot .childs_block
-{
+#rezon-forms #hotel-form-shoot .childs_block {
     justify-content: space-between;
     display: flex;
     margin: 0 -5px;
 }
-#rezon-forms #hotel-form-shoot .child_box
-{
+#rezon-forms #hotel-form-shoot .child_box {
     max-width: 50%;
     padding: 0 5px;
     width: 100%;
 }
-#rezon-forms #hotel-form-shoot .nationality_input
-{
+#rezon-forms #hotel-form-shoot .nationality_input {
     background: #fff;
     border-radius: 2px;
     box-sizing: border-box !important;
@@ -2552,10 +2516,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
     user-select: none; 
 }
-#rezon-forms #hotel-form-shoot .childs_flex .options_guest {
-    max-height: 100px;
-    overflow-y: auto;
-}
 #rezon-forms #hotel-form-shoot .childs_flex .child-text {
     color: #8087a1;
     font-size: 11px;
@@ -2631,52 +2591,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 /************************End Hotels***********************/
 
-#rezon-forms #railway-form-shoot .extended .date {
-    flex-basis: 25% !important;
-}
-#rezon-forms #railway-form-shoot .extended .field.clear,
-#rezon-forms #railway-form-shoot .extended .field.find  {
-    flex-basis: 25%;
-}
-#rezon-forms #railway-form-shoot .extended .field.hide_s {
-    text-align-last: left;
-    order: 6;
-}
-#rezon-forms #railway-form-shoot .fields-container.extended .field.date + .date 
-{
-    margin-right: 0;
-}
-#rezon-forms #railway-form-shoot .field.find {
-    margin-left: 0;
-}
-#rezon-forms #railway-form-shoot .roundtrip.extended .field.time + .time {
-    margin-right: 0;
-}
-#rezon-forms #railway-form-shoot .roundtrip.extended .field.find {
-    order: 7;
-}
-#rezon-forms #railway-form-shoot.form-ie .extended .date {
-    flex-basis: 24% !important;
-}
-#rezon-forms #railway-form-shoot.form-ie .extended .field.clear,
-#rezon-forms #railway-form-shoot.form-ie .extended .field.find {
-    flex-basis: 24% !important;
-}
-#rezon-forms #railway-form-shoot.form-ie .fields-container.extended .field.time + .time {
-    flex-basis: 24%;
-}
-#rezon-forms #railway-form-shoot.form-ie .roundtrip .field.find {
-    margin-right: 15px;
-}
-#rezon-forms #bus-form-shoot.form-ie .field.find {
-    flex-basis: 15%;
-    width: 15%;
-    margin-left: inherit;
-}
-#rezon-forms #hotel-form-shoot.form-ie .field.find {
-    flex-basis: 9%;
-    width: 9%;
-}
+
 #hotel-form-shoot .hotel_guest .arrow-mobile,
 #hotel-form-shoot .hotel_guest .close-mobile {
     display: none;
@@ -2693,11 +2608,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 #avia-form-shoot .date.opened .vdp-datepicker__calendar .error-box {
     display: block;
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-    #rezon-forms #hotel-form-shoot .field.date {
-        flex-basis: 10%;
-    }
 }
 #rezon-forms .field .select-route-type .selected-value {
     padding: 5px 20px 5px 0;
@@ -2906,6 +2816,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
 #rezon-forms {
     #insurances-form-shoot {
+        max-width: 1000px;
+        margin: 0 auto;
+
         .from {
             .express {
                 font-size: 13px;
@@ -2914,35 +2827,72 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 right: 50px;
                 transform: translateY(-50%);
             }
+
             .delete {
                 right: 0;
             }
         }
+
         .book-from {
             padding: 0 40px 0 10px;
         }
-        .field.station .inside:before {
+
+        .station .inside:before {
             right: 32px;
         }
+
         .earlier .point-date {
             position: relative;
             margin-top: -15px;
             top: 0;
         }
-        
-        
-        max-width: 800px;
-        width: auto;
-        
-        .field.station {
-            flex-grow: 0;
-        }        
-        .field.find {
-            flex-grow: 1;
-            flex-basis: 10%;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #rezon-forms {
+        #insurances-form-shoot {
+            .station {
+                flex-basis: 40%;
+                max-width: 40%;
+            }
+
+            .date {
+                flex-basis: 20%;
+                max-width: 20%;
+            }
+
+            .find {
+                flex-basis: 20%;
+                max-width: 20%;
+            }
         }
     }
 }
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    #rezon-forms #hotel-form-shoot {
+        .date,
+        .find {
+            flex-basis: 15%;
+            max-width: 15%;
+        }
+
+        .station,
+        .hotel_guests {
+            flex-basis: 35%;
+            max-width: 35%;
+        }
+
+        .nationality {
+            flex-basis: 35%;
+            max-width: 35%;
+        }
+    }
+}
+
 
 @media (min-width: 576px) and (max-width: 1199px) {
     #rezon-forms .fields-container .field.find {
@@ -2951,7 +2901,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
 
     #rezon-forms .fields-container .field.airport,
-    #rezon-forms .fields-container .field.station,
     #rezon-forms .fields-container .field.pass,
     #rezon-forms .fields-container.extended .field.only-direct,
     #rezon-forms .fields-container.extended .field.carrier,
@@ -2960,16 +2909,19 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         -webkit-flex-grow: 1;
         flex-basis: 50%;
         flex-grow: 1;
+        max-width: 50%;
     }
 
     #rezon-forms .fields-container .field.date,
     #rezon-forms .fields-container.extended .field.pass,
+    #rezon-forms .fields-container.route .field.pass,
     #rezon-forms .fields-container .field.time,
     #rezon-forms .fields-container .field.only-direct {
         -webkit-flex-basis: 25%;
         -webkit-flex-grow: 0;
         flex-basis: 25%;
         flex-grow: 0;
+        max-width: 25%;
     }
 
     #rezon-forms .fields-container.extended .field.time + .time,
@@ -2984,115 +2936,88 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms {
         padding: 50px 15px 0;
     }
-    #rezon-forms .fields-container.route .multy-route.last .delete-leg 
-    {
+    #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         -webkit-flex-basis: 25%;
         -webkit-flex-grow: 0;
-
         flex-basis: 25%;
         flex-grow: 0;
+        max-width: 25%;
     }
     #rezon-forms .route .add_segment,
     #rezon-forms .fields-container.oneway.extended .field.class,
     #rezon-forms .route .multy-route.last .add_segment,
-    #rezon-forms .fields-container.route.extended .multy-route.last .delete-leg 
-    {
+    #rezon-forms .fields-container.route.extended .multy-route.last .delete-leg {
         -webkit-flex-basis: 50%;
         -webkit-flex-grow: 1;
-
         flex-basis: 50%;
         flex-grow: 1;
+        max-width: 50%;
     }
     #rezon-forms .field.carrier 
     {
         max-width: 50%;
     }
-    #rezon-forms #railway-form-shoot .date {
-        flex-basis: 50%;
+}
+
+
+@media (min-width: 992px) {
+    #rezon-forms .date .vdp-datepicker__calendar {
+        left: auto;
+        right: 0;
     }
-    #rezon-forms #railway-form-shoot .range {
-        flex-basis: 25%;
-    }
-    #rezon-forms #railway-form-shoot .field.find {
-        flex-basis: 25%;
+
+    #rezon-forms #bus-form-shoot.bus-form-new {
+        .station {
+            flex-basis: 30%;
+            max-width: 30%;
+        }
+
+        .date,
+        .find {
+            flex-basis: 20%;
+            max-width: 20%;
+        }
     }
 }
 
-@media screen and (max-width: 991px) {
-    #rezon-forms #hotel-form-shoot .field.station,
-    #rezon-forms #hotel-form-shoot .field.nationality {
-        min-width: inherit;
-        flex-basis: 32%;
-    }
-    #rezon-forms #hotel-form-shoot .field.date,
-    #rezon-forms #hotel-form-shoot .field.find {
-        flex-basis: 14%;
-    }
+
+@media (min-width: 576px) and (max-width: 991px) {
     #rezon-forms {
         #bus-form-shoot {
-            .field {
-                &.station {
-                    flex-basis: 50%;
-                }
-                &.date {
-                    flex-basis: 38%;
-                }
-                &.find {
-                    flex-basis: 24%;
-                    width: 24%;
-                }
+            .station {
+                flex-basis: 50%;
+                max-width: 50%;
+            }
+
+            .date {
+                flex-basis: 38%;
+                max-width: 38%;
+            }
+
+            .find {
+                flex-basis: 24%;
+                max-width: 24%;
             }
         }
     }
 
-    #rezon-forms #bus-form-shoot.bus-form-new .field.date{
-        flex-basis: 50%;
-    }
-    #rezon-forms #bus-form-shoot.bus-form-new .field.find {
-        flex-basis: 50%;
-        width: 50%;
+    #rezon-forms #bus-form-shoot.bus-form-new {
+        .date,
+        .find {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
     }
 }
-@media screen and (max-width: 767px) {
-    #rezon-forms #hotel-form-shoot .field.station {
-        flex-basis: 50%;
-    }
-    #rezon-forms #hotel-form-shoot .field.date {
-        flex-basis: 25%;
-    }
-    #rezon-forms #hotel-form-shoot .hotel_guests {
-        flex-basis: 40%;
-    }
 
+
+@media screen and (max-width: 767px) {
     #rezon-forms {
         padding: 40px 10px 0;
 
         .fields-container {
-            margin-bottom: 20px;
+            padding-bottom: 20px;
         }
-
-        #insurances-form-shoot {
-            .field {
-                &.from {
-                    flex-basis: 100%;
-                }
-
-                &.date {
-                    flex-basis: 40%;
-                }
-            }
-        }
-    }
-}
-@media screen and (max-width: 767px) {
-    #rezon-forms #hotel-form-shoot .field.station,
-    #rezon-forms #hotel-form-shoot .hotel_guests,
-    #rezon-forms #hotel-form-shoot .field.nationality {
-        flex-basis: 50%;
-    }
-    #rezon-forms #hotel-form-shoot .field.date,
-    #rezon-forms #hotel-form-shoot .field.find {
-        flex-basis: 25%;
     }
 
     #rezon-forms {
@@ -3115,8 +3040,57 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
 }
 
-@media (min-width: 576px)
-{
+
+
+@media (min-width: 576px) and (max-width: 767px) {
+    #rezon-forms {
+        #hotel-form-shoot {
+            .date {
+                flex-basis: 25%;
+                max-width: 25%;
+
+                .vdp-datepicker__calendar {
+                    left: auto;
+                    right: 0;
+                }
+            }
+
+            .station,
+            .hotel_guests,
+            .nationality {
+                flex-basis: 50%;
+                max-width: 50%;
+            }
+
+            .find {
+                flex-basis: 25%;
+                max-width: 25%;
+                margin-left: auto;
+            }
+        }
+
+        #insurances-form-shoot {
+            .station {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .date {
+                flex-basis: 35%;
+                max-width: 35%;
+            }
+
+            .find {
+                flex-basis: 30%;
+                max-width: 30%;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 576px) {
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
     #rezon-forms .book-date:focus 
@@ -3143,6 +3117,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     {
         padding-left: 25px;
     }
+    #rezon-forms .fields-container:not(.extended) .select-age {
+        left: auto;
+        right: 0;
+    }
     #rezon-forms .fields-container.route .multy-route 
     {
         margin-top: 30px;
@@ -3162,11 +3140,18 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         cursor: pointer;
         position: relative;
     }
+    #rezon-forms #hotel-form-shoot .childs_flex .options_guest {
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+    #rezon-forms #avia-form-shoot .hide_s {
+        display: flex;
+        flex-direction: row;
+    }
 }
 
-@media (max-width: 575px) 
-{
-
+@media (max-width: 575px) {
     #rezon-forms 
     {
         padding: 30px 5px 0;
@@ -3224,19 +3209,32 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         }
 
         #insurances-form-shoot {
-            .field {
-                &.from {
-                    flex-basis: 100%;
-                    margin-bottom: 10px;
-                }
+            .from {
+                flex-basis: 100%;
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
 
-                &.date {
-                    flex-basis: 100%;
-                }
+            .date {
+                flex-basis: 50%;
+                max-width: 50%;
 
-                &.find {
-                    flex-basis: 100%;
+                &.opened {
+                    flex-basis: auto;
+                    max-width: 100%;
                 }
+            }
+
+            .find {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .earlier .point.from {
+                -webkit-flex-basis: auto;
+                flex-basis: auto;
+                max-width: 100%;
+                margin-bottom: 0;
             }
         }
 
@@ -3454,20 +3452,25 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         flex-grow: 1;
     }
     #rezon-forms .field.date,
-    #rezon-forms .field.pass 
-    {
+    #rezon-forms .field.pass {
         -webkit-flex-basis: 50%;
-        -webkit-flex-grow: 1;
-
         flex-basis: 50%;
-        flex-grow: 1;
+        max-width: 50%;
+    }
+    #rezon-forms .field.date.opened,
+    #rezon-forms .field.pass.opened,
+    #rezon-forms .fields-container.extended .field.pass.opened {
+        -webkit-flex-basis: auto;
+        flex-basis: auto;
+        width: 100%;
+        max-width: 100%;
     }
     #rezon-forms .field.airport,
     #rezon-forms .field.find,
-    #rezon-forms .field.station 
-    {
+    #rezon-forms .field.station {
         -webkit-flex-basis: 100%;
         flex-basis: 100%;
+        max-width: 100%;
     }
     #rezon-forms .field.class .selectpicker,
     #rezon-forms .field.find button 
@@ -3504,44 +3507,51 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
     #rezon-forms .fields-container.extended .field.carrier,
     #rezon-forms .fields-container.extended .field.only-direct,
-    #rezon-forms .fields-container.extended .field.range 
-    {
+    #rezon-forms .fields-container.extended .field.range {
         -webkit-flex-basis: 100%;
         -webkit-order: 5;
         -webkit-flex-grow: 1;
-
         flex-basis: 100%;
-        order: 5;
         flex-grow: 1;
+        max-width: 100%;
+        order: 5;
     }
     #rezon-forms .fields-container.extended .field.class,
     #rezon-forms .fields-container.route .field.class,
-    #rezon-forms .fields-container.extended .field.hide_s,
     #rezon-forms .fields-container.extended .field.clear,
-    #rezon-forms .fields-container.extended .field.extended-form 
-    {
+    #rezon-forms .fields-container.extended .field.extended-form {
         -webkit-flex-basis: 50%;
         -webkit-order: 5;
         -webkit-flex-grow: 1;
-
-        order: 5;
         flex-basis: 50%;
         flex-grow: 1;
+        max-width: 50%;
+        order: 5;
     }
-    #rezon-forms .fields-container .field.find 
-    {
+    #rezon-forms .fields-container.extended .field.hide_s {
+        -webkit-flex-basis: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    #rezon-forms .fields-container .field.find {
         -webkit-order: 6;
         order: 6;
     }
     /*Extended serach mobile*/
     #rezon-forms .fields-container.extended .field.pass,
-    #rezon-forms .fields-container.route .field.pass 
-    {
+    #rezon-forms .fields-container.route .field.pass,
+    #rezon-forms .fields-container.route.extended .field.pass {
         -webkit-order: 4;
         -webkit-flex-basis: 50%;
-
-        order: 4;
         flex-basis: 50%;
+        max-width: 50%;
+        order: 4;
+
+        &.opened {
+            -webkit-flex-basis: auto;
+            flex-basis: auto;
+            max-width: 100%;
+        }
     }
     #rezon-forms .fields-container.extended .field.date + .date 
     {
@@ -3667,10 +3677,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         -webkit-transform: rotate(90deg);
         z-index: 3;
     }
-    #rezon-forms .fields-container.route .multy-route.last .delete-leg 
-    {
+    #rezon-forms .fields-container.route .multy-route.last .delete-leg {
         -webkit-flex-basis: 50%;
         flex-basis: 50%;
+        max-width: 50%;
     }
     #rezon-forms .field.date.opened .book-date 
     {
@@ -3681,10 +3691,6 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         width: 100%;
         box-shadow: none;
         position: relative;
-    }
-    #rezon-forms #railway-form-shoot .fields-container .field.range {
-        -webkit-flex-basis: 50%;
-        flex-basis: 50%;
     }
 
 
@@ -3697,13 +3703,21 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         padding-top: 60px !important;
         transition: all 0.8s;
     }
-    #rezon-forms #hotel-form-shoot .field.station,
+    #rezon-forms #hotel-form-shoot .station,
     #rezon-forms #hotel-form-shoot .hotel_guests,
-    #rezon-forms #hotel-form-shoot .field.find {
+    #rezon-forms #hotel-form-shoot .find {
         flex-basis: 100%;
+        max-width: 100%;
     }
-    #rezon-forms #hotel-form-shoot .field.date {
+    #rezon-forms #hotel-form-shoot .date {
         flex-basis: 50%;
+        max-width: 50%;
+
+        &.opened {
+            flex-basis: auto;
+            max-width: 100%;
+            width: 100%;
+        }
     }
     #rezon-forms #hotel-form-shoot .fields-container .field .menu-title {
         display: block;
@@ -3854,11 +3868,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     #rezon-forms #hotel-form-shoot .nationality_hotels.open .options {
         height: 100%;
     }
-    #rezon-forms #hotel-form-shoot .field.nationality {
+    #rezon-forms #hotel-form-shoot .nationality {
         flex-basis: 100%;
+        max-width: 100%;
     }
     #rezon-forms .selectpicker .modal_block:before {
         content: '';
+        left: 0;
         position: fixed;
         top: 0;
         width: 100%;
@@ -3889,27 +3905,33 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
     #rezon-forms {
         #bus-form-shoot {
-            .field {
-                &.station {
+            .station {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .date {
+                flex-basis: 50%;
+                max-width: 50%;
+
+                &.opened {
                     flex-basis: 100%;
+                    max-width: 100%;
                 }
-                &.date {
-                    flex-basis: 50%;
-                }
-                &.find {
-                    flex-basis: 100%;
-                    width: 100%;
-                }
+            }
+
+            .find {
+                flex-basis: 100%;
+                max-width: 100%;
             }
         }
     }
 
-    #rezon-forms #bus-form-shoot.bus-form-new .field.date{
-        flex-basis: 100%;
-    }
-    #rezon-forms #bus-form-shoot.bus-form-new .field.find {
-        flex-basis: 100%;
-        width: 100%;
+    #rezon-forms #bus-form-shoot.bus-form-new {
+        .date {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
     }
 }
 
@@ -3931,23 +3953,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 }
 
 
-
-#rezon-forms #railway-form-shoot .field.hide_s
-{
-    text-align: left;
-}
-
-
-@media (min-width: 576px ) and (max-width: 1199px)
-{
-    #rezon-forms #railway-form-shoot .field.hide_s,
-    #rezon-forms #railway-form-shoot .field.clear
-    {
-        -webkit-flex-basis: 25%;
-        flex-basis: 25%;
-    }
-    #rezon-forms #hotel-form-shoot .hotel_guests .select_box
-    {
+@media (min-width: 576px ) and (max-width: 1199px) {
+    #rezon-forms #hotel-form-shoot .hotel_guests .select_box {
         min-width: 300px;
     }
 }
@@ -3955,43 +3962,27 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 @media (min-width: 1200px) 
 {
     #rezon-forms .fields-container .multy-route.last .delete-leg,
-    #rezon-forms .route .multy-route .add_segment
-    {
+    #rezon-forms .route .multy-route .add_segment {
         -webkit-flex-basis: 20%;
         flex-basis: 20%;
+        max-width: 20%;
     }
-    #rezon-forms .fields-container.extended .field.date
-    {
+    #rezon-forms .fields-container.extended .field.date {
         -webkit-flex-basis: 10%;
         flex-basis: 10%;
+        max-width: 10%;
     }
     #rezon-forms .fields-container.extended.route .field.time,
     #rezon-forms .route .add_segment,
-    #rezon-forms .fields-container.extended .delete-leg
-    {
+    #rezon-forms .fields-container.extended .delete-leg {
         -webkit-flex-basis: 20%;
         flex-basis: 20%;
+        max-width: 20%;
     }
-    #rezon-forms .route.extended .multy-route .add_segment
-    {
+    #rezon-forms .route.extended .multy-route .add_segment {
         -webkit-flex-basis: 100%;
         flex-basis: 100%;
-    }
-    #rezon-forms #railway-form-shoot .field.date
-    {
-        -webkit-flex-basis: 15%;
-        flex-basis: 15%;
-    }
-    #rezon-forms #railway-form-shoot .field.find
-    {
-        margin-left: initial;
-        -webkit-flex-basis: 19%;
-        flex-basis: 19%;
-    }
-    #rezon-forms #railway-form-shoot .field.hide_s
-    {
-        -webkit-flex-basis: 15%;
-        flex-basis: 15%;
+        max-width: 100%;
     }
 }
 
@@ -4209,4 +4200,154 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     }
 }
 /*----------------*/
+
+
+
+
+/*--------railway--------*/
+
+#rezon-forms #railway-form-shoot {
+    .extended {
+        .date,
+        .time {
+            margin-right: 0;
+        }
+
+        .find {
+            order: 7;
+        }
+    }
+}
+
+
+@media (min-width: 992px) {
+    #rezon-forms #railway-form-shoot {
+        .station {
+            -webkit-flex-basis: 32%;
+            flex-basis: 32%;
+            max-width: 32%;
+        }
+
+        .date,
+        .find {
+            -webkit-flex-basis: 12%;
+            flex-basis: 12%;
+            max-width: 12%;
+        }
+
+        .find {
+            margin-left: 0;
+            margin-right: 0;
+            order: inherit;
+        }
+
+        .vdp-datepicker__calendar {
+            right: 0;
+        }
+
+        .extended {
+            .date,
+            .time,
+            .range,
+            .clear,
+            .hide_s,
+            .find {
+                -webkit-flex-basis: 20%;
+                flex-basis: 20%;
+                max-width: 20%;
+            }
+
+            .date {
+                -webkit-flex-basis: 18%;
+                flex-basis: 18%;
+                max-width: 18%;
+            }
+
+            &.roundtrip {
+                .hide_s {
+                    order: 8;
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 576px) and (max-width: 991px) {
+    #rezon-forms #railway-form-shoot {
+        .station {
+            -webkit-flex-basis: 50%;
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+
+        .date {
+            -webkit-flex-basis: 35%;
+            flex-basis: 35%;
+            max-width: 35%;
+        }
+
+        .find {
+            -webkit-flex-basis: 30%;
+            flex-basis: 30%;
+            max-width: 30%;
+            order: inherit;
+        }
+
+        .extended {
+            .date {
+                -webkit-flex-basis: 20%;
+                flex-basis: 20%;
+                max-width: 20%;
+            }
+
+            .range,
+            .time,
+            .hide_s {
+                -webkit-flex-basis: 30%;
+                flex-basis: 30%;
+                max-width: 30%;
+            }
+
+            .clear {
+                -webkit-flex-basis: 22%;
+                flex-basis: 22%;
+                max-width: 22%;
+                margin-left: auto;
+            }
+
+            .find {
+                -webkit-flex-basis: 18%;
+                flex-basis: 18%;
+                max-width: 18%;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 575px) {
+    #rezon-forms #railway-form-shoot {
+        .station,
+        .find {
+            -webkit-flex-basis: 100%;
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+
+        .extended .hide_s,
+        .extended:not(.roundtrip) .clear,
+        .fields-container .range {
+            -webkit-flex-basis: 50%;
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+
+        .extended .range {
+            order: 3;
+        }
+    }
+}
+
 
