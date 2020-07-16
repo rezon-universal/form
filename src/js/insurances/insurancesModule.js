@@ -211,10 +211,13 @@ module.exports = class insurancesModule extends formModuleBase {
                     var cityItem = new InsuranceLocation(data);
                     vue.$emit("cityUpdate", name, cityItem);
                 },
-                async submitHandler() {
+                async submitHandler(e) {
                     let checker = new validator(local.form, local.it);
                     let isValid = checker.isValid();
-                    if (!isValid) return false;
+                    if (!isValid) {
+                        e.preventDefault();
+                        return false;
+                    }
                                         
                     let data = local.getCurrentFormData();
                     local.formSaver.saveNewItem(data);
@@ -228,21 +231,27 @@ module.exports = class insurancesModule extends formModuleBase {
                     let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom);
                     let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo);
 
-                    //TODO Remove access to MAIN.js file!!
 
-                    main.extra.startWait();
+                    if (local.options.projectUrl.startsWith("/") && typeof window.main != undefined) {
+                        e.preventDefault();
+                        
+                        //TODO Remove access to MAIN.js file!!
 
-                    const formData = {
-                        CountryCode: this.insurances.Location.CountryCode,
-                        DateFrom: dateFrom,
-                        DateTo: dateTo
-                    };
+                        main.extra.startWait();
 
-                    const searchPage = document.getElementById('insurances-search');
-                    const apiService = new ApiService(encodeURI(searchPage.getAttribute('Url')));
-                    const fbData = await apiService.createData(formData);
+                        const formData = {
+                            CountryCode: this.insurances.Location.CountryCode,
+                            DateFrom: dateFrom,
+                            DateTo: dateTo
+                        };
 
-                    await window.main.insurancesSearch.newSearch(fbData);
+                        const searchPage = document.getElementById('insurances-search');
+                        const apiService = new ApiService(encodeURI(searchPage.getAttribute('Url')));
+                        const fbData = await apiService.createData(formData);
+
+                        await window.main.insurancesSearch.newSearch(fbData);
+                        return;
+                    }
                 },
                 selectHistoryItem : function(history) {
                     local.formSaver.selectItem(history);

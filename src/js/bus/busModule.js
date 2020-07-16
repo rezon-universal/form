@@ -279,7 +279,10 @@ module.exports = class busModule extends formModuleBase {
                 submitHandler(e) {
                     let checker = new validator(local.form, local.it);
                     let isValid = checker.isValid();
-                    if (!isValid) return false;
+                    if (!isValid) {
+                        e.preventDefault();
+                        return false;
+                    }
                     
                     let data = local.getCurrentFormData();
                     local.formSaver.saveNewItem(data);
@@ -290,7 +293,7 @@ module.exports = class busModule extends formModuleBase {
                         Date: this.buses.Date,
                     }
 
-                    if(local.options.projectUrl.startsWith("/") && typeof window.main !== 'undefined' && window.main.bus != undefined && window.main.bus.searchForm != undefined) {
+                    if (local.options.projectUrl.startsWith("/") && typeof window.main !== 'undefined' && window.main.bus != undefined && window.main.bus.searchForm != undefined) {
                         e.preventDefault();
                         return window.main.busesSearch.newSearch(formData);
                     }

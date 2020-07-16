@@ -477,7 +477,7 @@ module.exports = class hotelModule extends formModuleBase {
                             Nationality: this.hotel.nationalityCode,
                         }
     
-                        if(local.options.projectUrl.startsWith("/") && typeof window.main != undefined && window.main.hotel != undefined) {
+                        if (local.options.projectUrl.startsWith("/") && typeof window.main != undefined && window.main.hotel != undefined) {
                             e.preventDefault();
                             return window.main.hotel.searchResult.sendForm(formData);
                         }
