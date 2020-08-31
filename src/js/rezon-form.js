@@ -92,7 +92,19 @@ var rezOnForm = function () {
 
             // ios 11 bug caret position
             if (iOS) {
-                $(window).scrollTop($(window).scrollTop() + 1).scrollTop($(window).scrollTop() - 1);
+                var isMobile = window.innerWidth <= 575;
+                if (isMobile)
+                {
+                    //На iPhone Safari на мобильных скроллит при открытии куда то вниз
+                    //т.к. мы все равно отображаем блок на всю высоту - скролим вверх
+                    //тикет 4294
+                    setTimeout(function() {
+                        document.documentElement.scrollTop = 0;
+                    }, 100);
+                }else {
+                    //для айпадов оставляем старый костыль (айпад скроллит к инпуту с фокусом)
+                    $(window).scrollTop($(window).scrollTop() + 1).scrollTop($(window).scrollTop() - 1);
+                }
             }
             if (!$('body').is(".m-no-scroll")) {
                 let scroll = document.documentElement.scrollTop;
@@ -101,6 +113,7 @@ var rezOnForm = function () {
             
             field.addClass('opened');
             field.find('.link-left, .link-right').removeClass('hidden');
+            return true;
         }
         return false;
     };
