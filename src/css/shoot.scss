@@ -1015,12 +1015,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     overflow-y: auto;
 }
 
-#rezon-forms .tt-suggestion 
-{
+#rezon-forms .tt-suggestion {
     cursor: pointer;
     font-size: 14px;
-    line-height: 30px;
-    padding: 0 38px 0 15px;
+    padding: 8px 38px 8px 15px;
     position: relative;
 }
 #rezon-forms .tt-suggestion > p 
@@ -1039,23 +1037,25 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     color: #333;
 }
 
-#rezon-forms .tt-dropdown-menu .iata-code
-{
+#rezon-forms .tt-dropdown-menu .iata-code {
     font-family: "Open Sans";
     font-size: 11px;
     color: #90a4ae;
     letter-spacing: 0.1em;
+    line-height: 12px;
+    margin-top: -6px;
     position: absolute;
     right: 10px;
-    top: 0;
+    top: 50%;
 }
-#rezon-forms .tt-dropdown-menu .express-code 
-{
-    color:#CDCDCD;
+#rezon-forms .tt-dropdown-menu .express-code {
+    color: #CDCDCD;
     font-size: 9px;
     position: absolute;
     right: 10px;
-    top: 6px;
+    top: 50%;
+    margin-top: -6px;
+    line-height: 12px;
 }
 #rezon-forms .tt-dropdown-menu span.country-separator 
 {
@@ -2248,10 +2248,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     .tt-dropdown-menu {
         top: 104% !important;
 
+        .tt-suggestion {
+            padding: 0;
+        }
+
         .city {
             display: flex;
             flex-direction: column;
-            padding: 9px 0;
+            padding: 9px 15px;
             cursor: pointer;
 
             &:hover {
@@ -2261,8 +2265,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
             &-name {
                 color: #666666;
-                font-size: 13px;
-                font-weight: 600;
+                font-size: 14px;
                 line-height: 100%;
             }
 
@@ -3178,10 +3181,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         display: block;
         text-align: center;
     }
-    #rezon-forms .tt-suggestion 
-    {
-        line-height: 40px;
-        padding: 0 38px 0 10px;
+    #rezon-forms .tt-suggestion {
+        padding: 12px 38px 12px 15px;
     }
     #rezon-forms .column.from.calendar-dropdown + .column.to,
     #rezon-forms .column.from.calendar-dropdown + .swap + .column.to 
