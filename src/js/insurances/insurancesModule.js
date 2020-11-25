@@ -175,9 +175,7 @@ module.exports = class insurancesModule extends formModuleBase {
                 },
              
                 insurancesMinDate: function () {
-                    var insurancesMinDate = new Date(this.today.getTime());
-                    insurancesMinDate.setDate(insurancesMinDate.getDate() + 1);
-                    return insurancesMinDate;
+                    return new Date(this.today.getTime());
                 },
                 insurancesMaxDate: function () {
                     var insurancesMaxDate = new Date(this.today.getTime());
