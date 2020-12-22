@@ -4,9 +4,6 @@
         this.it = it;
 
         this.airportsCitiesFinderDataTimer = undefined;
-
-        this.carriersData = this.carriersData();
-        this.carriersData.initialize();
     }
 
     airportsCitiesFinderData(query, asyncResults) {

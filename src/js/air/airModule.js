@@ -67,6 +67,7 @@ module.exports = class airModule extends formModuleBase {
                     messages: []
                 },
                 formExtended: false,
+                airvListLoaded: false,
                 maxPassangersCount: 6,
                 multyRoutes: [],
                 maxRoutesCount: 3,
@@ -176,7 +177,6 @@ module.exports = class airModule extends formModuleBase {
                     handler: function (newValue) {
                         if (this.item !== newValue) {
                             this.item = newValue;
-
                             var comp = this;
                             Vue.nextTick(function () {
                                 //Update typeahead
@@ -244,21 +244,6 @@ module.exports = class airModule extends formModuleBase {
                         comp.clearItem();
                     }
                 });
-            }
-        });
-
-        Vue.directive('click-outside', {
-            bind: function (el, binding, vnode) {
-                el.event = function (event) {
-                    if (!(el == event.target || el.contains(event.target))) {
-                        vnode.context[binding.expression](event);
-                    }
-                };
-                
-                window.addEventListener('click', el.event);
-            },
-            unbind: function (el) {
-                window.removeEventListener('click', el.event);
             }
         });
 
@@ -427,13 +412,13 @@ module.exports = class airModule extends formModuleBase {
                     typeof(localStorage) !== 'undefined' && localStorage.setItem('AdditionalPassenger', JSON.stringify(this.avia.passengers.storageTypes));
                 },
                 filterAdditional() {
-                    let filterTypes = []
+                    let filterTypes = [];
 
                     this.avia.passengers.additionalTypes.filter(additional => {
                         if(this.avia.enabledPassengerTypes.indexOf(additional.name) > -1) {
-                            filterTypes.push(additional)
+                            filterTypes.push(additional);
                         }
-                    })
+                    });
 
                     return filterTypes;
                 },
@@ -632,6 +617,77 @@ module.exports = class airModule extends formModuleBase {
                     Vue.nextTick(function () {
                         $('[name="book_to_date"]').focus();
                     });
+                },
+                loadAirVList: function() {
+					this.avia.airvListLoaded = true;
+					
+					let it = local.it;
+
+					let carriersData = it.dw.carriersData();
+					carriersData.initialize();
+
+					//Список авиакомпаний
+					local.form.find(".galileo-aircompany-select").typeahead({
+						hint: true,
+						highlight: true,
+						minLength: 0,
+						isSelectPicker: true
+					},{
+						name: 'carriers-' + it._o.defaultLang,
+						source: carriersData.ttAdapter(),
+						valueKey: 'label',
+						templates: {
+							suggestion: function (data) {
+								return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
+							}
+						}
+					}).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
+						//Выбор элемента - подставляем иата код
+						if (datum != undefined) {
+							vue.addCarrier(datum.label, datum.code);
+							$(this).closest(".twitter-typeahead").next().val(datum.code);
+						}
+						$(this).trigger("change");
+					}).on("typeahead:opened", function (e, datum) {
+						//Открыли
+						var item = $(this).closest('.field');
+						if (it.extra.isInIframe()) {
+							var dropdown = item.find('.tt-dropdown-menu');
+							var offset = dropdown.parent().offset().top;
+							var height = parseFloat(dropdown.css('height'));
+							var currHeight = parseFloat($(this).css('height'));
+							var totalHeihgt = height + currHeight;
+
+							it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeihgt);
+						}
+						$(this).trigger("typeahead:queryChanged");
+					}).on("typeahead:queryCleared", function (e, datum) {
+						//Очистили поле - кнопка Х.
+						var item = $(this);
+						item.closest(".twitter-typeahead").next().val('');
+						item.trigger("typeahead:filterIt");
+						setTimeout(function () {
+							//После очистки, находим первый пестой элемент и устанавливаем на него фокус.
+							//Ищем т.к. все значения съезжают к верхнему
+							item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
+						}, 100);
+					}).on("typeahead:selected typeahead:queryChanged", function (e, datum) {
+						//Изменили строку запроса
+						$(this).trigger("typeahead:filterIt");
+					}).on("typeahead:filterIt", function () {
+						//Фильтрация выпадающего меню. Не отображаем выбранные в других меню значения
+						var dropDown = $(this).siblings(".tt-dropdown-menu");
+						dropDown.find(".tt-suggestion.g-hide").removeClass("g-hide");
+
+						setTimeout(function () {
+							var values = $.map(local.form.find(".carriers .carriers-finder input[type='hidden']"), function (val, i) {
+								return ".iata-code[data-iata='" + $(val).val() + "']";
+							});
+							dropDown.find(values.join(", ")).each(function () {
+								$(this).closest(".tt-suggestion").addClass("g-hide");
+							});
+						}, 100);
+					});
                 }
             },
             watch: {
@@ -664,6 +720,9 @@ module.exports = class airModule extends formModuleBase {
                 },
                 'avia.passengers.pricePTCOnly': function(value) {
                     typeof(localStorage) !== 'undefined' && localStorage.setItem('pricePTCOnly', JSON.stringify(value));
+                },
+                'avia.formExtended': function(newvalue, oldvalue) {
+                    if (!oldvalue && newvalue && !this.avia.airvListLoaded) this.loadAirVList();
                 }
             },
             created: function () {
@@ -740,8 +799,9 @@ module.exports = class airModule extends formModuleBase {
         let form = this.form;
         let it = this.it;
         let options = this.options;
-        
-        let dw = new dataWork(form, it);
+		
+		it.dw = new dataWork(form, it);
+		let dw = it.dw;
 
         this.initializeDefaultAirportsIfNeed();
 
@@ -947,69 +1007,6 @@ module.exports = class airModule extends formModuleBase {
             form.bindAirportTypeahead(inputs);
         });
 
-        //Список авиакомпаний
-        form.find(".galileo-aircompany-select").typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 0,
-            isSelectPicker: true
-        },
-            {
-                name: 'carriers-' + it._o.defaultLang,
-                source: dw.carriersData.ttAdapter(),
-                valueKey: 'label',
-                templates: {
-                    suggestion: function (data) {
-                        return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
-                    }
-                }
-            }).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-                //Выбор элемента - подставляем иата код
-                if (datum != undefined) {
-                    vue.addCarrier(datum.label, datum.code);
-                    $(this).closest(".twitter-typeahead").next().val(datum.code);
-                }
-                $(this).trigger("change");
-            }).on("typeahead:opened", function (e, datum) {
-                //Открыли
-                var item = $(this).closest('.field');
-                if (it.extra.isInIframe()) {
-                    var dropdown = item.find('.tt-dropdown-menu');
-                    var offset = dropdown.parent().offset().top;
-                    var height = parseFloat(dropdown.css('height'));
-                    var currHeight = parseFloat($(this).css('height'));
-                    var totalHeihgt = height + currHeight;
-
-                    it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeihgt);
-                }
-                $(this).trigger("typeahead:queryChanged");
-            }).on("typeahead:queryCleared", function (e, datum) {
-                //Очистили поле - кнопка Х.
-                var item = $(this);
-                item.closest(".twitter-typeahead").next().val('');
-                item.trigger("typeahead:filterIt");
-                setTimeout(function () {
-                    //После очистки, находим первый пестой элемент и устанавливаем на него фокус.
-                    //Ищем т.к. все значения съезжают к верхнему
-                    item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
-                }, 100);
-            }).on("typeahead:selected typeahead:queryChanged", function (e, datum) {
-                //Изменили строку запроса
-                $(this).trigger("typeahead:filterIt");
-            }).on("typeahead:filterIt", function () {
-                //Фильтрация выпадающего меню. Не отображаем выбранные в других меню значения
-                var dropDown = $(this).siblings(".tt-dropdown-menu");
-                dropDown.find(".tt-suggestion.g-hide").removeClass("g-hide");
-
-                setTimeout(function () {
-                    var values = $.map(form.find(".carriers .carriers-finder input[type='hidden']"), function (val, i) {
-                        return ".iata-code[data-iata='" + $(val).val() + "']";
-                    });
-                    dropDown.find(values.join(", ")).each(function () {
-                        $(this).closest(".tt-suggestion").addClass("g-hide");
-                    });
-                }, 100);
-            });
 
         //Passengers menu
         form.find(".passengers > .switch-box .switch").click(function () {
@@ -1230,7 +1227,7 @@ module.exports = class airModule extends formModuleBase {
         });
 
         //Disabled dates на календарях в зависимости от направления
-        if (it._o.avia.onlySpecificAirportsInDropdown) {
+        /*if (it._o.avia.onlySpecificAirportsInDropdown) {
             $(document).on("StartPtChange.MapBridge EndPtChange.MapBridge", function (e, datum) {
                 $(document).trigger("DisabledDates.MapBridge");
             });
@@ -1311,7 +1308,7 @@ module.exports = class airModule extends formModuleBase {
                     }
                 });
             }).trigger("DisabledDates.MapBridge");
-        }
+        }*/
     }
     //Подгрузить данные (названия) аэропортов, если в параметрах передали их как IATA коды
     initializeDefaultAirportsIfNeed() {

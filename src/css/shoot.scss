@@ -2,6 +2,8 @@
 
 #rezon-forms {
     background-color: #4a148c;
+    background: linear-gradient(125deg, #7334d2 0, #2e135f 100%);
+
     font-size: 100%;
     padding: 60px 20px 0;
 
@@ -25,8 +27,8 @@
 }
 #rezon-forms form 
 {
-    transition: opacity .5s;
-    -webkit-transition: opacity .5s;
+    /*transition: opacity .5s;
+    -webkit-transition: opacity .5s;*/
 }
 #rezon-forms .rez-forms 
 {
@@ -586,18 +588,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     border-color: #3499DB;
     outline: 0;
-    /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(112, 30, 169,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(112, 30, 169,.6);*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
 #rezon-forms .item.has-error .inside 
 {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
     border-left-color: #db3457;

@@ -160,7 +160,6 @@
         <div class="field find">
             <button type="submit" class="search" v-on:click="avia.initByUser = true">{{locale("FIND")}}</button>
         </div>
-        <template>
         <div class="field time">
             <label class="hidden-xs menu-title">{{locale("TIME_FLY_THERE")}}</label>
             <div class="control-field">
@@ -211,7 +210,7 @@
                 </div>
             </div>
         </div>
-        <div class="field add_segment" v-on:click="addSegment()" v-show="avia.multyRoutes.length==0 && avia.formType.value=='route'">
+        <div class="field add_segment" style="display:none;" v-on:click="addSegment()" v-show="avia.multyRoutes.length==0 && avia.formType.value=='route'">
             <div class="add transp">
                 <a><span>+ {{locale("CONTINUE_ROUTE")}}</span></a>
             </div>
@@ -404,7 +403,7 @@
             <a href="#" class="transp dashed" v-if="avia.formType.value !== 'route'" v-on:click.prevent="typeChanged(2)">
                 <span>{{locale(avia.formTypes[2].text)}}</span>
             </a>
-            <div class="transp" v-if="avia.formType.value === 'route'">
+            <div class="transp" style="display:none;" v-show="avia.formType.value === 'route'">
                 <a href="#" class="extended-form-link dashed" v-on:click.prevent="typeChanged(1)">
                     <span>{{locale("BACK_TO_SIMPLE_ROUTE")}}</span>
                 </a>
@@ -435,7 +434,7 @@
             </div>
         </div>
 
-        <div class="field hotel_search" v-if="avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip'" style="order: 10; margin-left: auto">
+        <div class="field hotel_search" v-show="avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip'" style="display: none; order: 10; margin-left: auto">
             <label class="checkbox-wrapper" :class="{active:avia.hotelSearch}">
                 <div class="check_bull"></div>
                 <input id="hotelSearch" type="checkbox" name="hotelSearch" v-model="avia.hotelSearch" :value="avia.hotelSearch ? 'True' : ''" />
@@ -444,7 +443,6 @@
         </div>
         <input type="hidden" id="initByUser" v-model="avia.initByUser" :value="avia.initByUser ? 'true' : ''" />
 
-        </template>
     </div>
     <div class="earlier" v-if="historyData && historyData.length > 0">
         <div class="earlier-title">{{locale("SEARCHED")}}</div>

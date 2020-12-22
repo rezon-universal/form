@@ -1,0 +1,21 @@
+﻿﻿import '../../../Content/css/src/forms/shoot.scss';
+/*
+ * Это скрипт файл Jquery плагина rezOnForm только для авиа формы
+ * Т.е. используя этот файл можно инициализировать только авиа форму!
+ *
+ * Сделано для перфоманса, что бы не грузился лишний js код.
+ */
+const localizator = require('./localizations');
+const formAir = require('./form.air');
+
+(function ($) {
+    $.fn.rezOnForm = function (o) {
+        let form = this;
+        let object = form.data('RezOnForm');
+        if (!object) {
+            object = new formAir(localizator.load());
+            form.data('RezOnForm', object);
+            object.init(form, o || window.rezonOpt);
+        }
+    };
+})(window.jQuery);
