@@ -7,8 +7,9 @@ const localizator = require('./localizations');
 const formAll = require('./form.all');
 
 (function ($) {
+    
     $.fn.rezOnForm = function (o) {
-        let form = this;
+        let form = this.find("form");
         let object = form.data('RezOnForm');
         if (!object) {
             object = new formAll(localizator.load());

@@ -10,7 +10,7 @@ const formAir = require('./form.air');
 
 (function ($) {
     $.fn.rezOnForm = function (o) {
-        let form = this;
+        let form = this.find("form");
         let object = form.data('RezOnForm');
         if (!object) {
             object = new formAir(localizator.load());

@@ -519,7 +519,7 @@
         this.bindGlobalVue(bindTo);
         
         it._currentModule.bindVue(bindTo, (bindedTo) => {
-            it._form = $(bindedTo).find("form").first();
+            it._form = $(bindedTo);
             it._currentModule.form = it._form;
 
             it.bindJQuery();
