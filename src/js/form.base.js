@@ -504,6 +504,16 @@
                 el.removeClass("loading");
             }
         });
+
+        //Кнопка Х на сообщении с ошибкой
+        it._form.off("click", ".field.has-error .error-box .close");
+        it._form.on("click", ".field.has-error .error-box .close", function () {
+            $(this).closest(".error-box").slideUp(it._o.animationDelay, function () {
+                $(this).html("").closest(".has-error").removeClass("has-error");
+            });
+            it.extra.updateIframeHeight();
+            return false;
+        });
     }
 
     init(bindTo, o) {

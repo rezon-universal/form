@@ -5,14 +5,14 @@ module.exports = class validator extends validatorBase {
         var inpFrom = this.form.find("input[name='tshi_station_from']").first();
         var inpTo = this.form.find("input[name='tshi_station_to']").first();
 
-        if ($.trim(inpFrom.val()) == "" || inpFrom.val() == "&nbsp;") {
+        if ($.trim(inpFrom.val()) === "" || inpFrom.val() === "&nbsp;" || inpFrom.val() === "0") {
             inpFrom.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
             ret = false;
         }
-        if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
+        if ($.trim(inpTo.val()) === "" || inpTo.val() === "&nbsp;" || inpTo.val() === "0") {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("SELECT_STATION_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
             ret = false;
-        } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val())) {
+        } else if ($.trim(inpFrom.val()) === $.trim(inpTo.val())) {
             inpTo.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("NEED_TO_SELECT_DIFFERENT_STATIONS")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
             ret = false;
         }

@@ -612,6 +612,7 @@ module.exports = class airModule extends formModuleBase {
                 },
                 selectHistoryItem : function(history) {
                     local.formSaver.selectItem(history);
+                    this.passUpdate();
                 },
                 selectDateToCalendar : function() {
                     Vue.nextTick(function () {
@@ -1170,15 +1171,6 @@ module.exports = class airModule extends formModuleBase {
             return false;
         });
 
-        //Кнопка Х на сообщении с ошибкой
-        form.off("click", ".field.has-error .error-box .close");
-        form.on("click", ".field.has-error .error-box .close", function () {
-            $(this).closest(".error-box").slideUp(it._o.animationDelay, function () {
-                $(this).html("").closest(".has-error").removeClass("has-error");
-            });
-            it.extra.updateIframeHeight();
-            return false;
-        });
 
         //TODO валидация времени вылета если выбраны одни и те же даты
         //var timeSelectpicker = document.querySelectorAll('.time .selectpicker');

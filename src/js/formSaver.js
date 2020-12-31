@@ -81,5 +81,7 @@ module.exports = class formSaverBase {
     selectItem(item) {
         if (!item || !item.IsValidForSave) return;
         item.Select();
+
+        $(this.module.form).find(".error-box .close").trigger("click");
     }
 }
