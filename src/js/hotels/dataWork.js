@@ -37,7 +37,7 @@
             limit: 1000,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: {
-                url: this.it.extra.remoteUrl() +  '/HelperAsync/LookupCountries?v=4',
+                url: this.it.extra.remoteUrl() +  '/HelperAsync/LookupCountries?v=7',
                 filter: function (list) {
                     return list;
                 }
