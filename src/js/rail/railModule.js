@@ -172,11 +172,9 @@ module.exports = class railModule extends formModuleBase {
         });
 
 
-        var formBind = new Vue({
+        this.vue = new Vue({
             el: bindTo[0],
-            mixins: [{
-                data: this.options
-            }],
+            mixins: [this.getVueBase(mountedCallback)],
             computed: {
                 today: function () {
                     var todayDate = new Date();
@@ -204,9 +202,7 @@ module.exports = class railModule extends formModuleBase {
                     return railwayDateBack;
                 },
             },
-            methods: {
-                locale: this.it.extra.locale,
-                
+            methods: {                
                 changeRailFormExtended: function () {
                     this.railway.formExtended = !this.railway.formExtended;
                 },
@@ -290,20 +286,6 @@ module.exports = class railModule extends formModuleBase {
       
 
                 window.vue = this;
-
-            },
-            mounted: function () {
-                var el = this.$el;
-                Vue.nextTick(function () {
-                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
-                    local.it.extra.updateIframeHeight();
-                    $('.unload').removeClass('unload');
-                });
-            },
-            updated: function () {
-                Vue.nextTick(function () {
-                    local.it.extra.updateIframeHeight();
-                });
             }
         });
     }

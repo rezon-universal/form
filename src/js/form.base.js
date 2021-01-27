@@ -1,4 +1,7 @@
-﻿module.exports = class formBase {
+﻿const dDatePickerComponent = require('./../../../Views/Forms/common/_Datepicker.vue');
+const DatePickerLanguage = require('./common/vuejs-datepicker.locale/Language');
+
+module.exports = class formBase {
     _locale = {};
     _o = {
         animationDelay: 300,
@@ -65,7 +68,7 @@
                 $('html,body').stop();
             }
         };
-        this.extra.openField = function (el) {
+        this.extra.openField = function (el, scrollAfterShow = true) {
             if (el === undefined || el === null) return false;
             var field = el.closest('.field');
             if (field.length > 0) {
@@ -77,7 +80,7 @@
                 //iOS11 = /OS 11_0|OS 11_1|OS 11_2/.test(ua);
 
                 // ios 11 bug caret position
-                if (iOS) {
+                if (iOS && scrollAfterShow) {
                     var isMobile = window.innerWidth <= 575;
                     if (isMobile)
                     {
@@ -150,7 +153,7 @@
     bindGlobalVue(bindTo) {
         let it = this;
         let module = it._currentModule;
-
+        
         //Datepicker component
         Vue.component('datepicker', {
             mixins: [{
@@ -302,7 +305,58 @@
                 });
             }
         });
-
+        // Выбранную страницу календаря (выбранный месяц) делаем один, общий для всех
+        // что бы при смене страницы календаря она менялась на всех календарях формы
+        it._o.pageDateStamp = new Date().getTime();
+        Vue.component('d-date-picker', {
+            mixins: [dDatePickerComponent.default],
+            methods: {
+            },
+            computed: {
+                highlighted: function () {
+                    return module.datepickerGetHighlight(this) || {};
+                },
+                disabled: function () {
+                    return  module.datepickerGetDisabled(this) || {};
+                },
+                lang: function() {
+                    return new DatePickerLanguage.default(
+                      'Default',
+                      [it.extra.locale('JANUARY'), it.extra.locale('FEBRUARY'), it.extra.locale('MARCH'), it.extra.locale('APRIL'), it.extra.locale('MAY'), it.extra.locale('JUNE'), it.extra.locale('JULY'), it.extra.locale('AUGUST'), it.extra.locale('SEPTEMPER'), it.extra.locale('OCTOBER'), it.extra.locale('NOVEMBER'), it.extra.locale('DECEMBER')],
+                      [it.extra.locale('JANUARY_SHORT'), it.extra.locale('FEBRUARY_SHORT'), it.extra.locale('MARCH_SHORT'), it.extra.locale('APRIL_SHORT'), it.extra.locale('MAY_SHORT'), it.extra.locale('JUNE_SHORT'), it.extra.locale('JULY_SHORT'), it.extra.locale('AUGUST_SHORT'), it.extra.locale('SEPTEMPER_SHORT'), it.extra.locale('OCTOBER_SHORT'), it.extra.locale('NOVEMBER_SHORT'), it.extra.locale('DECEMBER_SHORT')],
+                      [it.extra.locale('SUNDAY_MIN'), it.extra.locale('MONDAY_MIN'), it.extra.locale('TUESDAY_MIN'), it.extra.locale('WEDNESDAY_MIN'), it.extra.locale('THURSDAY_MIN'), it.extra.locale('FRIDAY_MIN'), it.extra.locale('SATURDAY_MIN')]
+                    );
+                }
+            },
+            created: function () {
+                var comp = this;
+                this.$on('opened', function () {
+                    var el = $(comp.$el);
+                    it.extra.openField(el, false);
+                    Vue.nextTick(function () {
+                        it.extra.recalculateHeightOnOpen(el.find('.datepicker-popup:visible'));
+                        it.extra.updateIframeHeight();
+                    });
+                });
+                this.$on('closed', function () {
+                    var el = $(comp.$el);
+                    it.extra.closeField(el);
+                    Vue.nextTick(function () {
+                        it.extra.recalculateHeightOnClose();
+                    });
+                    it.extra.updateIframeHeight();
+                });
+                this.$on('selected', function (data) {
+                    Vue.nextTick(function () {
+                        module.datepickerSelected(comp);
+                    });
+                });
+                this.$on('change-page', function (timestamp) {
+                    this.$root.pageDateStamp = timestamp;
+                });
+            }
+        });
+        
         Vue.directive('click-outside', {
             bind: function (el, binding, vnode) {
                 el.event = function (event) {
@@ -325,7 +379,9 @@
         //Если это не страница проекта (т.е. форма не внешнем ресурсе, не подключен файл main.js)
         
         if (window.main == undefined) {
-            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function () {
+            it._form.on("click", ".selectpicker .options, .selectpicker .option, .selected-value", function (e) {
+                e.preventDefault();
+
                 var selectpicker = $(this).closest(".selectpicker");
                 var options = selectpicker.find('.options');
                 var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
@@ -393,7 +449,6 @@
                         });
                     }
                 }
-                return false;
             });
 
             it._form.on("blur click focusout", ".selectpicker.opened", function () {

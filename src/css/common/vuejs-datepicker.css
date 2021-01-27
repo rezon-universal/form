@@ -1,0 +1,181 @@
+.rtl {
+  direction: rtl;
+}
+.dvdp-datepicker {
+  position: relative;
+  text-align: left;
+}
+.dvdp-datepicker * {
+  box-sizing: border-box;
+}
+.dvdp-datepicker:focus {
+  background: #f00;
+}
+.dvdp-datepicker__calendar {
+  position: absolute;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid #ccc;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.dvdp-datepicker__calendar header {
+  display: block;
+  line-height: 40px;
+  position: relative;
+}
+.dvdp-datepicker__calendar header.navigation {
+  position: static;
+}
+.dvdp-datepicker__calendar header .day__month_btn {
+  text-align: center;
+}
+.dvdp-datepicker__calendar header .monthes-select {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.dvdp-datepicker__calendar header .prev,
+.dvdp-datepicker__calendar header .next {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  display: -webkit-box;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  top: 150px;
+}
+.dvdp-datepicker__calendar header .prev.disabled,
+.dvdp-datepicker__calendar header .next.disabled {
+  border-color: #dcdcdc;
+}
+.dvdp-datepicker__calendar header .prev.disabled path,
+.dvdp-datepicker__calendar header .next.disabled path {
+  fill: #ddd;
+}
+.dvdp-datepicker__calendar header .prev svg,
+.dvdp-datepicker__calendar header .next svg {
+  margin: auto;
+}
+.dvdp-datepicker__calendar header .prev {
+  left: -20px;
+}
+.dvdp-datepicker__calendar header .prev svg {
+  -webkit-transform: translateX(-1px);
+          transform: translateX(-1px);
+}
+.dvdp-datepicker__calendar header .next {
+  right: -20px;
+}
+.dvdp-datepicker__calendar header .next svg {
+  -webkit-transform: translateX(1px);
+          transform: translateX(1px);
+}
+.dvdp-datepicker__calendar header .prev:not(.disabled),
+.dvdp-datepicker__calendar header .next:not(.disabled) {
+  cursor: pointer;
+}
+.dvdp-datepicker__calendar header .prev:not(.disabled):hover,
+.dvdp-datepicker__calendar header .next:not(.disabled):hover {
+  border-color: #4bd;
+}
+.dvdp-datepicker__calendar .disabled {
+  cursor: default;
+}
+.dvdp-datepicker__calendar .flex-rtl {
+  display: -webkit-box;
+  display: flex;
+  width: inherit;
+  flex-wrap: wrap;
+}
+.dvdp-datepicker__calendar .cell {
+  display: inline-block;
+  padding: 0 5px;
+  width: 14.285714285714286%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+}
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).month,
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).year {
+  cursor: pointer;
+}
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+  border: 1px solid #4bd;
+}
+.dvdp-datepicker__calendar .cell.selected {
+  background: #4bd;
+}
+.dvdp-datepicker__calendar .cell.selected:hover {
+  background: #4bd;
+}
+.dvdp-datepicker__calendar .cell.selected.highlighted {
+  background: #4bd;
+}
+.dvdp-datepicker__calendar .cell.highlighted {
+  background: #cae5ed;
+}
+.dvdp-datepicker__calendar .cell.highlighted.disabled {
+  color: #a3a3a3;
+}
+.dvdp-datepicker__calendar .cell.highlighted.highlight-start {
+  background: #4bd;
+}
+.dvdp-datepicker__calendar .cell.highlighted.highlight-end {
+  background: #4bd;
+}
+.dvdp-datepicker__calendar .cell.grey {
+  color: #888;
+}
+.dvdp-datepicker__calendar .cell.grey:hover {
+  background: inherit;
+}
+.dvdp-datepicker__calendar .cell.day-header {
+  font-size: 75%;
+  white-space: nowrap;
+  cursor: inherit;
+}
+.dvdp-datepicker__calendar .cell.day-header:hover {
+  background: inherit;
+}
+.dvdp-datepicker__calendar .month,
+.dvdp-datepicker__calendar .year {
+  width: 33.333%;
+}
+.dvdp-datepicker__calendar .monthes-grid {
+  display: grid;
+}
+.dvdp-datepicker__calendar .calendar {
+  width: 310px;
+  padding: 5px 20px;
+}
+.dvdp-datepicker__clear-button,
+.dvdp-datepicker__calendar-button {
+  cursor: pointer;
+  font-style: normal;
+}
+.dvdp-datepicker__clear-button.disabled,
+.dvdp-datepicker__calendar-button.disabled {
+  color: #999;
+  cursor: default;
+}

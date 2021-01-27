@@ -336,11 +336,9 @@ module.exports = class hotelModule extends formModuleBase {
         });
         
 
-        var formBind = new Vue({
+        this.vue = new Vue({
             el: bindTo[0],
-            mixins: [{
-                data: this.options
-            }],
+            mixins: [this.getVueBase(mountedCallback)],
             computed: {
                 today: function () {
                     var todayDate = new Date();
@@ -368,7 +366,6 @@ module.exports = class hotelModule extends formModuleBase {
                 },
             },
             methods: {
-                locale: this.it.extra.locale,
                 declensionWords(count, enableIntWord, one_number, zero_number, four_number) {
                     if (count == 0 || (count >= 5 && count <= 20)) {
                         //вариантов
@@ -549,19 +546,6 @@ module.exports = class hotelModule extends formModuleBase {
 
                 window.vue = this;
 
-            },
-            mounted: function () {
-                var el = this.$el;
-                Vue.nextTick(function () {
-                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
-                    local.it.extra.updateIframeHeight();
-                    $('.unload').removeClass('unload');
-                });
-            },
-            updated: function () {
-                Vue.nextTick(function () {
-                    local.it.extra.updateIframeHeight();
-                });
             }
         });
         

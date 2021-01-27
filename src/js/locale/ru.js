@@ -165,5 +165,9 @@
     "PERIOD_TO": "Период до",
     "SPECIFY_COUNTRY": "Укажите страну",
     "AIR_HOTEL_SEARCH": "Искать отели на те же даты",
-    "SEARCHED": "Ранее вы искали"
+    "SEARCHED": "Ранее вы искали",
+    "SELECT_DEPARTURE_DATE": "Выберите дату отправления",
+    "SELECT_RETURN_DATE": "Выберите дату возврата",
+    "ESTIMATED_PRICES_SHOWN_IN" : "Ориентировочные цены, указаны в",
+    "DONE" : "Готово"
 }

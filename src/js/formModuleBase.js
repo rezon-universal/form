@@ -53,4 +53,30 @@ module.exports = class formModuleBase {
         //.constructor.name имя класса нельзя использовать, т.к. при минификации имя класса превращается в тыкву
         return 'undefined';
     }
+    //Получение объекта Vue при инициализации (используется как миксин)
+    getVueBase(mountedCallback){
+        var local = this;
+        //Vue-js по-умолчанию для всех форм
+        return {
+            data: this.options,
+            computed: {
+            },
+            methods: {
+                locale: this.it.extra.locale
+            },
+            mounted: function () {
+                var el = this.$el;
+                Vue.nextTick(function () {
+                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
+                    local.it.extra.updateIframeHeight();
+                    $('.unload').removeClass('unload');
+                });
+            },
+            updated: function () {
+                Vue.nextTick(() => {
+                    local.it.extra.updateIframeHeight();
+                });
+            }
+        };
+    }
 }

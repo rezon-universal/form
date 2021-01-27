@@ -155,5 +155,9 @@
     "ROOMS": "Стаи",
     "NATIONALITY": "Гражданство",
     "ENTER_NATIONALITY": "Въведете гражданство",
-    "SEARCHED": "Преди сте търсили"
+    "SEARCHED": "Преди сте търсили",
+    "SELECT_DEPARTURE_DATE": "Изберете дата на заминаване",
+    "SELECT_RETURN_DATE": "Изберете дата на връщане",
+    "ESTIMATED_PRICES_SHOWN_IN" : "Очакваните цени са показани в",
+    "DONE" : "Свършен"
 }

@@ -50,10 +50,25 @@
                                 v-model="avia.defaultDateThere"
                                 name="book_from_date"
                                 input-class="book-date datepicker"
-                                :date-from="avia.defaultDateThere"
-                                :date-to="avia.defaultDateBack"
-                                initial-view="month">
+                                initial-view="month"
+                                v-if="!newDatePicker"
+                    >
                     </datepicker>
+                    <d-date-picker v-if="newDatePicker" v-model="avia.defaultDateThere"
+                                   name="book_from_date"
+                                   :locale="locale"
+                                   :update-page-date-on-select="true"
+                                   :page-date-stamp="pageDateStamp"
+                                   :dates-attributes="dateAttributesThere"
+                                   :attributes-has-prices="avia.pricesCalendarEnabled"
+                                   :attributes-loading="dateAttributesThereLoading"
+                                   @opened="loadPrices('there')">
+                        <template slot="top">
+                            <div class="calendar-header">
+                                <div class="title">{{locale('SELECT_DEPARTURE_DATE')}}</div>
+                            </div>
+                        </template>
+                    </d-date-picker>
                 </div>
             </div>
         </div>
@@ -73,11 +88,27 @@
                                 v-model="avia.defaultDateBack"
                                 name="book_to_date"
                                 input-class="book-date datepicker"
-                                :date-from="avia.defaultDateThere"
-                                :date-to="avia.defaultDateBack"
-                                v-if="avia.formType.value==='roundtrip'"
+                                v-if="avia.formType.value==='roundtrip' && !newDatePicker"
                                 initial-view="day">
                     </datepicker>
+                    <d-date-picker v-if="avia.formType.value==='roundtrip' && newDatePicker" v-model="avia.defaultDateBack"
+                                   name="book_to_date"
+                                   :locale="locale"
+                                   popup-position-binded-to="book_from_date"
+                                   :page-date-stamp="pageDateStamp"
+                                   :dates-attributes="dateAttributesBack"
+                                   :attributes-has-prices="avia.pricesCalendarEnabled"
+                                   :attributes-loading="dateAttributesBackLoading"
+                                   @opened="loadPrices('back')">
+                        <template slot="top" slot-scope="scopeSlot">
+                            <div class="calendar-header">
+                                <div class="title">{{locale('SELECT_RETURN_DATE')}}</div>
+                                <div class="botton-in-header">
+                                    <a href="#" v-on:click.prevent="scopeSlot.hideCalendar(function(){ typeChanged(0); })">{{locale('WITHOUT_RETURN_TICKET')}}</a>
+                                </div>
+                            </div>
+                        </template>
+                    </d-date-picker>
                     <span class="roundtrip_click" v-on:click="typeChanged(1); selectDateToCalendar();">{{locale("BACK")}}</span>
                 </div>
             </div>

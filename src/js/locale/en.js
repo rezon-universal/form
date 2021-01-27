@@ -241,5 +241,9 @@
     "PERIOD_TO": "Period to",
     "SPECIFY_COUNTRY": "Specify a country",
     "AIR_HOTEL_SEARCH": "Search hotels for same dates",
-    "SEARCHED": "Previously you searched"
+    "SEARCHED": "Previously you searched",
+    "SELECT_DEPARTURE_DATE": "Select departure date",
+    "SELECT_RETURN_DATE": "Select return date",
+    "ESTIMATED_PRICES_SHOWN_IN" : "Estimated prices, shown in",
+    "DONE" : "Done"
 }

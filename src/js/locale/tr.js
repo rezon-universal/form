@@ -162,5 +162,9 @@
     "CHILD_TEXT": "Çocuk misafir yaşı sistem tarafından 12 olarak uygulanır, eğer çocuk misafir için gerçek yaş girerseniz daha iyi fiyat seçenekleri alabilirsiniz.",
     "PERIOD_FROM": "Kalış başlangıç tarihi",
     "PERIOD_TO": "Kalış bitiş tarihi",
-    "SPECIFY_COUNTRY": "Bölge ve Ülkenizi seçiniz"
+    "SPECIFY_COUNTRY": "Bölge ve Ülkenizi seçiniz",
+    "SELECT_DEPARTURE_DATE": "Kalkış tarihini seçin",
+    "SELECT_RETURN_DATE": "Dönüş tarihini seçin",
+    "ESTIMATED_PRICES_SHOWN_IN" : "Tahmini fiyatlar gösterilmektedir",
+    "DONE" : "Bitti"
 }

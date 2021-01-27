@@ -6,6 +6,7 @@ const EmptyRouteItem = require('./EmptyRouteItem');
 
 const validator = require('./validator');
 const dataWork = require('./dataWork');
+const pricesCalendar = require('./pricesCalendar');
 
 const AirFormSaverData = require('./AirFormSaverData');
 
@@ -50,7 +51,7 @@ module.exports = class airModule extends formModuleBase {
                 maxDaysSearch: 360, // 1 - 360
                 disabledDatesFrom: [],
                 disabledDatesTo: [],
-
+                pricesCalendarEnabled: false,
 
                 //temp
                 formTypes: routeTypes,
@@ -92,8 +93,8 @@ module.exports = class airModule extends formModuleBase {
     datepickerGetHighlight(datepicker) {
         if (this.options.avia.formType.value === 'roundtrip') {
             return {
-                from: datepicker.dateFrom,
-                to: datepicker.dateTo
+                from: this.options.avia.defaultDateThere,
+                to: this.options.avia.defaultDateBack
             }
         }
         return {};
@@ -107,14 +108,23 @@ module.exports = class airModule extends formModuleBase {
     }
     //Датапикер - выбрано значение (ивент)
     datepickerSelected(datepicker) {
-        var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
-        if (datepicker.name === 'book_from_date' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
-            var el = $(datepicker.$el);
-            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+        var isMobile = this.it.extra.mobileAndTabletcheck();
+        //Не меняем фокус для мобильных устройств
+        if (isMobile) return;
 
-            setTimeout(function () {
-                nextDatePick.focus();
-            }, 100);
+        if (datepicker.name === 'book_from_date') {
+            if (datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null) {
+                var el = $(datepicker.$el);
+                var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+
+                setTimeout(function () {
+                    nextDatePick.focus();
+                }, 100);
+            }else {
+                this.it._form.find(":submit").focus();
+            }
+        }else if(datepicker.name === 'book_to_date') {
+            this.it._form.find(":submit").focus();
         }
     }
 
@@ -246,15 +256,18 @@ module.exports = class airModule extends formModuleBase {
                 });
             }
         });
-
-        var formBind = new Vue({
+        this.vue = new Vue({
             el: bindTo[0],
-            mixins: [{
-                data: this.options
-            }],
+            mixins: [this.getVueBase(mountedCallback)],
             data: () => ({
                 Items: [],
-                isActive: false
+                isActive: false,
+                newDatePicker: window.newFormDatePicker || false,
+
+                dateAttributesThere: {},
+                dateAttributesThereLoading: false,
+                dateAttributesBack: {},
+                dateAttributesBackLoading: false,
             }),
             computed: {
                 allAirCompanies: function () {
@@ -384,7 +397,6 @@ module.exports = class airModule extends formModuleBase {
                 }
             },
             methods: {
-                locale: this.it.extra.locale,
                 onClickOutside: function () {
                     this.isActive = false;
                 },
@@ -689,6 +701,11 @@ module.exports = class airModule extends formModuleBase {
 							});
 						}, 100);
 					});
+                },
+                //Загрузка цен для календаря
+                loadPrices: function(type) {
+                    if (!local.it.pricesCalendar) return;
+                    local.it.pricesCalendar.load(type);                    
                 }
             },
             watch: {
@@ -749,7 +766,6 @@ module.exports = class airModule extends formModuleBase {
 
             },
             mounted: function () {
-                var el = this.$el;
                 let filterTypes = [];
                 this.avia.passengers.additionalTypes = this.filterAdditional();
 
@@ -764,11 +780,6 @@ module.exports = class airModule extends formModuleBase {
 
                 this.avia.passengers.additionalTypes = filterTypes;
 
-                Vue.nextTick(function () {
-                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
-                    local.it.extra.updateIframeHeight();
-                    $('.unload').removeClass('unload');
-                });
 
                 if (typeof(localStorage) !== 'undefined' && localStorage.getItem("AdditionalPassenger") !== null) {
                     let history = JSON.parse(localStorage.getItem("AdditionalPassenger"));
@@ -786,11 +797,6 @@ module.exports = class airModule extends formModuleBase {
                 if (typeof(localStorage) !== 'undefined' && localStorage.getItem("pricePTCOnly") !== null) {
                     this.avia.passengers.pricePTCOnly = JSON.parse(localStorage.getItem("pricePTCOnly"));
                 }
-            },
-            updated: function () {
-                Vue.nextTick(function () {
-                    local.it.extra.updateIframeHeight();
-                });
             }
         });
     }
@@ -803,6 +809,11 @@ module.exports = class airModule extends formModuleBase {
 		
 		it.dw = new dataWork(form, it);
 		let dw = it.dw;
+
+        //Инициализация модуля для календаря с ценами
+        if (options.avia.pricesCalendarEnabled)
+            it.pricesCalendar = new pricesCalendar(it, options, this.vue);
+        
 
         this.initializeDefaultAirportsIfNeed();
 

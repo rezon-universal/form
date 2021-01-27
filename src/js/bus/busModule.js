@@ -176,11 +176,9 @@ module.exports = class busModule extends formModuleBase {
             }
         });
 
-        var formBind = new Vue({
+        this.vue = new Vue({
             el: bindTo[0],
-            mixins: [{
-                data: this.options
-            }],
+            mixins: [this.getVueBase(mountedCallback)],
             computed: {
                 passStringBuses: function () {
                     var count = this.buses.passenger.count;
@@ -249,8 +247,6 @@ module.exports = class busModule extends formModuleBase {
                 }
             },
             methods: {
-                locale: this.it.extra.locale,
-
                 updateLocationTypeAhead: function (name, data) {
                     var cityItem = new BusLocation(data);
                     vue.$emit("cityUpdate", name, cityItem);
@@ -347,20 +343,6 @@ module.exports = class busModule extends formModuleBase {
            
 
                 window.vue = this;
-
-            },
-            mounted: function () {
-                var el = this.$el;
-                Vue.nextTick(function () {
-                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
-                    local.it.extra.updateIframeHeight();
-                    $('.unload').removeClass('unload');
-                });
-            },
-            updated: function () {
-                Vue.nextTick(function () {
-                    local.it.extra.updateIframeHeight();
-                });
             }
         });
     }

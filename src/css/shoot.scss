@@ -1,6 +1,4 @@
-﻿@charset "utf-8";
-
-#rezon-forms {
+﻿#rezon-forms {
     background-color: #4a148c;
     background: linear-gradient(125deg, #7334d2 0, #2e135f 100%);
 
@@ -943,11 +941,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 {
     margin-bottom: 10px;
 }
-#rezon-forms .twitter-typeahead:before
+#rezon-forms .twitter-typeahead.loading:before,
+#rezon-forms .d-datepicker-component.loading .popup-footer:before
 {
     content: '';
     display: block;
-    left: -60px;
     width: 60px;
     opacity: 0;
     bottom: 0;
@@ -955,15 +953,17 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     background: #00b0ff;
     position: absolute;
 
-    background: -moz-linear-gradient(to right, rgba(0,0,0,0) 0%, #00b0ff 50%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(to right, rgba(0,0,0,0) 0%, #00b0ff 50%, rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, rgba(0,0,0,0) 0%, #00b0ff 50%, rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
-#rezon-forms .focused .twitter-typeahead.loading:before {
+
     animation: slide 0.7s infinite;
     animation-timing-function: inherit;
     z-index: 3;
 }
+#rezon-forms .d-datepicker-component.loading .popup-footer:before{
+    animation: slide 2s infinite;
+    top: -2px;
+}
+
 @keyframes slide {
     0%   { left: 0%; opacity: 0; }
     50%   { opacity: 1; }
@@ -2135,26 +2135,72 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     cursor: pointer;
     font-style: normal;
 }
-#rezon-forms .vdp-datepicker .botton-in-header {
-    display: block;
-    width: 100%;
-    padding: 10px;
-}
-#rezon-forms .vdp-datepicker .botton-in-header a {
-    display: block;
-    width: 100%;
-    border: 1px solid #00b0ff;
-    color: #0079af;
-    text-align: center;
-    text-decoration: none;
-    line-height: 40px;
-    transition: 250ms linear;
-    background: white;
-}
-#rezon-forms .vdp-datepicker .botton-in-header a:hover,
-#rezon-forms .vdp-datepicker .botton-in-header a:active{
-    background: #00b0ff;
-    color: white;
+#rezon-forms {
+    .vdp-datepicker,
+    .d-datepicker-component {
+        .botton-in-header {
+            padding: 10px;
+            a {
+                background: white;
+                border: 1px solid #00b0ff;
+                color: #0288d1;
+                display: block;
+                font-weight: 600;
+                line-height: 40px;
+                text-align: center;
+                text-decoration: none;
+                transition: 250ms linear;
+
+                &:hover,
+                &:active {
+                    background: #00b0ff;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .d-datepicker-component {
+        .calendar-header {
+            display: flex;
+            height: 40px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            border-bottom: 1px solid #cbd5e0;
+
+            .title {
+                flex-grow: 1;
+                font-size: 16px;
+            }
+        }
+
+        .botton-in-header {
+            display: inline-block;
+            flex-grow: 1;
+            width: auto;
+
+            a {
+                border-radius: 2px;
+            }
+
+
+            @media (max-width: 575px) {
+                position: fixed;
+                bottom: 20px;
+                left: 10px;
+                right: 10px;
+                background: white;
+                z-index: 10;
+            }
+        }
+
+        .popup-footer {
+            .close-btn {
+                line-height: 40px;
+            }
+        }
+    }
 }
 /* ---------- end vdp-datepicker ---------- */
 
@@ -3385,6 +3431,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         height: 100%;
         position: fixed;
         width: 100%;
+        overflow: scroll;
     }
     #rezon-forms .date.opened .dates-item-row 
     {

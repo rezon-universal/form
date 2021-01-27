@@ -162,11 +162,9 @@ module.exports = class insurancesModule extends formModuleBase {
             }
         });
 
-        var formBind = new Vue({
+        this.vue = new Vue({
             el: bindTo[0],
-            mixins: [{
-                data: this.options
-            }],
+            mixins: [this.getVueBase(mountedCallback)],
             computed: {
                 today: function () {
                     var todayDate = new Date();
@@ -204,8 +202,6 @@ module.exports = class insurancesModule extends formModuleBase {
                 }
             },
             methods: {
-                locale: this.it.extra.locale,
-
                 updateLocationTypeAhead: function (name, data) {
                     var cityItem = new InsuranceLocation(data);
                     vue.$emit("cityUpdate", name, cityItem);
@@ -293,20 +289,6 @@ module.exports = class insurancesModule extends formModuleBase {
                 }
 
                 window.vue = this;
-
-            },
-            mounted: function () {
-                var el = this.$el;
-                Vue.nextTick(function () {
-                    !!mountedCallback && typeof (mountedCallback) === "function" && mountedCallback(el);
-                    local.it.extra.updateIframeHeight();
-                    $('.unload').removeClass('unload');
-                });
-            },
-            updated: function () {
-                Vue.nextTick(function () {
-                    local.it.extra.updateIframeHeight();
-                });
             }
         });
     }

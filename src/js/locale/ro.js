@@ -129,5 +129,9 @@
     "STATE": "Statul",
     "FORM_CLASS_W": "Economic premium",
     "ENTER_NATIONALITY": "Introduceți naționalitatea",
-    "SEARCHED": "Anterior ai căutat"
+    "SEARCHED": "Anterior ai căutat",
+    "SELECT_DEPARTURE_DATE": "Selectați data plecării",
+    "SELECT_RETURN_DATE": "Selectați data returnării",
+    "ESTIMATED_PRICES_SHOWN_IN" : "Prețurile estimate sunt afișate în",
+    "DONE" : "Terminat"
 }
