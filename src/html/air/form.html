@@ -44,17 +44,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')"
-                                :disabled-dates="avia.disabledDatesFrom"
-                                :language="defaultLang"
-                                v-model="avia.defaultDateThere"
-                                name="book_from_date"
-                                input-class="book-date datepicker"
-                                initial-view="month"
-                                v-if="!newDatePicker"
-                    >
-                    </datepicker>
-                    <d-date-picker v-if="newDatePicker" v-model="avia.defaultDateThere"
+                    <d-date-picker v-model="avia.defaultDateThere"
                                    name="book_from_date"
                                    :locale="locale"
                                    :update-page-date-on-select="true"
@@ -80,18 +70,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')"
-                                :disabled-dates="avia.disabledDatesTo"
-                                :language="defaultLang"
-                                :button-in-top-message="locale('WITHOUT_RETURN_TICKET')"
-                                v-on:button-in-top="typeChanged(0)"
-                                v-model="avia.defaultDateBack"
-                                name="book_to_date"
-                                input-class="book-date datepicker"
-                                v-if="avia.formType.value==='roundtrip' && !newDatePicker"
-                                initial-view="day">
-                    </datepicker>
-                    <d-date-picker v-if="avia.formType.value==='roundtrip' && newDatePicker" v-model="avia.defaultDateBack"
+                    <d-date-picker v-if="avia.formType.value==='roundtrip'" v-model="avia.defaultDateBack"
                                    name="book_to_date"
                                    :locale="locale"
                                    popup-position-binded-to="book_from_date"

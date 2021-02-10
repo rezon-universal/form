@@ -262,7 +262,6 @@ module.exports = class airModule extends formModuleBase {
             data: () => ({
                 Items: [],
                 isActive: false,
-                newDatePicker: window.newFormDatePicker || false,
 
                 dateAttributesThere: {},
                 dateAttributesThereLoading: false,
