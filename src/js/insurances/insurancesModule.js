@@ -301,7 +301,7 @@ module.exports = class insurancesModule extends formModuleBase {
         let dw = new dataWork(form, it);
 
         var typeaheadOptions = {
-            minLength: 2
+            minLength: 0
         };
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
