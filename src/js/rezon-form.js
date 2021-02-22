@@ -10,10 +10,10 @@ const formAll = require('./form.all');
     
     $.fn.rezOnForm = function (o) {
         let form = this.find("form");
-        let object = form.data('RezOnForm');
+        let object = this.data('RezOnForm');
         if (!object) {
             object = new formAll(localizator.load());
-            form.data('RezOnForm', object);
+            this.data('RezOnForm', object);
             object.init(form, o || window.rezonOpt);
         }
     };

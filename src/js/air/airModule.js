@@ -1312,6 +1312,21 @@ module.exports = class airModule extends formModuleBase {
             }).trigger("DisabledDates.MapBridge");
         }*/
     }
+    //Подгрузить данные (названия) аэропортов
+    loadAirports(iataToDecode, callback) {
+        var dataToSend = iataToDecode.join();
+        var params = { iata_codes: dataToSend };
+        $.getJSON(this.it.extra.remoteUrl() + '/HelperAsync/GetAirport?' + $.param(params), function (data) {
+            var result = JSON.parse(data);
+            var out = [];
+            $.each(result, function (index, value) {
+                if (value !== undefined && value !== null) {
+                    out.push(new AirportItem(value.IataCode, value.CountryCode, value.CountryName, value.Airport));
+                }
+            });
+            callback(out);
+        });
+    }
     //Подгрузить данные (названия) аэропортов, если в параметрах передали их как IATA коды
     initializeDefaultAirportsIfNeed() {
         var local = this;
@@ -1326,22 +1341,13 @@ module.exports = class airModule extends formModuleBase {
         $.unique(iataToDecode);
 
         if (iataToDecode.length > 0) {
-            var dataToSend = iataToDecode.join();
-            var params = { iata_codes: dataToSend };
-            $.getJSON(this.it.extra.remoteUrl() + '/HelperAsync/GetAirport?' + $.param(params), function (data) {
-                var result = JSON.parse(data);
-
-                $.each(result, function (index, value) {
-
-                    if (value !== undefined && value !== null) {
-                        var aviItem = new AirportItem(value.IataCode, value.CountryCode, value.CountryName, value.Airport);
-                        if (aviItem.IataCode.substring(0, 3) === local.options.avia.defaultAirportFrom) {
-                            local.options.avia.aviFrom = aviItem;
-
-                        }
-                        if (aviItem.IataCode.substring(0, 3) === local.options.avia.defaultAirportTo) {
-                            local.options.avia.aviTo = aviItem;
-                        }
+            this.loadAirports(iataToDecode, function(result) {
+                $.each(result, function (index, aviItem) {
+                    if (aviItem.IataCode.substring(0, 3) === local.options.avia.defaultAirportFrom) {
+                        local.options.avia.aviFrom = aviItem;
+                    }
+                    if (aviItem.IataCode.substring(0, 3) === local.options.avia.defaultAirportTo) {
+                        local.options.avia.aviTo = aviItem;
                     }
                 });
             });
