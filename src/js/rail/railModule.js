@@ -48,8 +48,8 @@ module.exports = class railModule extends formModuleBase {
     datepickerGetHighlight(datepicker) {
         if (this.options.railway.formType.value === 'roundtrip') {
             return {
-                from: datepicker.dateFrom,
-                to: datepicker.dateTo
+                from: this.options.railway.dateThere,
+                to: this.options.railway.dateBack
             }
         }
         return {};

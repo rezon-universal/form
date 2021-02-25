@@ -30,7 +30,7 @@
             limit: 1000,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: {
-                url: this.it.extra.remoteUrl() + '/HelperAsync/GetAirCompanies?v=2',
+                url: this.it.extra.remoteUrl() + '/HelperAsync/GetAirCompanies?v=3',
                 filter: function (list) {
                     return list;
                 }

@@ -335,16 +335,18 @@ module.exports = class formBase {
                     it.extra.openField(el, false);
                     Vue.nextTick(function () {
                         it.extra.recalculateHeightOnOpen(el.find('.datepicker-popup:visible'));
-                        it.extra.updateIframeHeight();
                     });
                 });
                 this.$on('closed', function () {
                     var el = $(comp.$el);
                     it.extra.closeField(el);
                     Vue.nextTick(function () {
-                        it.extra.recalculateHeightOnClose();
+                        // Если уже не открыт другой календарь, то пересчитываем высоту на стандартную
+                        // Починена ошибка в Iframe при переключении фокуса между датой вылета туда/обратно
+                        if(!$('.datepicker-popup:visible').length) {
+                            it.extra.recalculateHeightOnClose();
+                        }
                     });
-                    it.extra.updateIframeHeight();
                 });
                 this.$on('selected', function (data) {
                     Vue.nextTick(function () {

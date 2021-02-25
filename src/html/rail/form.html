@@ -34,7 +34,17 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')" :language="defaultLang" v-model="railway.dateThere" name="book_from_date" input-class="book-date datepicker" :date-from="railway.dateThere" :date-to="railway.dateBack"></datepicker>
+                    <d-date-picker v-model="railway.dateThere"
+                                   name="book_from_date"
+                                   :locale="locale"
+                                   :update-page-date-on-select="true"
+                                   :page-date-stamp="pageDateStamp">
+                        <template slot="top">
+                            <div class="calendar-header">
+                                <div class="title">{{locale('SELECT_DEPARTURE_DATE')}}</div>
+                            </div>
+                        </template>
+                    </d-date-picker>
                 </div>
             </div>
         </div>
@@ -46,16 +56,20 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker :placeholder="locale('SELECT_DATE')"
-                                :language="defaultLang"
-                                :button-in-top-message="locale('WITHOUT_RETURN_TICKET')"
-                                v-on:button-in-top="railTypeChanged(0)"
-                                v-model="railway.dateBack"
-                                name="book_to_date"
-                                input-class="book-date datepicker"
-                                :date-from="railway.dateThere"
-                                :date-to="railway.dateBack"
-                                v-if="railway.formType.value==='roundtrip'"></datepicker>
+                    <d-date-picker v-if="railway.formType.value==='roundtrip'" v-model="railway.dateBack"
+                                   name="book_to_date"
+                                   :locale="locale"
+                                   popup-position-binded-to="book_from_date"
+                                   :page-date-stamp="pageDateStamp">
+                        <template slot="top" slot-scope="scopeSlot">
+                            <div class="calendar-header">
+                                <div class="title">{{locale('SELECT_RETURN_DATE')}}</div>
+                                <div class="botton-in-header">
+                                    <a href="#" v-on:click.prevent="scopeSlot.hideCalendar(function(){ railTypeChanged(0); })">{{locale('WITHOUT_RETURN_TICKET')}}</a>
+                                </div>
+                            </div>
+                        </template>
+                    </d-date-picker>
                     <span class="roundtrip_click" v-on:click="railTypeChanged(1); selectDateToCalendar();">{{locale("BACK")}}</span>
                 </div>
             </div>
