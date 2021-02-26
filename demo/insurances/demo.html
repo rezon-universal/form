@@ -44,15 +44,12 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker 
-                        :placeholder="locale('SELECT_DATE')" 
-                        :language="defaultLang" 
-                        v-model="insurances.DateFrom" 
-                        name="DateFrom" 
-                        input-class="book-date datepicker" 
-                        :date-from="insurances.DateFrom" 
-                        :date-to="insurances.DateTo"
-                    />
+                    <d-date-picker v-model="insurances.DateFrom"
+                                   name="DateFrom"
+                                   :locale="locale"
+                                   :update-page-date-on-select="true"
+                                   :page-date-stamp="pageDateStamp">
+                    </d-date-picker>
                 </div>
             </div>
         </div>
@@ -64,15 +61,12 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker 
-                        :placeholder="locale('SELECT_DATE')" 
-                        :language="defaultLang" 
-                        v-model="insurances.DateTo" 
-                        name="DateTo" 
-                        input-class="book-date datepicker" 
-                        :date-from="insurances.DateFrom" 
-                        :date-to="insurances.DateTo"
-                    />
+                    <d-date-picker v-model="insurances.DateTo"
+                                   name="DateTo"
+                                   :locale="locale"
+                                   popup-position-binded-to="DateFrom"
+                                   :page-date-stamp="pageDateStamp">
+                    </d-date-picker>
                 </div>
             </div>
         </div>

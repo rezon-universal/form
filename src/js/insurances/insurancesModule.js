@@ -29,8 +29,8 @@ module.exports = class insurancesModule extends formModuleBase {
     //Получить подсвеченные даты в датапикере
     datepickerGetHighlight(datepicker) {
         return {
-            from: datepicker.dateFrom,
-            to: datepicker.dateTo
+            from: this.options.insurances.DateFrom,
+            to: this.options.insurances.DateTo
         };
     }
     //Установка запрещенных дат в датапикере
