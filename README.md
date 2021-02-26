@@ -36,7 +36,7 @@ Html разметку из файла с формой [`\src\html\air\form.html`
 <script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/jquery-2.1.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/typeahead.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vue_datepicker/Datepicker.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/vuejs-datepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
 ```
 
