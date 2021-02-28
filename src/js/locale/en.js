@@ -245,5 +245,6 @@
     "SELECT_DEPARTURE_DATE": "Select departure date",
     "SELECT_RETURN_DATE": "Select return date",
     "ESTIMATED_PRICES_SHOWN_IN" : "Estimated prices, shown in",
-    "DONE" : "Done"
+    "DONE" : "Done",
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel"
 }

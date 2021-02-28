@@ -170,5 +170,6 @@
     "SELECT_DEPARTURE_DATE": "Оберіть дату відправлення",
     "SELECT_RETURN_DATE": "Оберіть дату повернення",
     "ESTIMATED_PRICES_SHOWN_IN" : "Орієнтовні ціни, вказані в",
-    "DONE" : "Готово"
+    "DONE" : "Готово",
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Оберіть країну поїздки"
 }

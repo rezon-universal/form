@@ -159,5 +159,6 @@
     "SELECT_DEPARTURE_DATE": "Изберете дата на заминаване",
     "SELECT_RETURN_DATE": "Изберете дата на връщане",
     "ESTIMATED_PRICES_SHOWN_IN" : "Очакваните цени са показани в",
-    "DONE" : "Свършен"
+    "DONE" : "Затвори",
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Изберете държавата на пътуване"
 }
