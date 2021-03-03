@@ -182,12 +182,12 @@ module.exports = class insurancesModule extends formModuleBase {
                 },
                 insurancesDefaultDate: function () {
                     var defaultDate = new Date();
-                    defaultDate.setDate(defaultDate.getDate() + 7);
+                    defaultDate.setDate(defaultDate.getDate() + 0);
                     return defaultDate;
                 },
                 insurancesDefaultBackDate: function () {
                     var defaultBackDate = new Date();
-                    defaultBackDate.setDate(defaultBackDate.getDate() + 14);
+                    defaultBackDate.setDate(defaultBackDate.getDate() + 7);
                     return defaultBackDate;
                 },    
 
