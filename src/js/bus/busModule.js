@@ -37,11 +37,11 @@ module.exports = class busModule extends formModuleBase {
         return this.it.extra.remoteUrl() + "/Bus/ModuleSearch";
     }
     //Получить подсвеченные даты в датапикере
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         if (this.options.buses.formType.value === 'roundtrip') {
             return {
-                from: datepicker.dateFrom,
-                to: datepicker.dateTo
+                from: this.options.buses.Date,
+                to: this.options.buses.BackDate
             }
         }
         return {};

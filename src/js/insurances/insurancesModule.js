@@ -27,7 +27,7 @@ module.exports = class insurancesModule extends formModuleBase {
         return this.it.extra.remoteUrl() + "/Insurances/ModuleSearch";
     }
     //Получить подсвеченные даты в датапикере
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         return {
             from: this.options.insurances.DateFrom,
             to: this.options.insurances.DateTo
@@ -233,6 +233,7 @@ module.exports = class insurancesModule extends formModuleBase {
                         //TODO Remove access to MAIN.js file!!
 
                         main.extra.startWait();
+						$(document).trigger('RezOn.Insurances.SearchFormSended');
 
                         const formData = {
                             CountryCode: this.insurances.Location.CountryCode,

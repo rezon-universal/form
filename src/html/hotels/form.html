@@ -26,15 +26,12 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker 
-                        :placeholder="locale('SELECT_DATE')" 
-                        :language="defaultLang" 
-                        v-model="hotel.checkIn" 
-                        name="CheckIn" 
-                        input-class="book-date datepicker" 
-                        :date-from="hotel.checkIn" 
-                        :date-to="hotel.checkOut">
-                    </datepicker>
+                    <d-date-picker v-model="hotel.checkIn"
+                                   name="CheckIn"
+                                   :locale="locale"
+                                   :update-page-date-on-select="true"
+                                   :page-date-stamp="pageDateStamp">
+                    </d-date-picker>
                 </div>
             </div>
         </div>
@@ -46,15 +43,12 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <datepicker 
-                        :placeholder="locale('SELECT_DATE')" 
-                        :language="defaultLang" 
-                        v-model="hotel.checkOut" 
-                        name="CheckOut" 
-                        input-class="book-date datepicker" 
-                        :date-from="hotel.checkIn" 
-                        :date-to="hotel.checkOut">
-                    </datepicker>
+                    <d-date-picker v-model="hotel.checkOut"
+                                   name="CheckOut"
+                                   :locale="locale"
+                                   popup-position-binded-to="CheckIn"
+                                   :page-date-stamp="pageDateStamp">
+                    </d-date-picker>
                 </div>
                 <div class="error-box"></div>
             </div>

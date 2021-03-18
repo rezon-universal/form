@@ -57,9 +57,7 @@ module.exports = class airModule extends formModuleBase {
                 formTypes: routeTypes,
                 formType: routeTypes[1],
                 aviFrom: new AirportItem(),
-                aviFromTime: 0,
                 aviTo: new AirportItem(),
-                aviToTime: 0,
                 passengers: {
                     types: defaultPassItems,
                     additionalTypes: additionalPassItems,
@@ -90,7 +88,7 @@ module.exports = class airModule extends formModuleBase {
     getFormRemoteUrl() {
         return this.it.extra.remoteUrl() + "/AirTickets/ModuleSearch";
     }
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         if (this.options.avia.formType.value === 'roundtrip') {
             return {
                 from: this.options.avia.defaultDateThere,
@@ -386,11 +384,13 @@ module.exports = class airModule extends formModuleBase {
                 },
                 aviaDefaultDateThere: function () {
                     var defaultDateThere = new Date();
+                    defaultDateThere.setHours(0, 0, 0, 0);
                     defaultDateThere.setDate(defaultDateThere.getDate() + 7);
                     return defaultDateThere;
                 },
                 aviaDefaultDateBack: function () {
                     var defaultDateBack = new Date();
+                    defaultDateBack.setHours(0, 0, 0, 0);
                     defaultDateBack.setDate(defaultDateBack.getDate() + 14);
                     return defaultDateBack;
                 }
@@ -448,7 +448,11 @@ module.exports = class airModule extends formModuleBase {
                         this.avia.multyRoutes = [];
                     }
                     $(document).trigger("RouteTypeChange.MapBridge", [this.avia.formType]);
-                    
+                    if (this.avia.formType.value === 'route') {
+                        //Для сложного маршрута сразу добавляем второй лег, иначе в сложном марщруте нет смысла
+                        this.addSegment();
+                    }
+
                     Vue.nextTick(function () {
                         $(document).find(".select-route-type").trigger("redraw");
                     });
@@ -457,10 +461,8 @@ module.exports = class airModule extends formModuleBase {
                 clearForm: function () {
                     this.avia.aviFrom = new AirportItem();
                     this.avia.defaultDateThere = this.aviaDefaultDateThere;
-                    this.avia.aviFromTime = 0;
                     this.avia.aviTo = new AirportItem();
                     this.avia.defaultDateBack = this.aviaDefaultDateBack;
-                    this.avia.aviToTime = 0;
                     this.avia.formExtended = false;
                     //this.avia.multyRoutes = [];
                     //this.avia.segmentsCount = 0; //??  = 2
@@ -577,6 +579,7 @@ module.exports = class airModule extends formModuleBase {
                         this.avia.multyRoutes.push(obj);
                         this.avia.segmentsCount += 1;
                         var index = this.avia.multyRoutes.length - 1;
+                        this.updateMultyDates();
                         Vue.nextTick(function () {
                             // DOM updated                        
                             //index+2 for selector
@@ -584,27 +587,35 @@ module.exports = class airModule extends formModuleBase {
                         });
                     }
                 },
-                updateSegmentsDates: function (index) {
-                    var length = this.avia.multyRoutes.length;
-                    var nextRoute = index + 1 < length ? this.avia.multyRoutes[index + 1] : null;
-                    var currRoute = this.avia.multyRoutes[index];
+                updateMultyDates: function () {
+                    if (this.avia.formType.value !== 'route') return;
+                    
+                    const length = this.avia.multyRoutes.length;
+                    for(let i = -1; i < length; i++) {
+                        let currRoute = this.avia.multyRoutes[i];
+                        //Первый маршрут не числится как маршрут :(
+                        if (i === -1) {
+                            currRoute = new EmptyRouteItem();
+                            currRoute.defaultDateThere = this.avia.defaultDateThere;
+                        }
+                        let nextRoute = (i + 1) < length ? this.avia.multyRoutes[i + 1] : null;
+                        if (nextRoute) {
+                            nextRoute.minDate = currRoute.defaultDateThere;
+                            if (nextRoute.minDate > nextRoute.defaultDateThere) {
+                                nextRoute.defaultDateThere = nextRoute.minDate;
+                            }
+                        }
+                    }
 
-                    if (index === 0) {
-                        currRoute.minDate = this.avia.defaultDateThere;
-                        if (currRoute.minDate > currRoute.defaultDateThere) {
-                            currRoute.defaultDateThere = currRoute.minDate;
-                        }
-                    }
-                    if (nextRoute != null) {
-                        nextRoute.minDate = currRoute.defaultDateThere;
-                        if (nextRoute.minDate > nextRoute.defaultDateThere) {
-                            nextRoute.defaultDateThere = nextRoute.minDate;
-                        }
-                    }
                 },
-                removeSegment: function () {
-                    this.avia.multyRoutes.pop();
+                removeSegment: function (index) {
+                    this.avia.multyRoutes.splice(index, 1);
                     this.avia.segmentsCount -= 1;
+                    this.updateMultyDates();
+                    //Если удалили все сегменты, то в сложном маршруте нет смысла. Делаем OW
+                    if(this.avia.multyRoutes.length === 0) {
+                        this.typeChanged(0);
+                    }
                 },
                 swapAviaDest: function () {
                     var to = this.avia.aviFrom;
@@ -614,12 +625,6 @@ module.exports = class airModule extends formModuleBase {
 
                     $(document).trigger("StartPtChange.MapBridge", [from]);
                     $(document).trigger("EndPtChange.MapBridge", [to]);
-                },
-                clickTimeFrom: function(e) {
-                    this.avia.aviFromTime = parseInt(e.target.dataset.fromTime);
-                },
-                clickTimeTo: function(e) {
-                    this.avia.aviToTime = parseInt(e.target.dataset.toTime);
                 },
                 selectHistoryItem : function(history) {
                     local.formSaver.selectItem(history);
@@ -1182,33 +1187,7 @@ module.exports = class airModule extends formModuleBase {
         });
 
 
-        //TODO валидация времени вылета если выбраны одни и те же даты
-        //var timeSelectpicker = document.querySelectorAll('.time .selectpicker');
-        //Array.prototype.forEach.call(timeSelectpicker, function(select) {
-        //    select.addEventListener('click', function(e) {
-        //        if(rezOnForm.prototype._o.avia.defaultDateThere.setHours(0,0,0,0) === rezOnForm.prototype._o.avia.defaultDateBack.setHours(0,0,0,0)) {
-        //            var aviaTimeFrom = rezOnForm.prototype._o.avia.aviFromTime;
-        //            var aviaTimeTo = rezOnForm.prototype._o.avia.aviToTime;
-        //            var bookToTime = document.querySelectorAll('[name="book_to_time"]');
-        //            var selectedValue = document.querySelector('.book-time-to .selected-value')
 
-        //            if(aviaTimeFrom >= aviaTimeTo) {
-        //                rezOnForm.prototype._o.avia.aviToTime = aviaTimeFrom;
-        //                selectedValue.firstElementChild.innerHTML = e.target.innerText;
-        //            }
-
-        //            Array.prototype.forEach.call(bookToTime, function(item) {
-        //                if(item.value < aviaTimeFrom) {
-        //                    item.closest('.option').classList.add('hidden');
-        //                }
-
-        //                if(item.value >= aviaTimeFrom) {
-        //                    item.closest('.option').classList.remove('hidden');
-        //                }
-        //            });
-        //        }
-        //    });
-        //});
 
 
         //Интеграция с картой
@@ -1228,89 +1207,7 @@ module.exports = class airModule extends formModuleBase {
                 });
         });
 
-        //Disabled dates на календарях в зависимости от направления
-        /*if (it._o.avia.onlySpecificAirportsInDropdown) {
-            $(document).on("StartPtChange.MapBridge EndPtChange.MapBridge", function (e, datum) {
-                $(document).trigger("DisabledDates.MapBridge");
-            });
-            $(document).on("DisabledDates.MapBridge", function (e) {
-                Vue.nextTick(function () {
-                    //Если жестко фиксированный список аэропортов - подгружаем список доступных дат
 
-                    var iataFrom = $("[name='from_iata']").val();
-                    var iataTo = $("[name='to_iata']").val();
-
-
-                    it._o.avia.disabledDatesFrom = [];
-                    it._o.avia.disabledDatesTo = [];
-                    
-                    if (iataFrom !== "" && iataTo !== "") {
-                        $.ajax({
-                            url: it.extra.remoteUrl() + "/HelperAsync/GetDisabledDates?IATAFrom={FROM}&IATATo={TO}"
-                                .replace("{FROM}", iataFrom)
-                                .replace("{TO}", iataTo),
-                            cache: false,
-                            success: function (json) {
-                                it._o.avia.disabledDatesFrom = [];
-                                for (var i = 0; i < json.there.length; i++) {
-                                    var date = new Date(parseInt(json.there[i].substr(6)));
-                                    it._o.avia.disabledDatesFrom.push(date);
-                                }
-                                it._o.avia.disabledDatesTo = [];
-                                for (var i = 0; i < json.back.length; i++) {
-                                    var date = new Date(parseInt(json.back[i].substr(6)));
-                                    it._o.avia.disabledDatesTo.push(date);
-                                }
-                                //Check if selected date is disabled and change it
-                                var defaultDateFrom = it._o.avia.defaultDateThere.getDate() + '.' + (it._o.avia.defaultDateThere.getMonth() + 1) + '.' + it._o.avia.defaultDateThere.getFullYear();
-                                var defaultDateTo = it._o.avia.defaultDateBack.getDate() + '.' + (it._o.avia.defaultDateBack.getMonth() + 1) + '.' + it._o.avia.defaultDateBack.getFullYear();
-                                var calendarFrom = document.querySelector('#avia-form-shoot .from .vdp-datepicker__calendar');
-                                var calendarTo = document.querySelector('#avia-form-shoot .to .vdp-datepicker__calendar');
-                                var calendarDays = document.querySelectorAll('#avia-form-shoot .date .day');
-                                
-                                Array.prototype.forEach.call(calendarDays, function(day) {
-                                    day.addEventListener('click', function() {
-                                        if(day.closest('.vdp-datepicker__calendar').lastElementChild.classList.contains('error-box')) {
-                                            if(!day.classList.contains('disabled')) {
-                                                day.closest('.vdp-datepicker__calendar').lastElementChild.remove();
-                                            }
-                                        }
-                                    });
-                                });
-
-                                function BoxError(disabledDates, defaultDate, calendar) {
-                                    Array.prototype.forEach.call(disabledDates, function(date) {
-                                        var dates = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear(); 
-                                        if(defaultDate === dates) {
-                                            var boxError = document.createElement('div');
-                                            boxError.classList.add('error-box');
-                                            boxError.innerHTML = main.locale("DISABLED_DATE");
-                                            calendar.appendChild(boxError);
-                                        }
-                                    });
-                                }
-                                
-                                if(!!calendarFrom) {
-                                    BoxError(it._o.avia.disabledDatesFrom, defaultDateFrom, calendarFrom);
-                                }
-                                
-                                if(!!calendarTo) {
-                                    BoxError(it._o.avia.disabledDatesTo, defaultDateTo, calendarTo);  
-                                }
-                            }
-                        });
-                    } else {
-                        var datepickerCalendar = document.querySelectorAll('.date .vdp-datepicker__calendar');
-
-                        Array.prototype.forEach.call(datepickerCalendar, function(calendar) {
-                            if(calendar.lastElementChild.classList.contains('error-box')) {
-                                calendar.lastElementChild.remove();
-                            }
-                        })
-                    }
-                });
-            }).trigger("DisabledDates.MapBridge");
-        }*/
     }
     //Подгрузить данные (названия) аэропортов
     loadAirports(iataToDecode, callback) {

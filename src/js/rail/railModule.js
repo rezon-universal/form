@@ -29,7 +29,6 @@ module.exports = class railModule extends formModuleBase {
                 dateBack: null,
                 stationFrom: new StationItem(),
                 stationTo: new StationItem(),
-                timeThere: 0,
                 timeBack: 0,
                 dateRange: 0,
                 formTypes: routeTypes,
@@ -45,7 +44,7 @@ module.exports = class railModule extends formModuleBase {
         return this.it.extra.remoteUrl() + "/RailwayTickets/ModuleSearch";
     }
     //Получить подсвеченные даты в датапикере
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         if (this.options.railway.formType.value === 'roundtrip') {
             return {
                 from: this.options.railway.dateThere,
@@ -221,8 +220,6 @@ module.exports = class railModule extends formModuleBase {
                     this.railway.dateBack = new Date();
                     this.railway.stationFrom = new StationItem();
                     this.railway.stationTo = new StationItem();
-                    this.railway.timeThere = 0;
-                    this.railway.timeBack = 0;
                     this.railway.dateRange = 0;
                     var model = this;
                     Vue.nextTick(function () {

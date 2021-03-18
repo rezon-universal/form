@@ -153,168 +153,22 @@ module.exports = class formBase {
     bindGlobalVue(bindTo) {
         let it = this;
         let module = it._currentModule;
-        
-        //Datepicker component
-        Vue.component('datepicker', {
-            mixins: [{
-                template: defaultDatepickerSettings.template,
-                props: defaultDatepickerSettings.props,
-                data: defaultDatepickerSettings.data,
-                mounted: defaultDatepickerSettings.mounted,
-                watch: defaultDatepickerSettings.watch,
-                computed: defaultDatepickerSettings.computed,
-                methods: defaultDatepickerSettings.methods
-            }],
-            computed: {
-                highlighted: function () {
-                    return module.datepickerGetHighlight(this) || {};
-                },
-                disabled: function () {
-                    return  module.datepickerGetDisabled(this) || {};
-                }
-            },
-            props: {
-                dateFrom: {
-                    type: Date
-                },
-                dateTo: {
-                    type: Date
-                },
-                minDate: {
-                    type: Date
-                },
-                maxDate: {
-                    type: Date
-                },
-                disabledDates: Array
-            },
-            methods : {
-                swipeDetect : function (el, callback) {
-                    var touchsurface = el,
-                        swipedir,
-                        startX,
-                        startY,
-                        distX,
-                        distY,
-                        threshold = 150, //min distance
-                        restraint = 100, // max distance 
-                        allowedTime = 300, // max time 
-                        elapsedTime,
-                        startTime,
-                        handleswipe = callback || function (swipedir) { }
 
-                    touchsurface.addEventListener('touchstart',
-                        function (e) {
-                            var touchobj = e.changedTouches[0];
-                            swipedir = 'none';
-                            startX = touchobj.pageX;
-                            startY = touchobj.pageY;
-                            startTime = new Date().getTime();
-                        }, {passive: true});
-
-                    touchsurface.addEventListener('touchmove',
-                        function (e) {
-                        }, {passive: true});
-
-                    touchsurface.addEventListener('touchend',
-                        function (e) {
-                            var touchobj = e.changedTouches[0];
-                            distX = touchobj.pageX - startX;
-                            distY = touchobj.pageY - startY;
-                            elapsedTime = new Date().getTime() - startTime;
-                            if (elapsedTime <= allowedTime) {
-                                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint
-                                ) {
-                                    swipedir =
-                                        (distX < 0) ? 'left' : 'right';
-                                } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint
-                                ) {
-                                    swipedir = (distY < 0) ? 'up' : 'down';
-                                }
-                            }
-                            handleswipe(swipedir);
-                        }, {passive: true});
-                }
-            },
-            created: function () {
-                var comp = this;
-                this.$on('opened', function () {
-                    var el = $(comp.$el);
-                    it.extra.openField(el);
-                    var calendarClass = 'vdp-datepicker__calendar';
-                    Vue.nextTick(function () {
-                        var popup = el.find('.' + calendarClass + ":visible");
-                        it.extra.recalculateHeightOnOpen(popup);
-                        it.extra.updateIframeHeight();
-                    });
-                });
-                this.$on('closed', function () {
-                    var el = $(comp.$el);
-                    it.extra.closeField(el);
-                    if(!$('#rezon-forms .date').hasClass('opened')) {
-                        it.extra.recalculateHeightOnClose();
-                    }
-                    it.extra.updateIframeHeight();
-                });
-
-                this.$on('selected', function () {
-                    comp.initialViewRewrited = !!comp.selectedDate ? "day" : comp.initialView;
-
-                    Vue.nextTick(function () {
-                        module.datepickerSelected(comp);
-                    });
-                });
-
-            },
-            mounted: function () {
-                var el = this.$el;
-                var comp = this;
-                var datePicker = $(el).closest('.control-field')[0];
-                this.swipeDetect(datePicker, function (swipedir) {
-                    switch (swipedir) {
-                        case 'left':
-                            if (comp.showDayView) {
-                                comp.nextMonth();
-                            }
-                            else if (comp.showMonthView) {
-                                comp.nextYear();
-                            }
-                            else if (comp.showYearView) {
-                                comp.nextDecade();
-                            }
-                            break;
-                        case 'right':
-                            if (comp.showDayView) {
-                                comp.previousMonth();
-                            }
-                            else if (comp.showMonthView) {
-                                comp.previousYear();
-                            }
-                            else if (comp.showYearView) {
-                                comp.previousDecade();
-                            }
-                            break;
-                    }
-                });
-                Vue.nextTick(function () {
-                    // DOM updated
-                    $(comp.$el).find("[name='" + comp.name + "']").keydown(function (e) {
-                        //Tab press
-                        if (e.keyCode == 9) comp.close();
-                    });
-                });
-            }
-        });
         // Выбранную страницу календаря (выбранный месяц) делаем один, общий для всех
         // что бы при смене страницы календаря она менялась на всех календарях формы
         it._o.pageDateStamp = new Date().getTime();
         Vue.component('d-date-picker', {
             mixins: [dDatePickerComponent.default],
+            props: {
+                //Для сложного маршрута для датапикера мы вручную передаем минимальную дату лега
+                minDate: Date,
+                maxDate: Date
+            },
             methods: {
             },
             computed: {
                 highlighted: function () {
-                    return module.datepickerGetHighlight(this) || {};
+                    return module.datepickerGetHighlight() || {};
                 },
                 disabled: function () {
                     return  module.datepickerGetDisabled(this) || {};

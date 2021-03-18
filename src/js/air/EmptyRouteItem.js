@@ -5,6 +5,5 @@ module.exports = class EmptyRouteItem {
         this.aviFrom = new AirportItem();
         this.aviTo = new AirportItem();
         this.defaultDateThere = undefined;
-        this.aviFromTime = 0;
     }
 };

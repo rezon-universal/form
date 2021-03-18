@@ -74,68 +74,6 @@
                 </div>
             </div>
         </div>
-        <div class="field time">
-            <label class="hidden-xs menu-title">{{locale("DEPARTURE_TIME")}}</label>
-            <div class="control-field">
-                <div class="selectpicker book-time">
-                    <div class="options">
-                        <div class="option" v-on:click="railway.timeThere=0">
-                            <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
-                            <input type="radio" name="book_from_time" value="0" v-bind:checked="railway.timeThere == 0" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeThere=1">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
-                            </span>
-                            <input type="radio" name="book_from_time" value="1" v-bind:checked="railway.timeThere == 1" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeThere=2">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
-                            </span>
-                            <input type="radio" name="book_from_time" value="2" v-bind:checked="railway.timeThere == 2" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeThere=3">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
-                            </span>
-                            <input type="radio" name="book_from_time" value="3" v-bind:checked="railway.timeThere == 3" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field time">
-            <label class="hidden-xs menu-title">{{locale("ARRIVAL_TIME")}}</label>
-            <div class="control-field">
-                <div class="selectpicker book-time">
-                    <div class="options">
-                        <div class="option" v-on:click="railway.timeBack=0">
-                            <span data-local="true" data-localtext="AT_ANY_TIME">{{locale("AT_ANY_TIME")}}</span>
-                            <input type="radio" name="book_to_time" value="0" v-bind:checked="railway.timeBack == 0" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeBack=1">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_MORNING">{{locale("IN_THE_MORNING")}}</span> [00:01-10:00]
-                            </span>
-                            <input type="radio" name="book_to_time" value="1" v-bind:checked="railway.timeBack == 1" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeBack=2">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_AFTERNOON">{{locale("IN_THE_AFTERNOON")}}</span> [10:01-16:00]
-                            </span>
-                            <input type="radio" name="book_to_time" value="2" v-bind:checked="railway.timeBack == 2" />
-                        </div>
-                        <div class="option" v-on:click="railway.timeBack=3">
-                            <span>
-                                <span data-local="true" data-localtext="IN_THE_EVENING">{{locale("IN_THE_EVENING")}}</span> [16:01-23:59]
-                            </span>
-                            <input type="radio" name="book_to_time" value="3" v-bind:checked="railway.timeBack == 3" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="field range" v-show="railway.enabledDateRange && railway.enabledDateRange > 0 ">
             <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
                 {{locale("SEARCH")}}

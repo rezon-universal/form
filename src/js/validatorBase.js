@@ -21,14 +21,6 @@
                 ret = false;
             }
         });
-        
-        var datepickerCalendar = this.form.find('.date .vdp-datepicker__calendar');
-        datepickerCalendar.each(function() {
-            if ($(this).is(".error-box")) {
-                $(this).closest('.vdp-datepicker').firstElementChild.firstElementChild.focus();
-                ret = false;
-            }
-        });
 
         return ret;
     }

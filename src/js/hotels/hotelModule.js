@@ -42,10 +42,10 @@ module.exports = class hotelModule extends formModuleBase {
         return this.it.extra.remoteUrl() + "/Hotels/ModuleSearch";
     }
     //Получить подсвеченные даты в датапикере
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         return {
-            from: datepicker.dateFrom,
-            to: datepicker.dateTo
+            from: this.options.hotel.checkIn,
+            to: this.options.hotel.checkOut
         };
     }
     //Установка запрещенных дат в датапикере
@@ -617,10 +617,6 @@ module.exports = class hotelModule extends formModuleBase {
                     $('body').css({ 'min-height': 'inherit' });
                 }
             }); 
-        }
-
-        if (!it.extra.mobileAndTabletcheck() && !(window.innerWidth <= 575) && ($('#hotel-form-shoot .book-from').val() === '')) {
-            $('#hotel-form-shoot .book-from').attr('autofocus', 'true');
         }
 
         //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов

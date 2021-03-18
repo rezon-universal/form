@@ -20,7 +20,7 @@ module.exports = class formModuleBase {
 
     }
     //Получить подсвеченные даты в датапикере
-    datepickerGetHighlight(datepicker) {
+    datepickerGetHighlight() {
         return {};
     }
     //Установка запрещенных дат в датапикере
