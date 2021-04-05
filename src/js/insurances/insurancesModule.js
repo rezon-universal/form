@@ -223,8 +223,9 @@ module.exports = class insurancesModule extends formModuleBase {
                         year: 'numeric'
                     };
 
-                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom);
-                    let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo);
+                    // в IE функция Intl.DateTimeFormat возвращает строку со спецсимволами, убираем лишнее регуляркой
+                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom).replace(/[^\.\d]/g, '');
+                    let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo).replace(/[^\.\d]/g, '');
 
 
                     if (local.options.projectUrl.startsWith("/") && typeof window.main != undefined) {
