@@ -153,5 +153,6 @@
     "SELECT_RETURN_DATE": "Изберете дата на връщане",
     "ESTIMATED_PRICES_SHOWN_IN" : "Очакваните цени са показани в",
     "DONE" : "Затвори",
-    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Изберете държавата на пътуване"
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Изберете държавата на пътуване",
+    "POLICY_ISSUED_BEFORE_TRIP" : "Политиката може да бъде издадена строго преди началото на пътуването"
 }

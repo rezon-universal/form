@@ -239,5 +239,6 @@
     "SELECT_RETURN_DATE": "Select return date",
     "ESTIMATED_PRICES_SHOWN_IN" : "Estimated prices, shown in",
     "DONE" : "Done",
-    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel"
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel",
+    "POLICY_ISSUED_BEFORE_TRIP" : "The policy can be issued strictly before the start of the trip"
 }

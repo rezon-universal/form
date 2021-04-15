@@ -164,5 +164,6 @@
     "SELECT_RETURN_DATE": "Оберіть дату повернення",
     "ESTIMATED_PRICES_SHOWN_IN" : "Орієнтовні ціни, вказані в",
     "DONE" : "Готово",
-    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Оберіть країну поїздки"
+    "SELECT_THE_COUNTRY_OF_TRAVEL" : "Оберіть країну поїздки",
+    "POLICY_ISSUED_BEFORE_TRIP" : "Поліс можна оформити  до початку поїздки"
 }
