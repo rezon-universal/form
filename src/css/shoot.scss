@@ -2466,7 +2466,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             background: linear-gradient(90deg, #7334d2 0, #3e1c7a 100%);
             content: "";
             display: block;
-            width: 100vw;
+            width: 110vw;
             height: 100%;
             position: absolute;
             top: 0;
@@ -2650,9 +2650,9 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
         .remark {
             color: #fff;
+            line-height: 120%;
             margin-bottom: 10px;
-            opacity: 0.8;
-            text-align: center;
+            text-align: left;
             width: 100%;
         }
     }
@@ -2675,6 +2675,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             .find {
                 flex-basis: 20%;
                 max-width: 20%;
+            }
+
+            .remark {
+                margin-left: 40%;
             }
         }
     }
@@ -2734,6 +2738,10 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
     #rezon-forms .fields-container.extended .field.date + .date {
         margin-right: 0;
+    }
+
+    #rezon-forms .insurance-form .fields-container .field.find {
+        order: initial;
     }
 }
 
