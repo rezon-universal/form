@@ -164,5 +164,5 @@
     "ESTIMATED_PRICES_SHOWN_IN" : "Ориентировочные цены, указаны в",
     "DONE" : "Готово",
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Выберите страну поездки",
-    "POLICY_ISSUED_BEFORE_TRIP" : "Полис можно оформить строго до начала поездки"
+    "POLICY_ISSUED_BEFORE_TRIP" : "Полис можно оформить до начала поездки"
 }
