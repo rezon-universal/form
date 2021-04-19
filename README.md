@@ -12,6 +12,7 @@
 - [Демо формы поиска ЖД билетов](https://github.com/rezon-universal/form/blob/master/demo/rail/demo.html)
 - [Демо формы поиска автобусов](https://github.com/rezon-universal/form/blob/master/demo/buses/demo.html)
 - [Демо формы поиска отелей](https://github.com/rezon-universal/form/blob/master/demo/hotels/demo.html)
+- [Демо формы поиска страховок](https://github.com/rezon-universal/form/blob/master/demo/insurances/demo.html)
 
 
 Для подключения формы необходимо произвести следующие действия:
