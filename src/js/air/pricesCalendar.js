@@ -35,6 +35,7 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
                 From: this.CityFrom,
                 To: this.CityTo,
                 DateThere: new Intl.DateTimeFormat('ru-Ru').format(this.options.avia.defaultDateThere)
+                    .replace(/[^\.\d]/g, '')
             }).then((value)=>{
                 this.setLoading(type, false);
                 this.setAttributes(type, value);

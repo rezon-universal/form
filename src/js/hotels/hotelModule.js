@@ -460,8 +460,8 @@ module.exports = class hotelModule extends formModuleBase {
                             year: 'numeric'
                         };
     
-                        let checkIn = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkIn);
-                        let checkOut = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkOut);
+                        let checkIn = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkIn).replace(/[^\.\d]/g, '');
+                        let checkOut = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkOut).replace(/[^\.\d]/g, '');
     
     
                         const formData = {
