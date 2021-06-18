@@ -433,6 +433,7 @@ module.exports = class insurancesModule extends formModuleBase {
         return new InsurancesFormSaverData(this);
     }
     getCurrentFormDataName() {
+        if (!!this.options.widgetCode) return undefined;
         return 'InsurancesFormSaverData';
     }
 }
