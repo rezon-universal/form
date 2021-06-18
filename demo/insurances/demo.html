@@ -19,23 +19,25 @@
     <div class="wings" id="rezon-forms">
         <div class="rez-forms container">
             <form class="rezon-form unload insurance-form" role="form" id="insurances-form-shoot" autocomplete="off" v-on:submit="submitHandler">
-    <div class="fields-container">
-        <div class="field station from">
+    <div v-show="widgetCode === 'kmu'" style="display: none;">
+        <h2>{{ locale('TRAVEL_INSURANCE_IN_UKRAINE') }}</h2>
+    </div>
+    <div :class="['fields-container', {'kmu': widgetCode === 'kmu'}]">
+        <div v-if="widgetCode !== 'kmu'" class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
                 {{locale("SELECT_THE_COUNTRY_OF_TRAVEL")}}
                 <span class="link-right v-hide"></span>
             </label>
             <div class="control-field">
-                <insurances-input 
-                    name="CountryCode" 
-                    input-class="book-from" 
-                    v-model="insurances.Location" 
-                    :placeholder="locale('SPECIFY_COUNTRY')">
+                <insurances-input name="CountryCode"
+                                  input-class="book-from"
+                                  v-model="insurances.Location"
+                                  :placeholder="locale('SPECIFY_COUNTRY')">
                 </insurances-input>
                 <div class="error-box"></div>
             </div>
-        </div>       
+        </div>
         <div class="field date from ">
             <label class="menu-title">
                 <span class="link-left"></span>

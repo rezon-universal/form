@@ -6,7 +6,7 @@ module.exports = class validator extends validatorBase {
         var ret = true;
         var inpFrom = this.form.find("input[name='CountryCode']").first();
 
-        if ($.trim(inpFrom.val()) === "" || inpFrom.val() === "&nbsp;") {
+        if (inpFrom.length && ($.trim(inpFrom.val()) === "" || inpFrom.val() === "&nbsp;")) {
             inpFrom.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("SPECIFY_COUNTRY")).append($("<div/>").addClass("close")).slideDown(this.it._o.animationDelay);
             ret = false;
         }

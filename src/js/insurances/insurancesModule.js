@@ -19,7 +19,9 @@ module.exports = class insurancesModule extends formModuleBase {
                 DateFrom: null,
                 DateTo: null,
                 Location: new InsuranceLocation()
-            }
+            },
+            // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
+            widgetCode : null
         };  
     }
     //Получение ссылки на внешнюю форму, куда отправлять данные
@@ -299,6 +301,17 @@ module.exports = class insurancesModule extends formModuleBase {
         let it = this.it;
         let form = this.form;
         let options = this.options;
+
+        //В хеше может быть передан код виджета, km, kmu
+        if (window.location.hash !== '') {
+            options.widgetCode = window.location.hash.substring(1);
+            if (options.widgetCode === 'kmu') {
+                options.insurances.Location = new InsuranceLocation({
+                    Name: 'Ukraine',
+                    CountryCode: 'UA'
+                });
+            }
+        }
 
         let dw = new dataWork(form, it);
 
