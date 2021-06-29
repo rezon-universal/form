@@ -540,7 +540,7 @@ module.exports = class airModule extends formModuleBase {
                             value.disabled = true;
                         }
                     });
-                    if (adultCnt === 0) {
+                    if (currCount === 0) {
                         this.addPassenger('psgAdultsCnt');
                         //this.avia.passengers.hasError = true;
                         //this.avia.passengers.messages.push("VALIDATE_FORM_SEARCH_MESSAGE_2");
@@ -764,7 +764,6 @@ module.exports = class airModule extends formModuleBase {
                 if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
                 if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
 
-                this.passUpdate();
 
                 window.vue = this;
 
@@ -788,6 +787,7 @@ module.exports = class airModule extends formModuleBase {
                 if (typeof(localStorage) !== 'undefined' && localStorage.getItem("AdditionalPassenger") !== null) {
                     let history = JSON.parse(localStorage.getItem("AdditionalPassenger"));
                     for (let item of history) {    
+                        if (this.avia.passengers.types.some(t=> t.name === item.name)) continue;
                         this.avia.passengers.types.push(item);
                         this.avia.passengers.storageTypes.push(item);
 
@@ -795,12 +795,14 @@ module.exports = class airModule extends formModuleBase {
                             if(item.standartPTC === type.standartPTC) {
                                 this.avia.passengers.additionalTypes.splice(index, 1);
                             }
-                        })
+                        });
                     }
                 }
                 if (typeof(localStorage) !== 'undefined' && localStorage.getItem("pricePTCOnly") !== null) {
                     this.avia.passengers.pricePTCOnly = JSON.parse(localStorage.getItem("pricePTCOnly"));
                 }
+
+                this.passUpdate();
             }
         });
     }
