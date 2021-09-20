@@ -166,5 +166,6 @@
     "DONE" : "Готово",
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Оберіть країну поїздки",
     "POLICY_ISSUED_BEFORE_TRIP" : "Поліс можна оформити до початку поїздки",
-    "TRAVEL_INSURANCE_IN_UKRAINE": "Страхування по Україні"
+    "TRAVEL_INSURANCE_IN_UKRAINE": "Страхування по Україні",
+    "INSURANCES_MINIMUM_PERIOD": "Мінімальний період страхування, днів"
 }

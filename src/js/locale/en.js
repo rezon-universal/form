@@ -241,5 +241,6 @@
     "DONE" : "Done",
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel",
     "POLICY_ISSUED_BEFORE_TRIP" : "The policy can be issued before the start of the trip",
-    "TRAVEL_INSURANCE_IN_UKRAINE": "Travel Insurance in Ukraine"
+    "TRAVEL_INSURANCE_IN_UKRAINE": "Travel Insurance in Ukraine",
+    "INSURANCES_MINIMUM_PERIOD": "Minimum insurance period, days"
 }

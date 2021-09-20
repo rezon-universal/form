@@ -2655,6 +2655,13 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             text-align: left;
             width: 100%;
         }
+
+        .calendar-footer {
+            background: #fcf8e3;
+            color: #8a6d3b;
+            padding: 10px 10px 15px;
+            text-align: center;
+        }
     }
 }
 
@@ -3053,6 +3060,14 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 flex-basis: auto;
                 max-width: 100%;
                 margin-bottom: 0;
+            }
+
+            .calendar-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 10;
             }
         }
 

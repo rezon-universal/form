@@ -18,7 +18,9 @@ module.exports = class insurancesModule extends formModuleBase {
             insurances: {
                 DateFrom: null,
                 DateTo: null,
-                Location: new InsuranceLocation()
+                Location: new InsuranceLocation(),
+                DaysShift: 1,
+                MinimumPeriod: 1
             },
             // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
             widgetCode : null
@@ -173,23 +175,28 @@ module.exports = class insurancesModule extends formModuleBase {
                     todayDate.setHours(0, 0, 0, 0);
                     return todayDate;
                 },
-             
                 insurancesMinDate: function () {
-                    return new Date(this.today.getTime());
+                    // конвертируем в милисекунды и обратно чтобы отвязать от переменной
+                    var insurancesMinDate = new Date(this.today.getTime());
+                    return new Date(insurancesMinDate.setDate(insurancesMinDate.getDate() + this.insurances.DaysShift));
+                    //return new Date(this.today.getTime());
                 },
                 insurancesMaxDate: function () {
                     var insurancesMaxDate = new Date(this.today.getTime());
-                    insurancesMaxDate.setDate(insurancesMaxDate.getDate() + 365);
+                    insurancesMaxDate.setDate(insurancesMaxDate.getDate() + 365 + this.insurances.DaysShift);
                     return insurancesMaxDate;
                 },
                 insurancesDefaultDate: function () {
                     var defaultDate = new Date();
-                    defaultDate.setDate(defaultDate.getDate() + 0);
+                    defaultDate.setDate(defaultDate.getDate() + this.insurances.DaysShift);
                     return defaultDate;
                 },
                 insurancesDefaultBackDate: function () {
                     var defaultBackDate = new Date();
-                    defaultBackDate.setDate(defaultBackDate.getDate() + 7);
+                    var backAfter = 7;
+                    if (this.insurances.MinimumPeriod > 7) backAfter = this.insurances.MinimumPeriod;
+                    // минус один день потому что выбранные даты считаются включительно
+                    defaultBackDate.setDate(defaultBackDate.getDate() + this.insurances.DaysShift + backAfter - 1);
                     return defaultBackDate;
                 },    
 
@@ -277,6 +284,28 @@ module.exports = class insurancesModule extends formModuleBase {
                     }
                     if (value < this.dates.insurancesMinDate) {
                         this.insurances.DateTo = this.dates.insurancesMinDate;
+                    }
+
+                    if (this.insurances.DateTo) {
+                        // один день в милисекундах
+                        var one_day = 1000 * 60 * 60 * 24;
+                        var selectedDays = Math.ceil((this.insurances.DateTo.getTime() - this.insurances.DateFrom.getTime()) / one_day);
+                        // минус один день потому что выбранные даты считаются включительно
+                        var count = this.insurances.MinimumPeriod - selectedDays - 1;
+
+                        // если выбранный период меньше минимального добавляем один день
+                        // без цыкла потому что изменение даты тригерит повторный вызов
+                        if (count > 0) {
+                            if (this.insurances.DateTo.getTime() < this.dates.insurancesMaxDate.getTime()) {
+                                // если конечная дата меньше максимальной, добавляем день после
+                                this.insurances.DateTo = new Date(this.insurances.DateTo.setDate(this.insurances.DateTo.getDate() + 1));
+                            } else {
+                                // если конечная дата равна максимальной, добавляем день перед
+                                this.insurances.DateFrom = new Date(this.insurances.DateFrom.setDate(this.insurances.DateFrom.getDate() - 1));
+                            }
+
+                            // TODO! повторно открыть календарь чтобы пользователь видел как изменлись даты с учетом минимального периода ?
+                        }
                     }
                 }
             },

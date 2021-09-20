@@ -51,6 +51,19 @@
                                    :locale="locale"
                                    :update-page-date-on-select="true"
                                    :page-date-stamp="pageDateStamp">
+                        <template v-if="insurances.MinimumPeriod > 1" slot="bottom" slot-scope="scopeSlot">
+                            <div class="calendar-footer">
+                                <div>{{ locale('INSURANCES_MINIMUM_PERIOD') }}:&nbsp;<span>{{ insurances.MinimumPeriod }}</span></div>
+                            </div>
+						
+							<div class="popup-footer">
+								<div class="close-btn">
+									<a href="#" v-on:click.prevent="hideCalendar">
+										<span>{{locale('DONE')}}</span>
+									</a>
+								</div>
+							</div>
+                        </template>
                     </d-date-picker>
                 </div>
             </div>
@@ -68,6 +81,19 @@
                                    :locale="locale"
                                    popup-position-binded-to="DateFrom"
                                    :page-date-stamp="pageDateStamp">
+                        <template v-if="insurances.MinimumPeriod > 1" slot="bottom" slot-scope="scopeSlot">
+                            <div class="calendar-footer">
+                                <div>{{ locale('INSURANCES_MINIMUM_PERIOD') }}:&nbsp;<span>{{ insurances.MinimumPeriod }}</span></div>
+                            </div>
+						
+							<div class="popup-footer">
+								<div class="close-btn">
+									<a href="#" v-on:click.prevent="hideCalendar">
+										<span>{{locale('DONE')}}</span>
+									</a>
+								</div>
+							</div>
+                        </template>
                     </d-date-picker>
                 </div>
             </div>
