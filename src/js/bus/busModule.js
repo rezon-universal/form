@@ -385,7 +385,7 @@ module.exports = class busModule extends formModuleBase {
                     if (data.length > 0) {
                         ret.push(
                             {
-                                key: $("<span class='country-separator'><small>" + data[0].CountryName + "</small><span>"),
+                                key: $("<span class='country-separator'><small>" + data[0].CountryCode + "</small><span>"),
                                 value: undefined
                             });
                     }
