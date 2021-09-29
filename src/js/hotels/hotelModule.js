@@ -44,8 +44,8 @@ module.exports = class hotelModule extends formModuleBase {
     //Получить подсвеченные даты в датапикере
     datepickerGetHighlight() {
         return {
-            from: this.options.hotel.checkIn,
-            to: this.options.hotel.checkOut
+            from: this.options.hotel.checkIn[0],
+            to: this.options.hotel.checkOut[0]
         };
     }
     //Установка запрещенных дат в датапикере
@@ -60,7 +60,7 @@ module.exports = class hotelModule extends formModuleBase {
         var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
         if (datepicker.name === 'CheckIn' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
-            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='CheckOut']");
+            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='CheckOut']").siblings(".book-date");
 
             setTimeout(function () {
                 nextDatePick.focus();
@@ -405,8 +405,8 @@ module.exports = class hotelModule extends formModuleBase {
                     vue.$emit("hotelCityUpdate", name, cityItem);
                 },
                 clearHotelForm: function () {
-                    this.hotel.checkIn = this.hotelDefaultCheckIn;
-                    this.hotel.checkOut = this.hotelDefaultCheckOut;
+                    this.hotel.checkIn = [this.hotelDefaultCheckIn];
+                    this.hotel.checkOut = [this.hotelDefaultCheckOut];
                     this.hotel.cityFrom = new HotelCityItem();
                     this.hotel.cityTo = new HotelCityItem();
                     this.hotel.nationalityName = this.hotel.defaultNationalityName;
@@ -460,8 +460,8 @@ module.exports = class hotelModule extends formModuleBase {
                             year: 'numeric'
                         };
     
-                        let checkIn = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkIn).replace(/[^\.\d]/g, '');
-                        let checkOut = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkOut).replace(/[^\.\d]/g, '');
+                        let checkIn = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkIn[0]).replace(/[^\.\d]/g, '');
+                        let checkOut = new Intl.DateTimeFormat('ru-Ru', options).format(this.hotel.checkOut[0]).replace(/[^\.\d]/g, '');
     
     
                         const formData = {
@@ -489,43 +489,49 @@ module.exports = class hotelModule extends formModuleBase {
                     var tempDate = new Date(this.dates.hotelMaxDate);
                     tempDate.setDate(this.dates.hotelMaxDate.getDate() - 1);
 
-                    if (value > tempDate)
-                        this.hotel.checkIn = tempDate;
+                    value.forEach((x, index)=> {
+                        if (x > tempDate)
+                            this.$set(this.hotel.checkIn, index, tempDate);
 
-                    if (value < this.dates.hotelMinDate)
-                        this.hotel.checkIn = this.dates.hotelMinDate;
+                        if (x < this.dates.hotelMinDate)
+                            this.$set(this.hotel.checkIn, index, this.dates.hotelMinDate);
 
-                    if (this.hotel.checkIn >= this.hotel.checkOut) {
-                        tempDate = new Date(this.hotel.checkIn);
-                        tempDate.setDate(this.hotel.checkIn.getDate() + 1);
-                        this.hotel.checkOut = tempDate;
-                    }
+                        if (this.hotel.checkIn[0] >= this.hotel.checkOut[0]) {
+                            tempDate = new Date(this.hotel.checkIn[0]);
+                            tempDate.setDate(this.hotel.checkIn[0].getDate() + 1);
+                            this.$set(this.hotel.checkOut, 0, tempDate);
+                        }
+                    });
+
                 },
                 'hotel.checkOut': function (value) {
                     var tempDate = new Date(this.dates.hotelMinDate);
                     tempDate.setDate(this.dates.hotelMinDate.getDate() + 1);
 
-                    if (value > this.dates.hotelMaxDate)
-                        this.hotel.checkOut = this.dates.hotelMaxDate;
+                    value.forEach((x, index)=> {
 
-                    if (value < tempDate)
-                        this.hotel.checkOut = tempDate;
+                        if (x > this.dates.hotelMaxDate)
+                            this.$set(this.hotel.checkOut, index, this.dates.hotelMaxDate);
 
-                    if (this.hotel.checkOut <= this.hotel.checkIn) {
-                        tempDate = new Date(this.hotel.checkOut);
-                        tempDate.setDate(this.hotel.checkOut.getDate() - 1);
-                        this.hotel.checkIn = tempDate;
-                    }
-                   
-                    let checkInDate = new Date(this.hotel.checkIn);
-                    if(checkInDate.setDate(this.hotel.checkIn.getDate() + 30) < this.hotel.checkOut) {
-                        this.hotel.Reservations = true;
-                        let errorBox = $("input[name='CheckOut']").first();
-                        errorBox.closest(".date.to").addClass("has-error").find(".error-box").text(this.locale("RESERVATIONS_LONGER")).append($("<div/>").addClass("close")).slideDown();
-                    } else {
-                        this.hotel.Reservations = false;
-                        this.removeError(".date.to", ".error-box");
-                    }
+                        if (value < tempDate)
+                            this.$set(this.hotel.checkOut, index, tempDate);
+
+                        if (this.hotel.checkOut[0] <= this.hotel.checkIn[0]) {
+                            tempDate = new Date(this.hotel.checkOut[0]);
+                            tempDate.setDate(this.hotel.checkOut[0].getDate() - 1);
+                            this.$set(this.hotel.checkIn, 0, tempDate);
+                        }
+                       
+                        let checkInDate = new Date(this.hotel.checkIn[0]);
+                        if (checkInDate.setDate(this.hotel.checkIn[0].getDate() + 30) < this.hotel.checkOut[0]) {
+                            this.hotel.Reservations = true;
+                            let errorBox = $("input[name='CheckOut']").first();
+                            errorBox.closest(".date.to").addClass("has-error").find(".error-box").text(this.locale("RESERVATIONS_LONGER")).append($("<div/>").addClass("close")).slideDown();
+                        } else {
+                            this.hotel.Reservations = false;
+                            this.removeError(".date.to", ".error-box");
+                        }
+                    });
 
                 },
                 'hotel.nationalityName': function(value) {
@@ -539,9 +545,9 @@ module.exports = class hotelModule extends formModuleBase {
                 this.dates.hotelMinDate = this.hotelMinDate;
                 this.dates.hotelMaxDate = this.hotelMaxDate;
               
-                if (!this.hotel.checkIn) this.hotel.checkIn = this.hotelDefaultCheckIn;
-                if (!this.hotel.checkOut) this.hotel.checkOut = this.hotelDefaultCheckOut;
-                else if (this.hotel.checkOut < this.hotel.checkIn)
+                if (!this.hotel.checkIn) this.hotel.checkIn = [this.hotelDefaultCheckIn];
+                if (!this.hotel.checkOut) this.hotel.checkOut = [this.hotelDefaultCheckOut];
+                else if (this.hotel.checkOut[0] < this.hotel.checkIn[0])
                     this.hotel.checkOut = this.hotel.checkIn;
 
                 window.vue = this;
@@ -684,7 +690,7 @@ module.exports = class hotelModule extends formModuleBase {
                 it.extra.closeField(field);
                 vue.updateCityTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
-                    var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CheckIn']")
+                    var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CheckIn']").siblings(".book-date");
                     setTimeout(function () {
                         dp.focus();
                     }, 100);

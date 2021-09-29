@@ -26,7 +26,7 @@ module.exports = class busModule extends formModuleBase {
                 formTypes: routeTypes,
                 formType: routeTypes[0],
                 Date: null,
-                BackDate: null,
+                //BackDate: null,
                 LocationFrom: new BusLocation(),
                 LocationTo: new BusLocation()
             }
@@ -40,8 +40,8 @@ module.exports = class busModule extends formModuleBase {
     datepickerGetHighlight() {
         if (this.options.buses.formType.value === 'roundtrip') {
             return {
-                from: this.options.buses.Date,
-                to: this.options.buses.BackDate
+                from: this.options.buses.Date.length ? this.options.buses.Date[0] : undefined,
+                //to: this.options.buses.BackDate.length ? this.options.buses.BackDate[0] : undefined
             }
         }
         return {};
@@ -259,8 +259,8 @@ module.exports = class busModule extends formModuleBase {
 
                 },
                 clearBusForm: function () {
-                    this.buses.Date = this.busesDefaultDate;
-                    this.buses.dateBack = this.busesDefaultBackDate;
+                    this.buses.Date = [this.busesDefaultDate];
+                    //this.buses.BackDate = this.busesDefaultBackDate;
                     this.buses.cityFrom = new BusLocation();
                     this.buses.cityTo = new BusLocation();
                     var model = this;
@@ -286,7 +286,7 @@ module.exports = class busModule extends formModuleBase {
                     const formData = {
                         LocationFromId: this.buses.LocationFrom.Id,
                         LocationToId: this.buses.LocationTo.Id,
-                        Date: this.buses.Date,
+                        Date: this.buses.Date[0]
                     }
 
                     if (local.options.projectUrl.startsWith("/") && typeof window.main !== 'undefined' && window.main.bus != undefined && window.main.bus.searchForm != undefined) {
@@ -302,45 +302,46 @@ module.exports = class busModule extends formModuleBase {
             },
             watch: {
                 'buses.Date': function (value) {
-                    if (value > this.buses.BackDate) {
-                        this.buses.BackDate = value;
-                    }
-                    if (value > this.dates.busesMaxDate) {
-                        this.buses.Date = this.dates.busesMaxDate;
-                    }
-                    if (value < this.dates.busesMinDate) {
-                        this.buses.Date = this.dates.busesMinDate;
-                    }
+                    value.forEach((x, index)=> {
+                        //if (x > this.buses.BackDate) {
+                        //    this.buses.BackDate = value;
+                        //}
+                        if (x > this.dates.busesMaxDate) {
+                            this.$set(this.buses.Date, index, this.dates.busesMaxDate);
+                        }
+                        if (x < this.dates.busesMinDate) {
+                            this.$set(this.buses.Date, index, this.dates.busesMinDate);
+                        }
+                    });
                 },
-                'buses.BackDate': function (value) {
-                    if (value < this.buses.Date) {                        
-                        this.buses.Date = value;
-                    }
-                    if (value > this.dates.busesMaxDate) {
-                        this.buses.BackDate = this.dates.busesMaxDate;
-                    }
-                    if (value < this.dates.busesMinDate) {
-                        this.buses.BackDate = this.dates.busesMinDate;
-                    }
-                }
+                //'buses.BackDate': function (value) {
+                //    if (value < this.buses.Date) {                        
+                //        this.buses.Date = value;
+                //    }
+                //    if (value > this.dates.busesMaxDate) {
+                //        this.buses.BackDate = this.dates.busesMaxDate;
+                //    }
+                //    if (value < this.dates.busesMinDate) {
+                //        this.buses.BackDate = this.dates.busesMinDate;
+                //    }
+                //}
             },
             created: function () {
                 //Global variable
                 this.dates.busesMinDate = this.busesMinDate;
                 this.dates.busesMaxDate = this.busesMaxDate;
               
-                if (!this.buses.Date)
+                if (!this.buses.Date || !this.buses.Date.length)
                 {
-                    this.buses.Date = this.busesDefaultDate;
+                    this.buses.Date = [this.busesDefaultDate];
                 }
-                if (!this.buses.BackDate && this.buses.formType === "roundtrip")
-                {
-                    this.buses.BackDate = this.busesDefaultBackDate;
-                }
-                else if (this.buses.BackDate < this.buses.Date)
-                    this.buses.BackDate = this.buses.Date;
+                //if (!this.buses.BackDate && this.buses.formType === "roundtrip")
+                //{
+                //    this.buses.BackDate = this.busesDefaultBackDate;
+                //}
+                //else if (this.buses.BackDate < this.buses.Date)
+                //    this.buses.BackDate = this.buses.Date;
 
-           
 
                 window.vue = this;
             }
@@ -438,7 +439,7 @@ module.exports = class busModule extends formModuleBase {
                             break;
                         case "LocationToId":
                             //Focus TODO
-                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='Date']");
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='Date']").siblings(".book-date");
                             setTimeout(function () {
                                 dp.focus();
                             }, 100);

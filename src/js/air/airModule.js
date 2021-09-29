@@ -45,8 +45,8 @@ module.exports = class airModule extends formModuleBase {
                 enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
                 enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes, 
                 enabledDateRange: 3,
-                defaultDateThere: null, // dd.MM.yyyy
-                defaultDateBack: null, // dd.MM.yyyy
+                dateThere: null, // [dd.MM.yyyy]
+                dateBack: null, // [dd.MM.yyyy]
                 plusDaysShift: 1, // -1 - 10
                 maxDaysSearch: 360, // 1 - 360
                 disabledDatesFrom: [],
@@ -89,10 +89,17 @@ module.exports = class airModule extends formModuleBase {
         return this.it.extra.remoteUrl() + "/AirTickets/ModuleSearch";
     }
     datepickerGetHighlight() {
+        // Если вылет туда -- диапазон --- подсвечиваем диапазон "туда"
+        if (this.options.avia.dateThere.length > 1) {
+            return {
+                from: this.options.avia.dateThere[0],
+                to: this.options.avia.dateThere[1]
+            }
+        }
         if (this.options.avia.formType.value === 'roundtrip') {
             return {
-                from: this.options.avia.defaultDateThere,
-                to: this.options.avia.defaultDateBack
+                from: this.options.avia.dateThere[0],
+                to: this.options.avia.dateBack[0]
             }
         }
         return {};
@@ -113,7 +120,7 @@ module.exports = class airModule extends formModuleBase {
         if (datepicker.name === 'book_from_date') {
             if (datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null) {
                 var el = $(datepicker.$el);
-                var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']");
+                var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='book_to_date']").siblings(".book-date");
 
                 setTimeout(function () {
                     nextDatePick.focus();
@@ -440,7 +447,12 @@ module.exports = class airModule extends formModuleBase {
                     this.avia.formType = routeTypes[index];
                     if (this.avia.formType.value === 'roundtrip') {
                         this.avia.segmentsCount = 2;
-                        this.avia.defaultDateBack = new Date(this.avia.defaultDateBack);
+                        //Добавляем +6 дней от даты туда
+                        this.avia.dateBack = [...this.avia.dateThere].map(d=> {
+                            var newDate = new Date(d.getTime());
+                            newDate.setDate(newDate.getDate() + 6);
+                            return newDate;
+                        });
                     } else {
                         this.avia.segmentsCount = 1;
                     }
@@ -449,7 +461,7 @@ module.exports = class airModule extends formModuleBase {
                     }
                     $(document).trigger("RouteTypeChange.MapBridge", [this.avia.formType]);
                     if (this.avia.formType.value === 'route') {
-                        //Для сложного маршрута сразу добавляем второй лег, иначе в сложном марщруте нет смысла
+                        //Для сложного маршрута сразу добавляем второй лег, иначе в сложном маршруте нет смысла
                         this.addSegment();
                     }
 
@@ -460,9 +472,9 @@ module.exports = class airModule extends formModuleBase {
                 },
                 clearForm: function () {
                     this.avia.aviFrom = new AirportItem();
-                    this.avia.defaultDateThere = this.aviaDefaultDateThere;
+                    this.avia.dateThere = [this.aviaDefaultDateThere];
                     this.avia.aviTo = new AirportItem();
-                    this.avia.defaultDateBack = this.aviaDefaultDateBack;
+                    this.avia.dateBack = [this.aviaDefaultDateBack];
                     this.avia.formExtended = false;
                     //this.avia.multyRoutes = [];
                     //this.avia.segmentsCount = 0; //??  = 2
@@ -566,7 +578,7 @@ module.exports = class airModule extends formModuleBase {
                     if (this.avia.multyRoutes.length < this.avia.maxRoutesCount) {
                         var length = this.avia.multyRoutes.length;
                         var obj = new EmptyRouteItem();
-                        obj.defaultDateThere = this.avia.defaultDateThere;
+                        obj.dateThere = [...this.avia.dateThere];
                         if (length === 0) {
                             var avi = $.extend({}, this.avia.aviTo);
                             obj.aviFrom = avi;
@@ -596,13 +608,13 @@ module.exports = class airModule extends formModuleBase {
                         //Первый маршрут не числится как маршрут :(
                         if (i === -1) {
                             currRoute = new EmptyRouteItem();
-                            currRoute.defaultDateThere = this.avia.defaultDateThere;
+                            currRoute.dateThere = [...this.avia.dateThere];
                         }
                         let nextRoute = (i + 1) < length ? this.avia.multyRoutes[i + 1] : null;
                         if (nextRoute) {
-                            nextRoute.minDate = currRoute.defaultDateThere;
-                            if (nextRoute.minDate > nextRoute.defaultDateThere) {
-                                nextRoute.defaultDateThere = nextRoute.minDate;
+                            nextRoute.minDate = currRoute.dateThere[0];
+                            if (nextRoute.minDate > nextRoute.dateThere[0]) {
+                                nextRoute.dateThere = [nextRoute.minDate];
                             }
                         }
                     }
@@ -632,7 +644,7 @@ module.exports = class airModule extends formModuleBase {
                 },
                 selectDateToCalendar : function() {
                     Vue.nextTick(function () {
-                        $('[name="book_to_date"]').focus();
+                        $('[name="book_to_date"]').siblings(".book-date").focus();
                     });
                 },
                 loadAirVList: function() {
@@ -710,35 +722,52 @@ module.exports = class airModule extends formModuleBase {
                 loadPrices: function(type) {
                     if (!local.it.pricesCalendar) return;
                     local.it.pricesCalendar.load(type);                    
+                },
+                //Получить большую дату из диапазона
+                getMaxDateRange: function(datesArray) {
+                    if (datesArray == undefined || !datesArray.length) return undefined;
+                    if (datesArray.length === 1) return datesArray[0];
+                    return datesArray[1];
+                },
+                //Получить меньшую дату из диапазона
+                getMinDateRange: function(datesArray) {
+                    if (datesArray == undefined || !datesArray.length) return undefined;
+                    if (datesArray.length === 1) return datesArray[0];
+                    return datesArray[0];
                 }
             },
             watch: {
-                'avia.defaultDateThere': function (value) {
-                    if (value > this.avia.defaultDateBack) {
-                        this.avia.defaultDateBack = value;
-                    }
-                    if (value > this.dates.airMaxDate) {
-                        this.avia.defaultDateThere = this.dates.airMaxDate;
-                    }
-                    if (value < this.dates.airMinDate) {
-                        this.avia.defaultDateThere = this.dates.airMinDate;
-                    }
-                },
-                'avia.defaultDateBack': function (value) {
-                    if (value < this.avia.defaultDateThere) {
-                        if (this.avia.formType.value === 'roundtrip') {
-                            this.avia.defaultDateThere = value;
-                        } else if (this.avia.formType.value === 'oneway') {
-                            this.avia.defaultDateBack = this.avia.defaultDateThere;
-                            return;
+                'avia.dateThere': function (value) {
+                    var currentMinValue = this.getMinDateRange(value);
+                    
+                    this.avia.dateBack.forEach((v, index)=> {
+                        if (currentMinValue > v) {
+                            this.$set(this.avia.dateBack, index, currentMinValue);
                         }
+                    });
+                    value.forEach((v, index)=> {
+                        if (v > this.dates.airMaxDate) {
+                            this.$set(this.avia.dateThere, index, this.dates.airMaxDate);
+                        }
+                        if (v < this.dates.airMinDate) {
+                            this.$set(this.avia.dateThere, index, this.dates.airMinDate);
+                        }
+                    });
+                },
+                'avia.dateBack': function (value) {
+                    var currentMaxValue = this.getMaxDateRange(value);
+                    if (this.avia.dateThere[0] > currentMaxValue) {
+                        this.$set(this.avia.dateThere, 0, currentMaxValue);
                     }
-                    if (value > this.dates.airMaxDate) {
-                        this.avia.defaultDateBack = this.dates.airMaxDate;
-                    }
-                    if (value < this.dates.airMinDate) {
-                        this.avia.defaultDateBack = this.dates.airMinDate;
-                    }
+                    value.forEach((dateBack, indexBack)=> {
+                        
+                        if (dateBack > this.dates.airMaxDate) {
+                            this.$set(this.avia.dateBack, indexBack, this.dates.airMaxDate);
+                        }
+                        if (dateBack < this.dates.airMinDate) {
+                            this.$set(this.avia.dateBack, indexBack, this.dates.airMinDate);
+                        }
+                    });
                 },
                 'avia.passengers.pricePTCOnly': function(value) {
                     typeof(localStorage) !== 'undefined' && localStorage.setItem('pricePTCOnly', JSON.stringify(value));
@@ -761,9 +790,9 @@ module.exports = class airModule extends formModuleBase {
                         }
                     }
                 }
-                if (!this.avia.defaultDateThere) this.avia.defaultDateThere = this.aviaDefaultDateThere;
-                if (!this.avia.defaultDateBack) this.avia.defaultDateBack = this.aviaDefaultDateBack;
-
+                if (!this.avia.dateThere) this.avia.dateThere = [this.aviaDefaultDateThere];
+                if (!this.avia.dateBack) this.avia.dateBack = [this.aviaDefaultDateBack];
+                
 
                 window.vue = this;
 
@@ -938,7 +967,7 @@ module.exports = class airModule extends formModuleBase {
                             $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
                         } else if ($(this).is(".book-to")) {
                             //Фокус на дату вылета
-                            var dp = $(this).closest(".multy-route, .fields-container").find('.date:first').find("input[name^='book_from_']");
+                            var dp = $(this).closest(".multy-route, .fields-container").find('.date:first').find("input[name^='book_from_']").siblings(".book-date");
 
                             setTimeout(function () {
                                 dp.focus();

@@ -27,6 +27,9 @@
       -ms-user-select: none;
           user-select: none;
 }
+.dvdp-datepicker__calendar .calendar-month {
+  font-size: 0px;
+}
 .dvdp-datepicker__calendar header {
   display: block;
   line-height: 40px;
@@ -37,6 +40,7 @@
 }
 .dvdp-datepicker__calendar header .day__month_btn {
   text-align: center;
+  font-size: 14px;
 }
 .dvdp-datepicker__calendar header .monthes-select {
   position: absolute;
@@ -47,6 +51,7 @@
   opacity: 0;
   width: 100%;
   cursor: pointer;
+  font-size: 14px;
 }
 .dvdp-datepicker__calendar header .prev,
 .dvdp-datepicker__calendar header .next {
@@ -54,11 +59,11 @@
   background: #fff;
   border-radius: 50%;
   border: 1px solid #ccc;
-  display: -webkit-box;
   display: flex;
   width: 40px;
   height: 40px;
   top: 150px;
+  z-index: 1;
 }
 .dvdp-datepicker__calendar header .prev.disabled,
 .dvdp-datepicker__calendar header .next.disabled {
@@ -96,15 +101,16 @@
 }
 .dvdp-datepicker__calendar .disabled {
   cursor: default;
+  color: #d8d8d8;
 }
 .dvdp-datepicker__calendar .flex-rtl {
-  display: -webkit-box;
   display: flex;
   width: inherit;
   flex-wrap: wrap;
 }
 .dvdp-datepicker__calendar .cell {
   display: inline-block;
+  position: relative;
   padding: 0 5px;
   width: 14.285714285714286%;
   height: 40px;
@@ -112,16 +118,19 @@
   text-align: center;
   vertical-align: middle;
   border: 1px solid transparent;
+  font-size: 14px;
 }
 .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
 .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).month,
 .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).year {
   cursor: pointer;
 }
+@media (min-width: 576px) {
 .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
-.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
-.dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
-  border: 1px solid #4bd;
+  .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+  .dvdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+    border: 1px solid #4bd;
+}
 }
 .dvdp-datepicker__calendar .cell.selected {
   background: #4bd;
@@ -150,13 +159,74 @@
 .dvdp-datepicker__calendar .cell.grey:hover {
   background: inherit;
 }
+.dvdp-datepicker__calendar .cell.in-range {
+  background: #b1d5b1;
+}
+.dvdp-datepicker__calendar .cell.in-hover-range {
+  background: #b1d5b1;
+}
+.dvdp-datepicker__calendar .cell.range-start,
+.dvdp-datepicker__calendar .cell.range-end {
+  background: #008000;
+}
 .dvdp-datepicker__calendar .cell.day-header {
-  font-size: 75%;
+  font-size: 11px;
   white-space: nowrap;
   cursor: inherit;
 }
 .dvdp-datepicker__calendar .cell.day-header:hover {
   background: inherit;
+}
+@media (max-width: 575px) {
+.dvdp-datepicker__calendar .cell * {
+    pointer-events: none;
+}
+}
+.dvdp-datepicker__calendar .cell .range-slider-start,
+.dvdp-datepicker__calendar .cell .range-slider-end {
+  position: absolute;
+  height: 100%;
+  width: 18px;
+  top: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  cursor: w-resize;
+  z-index: 1;
+  pointer-events: auto;
+}
+.dvdp-datepicker__calendar .cell .range-slider-start .arrow,
+.dvdp-datepicker__calendar .cell .range-slider-end .arrow {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-radius: 2px;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-name: arrow;
+          animation-name: arrow;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+.dvdp-datepicker__calendar .cell .range-slider-start {
+  left: -10px;
+  padding-right: 9px;
+}
+.dvdp-datepicker__calendar .cell .range-slider-start .arrow {
+  border-left: none;
+  border-right: 7px solid #287dfa;
+  margin-left: 1px;
+}
+.dvdp-datepicker__calendar .cell .range-slider-end {
+  right: -10px;
+  padding-left: 11px;
+}
+.dvdp-datepicker__calendar .cell .range-slider-end .arrow {
+  border-right: none;
+  margin-left: -1px;
+  border-left: 7px solid #287dfa;
 }
 .dvdp-datepicker__calendar .month,
 .dvdp-datepicker__calendar .year {
@@ -178,4 +248,26 @@
 .dvdp-datepicker__calendar-button.disabled {
   color: #999;
   cursor: default;
+}
+@-webkit-keyframes arrow {
+from {
+    margin-left: 1px;
+}
+50% {
+    margin-left: -1px;
+}
+to {
+    margin-left: 1px;
+}
+}
+@keyframes arrow {
+from {
+    margin-left: 1px;
+}
+50% {
+    margin-left: -1px;
+}
+to {
+    margin-left: 1px;
+}
 }

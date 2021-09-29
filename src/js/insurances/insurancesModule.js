@@ -19,8 +19,8 @@ module.exports = class insurancesModule extends formModuleBase {
                 DateFrom: null,
                 DateTo: null,
                 Location: new InsuranceLocation(),
-                DaysShift: 1,
-                MinimumPeriod: 1
+                DaysShift: 10,
+                MinimumPeriod: 10
             },
             // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
             widgetCode : null
@@ -33,8 +33,8 @@ module.exports = class insurancesModule extends formModuleBase {
     //Получить подсвеченные даты в датапикере
     datepickerGetHighlight() {
         return {
-            from: this.options.insurances.DateFrom,
-            to: this.options.insurances.DateTo
+            from: this.options.insurances.DateFrom[0],
+            to: this.options.insurances.DateTo[0]
         };
     }
     //Установка запрещенных дат в датапикере
@@ -49,7 +49,7 @@ module.exports = class insurancesModule extends formModuleBase {
         var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
         if (datepicker.name === 'DateFrom' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
-            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='DateTo']");
+            var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='DateTo']").siblings(".book-date");
 
             setTimeout(function () {
                 nextDatePick.focus();
@@ -233,8 +233,8 @@ module.exports = class insurancesModule extends formModuleBase {
                     };
 
                     // в IE функция Intl.DateTimeFormat возвращает строку со спецсимволами, убираем лишнее регуляркой
-                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom).replace(/[^\.\d]/g, '');
-                    let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo).replace(/[^\.\d]/g, '');
+                    let dateFrom = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateFrom[0]).replace(/[^\.\d]/g, '');
+                    let dateTo = new Intl.DateTimeFormat('ru-Ru', options).format(this.insurances.DateTo[0]).replace(/[^\.\d]/g, '');
 
 
                     if (local.options.projectUrl.startsWith("/") && typeof window.main != undefined) {
@@ -265,43 +265,49 @@ module.exports = class insurancesModule extends formModuleBase {
             },
             watch: {
                 'insurances.DateFrom': function (value) {
-                    if (value > this.insurances.DateTo) {
-                        this.insurances.DateTo = value;
-                    }
-                    if (value > this.dates.insurancesMaxDate) {
-                        this.insurances.DateFrom = this.dates.insurancesMaxDate;
-                    }
-                    if (value < this.dates.insurancesMinDate) {
-                        this.insurances.DateFrom = this.dates.insurancesMinDate;
-                    }
+                    value.forEach((x, index)=> {
+                        if (x > this.insurances.DateTo[0]) {
+                            this.$set(this.insurances.DateTo, 0, x);
+                        }
+                        if (x > this.dates.insurancesMaxDate) {
+                            this.$set(this.insurances.DateFrom, index, this.dates.insurancesMaxDate);
+                        }
+                        if (x < this.dates.insurancesMinDate) {
+                            this.$set(this.insurances.DateFrom, index, this.dates.insurancesMinDate);
+                        }
+                    });
                 },
                 'insurances.DateTo': function (value) {
-                    if (value < this.insurances.DateFrom) {                        
-                        this.insurances.DateFrom = value;
-                    }
-                    if (value > this.dates.insurancesMaxDate) {
-                        this.insurances.DateTo = this.dates.insurancesMaxDate;
-                    }
-                    if (value < this.dates.insurancesMinDate) {
-                        this.insurances.DateTo = this.dates.insurancesMinDate;
-                    }
 
-                    if (this.insurances.DateTo) {
+                    value.forEach((x, index)=> {
+                        if (x < this.insurances.DateFrom[0]) {
+                            this.$set(this.insurances.DateFrom, 0, x);
+                        }
+                        if (x > this.dates.insurancesMaxDate) {
+                            this.$set(this.insurances.DateTo, index, this.dates.insurancesMaxDate);
+                        }
+                        if (x < this.dates.insurancesMinDate) {
+                            this.$set(this.insurances.DateTo, index, this.dates.insurancesMinDate);
+                        }
+                    });
+
+
+                    if (this.insurances.DateTo.length && this.insurances.DateTo[0]) {
                         // один день в милисекундах
                         var one_day = 1000 * 60 * 60 * 24;
-                        var selectedDays = Math.ceil((this.insurances.DateTo.getTime() - this.insurances.DateFrom.getTime()) / one_day);
+                        var selectedDays = Math.ceil((this.insurances.DateTo[0].getTime() - this.insurances.DateFrom[0].getTime()) / one_day);
                         // минус один день потому что выбранные даты считаются включительно
                         var count = this.insurances.MinimumPeriod - selectedDays - 1;
 
                         // если выбранный период меньше минимального добавляем один день
                         // без цыкла потому что изменение даты тригерит повторный вызов
                         if (count > 0) {
-                            if (this.insurances.DateTo.getTime() < this.dates.insurancesMaxDate.getTime()) {
+                            if (this.insurances.DateTo[0].getTime() < this.dates.insurancesMaxDate.getTime()) {
                                 // если конечная дата меньше максимальной, добавляем день после
-                                this.insurances.DateTo = new Date(this.insurances.DateTo.setDate(this.insurances.DateTo.getDate() + 1));
+                                this.$set(this.insurances.DateTo, 0, new Date(this.insurances.DateTo[0].setDate(this.insurances.DateTo[0].getDate() + 1)));
                             } else {
                                 // если конечная дата равна максимальной, добавляем день перед
-                                this.insurances.DateFrom = new Date(this.insurances.DateFrom.setDate(this.insurances.DateFrom.getDate() - 1));
+                                this.$set(this.insurances.DateFrom, 0, new Date(this.insurances.DateFrom[0].setDate(this.insurances.DateFrom[0].getDate() - 1)));
                             }
 
                             // TODO! повторно открыть календарь чтобы пользователь видел как изменлись даты с учетом минимального периода ?
@@ -315,10 +321,10 @@ module.exports = class insurancesModule extends formModuleBase {
                 this.dates.insurancesMaxDate = this.insurancesMaxDate;
               
                 if (!this.insurances.DateFrom) {
-                    this.insurances.DateFrom = this.insurancesDefaultDate;
+                    this.insurances.DateFrom = [this.insurancesDefaultDate];
                 }
                 if (!this.insurances.DateTo) {
-                    this.insurances.DateTo = this.insurancesDefaultBackDate;
+                    this.insurances.DateTo = [this.insurancesDefaultBackDate];
                 }
 
                 window.vue = this;
@@ -411,7 +417,7 @@ module.exports = class insurancesModule extends formModuleBase {
                         var sib = field.closest("form").find("input[name='CountryCode']");
                         if (sib.val() === "") sib.siblings(".twitter-typeahead").find(".tt-input").click();
 
-                        var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateFrom']")
+                        var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='DateFrom']").siblings(".book-date");
                         setTimeout(function () {
                             dp.focus();
                         }, 100);

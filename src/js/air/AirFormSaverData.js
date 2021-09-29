@@ -11,8 +11,8 @@ module.exports = class AirFormSaverData extends FormSaverDataBase {
 
             this.aviFrom = new AirportItem(airOptions.aviFrom.IataCode, airOptions.aviFrom.CountryCode, airOptions.aviFrom.CountryName, airOptions.aviFrom.Airport);
             this.aviTo = new AirportItem(airOptions.aviTo.IataCode, airOptions.aviTo.CountryCode, airOptions.aviTo.CountryName, airOptions.aviTo.Airport);
-            this.dateThere = super.dateTimeToString(airOptions.defaultDateThere);
-            this.dateBack = super.dateTimeToString(airOptions.defaultDateBack);
+            this.dateThere = super.dateTimesToString(airOptions.dateThere);
+            this.dateBack = super.dateTimesToString(airOptions.dateBack);
             this.formType = airOptions.formType;
 
             this.passengersTypes = { };
@@ -29,7 +29,7 @@ module.exports = class AirFormSaverData extends FormSaverDataBase {
     }
     get IsValidForSave() {
         return (this.formType.value === 'oneway' || this.formType.value === 'roundtrip')
-            && super.parseDateTime(this.dateThere) > new Date();
+            && super.parseDateTimes(this.dateThere)[0] > new Date();
     }
 
     formatAirport(airport) {
@@ -42,9 +42,9 @@ module.exports = class AirFormSaverData extends FormSaverDataBase {
         airOptions.aviFrom = new AirportItem(this.aviFrom.IataCode, this.aviFrom.CountryCode, this.aviFrom.CountryName, this.aviFrom.Airport);
         airOptions.aviTo = new AirportItem(this.aviTo.IataCode, this.aviTo.CountryCode, this.aviTo.CountryName, this.aviTo.Airport);
         airOptions.formType = this.formType;
-        airOptions.defaultDateThere = this.parseDateTime(this.dateThere);
+        airOptions.dateThere = this.parseDateTimes(this.dateThere);
         if (this.formType.value === 'roundtrip') {
-            airOptions.defaultDateBack = this.parseDateTime(this.dateBack);
+            airOptions.dateBack = this.parseDateTimes(this.dateBack);
         }
         let it = this;
         airOptions.passengers.types.forEach(type => {

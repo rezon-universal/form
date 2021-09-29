@@ -41,8 +41,6 @@ module.exports = class validator extends validatorBase {
     isValid() {
         var ret = this.validateInput();
         ret = this.validateChilds() && ret;
-        ret = this.dateRange() && ret;
-        
         return ret;
     }
 };

@@ -34,7 +34,7 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
             this.fetchCached({
                 From: this.CityFrom,
                 To: this.CityTo,
-                DateThere: new Intl.DateTimeFormat('ru-Ru').format(this.options.avia.defaultDateThere)
+                DateThere: new Intl.DateTimeFormat('ru-Ru').format(this.options.avia.dateThere[0])
                     .replace(/[^\.\d]/g, '')
             }).then((value)=>{
                 this.setLoading(type, false);

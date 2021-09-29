@@ -47,8 +47,8 @@ module.exports = class railModule extends formModuleBase {
     datepickerGetHighlight() {
         if (this.options.railway.formType.value === 'roundtrip') {
             return {
-                from: this.options.railway.dateThere,
-                to: this.options.railway.dateBack
+                from: this.options.railway.dateThere[0],
+                to: this.options.railway.dateBack[0]
             }
         }
         return {};
@@ -216,8 +216,8 @@ module.exports = class railModule extends formModuleBase {
                     this.railway.stationTo = to;
                 },
                 clearRailForm: function () {
-                    this.railway.dateThere = new Date();
-                    this.railway.dateBack = new Date();
+                    this.railway.dateThere = [new Date()];
+                    this.railway.dateBack = [new Date()];
                     this.railway.stationFrom = new StationItem();
                     this.railway.stationTo = new StationItem();
                     this.railway.dateRange = 0;
@@ -229,6 +229,7 @@ module.exports = class railModule extends formModuleBase {
                 },
                 railTypeChanged: function (index) {
                     this.railway.formType = this.railway.formTypes[index];
+                    this.railway.dateBack = [...this.railway.dateThere];
                 },
                 hasRailResult: function () {
                     return this.railway.historyGuid !== undefined &&
@@ -240,33 +241,37 @@ module.exports = class railModule extends formModuleBase {
                 },
                 selectDateToCalendar : function() {
                     Vue.nextTick(function () {
-                        $('[name="book_to_date"]').focus();
+                        $('[name="book_to_date"]').siblings(".book-date").focus();
                     });
                 }
             },
             watch: {
                 'railway.dateThere': function (value) {
-                    if (value > this.railway.dateBack) {
-                        this.railway.dateBack = value;
-                    }
-                    if (value > this.dates.trainsMaxDate) {
-                        this.railway.dateThere = this.dates.trainsMaxDate;
-                    }
-                    if (value < this.dates.trainsMinDate) {
-                        this.railway.dateThere = this.dates.trainsMinDate;
-                    }
+                    value.forEach((x, index)=> {
+                        if (this.railway.dateBack && this.railway.dateBack.length && x > this.railway.dateBack[0]) {
+                            this.$set(this.railway.dateBack, 0, x);
+                        }
+                        if (x > this.dates.trainsMaxDate) {
+                            this.$set(this.railway.dateThere, index, this.dates.trainsMaxDate);
+                        }
+                        if (x < this.dates.trainsMinDate) {
+                            this.$set(this.railway.dateThere, index, this.dates.trainsMinDate);
+                        }
+                    });
                 },
                 'railway.dateBack': function (value) {
-                    if (value < this.railway.dateThere) {
-                        this.railway.dateThere = value;
-                    }
-                    if (value > this.dates.trainsMaxDate) {
-                        this.railway.dateBack = this.dates.trainsMaxDate;
-                    }
-                    if (value < this.dates.trainsMinDate) {
-                        this.railway.dateBack = this.dates.trainsMinDate;
-                    }
-                },
+                    value.forEach((x, index)=> {
+                        if (x < this.railway.dateThere[0]) {
+                            this.$set(this.railway.dateThere, 0, x);
+                        }
+                        if (x > this.dates.trainsMaxDate) {
+                            this.$set(this.railway.dateBack, index, this.dates.trainsMaxDate);
+                        }
+                        if (x < this.dates.trainsMinDate) {
+                            this.$set(this.railway.dateBack, index, this.dates.trainsMinDate);
+                        }
+                    });
+                }
             },
             created: function () {
                 //Global variable
@@ -277,8 +282,8 @@ module.exports = class railModule extends formModuleBase {
              
               
                 if (!this.hasRailResult()) {
-                    this.railway.dateThere = this.railwayDateThere;
-                    this.railway.dateBack = this.railwayDateBack;
+                    this.railway.dateThere = [this.railwayDateThere];
+                    this.railway.dateBack = [this.railwayDateBack];
                 }
       
 
@@ -403,7 +408,7 @@ module.exports = class railModule extends formModuleBase {
                             break;
                         case "tshi_station_to":
                             //Focus TODO
-                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']");
+                            var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='book_from_date']").siblings(".book-date");
                             setTimeout(function () {
                                 dp.focus();
                             }, 100);

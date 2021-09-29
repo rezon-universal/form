@@ -13,8 +13,8 @@ module.exports = class BusFormSaverData extends FormSaverDataBase {
             this.locationFrom = new BusLocation(busOptions.LocationFrom);
             this.locationTo = new BusLocation(busOptions.LocationTo);
             
-            this.date = super.dateTimeToString(busOptions.Date);
-            this.dateBack = super.dateTimeToString(busOptions.BackDate);
+            this.date = super.dateTimesToString(busOptions.Date);
+            this.dateBack = super.dateTimesToString(busOptions.BackDate);
             this.formType = busOptions.formType;
         }
     }
@@ -24,7 +24,7 @@ module.exports = class BusFormSaverData extends FormSaverDataBase {
             && obj.locationTo.Id === this.locationTo.Id;
     }
     get IsValidForSave() {
-        return super.parseDateTime(this.date) > new Date();
+        return super.parseDateTimes(this.date)[0] > new Date();
     }
 
     Select() {
@@ -36,9 +36,9 @@ module.exports = class BusFormSaverData extends FormSaverDataBase {
         
         busOptions.formType = this.formType;
         
-        busOptions.Date = this.parseDateTime(this.date);
+        busOptions.Date = this.parseDateTimes(this.date);
         if (this.formType.value === 'roundtrip') {
-            busOptions.dateBack = this.parseDateTime(this.dateBack);
+            busOptions.dateBack = this.parseDateTimes(this.dateBack);
         }
     }
 }

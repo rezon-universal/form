@@ -11,8 +11,8 @@ module.exports = class InsurancesFormSaverData extends FormSaverDataBase {
             let insurancesOptions = formModule.options.insurances;
             
             this.location = new InsuranceLocation(insurancesOptions.Location);
-            this.dateFrom = super.dateTimeToString(insurancesOptions.DateFrom);
-            this.dateTo = super.dateTimeToString(insurancesOptions.DateTo);
+            this.dateFrom = super.dateTimesToString(insurancesOptions.DateFrom);
+            this.dateTo = super.dateTimesToString(insurancesOptions.DateTo);
         }
     }
 
@@ -20,7 +20,7 @@ module.exports = class InsurancesFormSaverData extends FormSaverDataBase {
         return obj.location.CountryCode === this.location.CountryCode;
     }
     get IsValidForSave() {
-        return super.parseDateTime(this.dateFrom) > new Date();
+        return super.parseDateTimes(this.dateFrom)[0] > new Date();
     }
 
     Select() {
@@ -28,7 +28,7 @@ module.exports = class InsurancesFormSaverData extends FormSaverDataBase {
         let insurancesOptions = this.formModule.options.insurances;
         
         insurancesOptions.Location = new InsuranceLocation(this.location);
-        insurancesOptions.DateFrom = this.parseDateTime(this.dateFrom);
-        insurancesOptions.DateTo = this.parseDateTime(this.dateTo);
+        insurancesOptions.DateFrom = this.parseDateTimes(this.dateFrom);
+        insurancesOptions.DateTo = this.parseDateTimes(this.dateTo);
     }
 }

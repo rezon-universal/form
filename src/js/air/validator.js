@@ -30,7 +30,6 @@ module.exports = class validator extends validatorBase {
     }
     isValid() {
         var ret = this.validateDepartureArrival();
-        ret = this.dateRange() && ret;
         ret = this.validatePassengers() && ret;
 
         return ret;

@@ -7,21 +7,4 @@
         console.log('Validator base\\ Is Valid\\True');
         return true;
     }
-    
-    //Проверка даты вылета туда / обратно
-    dateRange() {
-        var ret = true;
-
-        this.form.find(".date-wrapper.with-error").removeClass("with-error");
-        this.form.find(".book-date").each(function () {
-            if ($(this).closest(".date-wrapper").length === 0) return;
-
-            if ($.trim($(this).val()) === "" || $(this).val() === "__.__.201_") {
-                $(this).closest(".date-wrapper").addClass("with-error");
-                ret = false;
-            }
-        });
-
-        return ret;
-    }
 };

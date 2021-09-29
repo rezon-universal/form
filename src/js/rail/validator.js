@@ -20,7 +20,6 @@ module.exports = class validator extends validatorBase {
     }
     isValid() {
         var ret = this.validateStations();
-        ret = this.dateRange() && ret;
         
         return ret;
     }

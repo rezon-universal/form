@@ -14,9 +14,9 @@ module.exports = class RailFormSaverData extends FormSaverDataBase {
             
             this.formType = railOptions.formType;
 
-            this.dateThere = super.dateTimeToString(railOptions.dateThere);
+            this.dateThere = super.dateTimesToString(railOptions.dateThere);
             if (this.formType.value === 'roundtrip') {
-                this.dateBack = super.dateTimeToString(railOptions.dateBack);
+                this.dateBack = super.dateTimesToString(railOptions.dateBack);
             }
         }
     }
@@ -26,7 +26,7 @@ module.exports = class RailFormSaverData extends FormSaverDataBase {
             && obj.stationTo.Code === this.stationTo.Code;
     }
     get IsValidForSave() {
-        return super.parseDateTime(this.dateThere) > new Date();
+        return super.parseDateTimes(this.dateThere)[0] > new Date();
     }
     
     formatStation(stationName) {
@@ -40,9 +40,9 @@ module.exports = class RailFormSaverData extends FormSaverDataBase {
         railOptions.stationTo = new StationItem(this.stationTo.Code, this.stationTo.Name, this.stationTo.CountryCode, this.stationTo.CountryName);
 
         railOptions.formType = this.formType;
-        railOptions.dateThere = this.parseDateTime(this.dateThere);
+        railOptions.dateThere = this.parseDateTimes(this.dateThere);
         if (this.formType.value === 'roundtrip') {
-            railOptions.dateBack = this.parseDateTime(this.dateBack);
+            railOptions.dateBack = this.parseDateTimes(this.dateBack);
         }
 
     }

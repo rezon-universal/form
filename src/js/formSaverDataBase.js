@@ -32,6 +32,9 @@
 
         return checkDateParts(day, month, year) ? new Date(year, month - 1, day) : undefined;
     }
+    parseDateTimes (strs) {
+        return [...new Set((strs || "").split('|'))].map(x=> this.parseDateTime(x)).filter(x=> !!x);
+    }
     //Преобразовать дату в dd.MM.yyyy
     dateTimeToString (dateTime) {
         var dd = dateTime.getDate();
@@ -40,6 +43,10 @@
         if (dd < 10) dd = '0' + dd;
         if (mm < 10) mm = '0' + mm;
         return dd + '.' + mm + '.' + dateTime.getFullYear();
+    }
+    dateTimesToString (array) {
+        if (!array) return undefined;
+        return array.map(x=> this.dateTimeToString(x)).join("|");
     }
     formatDate(date) {
         let aliases = ["JANUARY_SHORT", "FEBRUARY_SHORT", "MARCH_SHORT", "APRIL_SHORT", "MAY_SHORT", "JUNE_SHORT", "JULY_SHORT", "AUGUST_SHORT", "SEPTEMPER_SHORT", "OCTOBER_SHORT", "NOVEMBER_SHORT", "DECEMBER_SHORT"];

@@ -44,7 +44,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <d-date-picker v-model="avia.defaultDateThere"
+                    <d-date-picker v-model="avia.dateThere"
                                    name="book_from_date"
                                    :locale="locale"
                                    :update-page-date-on-select="true"
@@ -54,9 +54,12 @@
                                    :attributes-loading="dateAttributesThereLoading"
                                    @input="updateMultyDates()"
                                    @opened="loadPrices('there')">
-                        <template slot="top">
+                        <template slot="top" slot-scope="scopeSlot">
                             <div class="calendar-header">
                                 <div class="title">{{locale('SELECT_DEPARTURE_DATE')}}</div>
+                                <div class="botton-in-header" v-if="scopeSlot.isRange && scopeSlot.isMobile">
+                                    <a href="#" v-on:click.prevent="scopeSlot.hideCalendar()" class="done">{{locale('DONE')}}</a>
+                                </div>
                             </div>
                         </template>
                     </d-date-picker>
@@ -71,7 +74,7 @@
             </label>
             <div class="control-field">
                 <div class="date-wrapper noselect">
-                    <d-date-picker v-if="avia.formType.value==='roundtrip'" v-model="avia.defaultDateBack"
+                    <d-date-picker v-if="avia.formType.value==='roundtrip'" v-model="avia.dateBack"
                                    name="book_to_date"
                                    :locale="locale"
                                    popup-position-binded-to="book_from_date"
@@ -84,6 +87,7 @@
                             <div class="calendar-header">
                                 <div class="title">{{locale('SELECT_RETURN_DATE')}}</div>
                                 <div class="botton-in-header">
+                                    <a href="#" v-if="scopeSlot.isRange && scopeSlot.isMobile" v-on:click.prevent="scopeSlot.hideCalendar()" class="done">{{locale('DONE')}}</a>
                                     <a href="#" v-on:click.prevent="scopeSlot.hideCalendar(function(){ typeChanged(0); })">{{locale('WITHOUT_RETURN_TICKET')}}</a>
                                 </div>
                             </div>
@@ -199,13 +203,13 @@
                 </label>
                 <div class="control-field">
                     <div class="date-wrapper noselect">
-                        <d-date-picker v-model="route.defaultDateThere"
+                        <d-date-picker v-model="route.dateThere"
                                        :name="'book_from_date'+(index+2)"
                                        :locale="locale"
                                        :update-page-date-on-select="true"
                                        :page-date-stamp="pageDateStamp"
                                        @input="updateMultyDates()"
-                                       :min-date="index>0?route.minDate:avia.defaultDateThere">
+                                       :min-date="index>0?route.minDate:avia.dateThere[0]">
                         </d-date-picker>
                     </div>
                 </div>
@@ -378,7 +382,11 @@
         <div class="earlier-box">
             <a href="#" class="earlier-item" v-for="history in historyData.slice(0, 3)" v-on:click.prevent="selectHistoryItem(history)">
                 <div class="point from">
-                    <div class="point-date">{{ history.formatDate(history.parseDateTime(history.dateThere)) }}</div>
+                    <div class="point-date">
+                        <span v-for="date in history.parseDateTimes(history.dateThere)">
+                            {{ history.formatDate(date) }}
+                        </span>
+                    </div>
                     <div class="point-item">{{ history.formatAirport(history.aviFrom.Airport) }}</div>
                 </div>
                 <div class="arrow" :class="history.formType.value === 'oneway' ? 'oneway' : ''">
@@ -386,7 +394,11 @@
                     <span v-if="history.formType.value !== 'oneway'">&larr;</span>
                 </div>
                 <div class="point to">
-                    <div class="point-date" v-if="history.formType.value !== 'oneway'">{{ history.formatDate(history.parseDateTime(history.dateBack)) }}</div>
+                    <div class="point-date" v-if="history.formType.value !== 'oneway'">
+                        <span v-for="date in history.parseDateTimes(history.dateBack)">
+                            {{ history.formatDate(date) }}
+                        </span>
+                    </div>
                     <div class="point-item">{{ history.formatAirport(history.aviTo.Airport) }}</div>
                 </div>
             </a>
