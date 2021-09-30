@@ -790,8 +790,8 @@ module.exports = class airModule extends formModuleBase {
                         }
                     }
                 }
-                if (!this.avia.dateThere) this.avia.dateThere = [this.aviaDefaultDateThere];
-                if (!this.avia.dateBack) this.avia.dateBack = [this.aviaDefaultDateBack];
+                if (!this.avia.dateThere || !this.avia.dateThere.length || !this.avia.dateThere[0]) this.avia.dateThere = [this.aviaDefaultDateThere];
+                if (!this.avia.dateBack || !this.avia.dateBack.length || !this.avia.dateBack[0]) this.avia.dateBack = [this.aviaDefaultDateBack];
                 
 
                 window.vue = this;
