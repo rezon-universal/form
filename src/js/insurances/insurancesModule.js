@@ -265,12 +265,16 @@ module.exports = class insurancesModule extends formModuleBase {
             },
             watch: {
                 'insurances.DateFrom': function (value) {
+                    const milisecondsInDay = 86400000;
+                    var minDiffInMiliseconds = milisecondsInDay * (this.insurances.MinimumPeriod - 1);
+                    var maxDateFrom = new Date(this.insurances.DateTo[0].getTime() - minDiffInMiliseconds);
+
                     value.forEach((x, index)=> {
-                        if (x > this.insurances.DateTo[0]) {
-                            this.$set(this.insurances.DateTo, 0, x);
+                        if (x > maxDateFrom) {
+                            this.$set(this.insurances.DateTo, 0, new Date(x.getTime() + minDiffInMiliseconds));
                         }
                         if (x > this.dates.insurancesMaxDate) {
-                            this.$set(this.insurances.DateFrom, index, this.dates.insurancesMaxDate);
+                            this.$set(this.insurances.DateFrom, index, new Date(insurancesMaxDate.getTime() - minDiffInMiliseconds));
                         }
                         if (x < this.dates.insurancesMinDate) {
                             this.$set(this.insurances.DateFrom, index, this.dates.insurancesMinDate);
@@ -278,41 +282,21 @@ module.exports = class insurancesModule extends formModuleBase {
                     });
                 },
                 'insurances.DateTo': function (value) {
+                    const milisecondsInDay = 86400000;
+                    var minDiffInMiliseconds = milisecondsInDay * (this.insurances.MinimumPeriod - 1);
+                    var minDateTo = new Date(this.insurances.DateFrom[0].getTime() + minDiffInMiliseconds);
 
                     value.forEach((x, index)=> {
-                        if (x < this.insurances.DateFrom[0]) {
-                            this.$set(this.insurances.DateFrom, 0, x);
+                        if (x < minDateTo) {
+                            this.$set(this.insurances.DateFrom, 0, new Date(x.getTime() - minDiffInMiliseconds));
                         }
                         if (x > this.dates.insurancesMaxDate) {
                             this.$set(this.insurances.DateTo, index, this.dates.insurancesMaxDate);
                         }
                         if (x < this.dates.insurancesMinDate) {
-                            this.$set(this.insurances.DateTo, index, this.dates.insurancesMinDate);
+                            this.$set(this.insurances.DateTo, index, new Date(insurancesMinDate.getTime() + minDiffInMiliseconds));
                         }
                     });
-
-
-                    if (this.insurances.DateTo.length && this.insurances.DateTo[0]) {
-                        // один день в милисекундах
-                        var one_day = 1000 * 60 * 60 * 24;
-                        var selectedDays = Math.ceil((this.insurances.DateTo[0].getTime() - this.insurances.DateFrom[0].getTime()) / one_day);
-                        // минус один день потому что выбранные даты считаются включительно
-                        var count = this.insurances.MinimumPeriod - selectedDays - 1;
-
-                        // если выбранный период меньше минимального добавляем один день
-                        // без цыкла потому что изменение даты тригерит повторный вызов
-                        if (count > 0) {
-                            if (this.insurances.DateTo[0].getTime() < this.dates.insurancesMaxDate.getTime()) {
-                                // если конечная дата меньше максимальной, добавляем день после
-                                this.$set(this.insurances.DateTo, 0, new Date(this.insurances.DateTo[0].setDate(this.insurances.DateTo[0].getDate() + 1)));
-                            } else {
-                                // если конечная дата равна максимальной, добавляем день перед
-                                this.$set(this.insurances.DateFrom, 0, new Date(this.insurances.DateFrom[0].setDate(this.insurances.DateFrom[0].getDate() - 1)));
-                            }
-
-                            // TODO! повторно открыть календарь чтобы пользователь видел как изменлись даты с учетом минимального периода ?
-                        }
-                    }
                 }
             },
             created: function () {
