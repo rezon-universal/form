@@ -13,8 +13,7 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
         return this.options.avia.formType.value;
     }
     load (type) {
-        //Очищаем цены
-        this.setAttributes(type, {});
+        this.clear();
         if (!this.CityFrom || !this.CityTo) return;
         if (this.RouteType !== "oneway" && this.RouteType !== "roundtrip") return;
         this.setLoading(type, true);
@@ -41,6 +40,10 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
                 this.setAttributes(type, value);
             });
         }
+    }
+    clear(type) {
+        //Очищаем цены
+        this.setAttributes(type, {});
     }
     setLoading(type, isLoading){
         if (type === 'there') {

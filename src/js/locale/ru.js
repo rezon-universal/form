@@ -166,5 +166,8 @@
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Выберите страну поездки",
     "POLICY_ISSUED_BEFORE_TRIP" : "Полис можно оформить до начала поездки",
     "TRAVEL_INSURANCE_IN_UKRAINE": "Страхование по Украине",
-    "INSURANCES_MINIMUM_PERIOD": "Минимальный период страхования, дней"
+    "INSURANCES_MINIMUM_PERIOD": "Минимальный период страхования, дней",
+    "EVERYWHERE" : "Весь мир",
+    "CANNT_DECIDE_WHERE" : "Не можете определиться?",
+    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Нажмите сюда, что бы искать \"Везде\""
 }

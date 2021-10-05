@@ -56,6 +56,12 @@ module.exports = class airModule extends formModuleBase {
                 //temp
                 formTypes: routeTypes,
                 formType: routeTypes[1],
+                //Является ли форма - промо формой (вычисляемое свойство)
+                isAirPromo: false,
+                //Жестко переопределить, что текущая форма всегда является промо формой (для промо страницы), даже когда выбраны только пары городов
+                isAirPromoRewrited: undefined,
+                //Признак, что промо форма разрешена, необходим для того, что бы на главной странице отобразить надпись "искать везде"
+                isAirPromoAllowed: undefined,
                 aviFrom: new AirportItem(),
                 aviTo: new AirportItem(),
                 passengers: {
@@ -136,16 +142,20 @@ module.exports = class airModule extends formModuleBase {
     //Подключение Vue
     bindVue(bindTo, mountedCallback) {
         var local = this;
-
         //Airport typeahead input component
         Vue.component('airportInput', {
             template:
                 '<div class="inside">' +
-                '<input type="text" :placeholder="placeholder" :class="inputClasses" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder"/>' +
+                '<input type="text" :placeholder="placeholder" :class="inputClasses" v-model="item.Airport" data-local="true" @keyup="checkItem" :data-localPlaceholder="placeholder" @focus="focus" @blur="blur" />' +
                 '<div class="iata" v-bind:class="{\'no-visiblity\': item.IataCode==null}">{{item.IataCode}}</div>' +
                 '<div class="country hidden">{{item.CountryName}} {{item.CountryCode}}</div>' +
                 '<span href="#" class="delete" v-bind:class="{\'no-visiblity\': item.Airport==null}" v-on:click="clearItem()"></span>' +
                 '<input type="hidden" :name="name" v-model="item.IataCode"/>' +
+                '<div v-if="focused && suggestions.length > 0" class="suggestions">' +
+                '   <a v-for="sugg in suggestions" href="#" :class="[\'suggestion\', \'suggestion-\'+sugg.code.replace(\'!\',\'\')]" v-on:click.prevent="selectSuggestion(sugg)">' +
+                '       <span v-html="sugg.text"></span>' +
+                '   </a>' +
+                '</div>' +
                 '</div>',
             props: {
                 name: {
@@ -185,6 +195,17 @@ module.exports = class airModule extends formModuleBase {
                     $.unique(classes);
 
                     return classes.join(' ');
+                },
+                suggestions: function() {
+                    if (this.name === "to_iata" && local.options.avia.isAirPromoAllowed && !this.value.IataCode && local.options.avia.formType.value !== 'route') {
+                        return [
+                        {
+                            code: '!WR',
+                            text: '<span class="q">' + local.it.extra.locale('CANNT_DECIDE_WHERE') + '</span><span>' + local.it.extra.locale('CLICK_HERE_TO_SEARCH_EVERYWHERE') + '</span>',
+                            name: local.it.extra.locale('EVERYWHERE')
+                        }];
+                    }
+                    return [];
                 }
             },
             watch: {
@@ -198,6 +219,7 @@ module.exports = class airModule extends formModuleBase {
                                 var el = comp.$el;
                                 var selector = comp.inputClass;
                                 $(el).find('.' + selector).typeahead('val', newValue.Airport);
+
                             });
                         }
                     },
@@ -207,7 +229,9 @@ module.exports = class airModule extends formModuleBase {
             data: function () {
                 return {
                     item: this.value,
-                    disabledDates: undefined
+                    disabledDates: undefined,
+                    focused: false,
+                    blurTimeout: undefined
                 }
             },
             methods: {
@@ -223,7 +247,6 @@ module.exports = class airModule extends formModuleBase {
                     }
                 },
                 clearItem: function () {
-                    
                     this.item = new AirportItem();
                     this.$emit('input', this.item);
                     
@@ -234,6 +257,7 @@ module.exports = class airModule extends formModuleBase {
                         var selector = comp.inputClass;
                         $(el).find('.' + selector).typeahead('val', '').focus();
                         comp.bridgeClearMapPoint();
+                        vue.checkAirPromoSelection();
                     });
                 },
                 checkItem: function (event) {
@@ -244,6 +268,18 @@ module.exports = class airModule extends formModuleBase {
                         this.$emit('input', this.item);
                         this.bridgeClearMapPoint();
                     }
+                },
+                focus: function() {
+                    this.blurTimeout && clearTimeout(this.blurTimeout);
+                    this.focused = true;
+                },
+                blur: function() {
+                    this.blurTimeout = setTimeout(()=>{
+                        this.focused = false;
+                    },100);
+                },
+                selectSuggestion: function(sugg) {
+                    vue.$emit('airportUpdate', this.name, new AirportItem(sugg.code, sugg.code, sugg.name, sugg.name));
                 }
             },
             created: function () {
@@ -251,7 +287,41 @@ module.exports = class airModule extends formModuleBase {
 
                 vue.$on('airportUpdate', function (name, airport) {
                     if (comp.name === name) {
+                        var item = $(comp.$el).closest(".control-field");
+
+                        local.it.extra.closeField(item);
+
+                        //Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
+                        if (local.it._initialized && !local.it.extra.mobileAndTabletcheck()) {
+                            //Меняем фокус
+                            if (name === "from_iata") {
+                                //Фокус на аэропорт прибытия
+                                $(comp.$el).closest(".fields-container").find(".book-to.tt-input").trigger("click");
+                            } else if (name === "to_iata") {
+                                //Фокус на дату вылета
+                                var dp = $(comp.$el).closest(".multy-route, .fields-container").find('.date:first').find("input[name^='book_from_']").siblings(".book-date");
+
+                                setTimeout(function () {
+                                    dp.focus();
+                                }, 100);
+                            }else {
+                                //Hide mobile keyboard
+                                $(':focus').blur();
+                            }
+                        }else {
+                            //Hide mobile keyboard
+                            $(':focus').blur();
+                        }
+                        if (name === "from_iata") {
+                            $(document).trigger("StartPtChange.MapBridge", [airport]);
+                        } else {
+                            $(document).trigger("EndPtChange.MapBridge", [airport]);
+                        }
+
+
                         comp.updateAviItem(airport);
+
+                        vue.checkAirPromoSelection();
                     }
                 });
                 vue.$on('clearItem', function (name) {
@@ -567,6 +637,23 @@ module.exports = class airModule extends formModuleBase {
                     var airportItem = new AirportItem(data.IataCode, data.CountryCode, data.CountryName, data.Name);
                     vue.$emit('airportUpdate', name, airportItem);
                 },
+                //Проверяем, указал ли человек в поисковой форме страну в качестве вылета или назначения (AirPromo функционал)
+                checkAirPromoSelection: function() {
+                    //На странице с промо форма является промо всегда, что бы можно было выбрать пары городов
+                    if (local.options.avia.isAirPromoRewrited) {
+                        local.options.avia.isAirPromo = true;
+                        return;
+                    }
+                    const countryRegex = /^!?[A-Z]{2}$/g;
+                    if((local.options.avia.aviFrom && local.options.avia.aviFrom.IataCode && local.options.avia.aviFrom.IataCode.match(countryRegex))
+                        || (local.options.avia.aviTo && local.options.avia.aviTo.IataCode && local.options.avia.aviTo.IataCode.match(countryRegex))
+                        ) {
+                        local.options.avia.isAirPromo = true;
+                        local.options.avia.formExtended = false;
+                    }else {
+                        local.options.avia.isAirPromo = false;
+                    }
+                },
                 addCarrier: function (label, code) {
                     var carrier = new CarrierItem(label, code);
                     this.avia.airCompanies.push(carrier);
@@ -641,6 +728,8 @@ module.exports = class airModule extends formModuleBase {
                 selectHistoryItem : function(history) {
                     local.formSaver.selectItem(history);
                     this.passUpdate();
+                    
+                    vue.checkAirPromoSelection();
                 },
                 selectDateToCalendar : function() {
                     Vue.nextTick(function () {
@@ -696,7 +785,7 @@ module.exports = class airModule extends formModuleBase {
 						item.closest(".twitter-typeahead").next().val('');
 						item.trigger("typeahead:filterIt");
 						setTimeout(function () {
-							//После очистки, находим первый пестой элемент и устанавливаем на него фокус.
+							//После очистки, находим первый пустой элемент и устанавливаем на него фокус.
 							//Ищем т.к. все значения съезжают к верхнему
 							item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
 						}, 100);
@@ -721,6 +810,10 @@ module.exports = class airModule extends formModuleBase {
                 //Загрузка цен для календаря
                 loadPrices: function(type) {
                     if (!local.it.pricesCalendar) return;
+                    if (local.options.avia.isAirPromo) {
+                        local.it.pricesCalendar.clear(type);
+                        return;
+                    }
                     local.it.pricesCalendar.load(type);                    
                 },
                 //Получить большую дату из диапазона
@@ -758,7 +851,7 @@ module.exports = class airModule extends formModuleBase {
                     var currentMaxValue = this.getMaxDateRange(value);
                     if (this.avia.dateThere[0] > currentMaxValue) {
                         if (this.avia.formType.value === "oneway") {
-                            this.$set(this.avia.dateBack, 0, this.avia.dateThere[0]);
+                            this.avia.dateBack = [...this.avia.dateThere];
                         }else {
                             this.$set(this.avia.dateThere, 0, currentMaxValue);
                         }
@@ -777,6 +870,19 @@ module.exports = class airModule extends formModuleBase {
                 },
                 'avia.formExtended': function(newvalue, oldvalue) {
                     if (!oldvalue && newvalue && !this.avia.airvListLoaded) this.loadAirVList();
+                },
+                'avia.isAirPromo': function(newvalue, oldvalue) {
+                    if (newvalue) {
+                        if (this.avia.dateThere.length === 1) this.avia.dateThere.push(this.avia.dateThere[0]);
+                        if (this.avia.dateBack.length === 1) this.avia.dateBack.push(this.avia.dateBack[0]);
+                        //Оставляем только 1 взрослого
+                        this.avia.passengers.types.forEach(function (value) {
+                            value.count = value.name === "psgAdultsCnt" ? 1 : 0;
+                        });
+                    }else {
+                        this.avia.dateThere = [this.avia.dateThere[0]];
+                        this.avia.dateBack = [this.avia.dateBack[0]];
+                    }
                 }
             },
             created: function () {
@@ -864,7 +970,7 @@ module.exports = class airModule extends formModuleBase {
             let data = module.getCurrentFormData();
             module.formSaver.saveNewItem(data);
             
-            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form);
+            if (options.projectUrl.startsWith("/") && typeof main !== 'undefined' && main.airtickets != undefined && main.airtickets.searchForm != undefined && main.airtickets.searchForm.send != undefined) return main.airtickets.searchForm.send(form, options);
             return true;
         });
 
@@ -881,7 +987,7 @@ module.exports = class airModule extends formModuleBase {
                     isSelectPicker: true
                 };
             }
-            //Для мобильных делаем минимальную длинну 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
+            //Для мобильных делаем минимальную длину 0, что бы всегда отображалось на весь экран, а не только при наличии 2х символов
             if (it.extra.mobileAndTabletcheck()) {
                 typeaheadOptions.minLength = 0;
             }
@@ -958,32 +1064,7 @@ module.exports = class airModule extends formModuleBase {
                 if (datum != undefined) {
                     var item = $(this).closest(".control-field");
                     var name = item.find(".inside input[type='hidden']").attr('name');
-
                     vue.updateAirportTypeAhead(name, datum);
-                    it.extra.closeField(item);
-
-                    //Меняем фокус только когда форма инициализирована (что бы фокус не плясал при инициализации полей по-умолчанию)
-                    if (it._initialized && !it.extra.mobileAndTabletcheck()) {
-                        //Меняем фокус
-                        if ($(this).is(".book-from")) {
-                            //Фокус на аэропорт прибытия
-                            $(this).closest(".fields-container").find(".book-to.tt-input").trigger("click");
-                        } else if ($(this).is(".book-to")) {
-                            //Фокус на дату вылета
-                            var dp = $(this).closest(".multy-route, .fields-container").find('.date:first').find("input[name^='book_from_']").siblings(".book-date");
-
-                            setTimeout(function () {
-                                dp.focus();
-                            }, 100);
-                        }
-                    }
-                    if ($(this).is(".book-from")) {
-                        $(document).trigger("StartPtChange.MapBridge", [datum]);
-                    } else {
-                        $(document).trigger("EndPtChange.MapBridge", [datum]);
-                    }
-                    //Hide mobile keyboard
-                    $(this).blur();
                 }
             }).on("typeahead:dropdown", function (its) {
 
@@ -1060,6 +1141,7 @@ module.exports = class airModule extends formModuleBase {
 
         //Passengers menu
         form.find(".passengers > .switch-box .switch").click(function () {
+            if ($(this).is(".disabled")) return false;
             var selectAge = form.find(".select-age");
             var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
             var field = $(this).closest('.field');
@@ -1281,6 +1363,7 @@ module.exports = class airModule extends formModuleBase {
                         local.options.avia.aviTo = aviItem;
                     }
                 });
+                vue.checkAirPromoSelection();
             });
         }
     }

@@ -21,7 +21,7 @@ module.exports = class validator extends validatorBase {
             if ($.trim(inpTo.val()) == "" || inpTo.val() == "&nbsp;") {
                 inpTo.closest(".field").addClass("has-error").find(".error-box").text(local.it.extra.locale("SELECT_AIRPORT_FROM_LIST")).append($("<div/>").addClass("close")).slideDown(local.it._o.animationDelay);
                 ret = false;
-            } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val())) {
+            } else if ($.trim(inpFrom.val()) == $.trim(inpTo.val()) && !inpFrom.val().startsWith('!')) {
                 inpTo.closest(".field").addClass("has-error").find(".error-box").text(local.it.extra.locale("NEED_TO_SELECT_DIFFERENT_AIRPORTS")).append($("<div/>").addClass("close")).slideDown(local.it._o.animationDelay);
                 ret = false;
             }

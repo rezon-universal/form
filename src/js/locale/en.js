@@ -242,5 +242,8 @@
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel",
     "POLICY_ISSUED_BEFORE_TRIP" : "The policy can be issued before the start of the trip",
     "TRAVEL_INSURANCE_IN_UKRAINE": "Travel Insurance in Ukraine",
-    "INSURANCES_MINIMUM_PERIOD": "Minimum insurance period, days"
+    "INSURANCES_MINIMUM_PERIOD": "Minimum insurance period, days",
+    "EVERYWHERE" : "Everywhere",
+    "CANNT_DECIDE_WHERE" : "Can't decide where?",
+    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Click here to search Everywhere"
 }

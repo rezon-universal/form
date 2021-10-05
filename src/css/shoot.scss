@@ -445,8 +445,7 @@
     position: relative;
     clear: both;
 }
-#rezon-forms .passengers .switch 
-{
+#rezon-forms .passengers .switch {
     border-radius: 2px;
     cursor: pointer;
     min-width: 120px;
@@ -455,6 +454,14 @@
     display: inline-block;
     text-decoration: none;
     width: 100%;
+
+    &.disabled {
+        background: #d5d5d5;
+        cursor: not-allowed;
+        .passengers-text:before{
+            display: none !important;
+        }
+    }
 }
 #rezon-forms .passengers span.active,  
 #rezon-forms .passengers span.active:hover 
@@ -1329,6 +1336,59 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     max-width: 25%;
     min-width: 240px;
     position: relative;
+}
+#rezon-forms .field.airport {
+    .suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        margin-top: 10px;
+        font-size: 12px;
+        @media (max-width: 575px) {
+            left: 10px;
+            right: 10px;
+        }
+
+        &:before {
+            display: block;
+            position: absolute;
+            content: ' ';
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-top: 0;
+            border-bottom: 10px solid #06a1f3;
+            top: -10px;
+            left: 30px;
+        }
+
+        .suggestion {
+            display: block;
+            color: #fff;
+            padding: 10px 20px;
+            background: #00a1f3;
+            border-radius: 2px;
+
+            &:hover {
+                background: #0095e1;
+                span{
+                    color: #fff;
+                }
+            }
+
+            &-WR {
+                span {
+                    display: block;
+                }
+
+                .q {
+                    font-size: 16px;
+                    margin-bottom: 1px;
+                }
+            }
+        }
+    }
 }
 #rezon-forms .field.hide_s 
 {
