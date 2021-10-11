@@ -19,8 +19,8 @@ module.exports = class insurancesModule extends formModuleBase {
                 DateFrom: null,
                 DateTo: null,
                 Location: new InsuranceLocation(),
-                DaysShift: 10,
-                MinimumPeriod: 10
+                DaysShift: 0,
+                MinimumPeriod: 1
             },
             // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
             widgetCode : null
