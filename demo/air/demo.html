@@ -23,7 +23,8 @@
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <input type="hidden" name="book_type" v-model="avia.formType.value" />
-    
+    <input type="hidden" name="filter_stops" :value="avia.filters.onlyDirectFlights ? '0' : '' " />
+
     <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
         <div class="field airport from">
             <label class="menu-title">
@@ -57,9 +58,15 @@
             </div>
         </div>
         <div class="field date from">
-            <label class="menu-title">
+            <label v-for="currency in getFirstDateAttributeCurrency(dateAttributesThere)" v-bind:key="currency" :class="{'menu-title': true, 'with-price' : !!currency}">
                 <span class="link-left"></span>
-                {{locale("THERE")}}
+                <span>{{locale("THERE")}}</span>
+                <span v-if="!!currency" class="estimated-currency">
+                    {{locale('ESTIMATED_PRICES_SHOWN_IN')}}
+                    <span class="show-in currency-span" data-val="0" :data-cur="currency">
+                        {{ currency }}
+                    </span>
+                </span>
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -82,14 +89,36 @@
                                 </div>
                             </div>
                         </template>
+                        <template slot="popupFooterFilters">
+                            <template v-for="currency in getFirstDateAttributeCurrency(dateAttributesThere)">
+                                <span v-if="!!currency" class="estimated-currency">
+                                    {{locale('ESTIMATED_PRICES_SHOWN_IN')}}
+                                    <span class="show-in currency-span" data-val="0" :data-cur="currency">
+                                        {{ currency }}
+                                    </span>
+                                </span>
+                            </template>
+                            <div v-if="avia.pricesCalendarEnabled && !avia.isAirPromo" class="popup-filters">
+                                <label>
+                                    <input type="checkbox" v-model="avia.filters.onlyDirectFlights" />
+                                    <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
+                                </label>
+                            </div>
+                        </template>
                     </d-date-picker>
                 </div>
             </div>
         </div>
         <div class="field date to">
-            <label class="menu-title">
+            <label v-for="currency in getFirstDateAttributeCurrency(dateAttributesBack)" v-bind:key="currency" :class="{'menu-title': true, 'with-price' : !!currency}">
                 <span class="link-left"></span>
-                {{locale("BACK")}}
+                <span>{{locale("BACK")}}</span>
+                <span v-if="!!currency" class="estimated-currency">
+                    {{locale('ESTIMATED_PRICES_SHOWN_IN')}}
+                    <span class="show-in currency-span" data-val="0" :data-cur="currency">
+                        {{ currency }}
+                    </span>
+                </span>
                 <span class="link-right"></span>
             </label>
             <div class="control-field">
@@ -110,6 +139,22 @@
                                     <a href="#" v-if="scopeSlot.isRange && scopeSlot.isMobile" v-on:click.prevent="scopeSlot.hideCalendar()" class="done">{{locale('DONE')}}</a>
                                     <a href="#" v-on:click.prevent="scopeSlot.hideCalendar(function(){ typeChanged(0); })">{{locale('WITHOUT_RETURN_TICKET')}}</a>
                                 </div>
+                            </div>
+                        </template>
+                        <template slot="popupFooterFilters">
+                            <template v-for="currency in getFirstDateAttributeCurrency(dateAttributesBack)">
+                                <span v-if="!!currency" class="estimated-currency">
+                                    {{locale('ESTIMATED_PRICES_SHOWN_IN')}}
+                                    <span class="show-in currency-span" data-val="0" :data-cur="currency">
+                                        {{ currency }}
+                                    </span>
+                                </span>
+                            </template>
+                            <div v-if="avia.pricesCalendarEnabled && !avia.isAirPromo" class="popup-filters">
+                                <label>
+                                    <input type="checkbox" v-model="avia.filters.onlyDirectFlights" />
+                                    <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
+                                </label>
                             </div>
                         </template>
                     </d-date-picker>
@@ -284,7 +329,7 @@
                 </div>
             </div>
         </div>
-        <div class="field only-direct">
+        <!--<div class="field only-direct">
             <div class="direct_flight transp">
                 <label class="checkbox-wrapper" :class="{active:avia.onlyDirect}">
                     <div class="check_bull"></div>
@@ -292,7 +337,7 @@
                     <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
                 </label>
             </div>
-        </div>
+        </div>-->
         <div class="field carrier">
             <label class="menu-title">
                 <span class="link-left"></span>

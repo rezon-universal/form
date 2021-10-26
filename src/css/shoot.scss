@@ -23,11 +23,6 @@
         }
     }
 }
-#rezon-forms form 
-{
-    /*transition: opacity .5s;
-    -webkit-transition: opacity .5s;*/
-}
 #rezon-forms .rez-forms 
 {
     max-width: 1200px;
@@ -173,6 +168,10 @@
     opacity: 0.5;
 	padding: 0;
     position: relative;
+
+    .estimated-currency{
+        display: none;
+    }
 }
 #rezon-forms .link-left,
 #rezon-forms .link-right
@@ -1969,6 +1968,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
     .d-datepicker-component {
         .botton-in-header {
             padding: 10px;
+
             a {
                 background: white;
                 border: 1px solid #00b0ff;
@@ -1985,9 +1985,11 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                     background: #00b0ff;
                     color: white;
                 }
-                + a{
+
+                + a {
                     margin-top: 7px;
                 }
+
                 &.done {
                     background: #00b0ff;
                     color: white;
@@ -2023,7 +2025,7 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 
             @media (max-width: 575px) {
                 position: fixed;
-                bottom: 20px;
+                bottom: 36px;
                 left: 10px;
                 right: 10px;
                 z-index: 10;
@@ -2033,6 +2035,24 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         .popup-footer {
             .close-btn {
                 line-height: 40px;
+            }
+
+            .estimated-currency {
+                font-size: 10px;
+                display: inline-block;
+                position: absolute;
+                top: -18px;
+
+                @media (max-width: 575px) {
+                    display: none;
+                }
+
+                .show-in {
+                    .floor,
+                    .penny {
+                        display: none;
+                    }
+                }
             }
         }
     }
@@ -3254,6 +3274,28 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
         line-height: 50px;
         opacity: 1;
         text-align: center;
+        position: relative;
+
+        &.with-price {
+            line-height: 36px;
+
+            .estimated-currency {
+                display: inline-block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                line-height: 100%;
+                font-size: 11px;
+                bottom: 8px;
+
+                .show-in {
+                    .floor,
+                    .penny {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
     #rezon-forms .field.opened .link-left,
     #rezon-forms .field.opened .link-right 

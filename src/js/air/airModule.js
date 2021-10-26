@@ -85,8 +85,13 @@ module.exports = class airModule extends formModuleBase {
                 historyGuid: '',
                 isHotelSearchEnabled: false,
                 hotelSearch: routeTypes[1].value === 'roundtrip',
-                initByUser: false
+                initByUser: false,
                 //end temp
+                
+                //Новые фильтра, которые применяются как фильтра после совершения поиска
+                filters: {
+                    onlyDirectFlights: false
+                }
             }
         };
     }
@@ -827,6 +832,12 @@ module.exports = class airModule extends formModuleBase {
                     if (datesArray == undefined || !datesArray.length) return undefined;
                     if (datesArray.length === 1) return datesArray[0];
                     return datesArray[0];
+                },
+                getFirstDateAttributeCurrency: function(datesAttributes){
+                    if (!datesAttributes) return [undefined];
+                    const keys = Object.keys(datesAttributes);
+                    if (!keys.length) return [undefined];
+                    return [datesAttributes[keys[0]].currency];
                 }
             },
             watch: {
@@ -883,6 +894,9 @@ module.exports = class airModule extends formModuleBase {
                         this.avia.dateThere = [this.avia.dateThere[0]];
                         this.avia.dateBack = [this.avia.dateBack[0]];
                     }
+                },
+                'avia.filters.onlyDirectFlights': function(newvalue, oldvalue) {
+                    local.it.pricesCalendar && local.it.pricesCalendar.reload();
                 }
             },
             created: function () {

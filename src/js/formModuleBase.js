@@ -71,11 +71,13 @@ module.exports = class formModuleBase {
                     local.it.extra.updateIframeHeight();
                     $('.unload').removeClass('unload');
                 });
+                typeof(window.main) !== 'undefined' && main.currencies && main.currencies.refreshCurrencies($(this.$el));
             },
             updated: function () {
                 Vue.nextTick(() => {
                     local.it.extra.updateIframeHeight();
                 });
+                typeof(window.main) !== 'undefined' && main.currencies && main.currencies.refreshCurrencies($(this.$el));
             }
         };
     }

@@ -13,6 +13,8 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
         return this.options.avia.formType.value;
     }
     load (type) {
+        this.type = type;
+
         this.clear();
         if (!this.CityFrom || !this.CityTo) return;
         if (this.RouteType !== "oneway" && this.RouteType !== "roundtrip") return;
@@ -21,12 +23,11 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
         if (type === 'there') {
             this.fetchCached({
                 From: this.CityFrom,
-                To: this.CityTo
+                To: this.CityTo,
+                OnlyDirect: this.options.avia.filters.onlyDirectFlights
             }).then((value)=>{
                 this.setLoading(type, false);
                 this.setAttributes(type, value);
-                // setTimeout(()=> {
-                // }, 1500);
             });
 
         }else if (type === 'back'){
@@ -34,12 +35,19 @@ module.exports = class pricesCalendar extends pricesCalendarBase {
                 From: this.CityFrom,
                 To: this.CityTo,
                 DateThere: new Intl.DateTimeFormat('ru-Ru').format(this.options.avia.dateThere[0])
-                    .replace(/[^\.\d]/g, '')
+                    .replace(/[^\.\d]/g, ''),
+                OnlyDirect: this.options.avia.filters.onlyDirectFlights
             }).then((value)=>{
                 this.setLoading(type, false);
                 this.setAttributes(type, value);
             });
         }
+    }
+    /**
+     * Перезагрузка последнего типа календаря
+     */
+    reload() {
+        this.type && this.load(this.type);
     }
     clear(type) {
         //Очищаем цены
