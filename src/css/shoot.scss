@@ -378,16 +378,6 @@
     margin: 0;
     outline: 0;
     width: 100%;
-
-    .value + .value {
-        &:before {
-            content: ' ‒ ';
-        }
-    }
-
-    .day-week {
-        color: #9ea9b7;
-    }
 }
 #rezon-forms .with-error .book-date 
 {
