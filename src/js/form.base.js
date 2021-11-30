@@ -1,5 +1,6 @@
 ﻿const dDatePickerComponent = require('./../../../Views/Forms/common/_Datepicker.vue');
 const DatePickerLanguage = require('./common/vuejs-datepicker.locale/Language');
+const clickOutsideFunction = require('./common/click-outside');
 
 module.exports = class formBase {
     _locale = {};
@@ -212,21 +213,7 @@ module.exports = class formBase {
                 });
             }
         });
-        
-        Vue.directive('click-outside', {
-            bind: function (el, binding, vnode) {
-                el.event = function (event) {
-                    if (!(el == event.target || el.contains(event.target))) {
-                        vnode.context[binding.expression](event);
-                    }
-                };
-                
-                window.addEventListener('click', el.event);
-            },
-            unbind: function (el) {
-                window.removeEventListener('click', el.event);
-            }
-        });
+        clickOutsideFunction.default(Vue);
     }
 
     //Подключение глобальных скриптов (старая логика, js/jquery)
