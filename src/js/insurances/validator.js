@@ -13,8 +13,19 @@ module.exports = class validator extends validatorBase {
          
         return ret;
     }
+    //Проверка выбранного периода для kmj
+    validatePeriod() {
+        var ret = true;
+        if (this.it._o.widgetCode == "kmj" && this.it._o.selectedPeriod == 0) {
+            var inpPeriod = $(document).find(".select-holder").first();
+            inpPeriod.closest(".field").addClass("has-error").find(".error-box").text(this.it.extra.locale("SELECT_PERIOD")).append($("<div/>").addClass("close")).slideDown("fast");
+            ret = false;
+        }
+        return ret;
+    }
     isValid() {
         var ret = this.validateCities();
+        ret = this.validatePeriod() && ret;
         return ret;
     }
 };

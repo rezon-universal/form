@@ -139,7 +139,6 @@
     "ADVANCED_SETTINGS": "Разширени настройки",
     "HIDE_ADVANCED_SETTINGS": "Скриване на разширените настройки",
     "SELECT_DATE": "Изберете дата",
-    "OPEN_AVIA_ADDITIONAL_FORM": "Допълнителни критерии",
     "CONFIRM": "Потвърдете",
     "CITY": "Град",
     "CHECK_IN": "Настаняване",

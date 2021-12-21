@@ -15,6 +15,9 @@ module.exports = class formSaverBase {
     }
     loadAllFromStorage()
     {
+        //Пропускаем "Ранее вы искали" для кастомных форм, в страховках: km, kmu, kmj
+        if (this.module.getCurrentFormDataName() === undefined) return false;
+
         if (typeof(localStorage) === 'undefined') return;
         let data = localStorage.getItem(this.LocalStorageName);
         if (!data) return;

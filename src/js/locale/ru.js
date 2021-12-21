@@ -141,7 +141,6 @@
     "ADVANCED_SETTINGS": "Расширенные настройки",
     "HIDE_ADVANCED_SETTINGS": "Скрыть расширенные настройки",
     "SELECT_DATE": "Выберите дату",
-    "OPEN_AVIA_ADDITIONAL_FORM": "Открыть расширенную форму",
     "CONFIRM": "Подтвердить",
     "CITY": "Город",
     "CHECK_IN": "Заезд",
@@ -169,5 +168,7 @@
     "INSURANCES_MINIMUM_PERIOD": "Минимальный период страхования, дней",
     "EVERYWHERE" : "Весь мир",
     "CANNT_DECIDE_WHERE" : "Не можете определиться?",
-    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Нажмите сюда, что бы искать \"Везде\""
+    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Нажмите сюда, что бы искать \"Везде\"",
+    "NUMBER_OF_DAYS" : "Количество дней",
+    "SELECT_PERIOD" : "Выберите период"
 }

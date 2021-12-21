@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="field date to">
+        <div v-show="widgetCode !== 'kmj'" class="field date to">
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("PERIOD_TO")}}
@@ -96,6 +96,21 @@
                         </template>
                     </d-date-picker>
                 </div>
+            </div>
+        </div>
+        <div v-show="widgetCode === 'kmj'" class="field period">
+            <label class="menu-title">
+                <span class="link-left"></span>
+                {{locale("NUMBER_OF_DAYS")}}
+                <span class="link-right"></span>
+            </label>
+            <div class="control-field">
+                <select-period v-model="selectedPeriod" tabindex="0" name="period"
+                               :range="periods"
+                               :available-period="availablePeriod"
+                               :placeholder="locale('SELECT_PERIOD')"
+                               v-on:select="setDateTo"></select-period>
+                <div class="error-box"></div>
             </div>
         </div>
         <div class="field find">

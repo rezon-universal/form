@@ -22,6 +22,9 @@ module.exports = class insurancesModule extends formModuleBase {
                 DaysShift: 0,
                 MinimumPeriod: 1
             },
+            selectedPeriod: 0,
+            periods: [30, 45, 60, 90, 180, 270, 365],
+            availablePeriod: 0,
             // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
             widgetCode : null
         };  
@@ -60,6 +63,65 @@ module.exports = class insurancesModule extends formModuleBase {
     //Подключение Vue
     bindVue(bindTo, mountedCallback) {
         var local = this;
+
+        Vue.component('selectPeriod', {
+            template: '<div class="select-holder">' +
+                '<div :class="[`select-period`, {active: isActive}]" v-on:click="toggleClass">' +
+                '<div v-if="value != 0" class="value">{{ value }}</div>' +
+                '<div v-else class="placeholder">{{ placeholder }}</div>' +
+                '</div>' +
+                '<div class="options" v-if="isActive" v-click-outside="outsideSelect">' +
+                '<div class="option" v-for="value in range" v-on:click="selectOption(value)" :disabled="value > availablePeriod">{{ value }}</div>' +
+                '</div>' +
+                '</div>',
+            props: {
+                value: {
+                    type: Number,
+                    default: 0
+                },
+                range: {
+                    type: Array,
+                    default: () => ([30, 45, 60, 90, 180, 270, 365])
+                },
+                availablePeriod: {
+                    type: Number,
+                    default: 0
+                },
+                placeholder: {
+                    type: String,
+                    default: "Select period"
+                }
+            },
+            watch: {
+                isActive: function (val) {
+                    var field = $(document).find(".field.period");
+                    if (val) field.addClass("opened");
+                    else field.removeClass("opened").find(".select-holder").blur();
+                }
+            },
+            data() {
+                return {
+                    isActive: false
+                }
+            },
+            methods: {
+                toggleClass() {
+                    this.isActive = !this.isActive;
+                },
+                selectOption(value) {
+                    if (value > this.availablePeriod) return false;
+                    this.$emit('select', value);
+                    this.$emit('input', value);
+                    this.isActive = false;
+                },
+                outsideSelect() {
+                    this.isActive = false;
+                }
+            },
+            created: function () {
+                if (!this.value) this.selectOption(this.range[0]);
+            }
+        });
         
         Vue.component('insurancesInput', {
             template: '<div class="inside" v-if="item" :class="{\'with-region\' : item.Name !== null && item.Name !== undefined}">' +
@@ -215,6 +277,26 @@ module.exports = class insurancesModule extends formModuleBase {
                     var cityItem = new InsuranceLocation(data);
                     vue.$emit("cityUpdate", name, cityItem);
                 },
+                setDateTo: function (period) {
+                    // Для kmj устанавливаем дату окончания страхового периода по выбранном количеству дней
+                    const milisecondsInDay = 86400000;
+                    this.$set(this.insurances.DateTo, 0, new Date(
+                        this.insurances.DateFrom[0].getTime() + (period - 1) * milisecondsInDay
+                    ));
+                },
+                // Пересчитываем доступный период для kmj
+                setAvailablePeriod: function () {
+                    const milisecondsInDay = 86400000;
+                    var dateFrom = new Date(this.insurances.DateFrom[0].getTime());
+                    dateFrom.setHours(0, 0, 0, 0);
+                    this.availablePeriod = (this.dates.insurancesMaxDate.getTime() - dateFrom.getTime()) / milisecondsInDay;
+
+                    // Сбрасываем выбранный период если дата начала исключает выбранный период
+                    if (this.selectedPeriod > this.availablePeriod) this.selectedPeriod = 0;
+
+                    // Если выбран период устанавливаем дату окончания страхового периода
+                    if (this.selectedPeriod > 0) this.setDateTo(this.selectedPeriod);
+                },
                 async submitHandler(e) {
                     let checker = new validator(local.form, local.it);
                     let isValid = checker.isValid();
@@ -280,6 +362,8 @@ module.exports = class insurancesModule extends formModuleBase {
                             this.$set(this.insurances.DateFrom, index, this.dates.insurancesMinDate);
                         }
                     });
+
+                    this.setAvailablePeriod();
                 },
                 'insurances.DateTo': function (value) {
                     const milisecondsInDay = 86400000;
@@ -311,6 +395,8 @@ module.exports = class insurancesModule extends formModuleBase {
                     this.insurances.DateTo = [this.insurancesDefaultBackDate];
                 }
 
+                this.setAvailablePeriod();
+
                 window.vue = this;
             }
         });
@@ -321,7 +407,7 @@ module.exports = class insurancesModule extends formModuleBase {
         let form = this.form;
         let options = this.options;
 
-        //В хеше может быть передан код виджета, km, kmu
+        //В хеше может быть передан код виджета, km, kmu, kmj
         if (window.location.hash !== '') {
             options.widgetCode = window.location.hash.substring(1);
             if (options.widgetCode === 'kmu') {

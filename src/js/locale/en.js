@@ -217,7 +217,6 @@
     "ADVANCED_SETTINGS": "Advanced settings",
     "HIDE_ADVANCED_SETTINGS": "Hide advanced settings",
     "SELECT_DATE": "Select date",
-    "OPEN_AVIA_ADDITIONAL_FORM": "Open additional form",
     "CONFIRM": "Confirm",
     "CITY": "City",
     "CHECK_IN": "Check-in",
@@ -245,5 +244,7 @@
     "INSURANCES_MINIMUM_PERIOD": "Minimum insurance period, days",
     "EVERYWHERE" : "Everywhere",
     "CANNT_DECIDE_WHERE" : "Can't decide where?",
-    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Click here to search Everywhere"
+    "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Click here to search Everywhere",
+    "NUMBER_OF_DAYS" : "Number of days",
+    "SELECT_PERIOD" : "Select period"
 }

@@ -2729,6 +2729,95 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
             right: 32px;
         }
 
+        .period {
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+
+            .select-holder {
+                position: relative;
+
+                .select-period {
+                    height: 45px;
+                    line-height: 45px;
+                    padding: 0 40px 0 10px;
+                    position: relative;
+
+                    &:before {
+                        background: none;
+                        border-bottom: 1px solid #546e7a;
+                        border-right: 1px solid #546e7a;
+                        content: "";
+                        display: block;
+                        height: 15px;
+                        margin: 0;
+                        opacity: 0.4;
+                        position: absolute;
+                        right: 15px;
+                        top: 10px;
+                        transform: rotate(45deg);
+                        width: 15px;
+                    }
+
+                    &.active:before {
+                        top: 20px;
+                        transform: rotate(-135deg);
+                    }
+
+                    &:hover:before {
+                        opacity: 1;
+                    }
+
+                    .placeholder {
+                        color: #757575;
+                        overflow: hidden;
+                        text-overflow: clip;
+                    }
+                }
+
+                .options {
+                    @media (max-width: 575px) {
+                        text-align: center;
+                    }
+
+                    @media (min-width: 576px) {
+                        background: #fff;
+                        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4);
+                        position: absolute;
+                        width: 100%;
+                        top: 100%;
+                        z-index: 1;
+                    }
+
+                    .option {
+                        padding: 10px 15px;
+
+                        @media (max-width: 575px) {
+                            padding: 15px 15px;
+                        }
+
+                        &:hover {
+                            background: #ffd900;
+                        }
+
+                        &[disabled] {
+                            background: #f1f1f1;
+                            color: #9ea9b7;
+                            cursor: default;
+                        }
+                    }
+                }
+            }
+
+            &.opened {
+                .select-period {
+                    @media (max-width: 575px) {
+                        display: none;
+                    }
+                }
+            }
+        }
+
 
         .remark {
             color: #fff;
@@ -2756,7 +2845,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 max-width: 40%;
             }
 
-            .date {
+            .date,
+            .period {
                 flex-basis: 20%;
                 max-width: 20%;
             }
@@ -2984,7 +3074,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 max-width: 100%;
             }
 
-            .date {
+            .date,
+            .period {
                 flex-basis: 35%;
                 max-width: 35%;
             }
@@ -3002,7 +3093,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
 @media (min-width: 576px) {
     #rezon-forms .book-from:focus,
     #rezon-forms .book-to:focus,
-    #rezon-forms .book-date:focus 
+    #rezon-forms .book-date:focus,
+    #rezon-forms .select-holder:focus 
     {
         box-shadow: 0 0 8px 2px #00b0ff;
         outline: none;
@@ -3122,7 +3214,8 @@ html[data-btb="True"] #rezon-forms .extended-form-link:hover
                 margin-bottom: 10px;
             }
 
-            .date {
+            .date,
+            .period {
                 flex-basis: 50%;
                 max-width: 50%;
 
