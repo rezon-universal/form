@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div v-show="widgetCode === 'kmj'" class="field period">
+        <div v-if="widgetCode === 'kmj'" class="field period">
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("NUMBER_OF_DAYS")}}
