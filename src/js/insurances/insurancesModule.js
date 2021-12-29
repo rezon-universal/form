@@ -381,6 +381,25 @@ module.exports = class insurancesModule extends formModuleBase {
                             this.$set(this.insurances.DateTo, index, new Date(insurancesMinDate.getTime() + minDiffInMiliseconds));
                         }
                     });
+                },
+                widgetCode: {
+                    immediate: true,
+                    handler : function (value) {
+                        if (value === 'kmu') {
+                            console.log('widget code changed', value);
+                            local.options.insurances.Location = new InsuranceLocation({
+                                Name: 'Ukraine',
+                                CountryCode: 'UA'
+                            });
+                        } else if (value) {
+                            console.log('widget code changed', value);
+                            local.options.insurances.Location = new InsuranceLocation();
+                        }
+                        if (local.it.dw) {
+                            local.it.dw.insuranceLocationFinderData.clearPrefetchCache();
+                            local.it.dw.insuranceLocationFinderData.clearRemoteCache();
+                        }
+                    }
                 }
             },
             created: function () {
@@ -410,15 +429,9 @@ module.exports = class insurancesModule extends formModuleBase {
         //В хеше может быть передан код виджета, km, kmu, kmj
         if (window.location.hash !== '') {
             options.widgetCode = window.location.hash.substring(1);
-            if (options.widgetCode === 'kmu') {
-                options.insurances.Location = new InsuranceLocation({
-                    Name: 'Ukraine',
-                    CountryCode: 'UA'
-                });
-            }
         }
 
-        let dw = new dataWork(form, it);
+        it.dw = new dataWork(form, it);
 
         var typeaheadOptions = {
             minLength: 0
@@ -433,7 +446,7 @@ module.exports = class insurancesModule extends formModuleBase {
         form.find('.book-from').typeahead(typeaheadOptions, {
             name: "insurance-location-" + it._o.defaultLang,
             displayKey: 'value',
-            source: dw.insuranceLocationFinderData.ttAdapter(),
+            source: it.dw.insuranceLocationFinderData.ttAdapter(),
             display: function (data) {
                 return data != undefined ? data.Name : null;
             },
