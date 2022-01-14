@@ -16,8 +16,8 @@
 		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
     </head>	
 <body>
-    <div class="wings" id="rezon-forms">
-        <div class="rez-forms container">
+    <div class="wings rezon-forms" id="rezon-forms">
+        <div class="rez-container container">
             <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off" 
       :target="(avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip' && avia.hotelSearch) ? '_blank' : ''">
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>

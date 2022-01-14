@@ -140,13 +140,13 @@
         <div class="field find">
             <button v-on:click="hotelResetSearch" type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
-        <div class="field clear ">
+        <!-- <div class="field clear">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearHotelForm()">
                     <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
                 </span>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="earlier" v-if="historyData && historyData.length > 0">
         <div class="earlier-title">{{locale("SEARCHED")}}</div>

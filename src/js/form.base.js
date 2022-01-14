@@ -423,7 +423,6 @@ module.exports = class formBase {
         //Переопределяем настройки, который передал пользователь
         $.extend(true, this._o, o);
 
-        
         this.bindGlobalVue(bindTo);
         
         it._currentModule.bindVue(bindTo, (bindedTo) => {

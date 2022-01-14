@@ -1,0 +1,565 @@
+﻿.rezon-forms {
+    #hotel-form-shoot {
+        .from .delete {
+            right: 0;
+        }
+        
+        .station {
+            flex-basis: 25%;
+            max-width: 25%;
+        }
+
+        .date {
+            flex-basis: 10%;
+            max-width: 10%;
+        }
+
+        .nationality {
+            flex-basis: 20%;
+            max-width: 20%;
+            position: relative;
+        }
+
+        .hotel_guests {
+            flex-basis: 25%;
+            max-width: 25%;
+            
+            .select_box {
+                background: #fff;
+                box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+                box-sizing: border-box;
+                border-radius: 2px;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                top: 102%;
+                z-index: 1;
+                
+                @include from-to(576px, 1199px) {
+                    min-width: 300px;
+                }
+
+                &.open {
+                    display: block;
+                }
+
+                .box_inside {
+                    padding: 30px;
+                }
+            }
+        }
+
+        .hotel_guest .arrow-mobile,
+        .hotel_guest .close-mobile {
+            display: none;
+        }
+
+        .find {
+            flex-basis: 10%;
+            max-width: 10%;
+        }
+
+        .guest_flex {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .childs_flex {
+            margin: 15px 0 0 0;
+        }
+        
+        .childs_block {
+            justify-content: space-between;
+            display: flex;
+            margin: 0 -5px;
+        }
+        
+        .child_box {
+            max-width: 50%;
+            padding: 0 5px;
+            width: 100%;
+        }
+        
+        .nationality_input {
+            background: #fff;
+            border-radius: 2px;
+            box-sizing: border-box !important;
+            height: 45px;
+            line-height: 45px;
+            overflow: hidden;
+            padding: 0 30px 0 10px;
+            position: relative;
+        
+            &::before {
+                content: '';
+                right: 25px;
+                position: absolute;
+                width: 20px;
+                top: 0;
+                bottom: 0;
+                -webkit-box-shadow: inset -20px 0 10px -10px #fff;
+                box-shadow: inset -20px 0 10px -10px #fff;
+                z-index: 2;
+            }
+        }
+        
+        .nationality_search {
+            background-color: #fff;
+            box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+            border-radius: 2px 2px 5px 2px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            display: none;
+        
+            .options {
+                list-style-type: none;
+                padding: 0;
+                margin-bottom: 0;
+                height: 285px;
+                overflow-y: scroll;
+            }
+            
+            .option {
+                padding: 10px;
+            
+                &:hover {
+                    background-color: #ffd900;
+                    cursor: pointer;
+                }
+            }
+            
+            .search_input {
+                padding: 10px 10px 6px;
+                position: relative;
+            }
+            
+            &-input {
+                width: 100%;
+                height: 30px;
+                border: 1px solid #B8C7E4 !important;
+                padding: 4px;
+                box-sizing: border-box !important;
+            }
+        }
+
+        .nationality_hotels.open .nationality_search {
+            display: block;
+        }
+
+        .nationality_search .options::-webkit-scrollbar,
+        .childs_block .options_guest::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .nationality_search .options::-webkit-scrollbar-track,
+        .childs_block .options_guest::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px grey;
+            border-radius: 5px;
+        }
+
+        .nationality_search .options::-webkit-scrollbar-thumb,
+        .childs_block .options_guest::-webkit-scrollbar-thumb {
+            background: #ffd600;
+            border-radius: 5px;
+        }
+
+        .nationality_search .options::-webkit-scrollbar-thumb:hover {
+            background: #ffd600;
+        }
+
+        .select_box {
+            label.menu-title {
+                color: #8087a1;
+                opacity: 1;
+            
+                &::first-letter {
+                    text-transform: uppercase;
+                }
+                
+                &.has-error {
+                    color: #e94b34;
+                }
+            }
+        }
+
+        .hotel_guests .arrow,
+        .nationality .arrow {
+            width: 10px;
+            height: 10px;
+            border-top: 1px solid #7921D5;
+            border-left: 1px solid #7921D5;
+            transform: rotate(-135deg);
+            transition: transform 0.2s linear;
+            position: absolute;
+            top: 15px;
+            right: 12px;
+            opacity: 0.5;
+            z-index: 1;
+        }
+        
+        .guest_flex {
+            margin: 0 -5px;
+        
+            .hotel_guest {
+                width: 100%;
+                padding: 0 5px;
+            }
+        }
+
+        .options_guest {
+            list-style-type: none;
+            padding: 0;
+            background-color: #fff;
+            box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
+            user-select: none; 
+        }
+        
+        .option_guest {
+            padding: 5px 10px;
+
+            &:hover {
+                background-color: #26b6ff;
+                cursor: pointer;
+            }
+        }
+        
+        .childs_flex .child-text {
+            color: #8087a1;
+            font-size: 11px;
+            line-height: 13px;
+        }
+        
+        .hotel_guests .arrow.rotateClass,
+        .nationality .arrow.rotateClass {
+            top: 20px;
+            transform: rotate(45deg);
+            opacity: 1;
+        }
+        
+        .hotel_guests .control-field {
+            cursor: pointer;
+        }
+        
+        .guest_result {
+            width: 100%;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box !important;
+            user-select: none;
+        }
+        
+        .delete_search {
+            width: 17px;
+            height: 17px;
+            position: absolute;
+            top: 17px;
+            right: 20px;
+            opacity: 0.6;
+
+            &:hover {
+                opacity: 1;
+            }
+            
+            &:before,
+            &:after {
+                content: "";
+                background-color: #546e7a;
+                display: block;
+            }
+            
+            &:before {
+                width: 1px;
+                height: 100%;
+                transform: rotate(45deg);
+                position: relative;
+                top: 0px;
+                left: 8px;
+            }
+            
+            &:after {
+                width: 100%;
+                height: 1px;
+                transform: rotate(-135deg);
+                position: relative;
+                top: -9px;
+                left: 0px;
+            }
+        }
+        
+        .nationality .text-nowrap {
+            white-space: nowrap;
+            overflow: hidden;
+            display: block;
+            opacity: 0.8;
+        }
+        
+        .date.to .error-box {
+            left: -100%;
+            padding: 5px 25px 5px 10px;
+        }
+
+        .earlier .point {
+            max-width: 200px;
+        }
+
+        .hotel_guests {
+            .value_guest {
+                background: #fff;
+                border-radius: 2px;
+                cursor: pointer;
+                height: 45px;
+                line-height: 45px;
+                padding: 0 30px 0 10px;
+                position: relative;
+            }
+
+            .has-error .value_guest {
+                border-color: #e94b34;
+                background-color: #ffe2df !important;
+            }
+
+            .arrow-mobile,
+            .close-mobile {
+                display: none;
+            }
+        }
+
+        @include from-to(768px, 1199px) {
+            .date,
+            .find {
+                flex-basis: 15%;
+                max-width: 15%;
+            }
+
+            .station,
+            .hotel_guests {
+                flex-basis: 35%;
+                max-width: 35%;
+            }
+
+            .nationality {
+                flex-basis: 35%;
+                max-width: 35%;
+            }
+        }
+
+        @include from-to(576px, 767px) {
+            .date {
+                flex-basis: 25%;
+                max-width: 25%;
+            }
+
+            .station,
+            .hotel_guests,
+            .nationality {
+                flex-basis: 50%;
+                max-width: 50%;
+            }
+
+            .find {
+                flex-basis: 25%;
+                max-width: 25%;
+                margin-left: auto;
+            }
+        }
+
+        @include from(576px) {
+            .value_guest,
+            .nationality_input {
+                box-shadow: inset 1px 0px 3px 0px #B8C7E4;
+                cursor: pointer;
+                position: relative;
+            }
+            
+            .childs_flex .options_guest {
+                max-height: 100px;
+                overflow-y: auto;
+            }
+        }
+
+        @include to(575px) {
+            .station,
+            .hotel_guests,
+            .find {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+            
+            .date {
+                flex-basis: 50%;
+                max-width: 50%;
+
+                &.opened {
+                    flex-basis: auto;
+                    max-width: 100%;
+                    width: 100%;
+                }
+            }
+            
+            .fields-container .field .menu-title {
+                display: block;
+            }
+            
+            .station.from {
+                margin-bottom: 10px;
+            }
+
+            .fields-container .field.hotel_guests > .menu-title,
+            .guest_result,
+            .hotel_guests .arrow.rotateClass,
+            .nationality .arrow.rotateClass {
+                display: none;
+            }
+            
+            .hotel_guests {
+                .control-field {
+                    background: none;
+                }
+                
+                .select_box {
+                    background: none;
+                    box-shadow: none;
+                    display: block !important;
+                    position: relative;
+                }
+                
+                .select_box .box_inside {
+                    padding: 0;
+                }
+            }
+            
+            .guest_flex,
+            .childs_flex,
+            .nationality_hotels {
+                margin-bottom: 10px;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .select_box label.menu-title {
+                color: #fff;
+                opacity: 0.5;
+            }
+            
+            .options_guest,
+            .nationality_search {
+                left: 0;
+                margin: 0;
+                overflow-y: scroll;
+                position: fixed;
+                right: 0;
+                text-align: center;
+                top: 0;
+                z-index: 100;
+                bottom: 0;
+                padding: 50px 0 0 0;
+            }
+
+            .option_guest,
+            .nationality_search .option {
+                padding: 0 10px;
+                line-height: 45px;
+            }
+
+            .field .inside:before {
+                display: none;
+            }
+            
+            .hotel_guest.open .menu-title,
+            .childs_flex.open .menu-title,
+            .nationality_hotels.open .menu-title {
+                position: fixed;
+                top: 16px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 101;
+                font-size: 14px;
+                opacity: 1 !important;
+            }
+            
+            .nationality_hotels.open .menu-title {
+                width: 100%;
+                height: 50px;
+                top: 0;
+                text-align: center;
+                padding-top: 16px;
+            }
+            
+            .childs_flex .hotel_guest.open .menu-title {
+                display: block !important;
+            }
+            
+            .hotel_guest.open .options_guest::before,
+            .nationality_hotels.open .nationality_search::before {
+                content: '';
+                background-color: #7e57c2;
+                width: 100%;
+                height: 50px;
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            
+            .hotel_guest.open .arrow-mobile,
+            .nationality_hotels.open .arrow-mobile {
+                display: block;
+                width: 15px;
+                height: 15px;
+                position: fixed;
+                top: 16px;
+                left: 25px;
+                z-index: 101;
+                transform: rotate(45deg);
+                border-left: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+            
+            .hotel_guest.open .close-mobile,
+            .nationality_hotels.open .close-mobile {
+                display: block;
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                width: 20px;
+                height: 20px;
+                z-index: 101;
+                
+                &::before,
+                &::after {
+                    content: '';
+                    width: 1px;
+                    height: 100%;
+                    background-color: #fff;
+                    display: block;
+                    position: relative;
+                }
+            
+                &::before {
+                    transform: rotate(45deg);
+                    top: 0;
+                    right: -10px;
+                }
+                
+                &::after {
+                    transform: rotate(-45deg);
+                    top: -20px;
+                    right: -10px;
+                }
+            }
+
+            .nationality_hotels.open .options {
+                height: 100%;
+            }
+            
+            .nationality {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}

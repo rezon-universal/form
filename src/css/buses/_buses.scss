@@ -1,0 +1,197 @@
+﻿.rezon-forms {
+    #bus-form-shoot {
+        .station {
+            .location-region {
+                bottom: 8px;
+                left: 10px;
+                position: absolute;
+                right: 50px;
+                z-index: 10;
+                color: #a5b4bb;
+                font-size: 9px;
+                line-height: 10px;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .station.to .location-region {
+            left: 25px;
+            right: 35px;
+        }
+
+        .tt-dropdown-menu {
+            top: 104% !important;
+
+            .tt-suggestion {
+                padding: 0;
+            }
+
+            .city {
+                display: flex;
+                flex-direction: column;
+                padding: 9px 15px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #ffd900;
+                    color: #333;
+                }
+
+                &-name {
+                    color: #666666;
+                    font-size: 14px;
+                    line-height: 100%;
+                }
+
+                &-region {
+                    color: #a5b4bb;
+                    font-size: 9px;
+                    line-height: 10px;
+                    margin: 2px 0 0 0;
+                }
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: #D1D5DF;
+            }
+
+            &::-webkit-scrollbar {
+                width: 12px;
+                height: 12px;
+                background-color: #D1D5DF;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border: 1px solid #D1D5DF;
+                border-radius: 3px;
+                background-color: #fff;
+            }
+        }
+
+        .tt-suggestion.tt-cursor .city-region {
+            color: #555;
+        }
+
+        .with-region .book-from,
+        .with-region .book-to {
+            padding-bottom: 8px;
+        }
+
+        .station {
+            flex-basis: 32%;
+            max-width: 32%;
+        }
+
+        .date,
+        .find {
+            flex-basis: 12%;
+            max-width: 12%;
+        }
+
+        .pass {
+            .bus_pass {
+                .remove_pass,
+                .add_pass {
+                    width: 50%;
+                    float: none;
+                }
+
+                .count_pass {
+                    border-radius: 50%;
+                    float: none;
+                    top: 5px;
+                    width: 42px;
+                    height: 42px;
+                }
+            }
+        }
+
+        .bus_pass .pass_counter {
+            display: flex;
+        }
+
+        @include from(992px) {
+            &.bus-form-new {
+                .station {
+                    flex-basis: 30%;
+                    max-width: 30%;
+                }
+
+                .date,
+                .find {
+                    flex-basis: 20%;
+                    max-width: 20%;
+                }
+            }
+        }
+
+        @include from-to(576px, 991px) {
+            .station {
+                flex-basis: 50%;
+                max-width: 50%;
+            }
+
+            .date {
+                flex-basis: 38%;
+                max-width: 38%;
+            }
+
+            .find {
+                flex-basis: 24%;
+                max-width: 24%;
+            }
+
+            &.bus-form-new {
+                .date,
+                .find {
+                    flex-basis: 50%;
+                    max-width: 50%;
+                }
+            }
+        }
+
+        @include to(575px) {
+            .station .delete {
+                display: none;
+            }
+
+            .station {
+                flex-basis: 100%;
+                max-width: 100%;
+
+                &.from .location-region {
+                    right: 80px;
+                }
+
+                &.to .location-region {
+                    left: 10px;
+                }
+            }
+
+            .date {
+                flex-basis: 50%;
+                max-width: 50%;
+
+                &.opened {
+                    flex-basis: 100%;
+                    max-width: 100%;
+                }
+            }
+
+            .find {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+        
+            &.bus-form-new {
+                .date {
+                    flex-basis: 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

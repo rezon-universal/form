@@ -16,8 +16,8 @@
 		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
     </head>	
 <body>
-    <div class="wings" id="rezon-forms">
-        <div class="rez-forms container">
+    <div class="wings rezon-forms" id="rezon-forms">
+        <div class="rez-container container">
             <form class="rezon-form unload rail-form" role="form" id="railway-form-shoot" autocomplete="off">
     <input type="hidden" name="HistoryGuid" :value="railway.historyGuid" />
     <input type="hidden" name="book_type" v-bind:value="railway.formType.value" />
@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="field range" v-show="railway.enabledDateRange && railway.enabledDateRange > 0 ">
-            <label class="hidden-xs menu-title" data-local="true" data-localtext="SEARCH">
+            <label class="menu-title" data-local="true" data-localtext="SEARCH">
                 {{locale("SEARCH")}}
             </label>
             <div class="control-field">

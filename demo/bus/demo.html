@@ -16,17 +16,17 @@
 		<script src="https://cdn.jsdelivr.net/gh/rezon-universal/form@latest/assets/js/rezon-form.min.js"></script>
     </head>	
 <body>
-    <div class="wings" id="rezon-forms">
-        <div class="rez-forms container">
+    <div class="wings rezon-forms" id="rezon-forms">
+        <div class="rez-container container">
             <form class="rezon-form unload bus-form bus-form-new" role="form" id="bus-form-shoot" autocomplete="off" v-on:submit="submitHandler">
-    <div class="row hidden">
-        <div class="direct radio-group">
+    <!--<div class="row hidden">
+        <div class="radio-group">
             <label v-for="(type,index) in buses.formTypes" v-bind:class="{active: buses.formType.value === type.value}" v-on:click="busTypeChanged(index)">
                 <span data-local="true" :data-localtext="type.text">{{locale(type.text)}}</span>
             </label>
             <input type="radio" name="IsRoundTrip" v-bind:value="buses.formType.value" checked />
         </div>
-    </div>
+    </div>-->
     <div class="fields-container" v-bind:class="[buses.formType.value]">
         <div class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
@@ -82,13 +82,13 @@
         <div class="field find">
             <button type="submit" class="search" data-local="true" data-localtext="FIND">{{locale("FIND")}}</button>
         </div>
-        <div class="field clear ">
+        <!-- <div class="field clear">
             <div class="transp">
                 <span href="#" class="clear_form" v-on:click="clearbusForm()">
                     <span data-local="true" data-localtext="CLEAR_ALL">{{locale("CLEAR_ALL")}}</span>
                 </span>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="earlier" v-if="historyData && historyData.length > 0">
         <div class="earlier-title">{{locale("SEARCHED")}}</div>

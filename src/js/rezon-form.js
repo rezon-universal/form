@@ -9,6 +9,7 @@ const formAll = require('./form.all');
 (function ($) {
     
     $.fn.rezOnForm = function (o) {
+        this[0].classList.add('rezon-forms');
         let form = this.find("form");
         let object = this.data('RezOnForm');
         if (!object) {
