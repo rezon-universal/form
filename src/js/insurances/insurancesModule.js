@@ -43,8 +43,8 @@ module.exports = class insurancesModule extends formModuleBase {
     //Установка запрещенных дат в датапикере
     datepickerGetDisabled(datepicker) {
         return {
-            to: datepicker.minDate !== undefined ? datepicker.minDate : vue.dates.insurancesMinDate,
-            from: datepicker.maxDate !== undefined ? datepicker.maxDate : vue.dates.insurancesMaxDate
+            to: datepicker.minDate !== undefined ? datepicker.minDate : this.vue.dates.insurancesMinDate,
+            from: datepicker.maxDate !== undefined ? datepicker.maxDate : this.vue.dates.insurancesMaxDate
         };
     }
     //Датапикер - выбрано значение (ивент)
@@ -220,7 +220,7 @@ module.exports = class insurancesModule extends formModuleBase {
             },
             created: function () {
                 var comp = this;
-                vue.$on("cityUpdate", function (name, city) {
+                local.vue.$on("cityUpdate", function (name, city) {
                     if (comp.name === name) {
                         comp.updateInsuranceItem(city);
                     }
@@ -228,7 +228,7 @@ module.exports = class insurancesModule extends formModuleBase {
             }
         });
 
-        this.vue = new Vue({
+        new Vue({
             el: bindTo[0],
             mixins: [this.getVueBase(mountedCallback)],
             computed: {
@@ -275,7 +275,7 @@ module.exports = class insurancesModule extends formModuleBase {
             methods: {
                 updateLocationTypeAhead: function (name, data) {
                     var cityItem = new InsuranceLocation(data);
-                    vue.$emit("cityUpdate", name, cityItem);
+                    this.$emit("cityUpdate", name, cityItem);
                 },
                 setDateTo: function (period) {
                     // Для kmj устанавливаем дату окончания страхового периода по выбранном количеству дней
@@ -416,12 +416,14 @@ module.exports = class insurancesModule extends formModuleBase {
 
                 this.setAvailablePeriod();
 
-                window.vue = this;
+                local.vue = this;
+                window.insurancesFormVue = this;
             }
         });
     }
     //Инициализация модуля, вызывается после подключения Vue
     bind() {
+        let module = this;
         let it = this.it;
         let form = this.form;
         let options = this.options;
@@ -493,7 +495,7 @@ module.exports = class insurancesModule extends formModuleBase {
                 var field = $(this).closest('.field.station');
                 var name = field.find(".inside input[type='hidden']").attr('name');
                 it.extra.closeField(field);
-                vue.updateLocationTypeAhead(name, datum);
+                module.vue.updateLocationTypeAhead(name, datum);
                 
                 if (!it.extra.mobileAndTabletcheck()) {
                     if (name === "CountryCode") {

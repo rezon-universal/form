@@ -51,8 +51,8 @@ module.exports = class hotelModule extends formModuleBase {
     //Установка запрещенных дат в датапикере
     datepickerGetDisabled(datepicker) {
         return {
-            to: datepicker.minDate !== undefined ? datepicker.minDate : vue.dates.hotelMinDate,
-            from: datepicker.maxDate !== undefined ? datepicker.maxDate : vue.dates.hotelMaxDate
+            to: datepicker.minDate !== undefined ? datepicker.minDate : this.vue.dates.hotelMinDate,
+            from: datepicker.maxDate !== undefined ? datepicker.maxDate : this.vue.dates.hotelMaxDate
         };
     }
     //Датапикер - выбрано значение (event)
@@ -169,7 +169,7 @@ module.exports = class hotelModule extends formModuleBase {
             },
             created: function () {
                 var comp = this;
-                vue.$on("cityUpdate", function (name, city) {
+                local.vue.$on("cityUpdate", function (name, city) {
                     if (comp.name === name) {
                         comp.updateBusItem(city);
                     }
@@ -336,7 +336,7 @@ module.exports = class hotelModule extends formModuleBase {
         });
         
 
-        this.vue = new Vue({
+        new Vue({
             el: bindTo[0],
             mixins: [this.getVueBase(mountedCallback)],
             computed: {
@@ -402,7 +402,7 @@ module.exports = class hotelModule extends formModuleBase {
                 },
                 updateHotelCityTypeAhead: function (name, data) {
                     var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryName);
-                    vue.$emit("hotelCityUpdate", name, cityItem);
+                    this.vue.$emit("hotelCityUpdate", name, cityItem);
                 },
                 clearHotelForm: function () {
                     this.hotel.checkIn = [this.hotelDefaultCheckIn];
@@ -441,7 +441,7 @@ module.exports = class hotelModule extends formModuleBase {
                 
                 updateCityTypeAhead: function (name, data) {
                     var cityItem = new HotelCityItem(data.Id, data.Name, data.CountryName);
-                    vue.$emit("cityUpdate", name, cityItem);
+                    this.$emit("cityUpdate", name, cityItem);
                 },
                 async submitHandler(e) {
                     let checker = new validator(local.form, local.it);
@@ -550,7 +550,8 @@ module.exports = class hotelModule extends formModuleBase {
                 else if (this.hotel.checkOut[0] < this.hotel.checkIn[0])
                     this.hotel.checkOut = this.hotel.checkIn;
 
-                window.vue = this;
+                local.vue = this;
+                window.hotelFormVue = this;
 
             }
         });
@@ -558,7 +559,7 @@ module.exports = class hotelModule extends formModuleBase {
     }
     //Инициализация модуля, вызывается после подключения Vue
     bind() {
-        
+        let module = this;
         let it = this.it;
         let form = this.form;
         let options = this.options;
@@ -688,7 +689,7 @@ module.exports = class hotelModule extends formModuleBase {
                 var name = field.find(".inside input[type='hidden']").attr("name");
 
                 it.extra.closeField(field);
-                vue.updateCityTypeAhead(name, datum);
+                module.vue.updateCityTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
                     var dp = $(this).closest(".fields-container").find('.date.from').find("input[name='CheckIn']").siblings(".book-date");
                     setTimeout(function () {

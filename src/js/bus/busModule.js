@@ -49,8 +49,8 @@ module.exports = class busModule extends formModuleBase {
     //Установка запрещенных дат в датапикере
     datepickerGetDisabled(datepicker) {
         return {
-            to: datepicker.minDate !== undefined ? datepicker.minDate : vue.dates.busesMinDate,
-            from: datepicker.maxDate !== undefined ? datepicker.maxDate : vue.dates.busesMaxDate
+            to: datepicker.minDate !== undefined ? datepicker.minDate : this.vue.dates.busesMinDate,
+            from: datepicker.maxDate !== undefined ? datepicker.maxDate : this.vue.dates.busesMaxDate
         };
     }
 
@@ -168,7 +168,7 @@ module.exports = class busModule extends formModuleBase {
             },
             created: function () {
                 var comp = this;
-                vue.$on("cityUpdate", function (name, city) {
+                local.vue.$on("cityUpdate", function (name, city) {
                     if (comp.name === name) {
                         comp.updateBusItem(city);
                     }
@@ -176,7 +176,7 @@ module.exports = class busModule extends formModuleBase {
             }
         });
 
-        this.vue = new Vue({
+        new Vue({
             el: bindTo[0],
             mixins: [this.getVueBase(mountedCallback)],
             computed: {
@@ -249,7 +249,7 @@ module.exports = class busModule extends formModuleBase {
             methods: {
                 updateLocationTypeAhead: function (name, data) {
                     var cityItem = new BusLocation(data);
-                    vue.$emit("cityUpdate", name, cityItem);
+                    this.$emit("cityUpdate", name, cityItem);
                 },    
                 swapBusDest: function () {
                     var to = this.buses.LocationFrom;
@@ -342,13 +342,14 @@ module.exports = class busModule extends formModuleBase {
                 //else if (this.buses.BackDate < this.buses.Date)
                 //    this.buses.BackDate = this.buses.Date;
 
-
-                window.vue = this;
+                local.vue = this;
+                window.busFormVue = this;
             }
         });
     }
     //Инициализация модуля, вызывается после подключения Vue
     bind() {
+        let module = this;
         let it = this.it;
         let form = this.form;
         let options = this.options;
@@ -430,7 +431,7 @@ module.exports = class busModule extends formModuleBase {
                 var name = field.find(".inside input[type='hidden']").attr('name');
 
                 it.extra.closeField(field);
-                vue.updateLocationTypeAhead(name, datum);
+                module.vue.updateLocationTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
                     switch (name) {
                         case "LocationFromId":

@@ -1284,30 +1284,31 @@
     }
 
     /*--------------Modal Block--------------*/
-    .selectpicker .modal_block {
-        background: #fff !important;
-        justify-content: start !important;
+    @media (max-width: 575px) {
+        .selectpicker .modal_block {
+            background: #fff !important;
+            justify-content: start !important;
 
-        .option:before {
+            .option:first-child:before {
+                content: '';
+                border-bottom: 1px solid #fff;
+                position: fixed;
+                top: 25px;
+                width: 20px;
+                right: 20px;
+                transform: rotate(-45deg);
+            }
+        }
+
+        .modal_block.z-100:after {
             content: '';
             border-bottom: 1px solid #fff;
             position: fixed;
             top: 25px;
             width: 20px;
             right: 20px;
-            transform: rotate(-45deg);
-            opacity: 0.5;
+            transform: rotate(45deg);
         }
-    }
-
-    .modal_block.z-100:after {
-        content: '';
-        border-bottom: 1px solid #fff;
-        position: fixed;
-        top: 25px;
-        width: 20px;
-        right: 20px;
-        transform: rotate(45deg);
     }
 
     .noselect {
@@ -1487,6 +1488,14 @@
 
         .fields-container.extended .field.date + .date {
             margin-right: 0;
+        }
+
+        .extended .selectpicker.opened .options {
+            bottom: auto;
+            top: auto;
+            padding: 0;
+            height: initial;
+            max-height: initial !important;
         }
     }
 
@@ -1959,6 +1968,17 @@
         .datepickerContainer .datepicker-col + .datepicker-col .datepickerGoNext.no-visiblity {
             visibility: visible;
         }
+
+        .extended .class .selectpicker .options {
+            min-width: 100%;
+            width: auto;
+        }
+
+        .extended:not(.route) .class .selectpicker .options {
+            right: 0;
+            left: auto;
+        }
+
     }
 
 	.visible-xs-block,

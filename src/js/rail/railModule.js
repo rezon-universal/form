@@ -56,8 +56,8 @@ module.exports = class railModule extends formModuleBase {
     //Установка запрещенных дат в датапикере
     datepickerGetDisabled(datepicker) {
         return {
-            to: datepicker.minDate !== undefined ? datepicker.minDate : vue.dates.trainsMinDate,
-            from: datepicker.maxDate !== undefined ? datepicker.maxDate : vue.dates.trainsMaxDate
+            to: datepicker.minDate !== undefined ? datepicker.minDate : this.vue.dates.trainsMinDate,
+            from: datepicker.maxDate !== undefined ? datepicker.maxDate : this.vue.dates.trainsMaxDate
         };
     }
 
@@ -162,7 +162,7 @@ module.exports = class railModule extends formModuleBase {
             },
             created: function () {
                 var comp = this;
-                vue.$on('stationUpdate', function (name, station) {
+                local.vue.$on('stationUpdate', function (name, station) {
                     if (comp.name === name) {
                         comp.updateRailItem(station);
                     }
@@ -171,7 +171,7 @@ module.exports = class railModule extends formModuleBase {
         });
 
 
-        this.vue = new Vue({
+        new Vue({
             el: bindTo[0],
             mixins: [this.getVueBase(mountedCallback)],
             computed: {
@@ -207,7 +207,7 @@ module.exports = class railModule extends formModuleBase {
                 },
                 updateStationTypeAhead: function (name, data) {
                     var stationItem = new StationItem(data.ExpressCode, data.Name, data.CountryCode, data.CountryName);
-                    vue.$emit('stationUpdate', name, stationItem);
+                    this.$emit('stationUpdate', name, stationItem);
                 },
                 swapRailDest: function () {
                     var to = this.railway.stationFrom;
@@ -286,8 +286,8 @@ module.exports = class railModule extends formModuleBase {
                     this.railway.dateBack = [this.railwayDateBack];
                 }
       
-
-                window.vue = this;
+                local.vue = this;
+                window.railFormVue = this;
             }
         });
     }
@@ -399,7 +399,7 @@ module.exports = class railModule extends formModuleBase {
                 var name = field.find(".inside input[type='hidden']").attr('name');
 
                 it.extra.closeField(field);
-                vue.updateStationTypeAhead(name, datum);
+                local.vue.updateStationTypeAhead(name, datum);
                 if (!it.extra.mobileAndTabletcheck()) {
                     switch (name) {
                         case "tshi_station_from":
