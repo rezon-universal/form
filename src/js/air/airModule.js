@@ -770,7 +770,7 @@ module.exports = class airModule extends formModuleBase {
 					}).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
 						//Выбор элемента - подставляем иата код
 						if (datum != undefined) {
-							this.addCarrier(datum.label, datum.code);
+							local.vue.addCarrier(datum.label, datum.code);
 							$(this).closest(".twitter-typeahead").next().val(datum.code);
 						}
 						$(this).trigger("change");
