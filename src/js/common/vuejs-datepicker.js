@@ -1745,6 +1745,9 @@
               staticClass: "prev",
               class: { disabled: _vm.isLeftNavDisabled },
               on: {
+                touchstart: function($event) {
+                  _vm.isRtl ? _vm.nextMonth() : _vm.previousMonth();
+                },
                 click: function($event) {
                   _vm.isRtl ? _vm.nextMonth() : _vm.previousMonth();
                 }
@@ -1781,6 +1784,9 @@
               staticClass: "next",
               class: { disabled: _vm.isRightNavDisabled },
               on: {
+                touchstart: function($event) {
+                  _vm.isRtl ? _vm.previousMonth() : _vm.nextMonth();
+                },
                 click: function($event) {
                   _vm.isRtl ? _vm.previousMonth() : _vm.nextMonth();
                 }
@@ -1895,6 +1901,9 @@
                                     }
                                   ],
                                   mousedown: function($event) {
+                                    $event.stopPropagation();
+                                  },
+                                  touchend: function($event) {
                                     $event.stopPropagation();
                                   }
                                 }
