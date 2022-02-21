@@ -176,6 +176,8 @@
     "PASS_CAT_WEB_DESC": "WEB",
     "PASS_CAT_YNN": "Government travel child",
     "PASS_CAT_YNN_DESC": "YNN",
+    "PASS_CAT_SRC": "Senior without age",
+    "PASS_CAT_SRC_DESC": "SRC",
     "SPECIFY_PASSENGERS": "Specify the passengers ...",
     "ADD_PASSENGER_TYPE": "Add Passenger Type",
     "FORM_CLASS_ANY": "Any",
