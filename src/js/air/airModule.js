@@ -73,7 +73,8 @@ module.exports = class airModule extends formModuleBase {
                 },
                 formExtended: false,
                 airvListLoaded: false,
-                maxPassangersCount: 6,
+                maxPassangersCount: 9,
+                maxCategoriesCount: 6,
                 multyRoutes: [],
                 maxRoutesCount: 3,
                 segmentsCount: 2,
@@ -620,10 +621,14 @@ module.exports = class airModule extends formModuleBase {
                     });
 
                     var availablePassCount = this.avia.maxPassangersCount - currCount;
+                    var categoriesCount = 0;
+                    const maxCategoriesCount = this.avia.maxCategoriesCount;
                     this.avia.passengers.types.forEach(function (value) {
                         value.disabled = availablePassCount < 1;
 
-                        if (infantsCat.indexOf(value.name) >= 0 && (adultCnt === 0 || adultCnt < infantCnt + 1)) {
+                        if (value.count > 0) categoriesCount++;
+                        if (categoriesCount >= maxCategoriesCount
+                            || infantsCat.indexOf(value.name) >= 0 && (adultCnt === 0 || adultCnt < infantCnt + 1)) {
                             value.disabled = true;
                         }
                     });
