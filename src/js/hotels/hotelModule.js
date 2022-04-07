@@ -57,7 +57,7 @@ module.exports = class hotelModule extends formModuleBase {
     }
     //Датапикер - выбрано значение (event)
     datepickerSelected(datepicker) {
-        var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+        var isMobile = this.it.extra.mobileAndTabletcheck();
         if (datepicker.name === 'CheckIn' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
             var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='CheckOut']").siblings(".book-date");

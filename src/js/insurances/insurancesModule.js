@@ -49,7 +49,7 @@ module.exports = class insurancesModule extends formModuleBase {
     }
     //Датапикер - выбрано значение (ивент)
     datepickerSelected(datepicker) {
-        var isMobile = this.it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+        var isMobile = this.it.extra.mobileAndTabletcheck();
         if (datepicker.name === 'DateFrom' && datepicker.highlighted.to !== undefined && datepicker.highlighted.to !== null && !isMobile) {
             var el = $(datepicker.$el);
             var nextDatePick = el.closest('.fields-container').find('.date.to').find("input[name='DateTo']").siblings(".book-date");

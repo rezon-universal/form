@@ -1165,7 +1165,7 @@ module.exports = class airModule extends formModuleBase {
         form.find(".passengers > .switch-box .switch").click(function () {
             if ($(this).is(".disabled")) return false;
             var selectAge = form.find(".select-age");
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+            var isMobile = it.extra.mobileAndTabletcheck();
             var field = $(this).closest('.field');
 
             if ($(this).is(".opened")) {
@@ -1217,7 +1217,7 @@ module.exports = class airModule extends formModuleBase {
             return false;
         }).on('blur focusout', function () {
             var selectAge = $(this);
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+            var isMobile = it.extra.mobileAndTabletcheck();
             var field = $(this).closest('.field');
 
             var updateClosedSelect = function (el) {
@@ -1254,7 +1254,7 @@ module.exports = class airModule extends formModuleBase {
             if (carriersItem.data('focusTimer')) clearTimeout(carriersItem.data('focusTimer'));
 
             if (carriersItem.find(".carriers-finder.g-hide").length > 0) {
-                var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+                var isMobile = it.extra.mobileAndTabletcheck();
                 var field = $(this).closest('.field');
                 var updateOpenedSelect = function (el) {
                     el.removeClass("g-hide").closest(".carriers").removeClass("z-100");
@@ -1287,7 +1287,7 @@ module.exports = class airModule extends formModuleBase {
             }
         }).focusout(function () {
             var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
-            var isMobile = it.extra.mobileAndTabletcheck() && window.innerWidth <= 575;
+            var isMobile = it.extra.mobileAndTabletcheck();
             var field = $(this).closest('.field');
 
             var updateClosedSelect = function (el) {
