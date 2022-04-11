@@ -153,5 +153,7 @@
     "ESTIMATED_PRICES_SHOWN_IN" : "Очакваните цени са показани в",
     "DONE" : "Затвори",
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Изберете държавата на пътуване",
-    "POLICY_ISSUED_BEFORE_TRIP" : "Политиката може да бъде издадена преди началото на пътуването"
+    "POLICY_ISSUED_BEFORE_TRIP": "Политиката може да бъде издадена преди началото на пътуването",
+    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME": "Information about booking for the duration of the martial law in Ukraine",
+    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME_LINK": "https://eurotravelins.com.ua/upload/products/production/erv/contract/km/description_during_the_war_time_en.pdf"
 }
