@@ -250,5 +250,8 @@
     "CANNT_DECIDE_WHERE" : "Can't decide where?",
     "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Click here to search Everywhere",
     "NUMBER_OF_DAYS" : "Number of days",
-    "SELECT_PERIOD" : "Select period"
+    "SELECT_PERIOD" : "Select period",
+    "WORK_ABROAD" : "Work abroad",
+    "TRAVELING_ABROAD" : "Traveling abroad",
+    "TRAVELING_THROUGH_UKRAINE" : "Traveling through Ukraine"
 }

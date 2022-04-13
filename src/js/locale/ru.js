@@ -172,5 +172,8 @@
     "CANNT_DECIDE_WHERE" : "Не можете определиться?",
     "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Нажмите сюда, что бы искать \"Везде\"",
     "NUMBER_OF_DAYS" : "Количество дней",
-    "SELECT_PERIOD" : "Выберите период"
+    "SELECT_PERIOD" : "Выберите период",
+    "WORK_ABROAD" : "Работа за рубежом",
+    "TRAVELING_ABROAD" : "Путешествие за рубеж",
+    "TRAVELING_THROUGH_UKRAINE" : "Путешествие по Украине"
 }

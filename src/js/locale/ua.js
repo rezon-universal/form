@@ -173,5 +173,8 @@
     "CANNT_DECIDE_WHERE" : "Не можете обрати напрямок?",
     "CLICK_HERE_TO_SEARCH_EVERYWHERE" : "Клацніть тут, щоб шукати всюди",
     "NUMBER_OF_DAYS" : "Кількість днів",
-    "SELECT_PERIOD" : "Виберіть період"
+    "SELECT_PERIOD" : "Виберіть період",
+    "WORK_ABROAD" : "Робота за кордоном",
+    "TRAVELING_ABROAD" : "Подорож за кордон",
+    "TRAVELING_THROUGH_UKRAINE" : "Подорож Україною"
 }

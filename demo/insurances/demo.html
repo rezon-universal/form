@@ -19,6 +19,15 @@
     <div class="wings rezon-forms" id="rezon-forms">
         <div class="rez-container container">
             <form class="rezon-form unload insurance-form" role="form" id="insurances-form-shoot" autocomplete="off" v-on:submit="submitHandler">
+    <div id="insurances-form-tabs" v-if="Object.keys(Tabs).length > 1">
+        <a href="#kmj" :class="['switch-form', {'active': widgetCode === 'kmj'}]"
+           v-if="Tabs.kmj" v-on:click="widgetCode = 'kmj'"><span>{{locale("WORK_ABROAD")}}</span></a>
+        <a href="#km" :class="['switch-form', {'active': widgetCode === 'km'}]"
+           v-if="Tabs.km" v-on:click="widgetCode = 'km'"><span>{{locale("TRAVELING_ABROAD")}}</span></a>
+        <a href="#kmu" :class="['switch-form', {'active': widgetCode === 'kmu'}]"
+           v-if="Tabs.kmu" v-on:click="widgetCode = 'kmu'"><span>{{locale("TRAVELING_THROUGH_UKRAINE")}}</span></a>
+    </div>
+
     <div v-show="widgetCode === 'kmu'" style="display: none;">
         <h2>{{ locale('TRAVEL_INSURANCE_IN_UKRAINE') }}</h2>
     </div>
@@ -52,9 +61,9 @@
                                    :update-page-date-on-select="true"
                                    :page-date-stamp="pageDateStamp">
                         <template v-if="insurances.MinimumPeriod > 1" slot="bottom" slot-scope="scopeSlot">
-                            <div class="calendar-footer">
+                            <!--<div class="calendar-footer">
                                 <div>{{ locale('INSURANCES_MINIMUM_PERIOD') }}:&nbsp;<span>{{ insurances.MinimumPeriod }}</span></div>
-                            </div>
+                            </div>-->
 						
 							<div class="popup-footer">
 								<div class="close-btn">

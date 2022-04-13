@@ -20,13 +20,15 @@ module.exports = class insurancesModule extends formModuleBase {
                 DateTo: null,
                 Location: new InsuranceLocation(),
                 DaysShift: 0,
-                MinimumPeriod: 1
+                MinimumPeriod: 1,
+                FormTabs: ''
             },
             selectedPeriod: 0,
             periods: [30, 45, 60, 90, 180, 270, 365],
             availablePeriod: 0,
             // "Жестко" привязанный код виджета. Необходимо, например, что бы оставить только Украину в поисковой форме
-            widgetCode : null
+            widgetCode: null,
+            Tabs: {}
         };  
     }
     //Получение ссылки на внешнюю форму, куда отправлять данные
@@ -286,10 +288,14 @@ module.exports = class insurancesModule extends formModuleBase {
                 },
                 // Пересчитываем доступный период для kmj
                 setAvailablePeriod: function () {
+                    // устананавливаем availablePeriod не зависимо от типа формы
+                    // иначе при переходе на kmj выбор периода будет недоступный
                     const milisecondsInDay = 86400000;
                     var dateFrom = new Date(this.insurances.DateFrom[0].getTime());
                     dateFrom.setHours(0, 0, 0, 0);
                     this.availablePeriod = (this.dates.insurancesMaxDate.getTime() - dateFrom.getTime()) / milisecondsInDay;
+
+                    if (this.widgetCode !== 'kmj') return;
 
                     // Сбрасываем выбранный период если дата начала исключает выбранный период
                     if (this.selectedPeriod > this.availablePeriod) this.selectedPeriod = 0;
@@ -394,6 +400,9 @@ module.exports = class insurancesModule extends formModuleBase {
                         } else if (value) {
                             console.log('widget code changed', value);
                             local.options.insurances.Location = new InsuranceLocation();
+
+                            // При переходе на kmj, если выбран период, устанавливаем дату окончания страхового периода
+                            if (value === 'kmj' && this.selectedPeriod > 0) this.setDateTo(this.selectedPeriod);
                         }
                         if (local.it.dw) {
                             local.it.dw.insuranceLocationFinderData.clearPrefetchCache();
@@ -403,6 +412,15 @@ module.exports = class insurancesModule extends formModuleBase {
                 }
             },
             created: function () {
+                if (!!this.insurances.FormTabs) {
+                    var parseTabs = this.insurances.FormTabs.split(',');
+
+                    // удаляем пробельные символы и фильтруем пустые значения
+                    for (let item of parseTabs) {
+                        if (!!item.trim()) this.Tabs[item.trim().toLowerCase()] = true;
+                    }
+                }
+
                 //Global variable
                 this.dates.insurancesMinDate = this.insurancesMinDate;
                 this.dates.insurancesMaxDate = this.insurancesMaxDate;
@@ -418,6 +436,10 @@ module.exports = class insurancesModule extends formModuleBase {
 
                 local.vue = this;
                 window.insurancesFormVue = this;
+
+                // Устанавливаем widgetCode по умолчанию, кроме страницы истории поиска
+                // TODO! для страницы истории поиска widgetCode необходимо хранить в базе, иначе установка widgetCode обнулит Location
+                if (!this.insurances.Location.CountryCode && Object.keys(this.Tabs).length > 1) this.widgetCode = Object.keys(this.Tabs)[0];
             }
         });
     }
