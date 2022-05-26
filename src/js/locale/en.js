@@ -243,7 +243,7 @@
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Select the country of travel",
     "POLICY_ISSUED_BEFORE_TRIP" : "The policy can be issued before the start of the trip",
     "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME": "Information about booking for the duration of the martial law in Ukraine",
-    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME_LINK": "https://eurotravelins.com.ua/upload/products/production/erv/contract/km/description_during_the_war_time_en.pdf",
+    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME_LINK": "https://eurotravelins.com.ua/upload/products/production/erv/contract/km/30_days_eng.pdf",
     "TRAVEL_INSURANCE_IN_UKRAINE": "Travel Insurance in Ukraine",
     "INSURANCES_MINIMUM_PERIOD": "Minimum insurance period, days",
     "EVERYWHERE" : "Everywhere",

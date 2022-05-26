@@ -165,7 +165,7 @@
     "SELECT_THE_COUNTRY_OF_TRAVEL" : "Выберите страну поездки",
     "POLICY_ISSUED_BEFORE_TRIP": "Полис можно оформить до начала поездки",
     "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME": "Информация о бронировании на время военного положения в Украине",
-    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME_LINK": "https://eurotravelins.com.ua/upload/products/production/erv/contract/km/description_during_the_war_time_ru.pdf",
+    "INSURANCE_DESCRIPTION_DURING_THE_WAR_TIME_LINK": "https://eurotravelins.com.ua/upload/products/production/erv/contract/km/30_days_rus.pdf",
     "TRAVEL_INSURANCE_IN_UKRAINE": "Страхование по Украине",
     "INSURANCES_MINIMUM_PERIOD": "Минимальный период страхования, дней",
     "EVERYWHERE" : "Весь мир",
