@@ -869,10 +869,10 @@ module.exports = class airModule extends formModuleBase {
                 'avia.dateBack': function (value) {
                     var currentMaxValue = this.getMaxDateRange(value);
                     if (this.avia.dateThere[0] > currentMaxValue) {
-                        if (this.avia.formType.value === "oneway") {
-                            this.avia.dateBack = [...this.avia.dateThere];
-                        }else {
+                        if (this.avia.formType.value === "roundtrip") {
                             this.$set(this.avia.dateThere, 0, currentMaxValue);
+                        } else {
+                            this.avia.dateBack = [...this.avia.dateThere];
                         }
                     }
                     value.forEach((dateBack, indexBack) => {
