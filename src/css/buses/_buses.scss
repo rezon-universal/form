@@ -109,9 +109,6 @@
             }
         }
 
-        .bus_pass .pass_counter {
-            display: flex;
-        }
 
         @include from(992px) {
             &.bus-form-new {

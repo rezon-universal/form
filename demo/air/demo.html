@@ -18,14 +18,13 @@
 <body>
     <div class="wings rezon-forms" id="rezon-forms">
         <div class="rez-container container">
-            <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off" 
-      :target="(avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip' && avia.hotelSearch) ? '_blank' : ''">
+            <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off">
     <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <input type="hidden" name="book_type" v-model="avia.formType.value" />
     <input type="hidden" name="filter_stops" :value="avia.filters.onlyDirectFlights ? '0' : '' " />
 
-    <div class="fields-container" v-bind:class="[avia.formType.value,{'extended':avia.formExtended}]">
+    <div class="fields-container" v-bind:class="[avia.formType.value]">
         <div class="field airport from">
             <label class="menu-title">
                 <span class="link-left"></span>
@@ -235,7 +234,7 @@
             </div>
         </div>
         <div class="field find">
-            <button type="submit" class="search" v-on:click="avia.initByUser = true">{{locale("FIND")}}</button>
+            <button type="submit" class="search">{{locale("FIND")}}</button>
         </div>
         <div class="multy-route" v-if="avia.formType.value=='route'" v-bind:class="{last : index==avia.multyRoutes.length-1}" v-for="(route,index) in avia.multyRoutes">
             <div class="field airport">
@@ -292,83 +291,8 @@
                 <a><span>+ {{locale("CONTINUE_ROUTE")}}</span></a>
             </div>
         </div>
-        <div class="field class" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.length > 0 && !avia.isAirPromo">
-            <label class="menu-title">
-                {{locale("CLASS")}}
-            </label>
-            <div class="control-field">
-                <div class="book-class">
-                    <div class="selectpicker standalone">
-                        <div class="options">
-                            <div class="option" v-on:click="avia.bookClass=0">
-                                <span>{{locale("FORM_CLASS_ANY")}}</span>
-                                <input type="radio" name="book_class" value="0" v-bind:checked="avia.bookClass==0" />
-                            </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(1) > -1" v-on:click="avia.bookClass=1">
-                                <span>{{locale("FORM_CLASS_E")}}</span>
-                                <input type="radio" name="book_class" value="1" v-bind:checked="avia.bookClass==1" />
-                            </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(4) > -1" v-on:click="avia.bookClass=4">
-                                <span>{{locale("FORM_CLASS_W")}}</span>
-                                <input type="radio" name="book_class" value="4" v-bind:checked="avia.bookClass==4" />
-                            </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(2) > -1" v-on:click="avia.bookClass=2">
-                                <span>{{locale("FORM_CLASS_B")}}</span>
-                                <input type="radio" name="book_class" value="2" v-bind:checked="avia.bookClass==2" />
-                            </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(3) > -1" v-on:click="avia.bookClass=3">
-                                <span>{{locale("FORM_CLASS_F")}}</span>
-                                <input type="radio" name="book_class" value="3" v-bind:checked="avia.bookClass==3" />
-                            </div>
-                            <div class="option" v-show="avia.enabledCabinClasses && avia.enabledCabinClasses.indexOf(5) > -1" v-on:click="avia.bookClass=5">
-                                <span>{{locale("FORM_CLASS_P")}}</span>
-                                <input type="radio" name="book_class" value="5" v-bind:checked="avia.bookClass==5" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--<div class="field only-direct">
-            <div class="direct_flight transp">
-                <label class="checkbox-wrapper" :class="{active:avia.onlyDirect}">
-                    <div class="check_bull"></div>
-                    <input type="checkbox" name="onlyDirect" v-model="avia.onlyDirect" :value="avia.onlyDirect?'True':''" />
-                    <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
-                </label>
-            </div>
-        </div>-->
-        <div class="field carrier">
-            <label class="menu-title">
-                <span class="link-left"></span>
-                {{locale("AIRCOMPANY")}}
-                <span class="link-right"></span>
-            </label>
-            <div class="control-field">
-                <div class="carriers" tabindex="-1">
-                    <div class="item">
-                        <div class="inside">
-                            <span>{{allAirCompanies}}</span>
-                        </div>
-                    </div>
-                    <div class="carriers-finder g-hide">
-                        <div class="carriers-finder-inside">
-                            <div v-for="(item, index) in avia.airCompanies">
-                                <input type="hidden" :name="'selectedAirCompany'+(index+1)" v-model="avia.airCompanies[index].code" />
-                                <label class="clearfix carrier_name"><span class="pull-left">{{item.label}}</span><span class="delete" v-on:click="removeCarrier(index)"></span></label>
-                            </div>
-                            <div v-show="avia.airCompanies.length<avia.maxAirCompaniesCount">
-                                <input type="text" class="typeahead-selectpicker galileo-aircompany-select" :placeholder="locale('ANY_AVIACOMPANY')" />
-                            </div>
-                        </div>
-                        <span href="#" class="button-hide hidden-xs">
-                            <span class="hide-inner">{{locale("HIDE")}}</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field range" v-show="avia.enabledDateRange && avia.enabledDateRange > 0 ">
+        
+        <!--<div class="field range" v-show="avia.enabledDateRange && avia.enabledDateRange > 0 ">
             <label class="hidden-xs menu-title">
                 {{locale("SEARCH")}}
             </label>
@@ -396,7 +320,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="field hide_s">
             <a href="#" class="transp dashed" v-if="avia.formType.value !== 'route' && !avia.isAirPromo" v-on:click.prevent="typeChanged(2)">
                 <span>{{locale(avia.formTypes[2].text)}}</span>
@@ -406,34 +330,7 @@
                     <span>{{locale("BACK_TO_SIMPLE_ROUTE")}}</span>
                 </a>
             </div>
-            <div v-if="!avia.isAirPromo" class="transp" v-on:click="changeAviaFormExtended()">
-                <div class="hide_settings dashed">
-                    <div class="simple_search">
-                        <span>{{locale("HIDE_ADVANCED_SETTINGS")}}</span>
-                    </div>
-                    <div class="advanced_search">
-                        <span>{{locale("ADVANCED_SETTINGS")}}</span>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="field clear">
-            <div class="transp">
-                <span href="#" class="clear_form" v-on:click="clearForm()">
-                    <span>{{locale("CLEAR_ALL")}}</span>
-                </span>
-            </div>
-        </div>
-
-        <div class="field hotel_search" v-show="avia.isHotelSearchEnabled && avia.formType.value === 'roundtrip'" style="display: none; order: 10; margin-left: auto">
-            <label class="checkbox-wrapper" :class="{active:avia.hotelSearch}">
-                <div class="check_bull"></div>
-                <input id="hotelSearch" type="checkbox" name="hotelSearch" v-model="avia.hotelSearch" :value="avia.hotelSearch ? 'True' : ''" />
-                <span>{{locale("AIR_HOTEL_SEARCH")}}</span>
-            </label>
-        </div>
-        <input type="hidden" id="initByUser" :value="avia.initByUser ? 'true' : ''" />
-
     </div>
     <div class="earlier" v-if="historyData && historyData.length > 0">
         <div class="earlier-title">{{locale("SEARCHED")}}</div>

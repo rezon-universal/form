@@ -1,7 +1,6 @@
 ﻿const AirportItem = require('./AirportItem');
 const DirectionType = require('./DirectionType');
 const PassItem = require('./PassItem');
-const CarrierItem = require('./CarrierItem');
 const EmptyRouteItem = require('./EmptyRouteItem');
 
 const validator = require('./validator');
@@ -36,18 +35,23 @@ module.exports = class airModule extends formModuleBase {
                 airMaxDate: null
             },
             avia: {
-                //recAirportsFrom: [ "TLV" ],
-                //recAirportsTo: [],
                 defaultRouteType: null, // [oneway/roundtrip/multy]
                 defaultAirportFrom: null, // IATA code, ex. IEV 
                 defaultAirportTo: null, // IATA code, ex. IEV
                 onlySpecificAirportsInDropdown: false, //bool indicator, that says to use only specific airports list in dropdown (search of airports will be deactivated)
-                enabledCabinClasses: '1,2', // string cabinClasses, ex. "1,2" (Economy,Business)
+                
                 enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes, 
+                
+                // Разрешенный к выбору +-3 дня
                 enabledDateRange: 3,
+                // Выбранный интервал +-N дней
+                intervalCount: 0,
+
                 dateThere: null, // [dd.MM.yyyy]
                 dateBack: null, // [dd.MM.yyyy]
+                // Минимально дней до вылета
                 plusDaysShift: 1, // -1 - 10
+                // Максимально дней до вылета
                 maxDaysSearch: 360, // 1 - 360
                 disabledDatesFrom: [],
                 disabledDatesTo: [],
@@ -71,23 +75,14 @@ module.exports = class airModule extends formModuleBase {
                     hasError: false,
                     messages: []
                 },
-                formExtended: false,
-                airvListLoaded: false,
                 maxPassangersCount: 9,
                 maxCategoriesCount: 6,
                 multyRoutes: [],
                 maxRoutesCount: 3,
                 segmentsCount: 2,
-                bookClass: 0,
-                airCompanies: [],
-                maxAirCompaniesCount: 3,
-                intervalCount: 0,
-                onlyDirect: false,
                 historyGuid: '',
-                isHotelSearchEnabled: false,
-                hotelSearch: routeTypes[1].value === 'roundtrip',
-                initByUser: false,
                 //end temp
+                
                 
                 //Новые фильтра, которые применяются как фильтра после совершения поиска
                 filters: {
@@ -350,19 +345,6 @@ module.exports = class airModule extends formModuleBase {
                 dateAttributesBackLoading: false,
             }),
             computed: {
-                allAirCompanies: function () {
-                    var str = [];
-                    if (this.avia.airCompanies.length === 0) {
-                        str = this.locale('ANY_AVIACOMPANY');
-                    } else {
-                        str = $.map(this.avia.airCompanies, function (n) {
-                            if (n !== undefined && n !== null && n.label != undefined && n.label != null) {
-                                return n.label;
-                            }
-                        }).join(', ');
-                    }
-                    return str;
-                },
                 passString: function () {
                     var str = "";
                     var oneCategory = true;
@@ -541,49 +523,10 @@ module.exports = class airModule extends formModuleBase {
                         this.addSegment();
                     }
 
-                    Vue.nextTick(function () {
-                        $(document).find(".select-route-type").trigger("redraw");
-                    });
+                    //Vue.nextTick(function () {
+                    //    $(document).find(".select-route-type").trigger("redraw");
+                    //});
                     
-                },
-                clearForm: function () {
-                    this.avia.aviFrom = new AirportItem();
-                    this.avia.dateThere = [this.aviaDefaultDateThere];
-                    this.avia.aviTo = new AirportItem();
-                    this.avia.dateBack = [this.aviaDefaultDateBack];
-                    this.avia.formExtended = false;
-                    //this.avia.multyRoutes = [];
-                    //this.avia.segmentsCount = 0; //??  = 2
-                    this.avia.bookClass = 0;
-                    this.avia.airCompanies = [];
-                    this.avia.intervalCount = 0;
-                    this.avia.onlyDirect = false;
-                    this.avia.passengers.types.forEach(function (value, index) {
-                        if (value.name === 'psgAdultsCnt') {
-                            value.count = 1;
-                        } else {
-                            value.count = 0;
-                        }
-                    });
-                    this.avia.passengers.hasError = false;
-                    this.avia.passengers.messages = [];
-
-                    var model = this;
-                    Vue.nextTick(function () {
-                        // DOM updated
-                        //Update displayed value for selectpickers
-                        local.it._form.find('.selectpicker').each(function () {
-                            var option = $(this).find("input:radio:checked").closest('.option');
-                            $(this).find(".selected-value:first").find("span:first").html(
-                                option.find("span:first").html()
-                            );
-                        });
-                        //Disable checkbox
-                        local.it._form.find('input[type="checkbox"]:checked').trigger('click');
-                    });
-                },
-                changeAviaFormExtended: function () {
-                    this.avia.formExtended = !this.avia.formExtended;
                 },
                 removePassenger: function (type) {
                     this.avia.passengers.types.forEach(function (value) {
@@ -662,18 +605,11 @@ module.exports = class airModule extends formModuleBase {
                         || (local.options.avia.aviTo && local.options.avia.aviTo.IataCode && local.options.avia.aviTo.IataCode.match(countryRegex))
                         ) {
                         local.options.avia.isAirPromo = true;
-                        local.options.avia.formExtended = false;
                     }else {
                         local.options.avia.isAirPromo = false;
                     }
                 },
-                addCarrier: function (label, code) {
-                    var carrier = new CarrierItem(label, code);
-                    this.avia.airCompanies.push(carrier);
-                },
-                removeCarrier: function (index) {
-                    this.avia.airCompanies.splice(index, 1);
-                },
+              
                 addSegment: function () {
                     if (this.avia.multyRoutes.length < this.avia.maxRoutesCount) {
                         var length = this.avia.multyRoutes.length;
@@ -749,77 +685,6 @@ module.exports = class airModule extends formModuleBase {
                         $('[name="book_to_date"]').siblings(".book-date").focus();
                     });
                 },
-                loadAirVList: function() {
-					this.avia.airvListLoaded = true;
-					
-					let it = local.it;
-
-					let carriersData = it.dw.carriersData();
-					carriersData.initialize();
-
-					//Список авиакомпаний
-					local.form.find(".galileo-aircompany-select").typeahead({
-						hint: true,
-						highlight: true,
-						minLength: 0,
-						isSelectPicker: true
-					},{
-						name: 'carriers-' + it._o.defaultLang,
-						source: carriersData.ttAdapter(),
-						valueKey: 'label',
-						templates: {
-							suggestion: function (data) {
-								return data.label + " <small class='iata-code' data-iata='" + data.code + "'>" + data.code + "</small>";
-							}
-						}
-					}).on("typeahead:selected typeahead:autocompleted", function (e, datum) {
-						//Выбор элемента - подставляем иата код
-						if (datum != undefined) {
-							local.vue.addCarrier(datum.label, datum.code);
-							$(this).closest(".twitter-typeahead").next().val(datum.code);
-						}
-						$(this).trigger("change");
-					}).on("typeahead:opened", function (e, datum) {
-						//Открыли
-						var item = $(this).closest('.field');
-						if (it.extra.isInIframe()) {
-							var dropdown = item.find('.tt-dropdown-menu');
-							var offset = dropdown.parent().offset().top;
-							var height = parseFloat(dropdown.css('height'));
-							var currHeight = parseFloat($(this).css('height'));
-							var totalHeihgt = height + currHeight;
-
-							it.extra.recalculateHeightOnOpen(dropdown, offset, totalHeihgt);
-						}
-						$(this).trigger("typeahead:queryChanged");
-					}).on("typeahead:queryCleared", function (e, datum) {
-						//Очистили поле - кнопка Х.
-						var item = $(this);
-						item.closest(".twitter-typeahead").next().val('');
-						item.trigger("typeahead:filterIt");
-						setTimeout(function () {
-							//После очистки, находим первый пустой элемент и устанавливаем на него фокус.
-							//Ищем т.к. все значения съезжают к верхнему
-							item.closest(".carriers-finder").find("input[type='hidden']").filter(function () { return this.value == ""; }).first().prev().find(".tt-input").focus();
-						}, 100);
-					}).on("typeahead:selected typeahead:queryChanged", function (e, datum) {
-						//Изменили строку запроса
-						$(this).trigger("typeahead:filterIt");
-					}).on("typeahead:filterIt", function () {
-						//Фильтрация выпадающего меню. Не отображаем выбранные в других меню значения
-						var dropDown = $(this).siblings(".tt-dropdown-menu");
-						dropDown.find(".tt-suggestion.g-hide").removeClass("g-hide");
-
-						setTimeout(function () {
-							var values = $.map(local.form.find(".carriers .carriers-finder input[type='hidden']"), function (val, i) {
-								return ".iata-code[data-iata='" + $(val).val() + "']";
-							});
-							dropDown.find(values.join(", ")).each(function () {
-								$(this).closest(".tt-suggestion").addClass("g-hide");
-							});
-						}, 100);
-					});
-                },
                 //Загрузка цен для календаря
                 loadPrices: function(type) {
                     if (!local.it.pricesCalendar) return;
@@ -886,9 +751,6 @@ module.exports = class airModule extends formModuleBase {
                 },
                 'avia.passengers.pricePTCOnly': function(value) {
                     typeof(localStorage) !== 'undefined' && localStorage.setItem('pricePTCOnly', JSON.stringify(value));
-                },
-                'avia.formExtended': function(newvalue, oldvalue) {
-                    if (!oldvalue && newvalue && !this.avia.airvListLoaded) this.loadAirVList();
                 },
                 'avia.isAirPromo': function(newvalue, oldvalue) {
                     if (newvalue) {
@@ -1245,86 +1107,6 @@ module.exports = class airModule extends formModuleBase {
             $(this).closest(".select-age").focus().blur();
             return false;
         });
-
-        //Carriers menu
-        form.find(".carriers").focusin(function () {
-            var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
-            var carriersInput = carriersItem.find('input.tt-input');
-
-            if (carriersItem.data('focusTimer')) clearTimeout(carriersItem.data('focusTimer'));
-
-            if (carriersItem.find(".carriers-finder.g-hide").length > 0) {
-                var isMobile = it.extra.mobileAndTabletcheck();
-                var field = $(this).closest('.field');
-                var updateOpenedSelect = function (el) {
-                    el.removeClass("g-hide").closest(".carriers").removeClass("z-100");
-                    if (it.extra.isInIframe()) {
-                        it.extra.recalculateHeightOnOpen(el);
-                    }
-                }
-
-                var focusOnFirst = function () {
-                    var finder = carriersItem.find(".carriers-finder");
-                    if (finder.is(".g-hide")) return;
-                    if (!finder.find("[name='selectedAirCompany1']").val()) {
-                        carriersItem.find(".tt-input").first().focus();
-                    }
-                }
-
-                if (isMobile) {
-                    $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
-                    carriersItem.addClass("z-100").find(".carriers-finder.g-hide").show();
-                    updateOpenedSelect(carriersItem.find(".carriers-finder"));
-                    focusOnFirst();
-                } else {
-                    carriersItem.addClass("z-100").find(".carriers-finder.g-hide").slideDown(it._o.animationDelay, function () {
-                        $(this).removeClass("g-hide").closest(".carriers").removeClass("z-100");
-                        updateOpenedSelect($(this));
-                        focusOnFirst();
-                    });
-                }
-                it.extra.openField(field);
-            }
-        }).focusout(function () {
-            var carriersItem = $(this).is(".carriers") ? $(this) : $(this).closest(".carriers");
-            var isMobile = it.extra.mobileAndTabletcheck();
-            var field = $(this).closest('.field');
-
-            var updateClosedSelect = function (el) {
-                el.addClass("g-hide");
-                if (it.extra.isInIframe()) {
-                    it.extra.recalculateHeightOnClose();
-                };
-                it.extra.closeField(field);
-            }
-
-            if (isMobile) {
-                carriersItem.data('focusTimer', setTimeout(function () {
-                    carriersItem.find(".carriers-finder").fadeOut(300, function () {
-                        updateClosedSelect($(this));
-                    });
-                }, 100));
-            } else {
-                carriersItem.data('focusTimer', setTimeout(function () {
-                    carriersItem.find(".carriers-finder").slideUp(it._o.animationDelay, function () {
-                        updateClosedSelect($(this));
-                    });
-                }, 100));
-            }
-
-            return false;
-        }).find(".inside").click(function () {
-            var carriersItem = $(this).closest(".carriers");
-            if (!carriersItem.find(".carriers-finder").is(".g-hide")) {
-                carriersItem.blur();
-            }
-        });
-        form.find(".carriers .button-hide").click(function () {
-            $(this).closest(".carriers").blur();
-            return false;
-        });
-
-
 
 
 

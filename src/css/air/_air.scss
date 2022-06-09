@@ -1,9 +1,4 @@
 ﻿.rezon-forms {
-    .avia-form {
-        .advanced_search {
-            opacity: .8;
-        }
-    }
 
     .iata {
         bottom: 14px;
@@ -14,8 +9,8 @@
         right: 35px;
         z-index: 3;
     }
-    .country 
-    {
+
+    .country {
         color: #8d8d8d;
         font-size: 13px;
     }
@@ -24,10 +19,9 @@
         &:after {
             -webkit-flex-basis: 100%;
             -webkit-order: 1;
-
             flex-basis: 100%;
-            width: 0px; 
-            height: 0px; 
+            width: 0px;
+            height: 0px;
             overflow: hidden;
             order: 1;
             content: "";
@@ -35,105 +29,104 @@
             background: blue;
         }
 
-         .pass_types {
-             padding: 15px 0;
-             min-width: 275px;
-         }
- 
-         .pass_type {
-             padding: 10px 30px 10px 20px;
-         }
- 
-         .pass_counter {
-             margin: -4px 0 0 0;
-             text-align: center;
-             position: relative;
-         }
- 
-         .pass_inf {
-             margin: 0 155px 0 0;
-             white-space: nowrap;
-         }
- 
-         .remove_pass,
-         .add_pass {
-             background: #eceff1;
-             border-radius: 2px;
-             cursor: pointer;
-             float: left;
-             height: 45px;
-             position: relative;
-             width: 70px;
- 
-             -webkit-touch-callout: none; /* iOS Safari */
-                 -webkit-user-select: none; /* Safari */
-                 -khtml-user-select: none; /* Konqueror HTML */
-                 -moz-user-select: none; /* Firefox */
-                     -ms-user-select: none; /* Internet Explorer/Edge */
-                         user-select: none;
-         }
- 
-         .remove_pass:hover,
-         .add_pass:hover {
-             background: #b2e7ff;
-         }
- 
-         .remove_pass:before,
-         .add_pass:before,
-         .add_pass:after {
-             background: #546e7a;
-             box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5);
-             content: "";
-             display: block;
-             height: 1px;
-             position: absolute;
-             width: 15px;
-             top: 49%;
-         }
- 
-         .remove_pass:before {
-             left: 16px;
-         }
- 
-         .add_pass:before,
-         .add_pass:after {
-             right: 16px;
-         }
- 
-         .add_pass:after {
-             transform: rotate(-90deg);
-             -webkit-transform: rotate(-90deg);
-         }
- 
-         .count_pass {
-             border-radius: 30px;
-             border-color: #00b0ff;
-             background: #b0bec5;
-             color: white;
-             float: left;
-             line-height: 42px;
-             margin: -3px -21px;
-             position: relative;
-             top: 4px;
-             text-align: center;
-             width: 42px;
-             z-index: 1;
-         }
- 
-         .pass_counter:hover .count_pass,
-         .active .count_pass {
-             background: #00b0ff;
-         }
-     }
+        .pass_types {
+            padding: 15px 0;
+            min-width: 275px;
+        }
 
-     .pass_counter-top {
-         margin: 0 !important;
-     }
+        .pass_type {
+            padding: 10px 30px 10px 20px;
+        }
+
+        .pass_counter {
+            margin: -4px 0 0 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .pass_inf {
+            margin: 0 155px 0 0;
+            white-space: nowrap;
+        }
+
+        .remove_pass,
+        .add_pass {
+            background: #eceff1;
+            border-radius: 2px;
+            cursor: pointer;
+            float: left;
+            height: 45px;
+            position: relative;
+            width: 70px;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+        }
+
+        .remove_pass:hover,
+        .add_pass:hover {
+            background: #b2e7ff;
+        }
+
+        .remove_pass:before,
+        .add_pass:before,
+        .add_pass:after {
+            background: #546e7a;
+            box-shadow: 0 1px 0 rgba(84, 110, 122, 0.5);
+            content: "";
+            display: block;
+            height: 1px;
+            position: absolute;
+            width: 15px;
+            top: 49%;
+        }
+
+        .remove_pass:before {
+            left: 16px;
+        }
+
+        .add_pass:before,
+        .add_pass:after {
+            right: 16px;
+        }
+
+        .add_pass:after {
+            transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+        }
+
+        .count_pass {
+            border-radius: 30px;
+            border-color: #00b0ff;
+            background: #b0bec5;
+            color: white;
+            float: left;
+            line-height: 42px;
+            margin: -3px -21px;
+            position: relative;
+            top: 4px;
+            text-align: center;
+            width: 42px;
+            z-index: 1;
+        }
+
+        .pass_counter:hover .count_pass,
+        .active .count_pass {
+            background: #00b0ff;
+        }
+    }
+
+    .pass_counter-top {
+        margin: 0 !important;
+    }
 
     .passengers {
         position: relative;
         clear: both;
-        
+
         .switch {
             border-radius: 2px;
             cursor: pointer;
@@ -155,14 +148,14 @@
         }
 
         span {
-            &.active,  
+            &.active,
             &.active:hover {
                 background: #798799;
                 border-color: #798799;
                 color: #fff;
             }
         }
-        
+
         &-text {
             box-sizing: border-box;
             color: #282828;
@@ -197,11 +190,11 @@
                 transform: translateY(-50%);
                 cursor: pointer;
                 opacity: 0.6;
-        
+
                 &:hover {
                     opacity: 1;
                 }
-        
+
                 &::before,
                 &::after {
                     content: '';
@@ -210,11 +203,11 @@
                     background: #000;
                     position: absolute;
                 }
-        
+
                 &::before {
                     transform: rotate(45deg);
                 }
-        
+
                 &::after {
                     transform: rotate(-45deg);
                 }
@@ -232,15 +225,15 @@
         top: 45px;
         left: 0;
         z-index: 200;
-        
+
         .error-box {
             padding: 10px 20px 10px;
         }
-        
+
         .category {
             font-size: 13px;
         }
-        
+
         .age {
             color: rgb(138, 144, 163);
             display: inline-block;
@@ -292,6 +285,7 @@
                 margin-left: auto;
                 transform: rotate(-45deg);
                 opacity: 0.5;
+
                 &.rotate {
                     position: relative;
                     top: 5px;
@@ -318,9 +312,11 @@
                 cursor: pointer;
                 padding: 10px;
                 display: flex;
+
                 &:hover {
                     background: #b2e7ff;
                 }
+
                 .age {
                     margin-left: auto;
                 }
@@ -328,126 +324,8 @@
         }
     }
 
-    .field .select-route-type {
-        .selected-value {
-            padding: 5px 20px 5px 0;
-            width: auto;
-            display: inline-block;
-            line-height: 30px;
-            color: white;
-            position: relative;
-            overflow: visible;
 
-            span {
-                border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
-            }
-
-            :after {
-                border-bottom: 1px solid white;
-                border-right: 1px solid white;
-                content: "";
-                color: white;
-                display: block;
-                height: 11px;
-                right: 0;
-                position: absolute;
-                top: 10px;
-                transform: rotate(45deg);
-                -webkit-transform: rotate(45deg);
-                width: 11px;
-                opacity: .6;
-            }
-
-            &:hover {
-                :after {
-                    opacity: 1;
-                }
-            }
-        }
-
-        .options {
-            min-width: 260px;
-        }
-    }
-
-    .carriers {
-        line-height: 45px;
-        font-size: 14px;
-        height: 100%;
-        color: #333333;
-
-        position: relative;
-        outline: 0;
-        z-index: 1;
-        
-        .item {
-            cursor: pointer;
-            height: 100%;
-            line-height: 45px;
-            z-index: 3;
-        }
-
-        .inside div {
-            padding: 0 10px;
-        }
-
-        &-finder 
-        {
-            border-radius: 0 0 2px 2px;
-            box-sizing: border-box;
-            font-size: 13px;
-            outline: 0;
-            position: absolute;
-            top: 100%;
-            width: auto;
-            z-index: 10;
-        }
-    }
-
-    .carrier {
-        .carriers-finder {
-            background: white;
-            box-shadow: 0 5px 15px 0 rgba(0,0,0,0.4);
-            width: 100%;
-        }
-
-        .carrier_name {
-            display: block;
-            border-bottom: 1px solid #cfd8dc;
-            font-size: 14px;
-            line-height: 45px;
-            margin: 0;
-            padding: 0 10px;
-            position: relative;
-
-            .removes {
-                color: #99dfff;
-                font-size: 32px;
-            }
-        }
-
-        .twitter-typeahead {
-            height: 40px;
-        }
-
-        .tt-input {
-            height: 40px;
-            line-height: 40px;
-            border: none;
-            font-size: 14px;
-        }
-
-        .tt-dropdown-menu {
-            border: none;
-            height: 300px;
-            font-size: 14px;
-        }
-    }
-
-    .carrier,
-    .passengers,
-    .book-range,
-    .book-class {
+    .passengers {
         &.opened .inside::before,
         .opened .passengers-text::before,
         .opened .selected-value::before,
@@ -484,11 +362,8 @@
         }
     }
 
-    .book-range .selected-value:hover,
-    .book-class .selected-value:hover,
     .remove:hover,
-    .passengers a:hover,
-    .carriers .item:hover {
+    .passengers a:hover {
         background-color: #eceff1;
         border-radius: 2px;
         color: #333333;
@@ -521,7 +396,7 @@
         box-shadow: 0 5px 5px rgb(121, 135, 153);
         font-size: 13px;
         z-index: 10;
-        
+
         .avia-airport-finder-inner {
             padding: 10px 9px 20px 9px;
 
@@ -530,9 +405,8 @@
             }
         }
     }
-    
-    .avia-airport-finder,
-    .carriers-finder {
+
+    .avia-airport-finder {
         .typeahead-selectpicker {
             outline: 0;
             width: 100%;
@@ -566,21 +440,19 @@
 
     .route .field.pass {
         -webkit-order: 4;
-        -webkit-flex-grow:0;
+        -webkit-flex-grow: 0;
         -webkit-flex-basis: 20%;
-
         order: 4;
         flex-grow: 0;
         flex-basis: 20%;
         max-width: 20%;
     }
-    
+
     .fields-container.route {
         .multy-route {
             display: -webkit-inline-flex;
             -webkit-align-items: flex-end;
             -webkit-flex-wrap: wrap;
-
             display: inline-flex;
             align-items: flex-end;
             flex-wrap: wrap;
@@ -593,18 +465,12 @@
             order: 6;
         }
 
-        .hide_s,
-        .extended-form {
+        .hide_s {
             -webkit-order: 5;
             order: 5;
         }
-
-        &.extended .field.pass {
-            -webkit-flex-basis: 25%;
-            flex-basis: 25%;
-        }
     }
-    
+
     .fields-container.route .date + .date,
     .fields-container .multy-route {
         display: none;
@@ -634,58 +500,31 @@
     }
 
     .field {
-        &.class {
-            -webkit-flex-basis: 15%;
-            flex-basis: 15%;
-        }
-
         &.pass {
             flex-basis: 7%;
             min-width: 122px;
-            flex-grow: 1;    
+            flex-grow: 1;
         }
 
-        &.carrier {
-            -webkit-flex-basis: 25%;
-            flex-basis: 25%;
-            max-width: 25%;
 
-            .inside {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                padding: 0 25px 0 10px;
-            }
-
-            .carriers {
-                border: none;
-                font-size: 14px;
-                line-height: 16px;
-            }
-        }
-        
-        &.airport,
-        &.station {
+        &.airport {
             -webkit-flex-basis: 25%;
             flex-basis: 25%;
             max-width: 25%;
             min-width: 240px;
             position: relative;
-        }
+
+            inside:before {
+                content: '';
+                right: 60px;
+                position: absolute;
+                width: 20px;
+                top: 0;
+                bottom: 0;
+                box-shadow: inset -20px 0 10px -10px #fff;
+                z-index: 2;
+            }
         
-
-        &.airport .inside:before {
-            content: '';
-            right: 60px;
-            position: absolute;
-            width: 20px;
-            top: 0;
-            bottom: 0;
-            box-shadow: inset -20px 0 10px -10px #fff;
-            z-index: 2;
-        }
-
-        &.airport {
             .twitter-typeahead .typeahead-selectpicker-control {
                 display: none;
             }
@@ -725,7 +564,8 @@
 
                     &:hover {
                         background: #0095e1;
-                        span{
+
+                        span {
                             color: #fff;
                         }
                     }
@@ -749,100 +589,17 @@
         &.route .swap {
             display: none;
         }
-
-        /*Extended search*/
-        .field.carrier,
-        .field.class,
-        .field.range,
-        .field.only-direct,
-        .field.clear {
-            display: none;
-        }
-
-        &.extended {
-            .field {
-                &.carrier,
-                &.class,
-                &.range,
-                &.only-direct,
-                &.clear {
-                    display: block;
-                }
-
-                &.pass,
-                &.class,
-                &.range {
-                    -webkit-flex-basis: 25%;
-                    -webkit-order: 4;
-                    -webkit-flex-grow: 0;
-                    flex-basis: 25%;
-                    flex-grow: 0;
-                    max-width: 25%;
-                    order: 4;
-                }
-
-                &.only-direct,
-                &.carrier,
-                &.hide_s {
-                    -webkit-order: 4;
-                    -webkit-flex-grow: 1;
-                
-                    order: 4;
-                    flex-grow: 1;
-                }
-
-                &.extended-form {
-                    -webkit-order: 4;
-                    -webkit-flex-grow: 0;
-
-                    order: 4;
-                    flex-grow:0;
-                    text-align: center;
-                }
-
-                &.clear {
-                    -webkit-flex-basis: 15%;
-                    -webkit-order: 4;
-
-                    order: 4;
-                    flex-basis: 15%;
-                }
-
-                &.find {
-                    -webkit-order: 6;
-                    order: 6;
-                }
-            }
-
-            &.route .field.range {
-                display: none;
-            }
-        }
     }
 
     @include to(1199px) {
-        .field.carrier {
-            max-width: 50%;
-        }
 
         .fields-container {
-            &.oneway.extended .field.class {
-                flex-basis: 50%;
-                flex-grow: 1;
-                max-width: 50%;
-            }
-            
+
             &.route {
                 .multy-route .delete-leg {
                     flex-basis: 25%;
                     flex-grow: 0;
                     max-width: 25%;
-                }
-                
-                &.extended .multy-route .delete-leg {
-                    flex-basis: 50%;
-                    flex-grow: 1;
-                    max-width: 50%;
                 }
             }
         }
@@ -860,7 +617,7 @@
                 }
             }
 
-            &:not(.extended) .select-age {
+            .select-age {
                 left: auto;
                 right: 0;
             }
@@ -890,32 +647,8 @@
                 padding-right: 60px;
             }
         }
-        
-        .field.class {
-            -webkit-order: 1;
-            -webkit-flex-grow: 1;
-            -webkit-flex-basis: 50%;
 
-            order: 1;
-            flex-grow: 1;
-            flex-basis: 50%;
-            display: block;
 
-            .selectpicker {
-                width: 100%;
-            }
-        }
-
-        .fields-container.extended .field.class,
-        .fields-container.route .field.class {
-            -webkit-flex-basis: 50%;
-            -webkit-order: 5;
-            -webkit-flex-grow: 1;
-            flex-basis: 50%;
-            flex-grow: 1;
-            max-width: 50%;
-            order: 5;
-        }
 
         .fields-container.route {
             .date {
@@ -947,17 +680,14 @@
             }
         }
 
-        .field.pass.opened,
-        .fields-container.extended .field.pass.opened {
+        .field.pass.opened {
             -webkit-flex-basis: auto;
             flex-basis: auto;
             width: 100%;
             max-width: 100%;
         }
 
-        .fields-container.extended .field.pass,
-        .fields-container.route .field.pass,
-        .fields-container.route.extended .field.pass {
+        .fields-container.route .field.pass {
             -webkit-order: 4;
             -webkit-flex-basis: 50%;
             flex-basis: 50%;
@@ -970,7 +700,7 @@
                 max-width: 100%;
             }
         }
-        
+
         .airport.opened .tt-dropdown-menu {
             top: 100%;
             width: 100%;
@@ -1000,7 +730,7 @@
             .field.opened .iata {
                 right: 35px;
             }
-            
+
             .field.airport .delete {
                 display: none;
             }
@@ -1016,42 +746,10 @@
                     display: block;
                 }
             }
-
-            .field.class {
-                display: block;
-            }
-        }
-        
-        .field.carrier {
-            max-width: 100%;
         }
 
-        .fields-container.extended .field.carrier,
-        .fields-container.extended .field.only-direct,
-        .fields-container.extended .field.range {
-            -webkit-flex-basis: 100%;
-            -webkit-order: 5;
-            -webkit-flex-grow: 1;
-            flex-basis: 100%;
-            flex-grow: 1;
-            max-width: 100%;
-            order: 5;
-        }
 
-        .carriers-finder {
-            box-shadow: none;
-            padding: 0;
-        }
 
-        .carrier.opened .carriers-finder {
-            height: 100%;
-            width: 100%;
-            top: 0;
-        }
-
-        .carrier.opened .carriers .item {
-            display: none;
-        }
 
         .add_segment {
             margin: 10px 0 20px 0;
@@ -1085,7 +783,6 @@
             max-width: 30px;
             margin: 0 -15px 45px -15px;
             position: relative;
-
             /*Скрываем надпись "удалить сегмент", отображаем вместо неё крестик*/
 
             .transp {
@@ -1125,10 +822,7 @@
     @include from-to(576px, 1199px) {
         .fields-container {
             .field.airport,
-            .field.pass,
-            &.extended .field.only-direct,
-            &.extended .field.carrier,
-            &.extended .field.range {
+            .field.pass {
                 -webkit-flex-basis: 50%;
                 -webkit-flex-grow: 1;
                 flex-basis: 50%;
@@ -1137,9 +831,7 @@
             }
 
             .field.date,
-            .field.only-direct,
-            &.route .field.pass,
-            &.extended .field.pass {
+            &.route .field.pass {
                 -webkit-flex-basis: 25%;
                 -webkit-flex-grow: 0;
                 flex-basis: 25%;
