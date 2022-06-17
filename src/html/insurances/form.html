@@ -1,5 +1,5 @@
 ﻿<form class="rezon-form unload insurance-form" role="form" id="insurances-form-shoot" autocomplete="off" v-on:submit="submitHandler">
-    <div id="insurances-form-tabs" v-if="Object.keys(Tabs).length > 1">
+    <div id="insurances-form-tabs" class="tabs" v-if="Object.keys(Tabs).length > 1" :class="{'show-tabs': Object.keys(Tabs).length > 1}">
         <a href="#kmj" :class="['switch-form', {'active': widgetCode === 'kmj'}]"
            v-if="Tabs.kmj" v-on:click="widgetCode = 'kmj'"><span>{{locale("WORK_ABROAD")}}</span></a>
         <a href="#km" :class="['switch-form', {'active': widgetCode === 'km'}]"
@@ -11,7 +11,7 @@
     <div v-show="widgetCode === 'kmu'" style="display: none;">
         <h2>{{ locale('TRAVEL_INSURANCE_IN_UKRAINE') }}</h2>
     </div>
-    <div :class="['fields-container', {'kmu': widgetCode === 'kmu'}]">
+    <div class="fields-container" :class="{'kmu': widgetCode === 'kmu'}">
         <div v-show="widgetCode !== 'kmu'" class="field station from">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="widgetCode === 'kmj'" class="field period">
+        <div v-if="widgetCode === 'kmj'" class="field period" :class="{'show-period': widgetCode === 'kmj'}">
             <label class="menu-title">
                 <span class="link-left"></span>
                 {{locale("NUMBER_OF_DAYS")}}

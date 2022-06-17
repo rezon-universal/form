@@ -1,10 +1,14 @@
 ﻿.rezon-forms {
-    #insurances-form-tabs {
-        display: flex;
+    .tabs {
+        display: none;
         flex-wrap: wrap;
         gap: 10px;
         justify-content: center;
         margin-bottom: 30px;
+
+        &.show-tabs {
+            display: flex;
+        }
 
         &:empty {
             display: none;
@@ -66,7 +70,12 @@
         .period {
             align-items: center;
             cursor: pointer;
+            display: none;
             user-select: none;
+
+            &.show-period {
+                display: block;
+            }
 
             .select-holder {
                 position: relative;
