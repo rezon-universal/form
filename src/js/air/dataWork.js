@@ -4,6 +4,8 @@
         this.it = it;
 
         this.airportsCitiesFinderDataTimer = undefined;
+
+        this.cacheAllowed = typeof (Storage) !== "undefined" && navigator.cookieEnabled;
     }
 
     airportsCitiesFinderData(query, asyncResults) {
@@ -14,14 +16,52 @@
         }
         const url = this.it.extra.remoteUrl() + '/HelperAsync/Lookup?query=';
         const route = this.it._o.avia.formType.value;
-        this.airportsCitiesFinderDataTimer = setTimeout(function() {
+        const path = encodeURIComponent(query) + "&route=" + encodeURIComponent(route);
+
+        this.airportsCitiesFinderDataTimer = setTimeout(() => {
+            let cacheDic;
+            if (this.cacheAllowed) {
+                cacheDic = this.loadCacheDictionary(url);
+                if (!cacheDic) cacheDic = {};
+                if (cacheDic[path]) {
+                    asyncResults(cacheDic[path]);
+                    return;
+                }
+            }
+
             $.ajax({
-                url : url + encodeURIComponent(query) + "&route=" + encodeURIComponent(route),
+                url : url + path,
                 dataType: 'json',
-                success: function(data) {
+                cache: true,
+                success: (data) => {
+                    if (this.cacheAllowed) {
+                        cacheDic[path] = data;
+                        cacheDic = this.resetCacheDictionatyIfNeed(cacheDic);
+                        this.saveCacheDictionary(url, cacheDic);
+                    }
                     asyncResults(data);
                 }
             });
         }, 200);
+    }
+    loadCacheDictionary(key) {
+        try {
+            let d = localStorage[key];
+            return !!d ? $.parseJSON(localStorage[key]) : undefined;
+        } catch (e) {
+            console.log("Local storage error:", e);
+        }
+        return {};
+    }
+    resetCacheDictionatyIfNeed(object) {
+        if (Object.keys(object).length > 500) return {};
+        return object;
+    }
+    saveCacheDictionary(key, object) {
+        try {
+            localStorage.setItem(key, JSON.stringify(object));
+        } catch (e) {
+            console.log("Local storage error:", e);
+        }
     }
 }
