@@ -39,7 +39,12 @@
                 <div class="error-box"></div>
             </div>
         </div>
-        <div v-on:click="swapBusDest()" class="swap"><div class="arrows"></div></div>
+        <div v-on:click="swapBusDest()" class="swap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" class="swap_arrows" height="17px" width="17px">
+                <polygon points="142.5,30 37.5,30 56.2,11.3 45,0 7.5,37.5 45,75 55.3,63.4 37.5,45 142.5,45" fill="#ffffff" />
+                <polygon points="7.5,105 112.5,105 93.8,86.3 105,75 142.5,112.5 105,150 94.7,138.4 112.5,120 7.5,120" fill="#ffffff" />
+            </svg>
+        </div>
         <div class="field station to">
             <label data-local="true" data-localtext="FROM" class="menu-title">
                 <span class="link-left"></span>
