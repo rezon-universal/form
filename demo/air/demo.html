@@ -19,10 +19,11 @@
     <div class="wings rezon-forms" id="rezon-forms">
         <div class="rez-container container">
             <form class="rezon-form unload avia-form" role="form" id="avia-form-shoot" autocomplete="off">
-    <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount"/>
+    <input type="hidden" name="segmentsCount" v-model="avia.segmentsCount" />
     <input type="hidden" name="HistoryGuid" v-model="avia.historyGuid" />
     <input type="hidden" name="book_type" v-model="avia.formType.value" />
     <input type="hidden" name="filter_stops" :value="avia.filters.onlyDirectFlights ? '0' : '' " />
+    <input type="hidden" name="dateRange" :value="avia.intervalCount" />
 
     <div class="fields-container" v-bind:class="[avia.formType.value]">
         <div class="field airport from">
@@ -102,11 +103,25 @@
                                     </span>
                                 </span>
                             </template>
-                            <div v-if="avia.pricesCalendarEnabled && !avia.isAirPromo" class="popup-filters">
-                                <label>
+                            <div class="popup-filters">
+                                <label v-if="avia.pricesCalendarEnabled && !avia.isAirPromo">
                                     <input type="checkbox" v-model="avia.filters.onlyDirectFlights" />
                                     <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
                                 </label>
+                                <template v-if="avia.enabledDateRange && avia.enabledDateRange > 0 && !avia.isAirPromo">
+                                    <label v-if="avia.enabledDateRange && avia.enabledDateRange >= 3">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 3" v-on:click="clickOnDateRange(3)"/>
+                                        <span>&plusmn;3 {{locale("DAYS")}}</span>
+                                    </label>
+                                    <label v-else-if="avia.enabledDateRange && avia.enabledDateRange >= 2">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 2" v-on:click="clickOnDateRange(2)"/>
+                                        <span>&plusmn;2 {{locale("DAYS")}}</span>
+                                    </label>
+                                    <label v-else-if="avia.enabledDateRange && avia.enabledDateRange >= 1">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 1" v-on:click="clickOnDateRange(1)"/>
+                                        <span>&plusmn;1 {{locale("DAY")}}</span>
+                                    </label>
+                                </template>
                             </div>
                         </template>
                     </d-date-picker>
@@ -154,11 +169,25 @@
                                     </span>
                                 </span>
                             </template>
-                            <div v-if="avia.pricesCalendarEnabled && !avia.isAirPromo" class="popup-filters">
-                                <label>
+                            <div class="popup-filters">
+                                <label v-if="avia.pricesCalendarEnabled && !avia.isAirPromo">
                                     <input type="checkbox" v-model="avia.filters.onlyDirectFlights" />
                                     <span>{{locale("ONLY_DIRECT_FLIGHTS")}}</span>
                                 </label>
+                                <template v-if="avia.enabledDateRange && avia.enabledDateRange > 0">
+                                    <label v-if="avia.enabledDateRange && avia.enabledDateRange >= 3">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 3" v-on:click="clickOnDateRange(3)" />
+                                        <span>&plusmn;3 {{locale("DAYS")}}</span>
+                                    </label>
+                                    <label v-else-if="avia.enabledDateRange && avia.enabledDateRange >= 2">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 2" v-on:click="clickOnDateRange(2)" />
+                                        <span>&plusmn;2 {{locale("DAYS")}}</span>
+                                    </label>
+                                    <label v-else-if="avia.enabledDateRange && avia.enabledDateRange >= 1">
+                                        <input type="checkbox" v-bind:checked="avia.intervalCount == 1" v-on:click="clickOnDateRange(1)" />
+                                        <span>&plusmn;1 {{locale("DAY")}}</span>
+                                    </label>
+                                </template>
                             </div>
                         </template>
                     </d-date-picker>
@@ -296,36 +325,7 @@
                 <a><span>+ {{locale("CONTINUE_ROUTE")}}</span></a>
             </div>
         </div>
-        
-        <!--<div class="field range" v-show="avia.enabledDateRange && avia.enabledDateRange > 0 ">
-            <label class="hidden-xs menu-title">
-                {{locale("SEARCH")}}
-            </label>
-            <div class="control-field">
-                <div class="book-range">
-                    <div class="selectpicker standalone">
-                        <div class="options">
-                            <div class="option" v-on:click="avia.intervalCount = 0">
-                                <span>{{locale("BY_EXACT_DATE")}}</span>
-                                <input type="radio" name="dateRange" value="0" v-bind:checked="avia.intervalCount == 0" />
-                            </div>
-                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 1" v-on:click="avia.intervalCount = 1">
-                                <span>&plusmn;1 <span>{{locale("DAY")}}</span></span>
-                                <input type="radio" name="dateRange" value="1" v-bind:checked="avia.intervalCount == 1" />
-                            </div>
-                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 2" v-on:click="avia.intervalCount = 2">
-                                <span>&plusmn;2 <span>{{locale("DAYS")}}</span></span>
-                                <input type="radio" name="dateRange" value="2" v-bind:checked="avia.intervalCount == 2" />
-                            </div>
-                            <div class="option" v-show="avia.enabledDateRange && avia.enabledDateRange >= 3" v-on:click="avia.intervalCount = 3">
-                                <span>&plusmn;3 <span>{{locale("DAYS")}}</span></span>
-                                <input type="radio" name="dateRange" value="3" v-bind:checked="avia.intervalCount == 3" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+
         <div class="field hide_s">
             <a href="#" class="transp dashed" v-if="avia.formType.value !== 'route' && !avia.isAirPromo" v-on:click.prevent="typeChanged(2)">
                 <span>{{locale(avia.formTypes[2].text)}}</span>

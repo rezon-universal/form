@@ -524,7 +524,7 @@
                 box-shadow: inset -20px 0 10px -10px #fff;
                 z-index: 2;
             }
-        
+
             .twitter-typeahead .typeahead-selectpicker-control {
                 display: none;
             }
@@ -589,6 +589,11 @@
         &.route .swap {
             display: none;
         }
+    }
+
+    .popup-filters {
+        display: flex;
+        gap: 10px;
     }
 
     @include to(1199px) {

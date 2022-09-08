@@ -43,7 +43,7 @@ module.exports = class airModule extends formModuleBase {
                 enabledPassengerTypes: 'psgAdultsCnt,psgKidsCnt,psgInfantsNSCnt,psgOldCnt,psgYouthCnt,psgInfantsCnt',// string enabledPassengerTypes, 
                 
                 // Разрешенный к выбору +-3 дня
-                enabledDateRange: 3,
+                enabledDateRange: 0,
                 // Выбранный интервал +-N дней
                 intervalCount: 0,
 
@@ -711,6 +711,13 @@ module.exports = class airModule extends formModuleBase {
                     const keys = Object.keys(datesAttributes);
                     if (!keys.length) return [undefined];
                     return [datesAttributes[keys[0]].currency];
+                },
+                clickOnDateRange: function(clickedDateRange) {
+                    if (this.avia.intervalCount === clickedDateRange) {
+                        this.avia.intervalCount = undefined;
+                    } else {
+                        this.avia.intervalCount = clickedDateRange;
+                    }
                 }
             },
             watch: {
